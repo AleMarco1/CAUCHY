@@ -11,7 +11,7 @@ This repository accompanies the paper:
 > **Cosmology with persistent homology: a topological anomaly in the DESI BGS galaxy field**
 > A. Marconi (2026), submitted to JCAP. arXiv:XXXX.XXXXX
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21128857.svg)](https://doi.org/10.5281/zenodo.21128857)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
@@ -77,7 +77,7 @@ cauchy/
 ### Option A — conda (recommended)
 
 ```bash
-git clone https://github.com/USERNAME/cauchy.git
+git clone https://github.com/AleMarco1/cauchy.git
 cd cauchy
 conda env create -f environment.yml
 conda activate cauchy
@@ -86,7 +86,7 @@ conda activate cauchy
 ### Option B — pip
 
 ```bash
-git clone https://github.com/USERNAME/cauchy.git
+git clone https://github.com/AleMarco1/cauchy.git
 cd cauchy
 python -m venv venv
 source venv/bin/activate       # on Windows: venv\Scripts\activate
@@ -231,8 +231,8 @@ and the software archive:
   title   = {{CAUCHY: Cosmic Anomaly via Unified Cosmological
              Hyper-fields analYsis — pipeline v1.0}},
   year    = {2026},
-  doi     = {10.5281/zenodo.XXXXXXX},
-  url     = {https://github.com/USERNAME/cauchy}
+  doi     = {10.5281/zenodo.21128857},
+  url     = {https://github.com/AleMarco1/cauchy}
 }
 ```
 

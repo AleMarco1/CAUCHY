@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the software and the accompanying paper."
+title: "CAUCHY: Cosmic Anomaly via Unified Cosmological Hyper-fields analYsis"
+abstract: >-
+  A topological data analysis (TDA) pipeline that searches for phantom dark energy
+  signatures in the DESI Bright Galaxy Survey (BGS DR1) galaxy density field, using
+  persistent homology compared against the Quijote nwLH mock cosmologies.
+type: software
+authors:
+  - given-names: Alessandro
+    family-names: Marconi
+    email: ale1marconi@gmail.com
+    orcid: "https://orcid.org/0009-0002-3682-1815"
+    affiliation: "Independent Researcher, Verona, Italy"
+version: "1.0"
+date-released: "2026-07-01"
+license: MIT
+doi: "10.5281/zenodo.21128857"
+repository-code: "https://github.com/AleMarco1/cauchy"
+keywords:
+  - cosmology
+  - dark energy
+  - persistent homology
+  - topological data analysis
+  - large-scale structure
+  - DESI
+  - galaxy surveys
+preferred-citation:
+  type: article
+  title: "Cosmology with persistent homology: a topological anomaly in the DESI BGS galaxy field"
+  authors:
+    - given-names: Alessandro
+      family-names: Marconi
+      orcid: "https://orcid.org/0009-0002-3682-1815"
+      affiliation: "Independent Researcher, Verona, Italy"
+  journal: "Journal of Cosmology and Astroparticle Physics"
+  year: 2026
+  notes: "arXiv:XXXX.XXXXX — DOI to be added upon publication"
