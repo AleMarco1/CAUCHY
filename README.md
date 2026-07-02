@@ -11,7 +11,7 @@ This repository accompanies the paper:
 > **Cosmology with persistent homology: a topological anomaly in the DESI BGS galaxy field**
 > A. Marconi (2026), submitted to JCAP. arXiv:XXXX.XXXXX
 
-[![DOI](https://zenodo.org/badge/1286903642.svg)](https://doi.org/10.5281/zenodo.21128856)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21128857.svg)](https://doi.org/10.5281/zenodo.21128857)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
