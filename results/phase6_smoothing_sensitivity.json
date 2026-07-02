@@ -1,0 +1,59 @@
+{
+  "schema_version": "2.0",
+  "output_id": "O6-4",
+  "generated_at": "2026-05-08T06:56:25.463585+00:00",
+  "authority": "CAUCHY_Execution_Design_v2.md \u00a76 O6-4",
+  "parameters": {
+    "R_values_mpc_h": [
+      5.0,
+      10.0
+    ],
+    "ngrid": 128,
+    "cell_size_desi_mpc_h": 23.1356,
+    "cell_size_mock_mpc_h": 7.8125,
+    "sigma_px_desi_R5": 0.2161,
+    "sigma_px_desi_R10": 0.4322,
+    "sigma_px_desi_extra": 0.3743,
+    "sigma_px_mock_R5": 0.64,
+    "sigma_px_mock_R10": 1.28,
+    "threshold_non_dominant_sigma": 0.5,
+    "threshold_non_dominant_abs": 0.01395,
+    "sigma_signal_reference": 0.0279,
+    "n_mock_processed": 200,
+    "n_mock_errors": 0
+  },
+  "methodology_note": "DESI R=10 ottenuto tramite smoothing incrementale sul campo R=5 canonico (sigma_extra=0.3743 px = sqrt(sigma_R10^2 - sigma_R5^2)). Il campo R=5 canonico non viene mai modificato. Mock: smoothing applicato da zero su campi raw.",
+  "desi_ngc": {
+    "b2_R5": 0.45885732769966125,
+    "b2_R5_source": "canonico phase6_bgs_tda_features.json",
+    "b2_R10": 0.37856825890859613,
+    "b2_R10_method": "smoothing incrementale sigma_extra=0.3743px + TDA con maschera survey",
+    "delta_b2": -0.08028906879106512,
+    "delta_sigma_units": 2.877744401113445,
+    "non_dominant": false
+  },
+  "mock_nwlh": {
+    "n_mock": 200,
+    "b2_R5_mean": 0.1501666021445242,
+    "b2_R5_std": 0.018135574025725035,
+    "b2_R10_mean": 0.08363118038426288,
+    "b2_R10_std": 0.009509132849328961,
+    "delta_mock_mean": -0.06653542176026132,
+    "delta_mock_sigma_units": 2.38478214194485,
+    "non_dominant": false,
+    "mock_source": "latin_hypercube_nwLH/0..199/df_m_128_PCS_z=0.npy"
+  },
+  "signal_preservation": {
+    "z_score_desi_vs_mock_R5": 17.021282321544604,
+    "z_score_desi_vs_mock_R10": 31.016190771290606,
+    "delta_zscore": 13.994908449746003
+  },
+  "verdict": {
+    "status": "DOMINANT",
+    "desi_non_dominant": false,
+    "mock_non_dominant": false,
+    "gate6_sistematiche": "DOMINANTE \u2014 variazione > 0.5\u03c3, trattare come risultato",
+    "paper_statement": "The b2_mean_persistence signal shows sensitivity to smoothing scale (R=5 to 10 Mpc/h): DESI shift=-0.0803 (2.88\u03c3), mock shift=-0.0665 (2.38\u03c3)."
+  },
+  "v1_failure_note": "O6-4 v1 restituiva DOMINANT per artefatto: TDA applicata sull'intero cubo 128\u00b3 con 85% voxel=0 (fuori survey), distorcendo la topologia. v3 usa smoothing incrementale (no riesecuzione voxelizzatore) e TDA con maschera survey identica al canonico phase6_bgs_tda.py."
+}

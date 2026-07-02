@@ -1,0 +1,280 @@
+{
+  "schema_version": "2.0",
+  "metadata": {
+    "timestamp": "2026-05-01T10:30:00Z",
+    "python_version": "3.11.15",
+    "numpy_seed": 42,
+    "phase": 3,
+    "gate_id": "GATE_3",
+    "gate_passed": true,
+    "frozen_prior_version": "v1.0",
+    "deviations_from_protocol": "Primo run GNN (pre-gate) ha prodotto correlazioni NaN per dying ReLU nel layer j_star_proj (25/32 componenti collassate a zero). Bug identificato tramite phase3_gnn_diagnose.py e corretto rimuovendo la ReLU finale. Il gate result corrente usa l'architettura priva di ReLU, verificata sintatticamente e funzionalmente. Il checkpoint del primo run non e' stato salvato (bug di omissione nello script originale, corretto nella versione gate). Questo e' documentato come deviation dal protocollo e comunicato al Reviewer nel prompt di review."
+  },
+
+  "results": {
+    "prerequisites_apertura": {
+      "R2_3_ks_test": {
+        "beta1_ks_stat": 0.7613207528027757,
+        "beta1_ks_pval": 0.0,
+        "beta2_ks_stat": 0.7992657074425669,
+        "beta2_ks_pval": 0.0,
+        "n_fields_sampled": 50,
+        "n_tau_beta1_persistences": 396767,
+        "n_tau_beta2_persistences": 306882,
+        "n_grf_beta1_persistences": 19279536,
+        "n_grf_beta2_persistences": 14289059,
+        "verdict": "PASS",
+        "note": "p=0.0 macchina su entrambi beta1 e beta2. Rapporto persistenze GRF/tau ~50x: tau produce diagrammi sparsi con poche feature ad alta persistenza vs molte feature a bassa persistenza del GRF."
+      },
+      "R2_4_spatial_variance": {
+        "mean_spatial_var": 8.942536125183105,
+        "interfield_var_of_mean_norm": 0.996795466675809,
+        "mean_ratio_pct": 897.1284906627204,
+        "verdict": "PASS",
+        "note": "Rapporto 897% vs criterio >5%. tau(x) varia prevalentemente dentro ogni campo, non tra campi: comportamento coerente con encoder che ha appreso struttura locale."
+      },
+      "persistence_threshold_p90": 0.35589513778686577,
+      "persistence_threshold_frozen_before_training": true
+    },
+
+    "pretraining_node_check": {
+      "n_fields_checked": 10,
+      "mean_nodes": 1395.4,
+      "std_nodes": 195.10725255612618,
+      "max_nodes": 1639,
+      "range_operativo": "OK"
+    },
+
+    "gnn_architecture": {
+      "n_params": 13442,
+      "hidden_dim": 64,
+      "latent_dim": 32,
+      "n_layers": 3,
+      "n_node_features": 9,
+      "node_features": ["birth", "death", "persistence", "dim_beta1", "dim_beta2", "tau_norm_mean_region", "cx_norm", "cy_norm", "cz_norm"],
+      "k_nn_persistence_space": 5,
+      "pooling": "GlobalMeanPool + GlobalMaxPool (concat)",
+      "j_star_activation": "none (ReLU rimossa dopo diagnosi dying neurons)",
+      "backend": "torch_geometric",
+      "hardware": "RTX_5060_Ti_16GB"
+    },
+
+    "gnn_training": {
+      "best_epoch": 171,
+      "best_val_loss": 0.013345126807689667,
+      "n_epochs_run": 300,
+      "n_epochs_plateau": "~180-300 (val_loss stabile ~0.01386)",
+      "train_loss_final": 0.011791,
+      "val_loss_final": 0.013876,
+      "lr": 0.001,
+      "optimizer": "AdamW",
+      "lr_schedule": "CosineAnnealing",
+      "batch_size": 4,
+      "split_seed": 42,
+      "checkpoint_path": "results/checkpoints/phase3_gnn_best.pt"
+    },
+
+    "split_info": {
+      "n_lhc_train": 1600,
+      "n_lhc_test": 400,
+      "n_nwlh": 2000,
+      "split_seed": 42,
+      "nwlh_in_training": false
+    },
+
+    "gate3_correlations": {
+      "corr_GNN_Omm": 0.8815309246339746,
+      "corr_GNN_s8": 0.8899869948194397,
+      "corr_GNN_w0_nwlh": 0.030666532629077356,
+      "corr_method": "max|Pearson r| sulle 32 componenti di j*",
+      "corr_method_note": "Reviewer C1: metodo soggetto a test multiplo (32 componenti). Correzione Bonferroni e correlazione y_hat vs y_true da calcolare prima della sottomissione del paper.",
+      "variance_added_vs_ramoA_pct": 79.20768509477372,
+      "variance_added_note": "Reviewer C2: confronto non su base equivalente — r^2 GNN (max su 32 componenti) vs r^2 Ramo A (feature scalare). Da ricalcolare su stesso test set con stessa statistica prima della sottomissione."
+    },
+
+    "w0_sensitivity_interpretation": {
+      "corr_GNN_w0": 0.030666532629077356,
+      "interpretazione": "Atteso per design: j* e' addestrato su (Omm, sigma8) — non e' ottimizzato per separare w0. Il segnale di w0 e' nella distribuzione collettiva di j* (Phase 6), non nella correlazione lineare per-campo.",
+      "impegno_R2_2": "rimandato a Phase 6 con test distribuzionale (MMD o equivalente tra j* per w0<-1 vs w0>-1 sui 2000 campi nwLH) — vedi reviewer_verdict.non_blocking_items"
+    },
+
+    "t1_variability_empirical": {
+      "n_runs": 15,
+      "n_runs_failed": 0,
+      "R_mean": 0.8628445895290244,
+      "R_std": 0.07315697939971484,
+      "R_min": 0.7327071750062836,
+      "R_max": 0.9816701649998031,
+      "R_delta_max_min": 0.2489629899935195,
+      "R_canonical_gate2": 0.862,
+      "R_threshold_gate2": 0.2,
+      "margin_above_threshold_mean": 0.6628445895290245,
+      "margin_above_threshold_min_run": 0.5327071750062836,
+      "impegno_riserva_gate2": "SODDISFATTO — riserva Reviewer Gate 2 chiusa"
+    }
+  },
+
+  "gate_evaluation": {
+    "criteria": [
+      {
+        "name": "prerequisites_R2_3_KS_test",
+        "threshold": "p <= 0.05 su almeno un beta",
+        "observed": "p=0.0 su beta1 e beta2",
+        "passed": true,
+        "authority": "CAUCHY_Execution_Parameters §5.1"
+      },
+      {
+        "name": "prerequisites_R2_4_spatial_variance",
+        "threshold": "rapporto > 5%",
+        "observed": "897%",
+        "passed": true,
+        "authority": "CAUCHY_Execution_Parameters §5.1"
+      },
+      {
+        "name": "corr_GNN_Omm",
+        "threshold": 0.20,
+        "observed": 0.8815309246339746,
+        "passed": true,
+        "authority": "CAUCHY_Execution_Parameters §5.2"
+      },
+      {
+        "name": "corr_GNN_s8",
+        "threshold": 0.20,
+        "observed": 0.8899869948194397,
+        "passed": true,
+        "authority": "CAUCHY_Execution_Parameters §5.2"
+      },
+      {
+        "name": "variance_added_vs_ramoA",
+        "threshold": "5%",
+        "observed": "79.2%",
+        "passed": true,
+        "authority": "CAUCHY_Execution_Parameters §5.2"
+      },
+      {
+        "name": "corr_GNN_w0_nwlh",
+        "threshold": "soft — documentare",
+        "observed": 0.030666532629077356,
+        "passed": "N/A",
+        "note": "soft gate. Interpretazione: atteso per design, test rilevante e' Phase 6."
+      },
+      {
+        "name": "t1_variability_quantification",
+        "threshold": ">=10 run empirici",
+        "observed": "15 run, R_std=0.073",
+        "passed": true,
+        "note": "Soddisfa riserva Reviewer Gate 2"
+      },
+      {
+        "name": "reviewer_verdict",
+        "threshold": "PROCEED_OR_NON_BLOCKING",
+        "observed": "NON-BLOCKING",
+        "passed": true
+      }
+    ],
+    "overall_passed": true
+  },
+
+  "reviewer_verdict": {
+    "verdict": "NON-BLOCKING",
+    "review_timestamp": "2026-05-01T10:00:00Z",
+    "non_blocking_items": [
+      {
+        "concern_id": "R3-1",
+        "severity": "non_blocking",
+        "concern": "Correlazioni riportate come max|r| su 32 componenti di j* — problema di test multiplo non corretto. Con N=400 e 32 test, valore atteso di max|r| sotto H0 stimabile ~0.15-0.25.",
+        "resolution": "rimandato con impegno",
+        "resolution_note": "Da calcolare prima della sottomissione: (a) r(y_hat_Omm, Omm_true) e r(y_hat_s8, s8_true) sul test set [correlazione del predetto vs vero — statistica naturale e corretta]; (b) correzione Bonferroni se si vuole riportare max|r| per componente. Le correlazioni r(y_hat, y_true) sono calcolabili dal checkpoint esistente senza retraining.",
+        "target_phase": "pre-submission",
+        "target_gate": "GATE_5_o_pre_submission"
+      },
+      {
+        "concern_id": "R3-2",
+        "severity": "non_blocking",
+        "concern": "Varianza aggiuntiva +79.2% vs Ramo A non calcolata su base equivalente. r^2_GNN usa max su 32 componenti; r^2_RamoA usa correlazione scalare feature-parametro su dataset potenzialmente diverso.",
+        "resolution": "rimandato con impegno",
+        "resolution_note": "Da ricalcolare prima della sottomissione su: (a) stesso test set LHC 400 campi, (b) stessa statistica r(y_hat, y_true), (c) Ramo A valutato con regressore equivalente addestrato su training set identico. Non richiede retraining GNN.",
+        "target_phase": "pre-submission",
+        "target_gate": "GATE_5_o_pre_submission"
+      },
+      {
+        "concern_id": "R3-3",
+        "severity": "non_blocking",
+        "concern": "Impegno R2-2 ('dimostrazione che TDA(tau) porta informazione su w0') non formalmente chiuso. |r(j*, w0)|=0.031 quantifica il segnale assente ma non dimostra sensibilita' distribuzionale a w0.",
+        "resolution": "rimandato a Phase 6 con impegno formale",
+        "resolution_note": "Impegno: eseguire test MMD (Maximum Mean Discrepancy) tra distribuzione di j* per w0<-1.0 vs w0>-1.0 sui 2000 campi nwLH, usando il checkpoint GNN corrente senza retraining. Se MMD non e' significativamente diverso da zero, il Ramo B non porta informazione su w0 in forma distribuzionale — questo sarebbe un risultato scientifico rilevante (negativo). Il test MMD e' il prerequisito obbligatorio per l'apertura di Phase 6.",
+        "target_phase": 6,
+        "target_gate": "GATE_6_apertura_obbligatorio"
+      },
+      {
+        "concern_id": "R3-4",
+        "severity": "info",
+        "concern": "Assenza di monitoring automatico delle attivazioni nel training loop. Il dying ReLU e' stato identificato tramite NaN nelle correlazioni, non tramite monitoraggio.",
+        "resolution": "da implementare in Phase 4",
+        "resolution_note": "Aggiungere al training loop di Phase 4: logging di media, varianza, e percentuale di neuroni zero in j* ogni N epoche. Non richiede modifiche architetturali."
+      },
+      {
+        "concern_id": "R3-5",
+        "severity": "info",
+        "concern": "Grafo k-NN unificato per beta1 e beta2 in spazio (birth, death). La letteratura (PersLay, GraphTopoNet) usa grafi separati per dimensione omologica.",
+        "resolution": "ablation da pianificare pre-submission",
+        "resolution_note": "Ablation beta1-only vs beta1+beta2 su j* da includere nella sezione ablation del paper. Risponde anche a OC-5 (contributo quantitativo di beta2). Non bloccante per Phase 4."
+      }
+    ],
+    "oc1_impegno": {
+      "concern": "OC-1: confronto con P(k) assente. Il '+79.2% vs Ramo A' non risponde a 'perche TDA(tau) vs P(k)?'",
+      "resolution": "rimandato pre-submission",
+      "resolution_note": "Aggiungere benchmark: regressore equivalente (stesso GNN o MLP) addestrato su P(k) dei 1600 campi training, valutato sugli stessi 400 campi test. Confronto diretto r(y_hat_Pk, y_true) vs r(y_hat_GNN, y_true). Pianificato come analisi supplementare pre-submission."
+    },
+    "oc5_impegno": {
+      "concern": "OC-5: contributo quantitativo di beta2 non misurato.",
+      "resolution": "coincide con R3-5 ablation"
+    },
+    "review_closure": {
+      "gate3_final_status": "PASS — tutti i criteri hard superati, concern NON-BLOCKING assegnati",
+      "riserva_gate2_chiusa": true,
+      "riserva_gate2_note": "T1 variability: R_std=0.073 su 15 run empirici. Impegno soddisfatto."
+    }
+  },
+
+  "impegni_aperti_phase4": [
+    {
+      "id": "R3-1_presubmission",
+      "descrizione": "Calcolare r(y_hat, y_true) per Omm e sigma8 sul test set. Correzione Bonferroni se si riporta max|r|.",
+      "gate": "pre_submission",
+      "priorita": "alta"
+    },
+    {
+      "id": "R3-2_presubmission",
+      "descrizione": "Ricalcolare varianza aggiuntiva vs Ramo A su base equivalente (stesso test set, stessa statistica).",
+      "gate": "pre_submission",
+      "priorita": "alta"
+    },
+    {
+      "id": "R3-3_phase6",
+      "descrizione": "Test MMD tra distribuzione j* per w0<-1.0 vs w0>-1.0 sui 2000 campi nwLH. Prerequisito obbligatorio per apertura Phase 6.",
+      "gate": "GATE_6_apertura_obbligatorio",
+      "priorita": "critica"
+    },
+    {
+      "id": "R3-4_phase4",
+      "descrizione": "Aggiungere monitoring attivazioni j* nel training loop Phase 4.",
+      "gate": "GATE_4",
+      "priorita": "normale"
+    },
+    {
+      "id": "R3-5_presubmission",
+      "descrizione": "Ablation beta1-only vs beta1+beta2 su j*. Risponde OC-5.",
+      "gate": "pre_submission",
+      "priorita": "normale"
+    },
+    {
+      "id": "OC1_presubmission",
+      "descrizione": "Benchmark GNN vs regressore su P(k) sullo stesso test set. Risponde OC-1.",
+      "gate": "pre_submission",
+      "priorita": "alta"
+    }
+  ],
+
+  "notes": "Gate 3 chiuso. Ramo B attivo. Phase 4 puo' iniziare. Il checkpoint GNN e' in results/checkpoints/phase3_gnn_best.pt (SHA non calcolato — da aggiungere prima della sottomissione). I grafi topologici sono cachati in results/graphs_cache/ per evitare ricalcolo (~12h su CPU). Il test MMD per R3-3 puo' essere eseguito prima dell'inizio di Phase 4 usando il checkpoint corrente — raccomandato per chiarire il quadro scientifico sul segnale w0 prima di investire in Phase 4."
+}

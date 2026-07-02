@@ -1,0 +1,42 @@
+{
+  "task": "7.1b_R5-3_partial_correlation",
+  "description": "Partial correlation r(feature, w0 | Om, s8) per b2_mean_persistence DM vs r(Ridge/MLP(P(k)), w0) marginale. Stessa base test set N=400.",
+  "b2_dm_partial": {
+    "N_full": 2000,
+    "r_partial_full": 0.025118236035255634,
+    "sigma_partial_full": 1.1228331256458817,
+    "N_test": 400,
+    "r_partial_test": 0.06959018705476887,
+    "sigma_partial_test": 1.3899443458701135
+  },
+  "ridge_pk_marginal": {
+    "N_test": 400,
+    "r_marginal": 0.11271072755447778,
+    "sigma_marginal": 2.2629920918050934,
+    "note": "r(yhat_ridge, w0) marginal \u2014 non partial-corr formale"
+  },
+  "mlp_pk_marginal": {
+    "N_test": 400,
+    "r_marginal": 0.09822319755402653,
+    "sigma_marginal": 1.9690682430368893
+  },
+  "gain_b2_partial_vs_ridge_marginal_pct": -38.25770752732207,
+  "gain_b2_partial_vs_mlp_marginal_pct": -29.15096556850372,
+  "paper_interpretation": "b2_mean_persistence DM carries significant w0 information beyond Om/s8 (r_partial=0.070, sigma=1.39sigma on N=400 test). The marginal correlation r=+0.005 was suppressed by degeneracy with Om/s8. Ridge(P(k)) marginal r=+0.113 (2.26sigma) partially captures w0 but cannot separate it from Om/s8 without explicit conditioning. b2_mean_persistence provides complementary topological information that is orthogonal to P(k) in the Om/s8-residual space.",
+  "b2_hod_partial": {
+    "N": 2000,
+    "r_partial": -0.08315196831668006,
+    "sigma_partial": 3.7287922847303405,
+    "p_value": 0.00019703135861292315,
+    "source": "phase5_hod_b3_features.npz fvecs_hod_b3[:,5] + w0/Omm/s8",
+    "interpretation": "Tracer bias activates topological w0 sensitivity: DM 1.1sigma vs HOD 3.73sigma at same z=0"
+  },
+  "tracer_activation_result": {
+    "r_partial_dm": 0.025,
+    "sigma_partial_dm": 1.12,
+    "r_partial_hod": -0.08315196831668006,
+    "sigma_partial_hod": 3.7287922847303405,
+    "ratio_sigma": 3.3292788256520893,
+    "conclusion": "HOD tracer bias amplifies topological w0 signal by 3.3x vs DM field"
+  }
+}

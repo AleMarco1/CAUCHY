@@ -1,0 +1,46 @@
+{
+  "schema_version": "2.0",
+  "timestamp": "2026-05-03T16:31:26.360424+00:00",
+  "mode": "pilot",
+  "n_pilot": 3,
+  "K_pilot": 3,
+  "mean_time_per_sim_s": 32.623338063557945,
+  "t_gudhi_mean_s": 9.366922034157646,
+  "estimated_full_run_hours_K10": 60.413589006588786,
+  "estimated_full_run_hours_K20": 120.82717801317757,
+  "recommended_K": 5,
+  "individual_results": [
+    {
+      "sim_idx": 0,
+      "status": "completed",
+      "n_halos": 322748,
+      "K_requested": 3,
+      "K_completed": 3,
+      "n_gal_mean": 1117292.3333333333,
+      "t_gudhi_mean_s": 9.0867338180542,
+      "feat_std_across_K": 1303.1077880859375
+    },
+    {
+      "sim_idx": 1,
+      "status": "completed",
+      "n_halos": 432706,
+      "K_requested": 3,
+      "K_completed": 3,
+      "n_gal_mean": 727049.6666666666,
+      "t_gudhi_mean_s": 9.50984263420105,
+      "feat_std_across_K": 401.2879333496094
+    },
+    {
+      "sim_idx": 2,
+      "status": "completed",
+      "n_halos": 501388,
+      "K_requested": 3,
+      "K_completed": 3,
+      "n_gal_mean": 638790.6666666666,
+      "t_gudhi_mean_s": 9.504189650217691,
+      "feat_std_across_K": 55.02720642089844
+    }
+  ],
+  "methodology": "Monte Carlo marginalization over HOD prior (SimBIG approach, Hahn+2023)",
+  "note": "gudhi eseguito su campo galattico 128^3 completo \u2014 no compressione"
+}

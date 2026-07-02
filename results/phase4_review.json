@@ -1,0 +1,62 @@
+CAUCHY REVIEW — PHASE 4
+Timestamp: 2026-05-02T12:30:00Z
+Verdict: NON-BLOCKING
+
+---
+
+RAGIONAMENTO COMPLESSIVO
+
+Phase 4 produce un risultato negativo: la Symbolic Regression non trova alcuna espressione analitica che colleghi le feature TDA a w₀ con R²>0.01 su 20 run indipendenti. Il gate si chiude correttamente come FAIL_NEGATIVE, esito previsto dalla Methodology §4.3. Il verdetto di questa review è NON-BLOCKING e non PROCEED per due ragioni strutturali che richiedono documentazione prima di Phase 5, pur non invalidando il risultato né la progressione.
+
+La solidità del risultato negativo è la parte più forte di questa sottomissione. Quattro linee di evidenza indipendenti convergono: Gate 1b (|r|_max=0.025), R3-3 MMD non significativo (p=0.349), correlazioni feature-w₀ nel train SR (max|r|=0.0133), e 20 run SR con R²_max=0.006. L'interpretazione fisica — H(z=0)≡H₀ e D(z=0)≡1 rendono w₀ non distinguibile da w₀=−1 attraverso la struttura a z=0 — è scientificamente corretta ed era già ancorata in Gate 1b. Questa coerenza è il punto più difendibile dell'intera pipeline fino ad ora: CAUCHY ha identificato e quantificato un limite fisico fondamentale dell'osservabile, non ha semplicemente fallito a trovare un segnale.
+
+La prima vulnerabilità residua è la completezza dell'esplorazione dello spazio di ricerca del SR. I 20 run a 1000 iterazioni con parsimony=0.001 rappresentano un'esplorazione ragionevole ma non esaustiva. Il punto critico non è che avrebbero dovuto essere esplorati più operatori o più iterazioni — il segnale è assente, non piccolo — ma che la calibrazione del parsimony_coefficient su soli 3 run pilota a 300 iterazioni (1/3 del run completo) è insufficiente per escludere che espressioni più complesse (maxsize>20) nascondano segnale debole. Con R²_max=0.006 e il segnale fisico atteso a livello di rumore per le ragioni analitiche citate, questo concern non è bloccante, ma deve essere documentato come scelta deliberata nel paper.
+
+La seconda vulnerabilità riguarda l'impegno R3-2. Il risultato −7.6% di varianza aggiuntiva rispetto al Ramo A è ora nel record scientifico. La spiegazione fornita (il Ramo A domina su σ₈ per design) è corretta ma insufficiente come giustificazione scientifica del Ramo B nel paper: se il Ramo B è sistematicamente inferiore al Ramo A su (Ωm, σ₈) e non produce segnale su w₀ a z=0, la sua utilità scientifica fino a questo punto della pipeline è zero — il contributo del Ramo B diventa interamente contingente al successo di Phase 5 su un osservabile diverso (z>0, redshift space). Questo deve essere dichiarato esplicitamente nel paper, non occultato nella metrica aggregata.
+
+Gli impegni R3-4, R3-5 e OC-1 rimandati sono gestibili come deferred pre-submission con la qualifica che OC-1 è l'unico tra i tre con potenziale impatto sul claim principale del Ramo A — e deve essere risolto prima della sottomissione, non prima di Phase 5.
+
+---
+
+CONCERNS
+
+1. NON-BLOCKING
+Concern: La calibrazione del parsimony_coefficient su 3 run pilota a 300 iterazioni (30% della lunghezza del run completo) non è sufficiente per garantire che la scelta parsimony=0.001 sia ottimale per l'esplorazione dello spazio simbolico. I 3 run pilota producono R²∈[−0.030, +0.001] — tutti negativi o zero — il che indica che il parsimony non è il fattore determinante. Tuttavia, parsimony=0.001 è il valore più basso del range testato, il che significa che le espressioni complesse fino a maxsize=20 sono le meno penalizzate. Con R²_max=0.006 su 20 run, questo non è un problema pratico, ma il paper deve documentare esplicitamente: (a) perché è stato scelto il limite inferiore del range di parsimony testato, (b) che la scelta non è stata guidata da run precedenti con segnale (non era possibile, dato il segnale assente), (c) che la soglia maxsize=20 è coerente con la letteratura PySR per problemi fisici di riferimento.
+Sezione interessata: Metodi — calibrazione PySR; robustezza del risultato negativo
+Evidenza: Cranmer et al. (2020, PNAS) e la documentazione PySR (Cranmer 2023) raccomandano parsimony calibration su un problema con segnale noto prima dell'applicazione al problema target. Qui il problema target ha segnale assente, il che rende la calibrazione circolare. La scelta conservativa (parsimony minimo) è difendibile ma deve essere dichiarata come tale.
+
+2. NON-BLOCKING
+Concern: Il risultato R3-2 (varianza aggiuntiva Ramo B vs Ramo A = −7.6%) deve essere riportato nel paper con il suo pieno significato scientifico, non solo come nota metodologica. Fino alla chiusura di Phase 4, il Ramo B è sistematicamente inferiore al Ramo A su (Ωm, σ₈) — il suo unico target attuale — e produce segnale nullo su w₀ a z=0. Questo non invalida il progetto, ma richiede che il paper dichiari esplicitamente che il valore scientifico del Ramo B è interamente prospettico (contingente a Phase 5–6 su dati a z>0). La formulazione attuale del prompt ("il Ramo B non è stato progettato per battere il Ramo A su (Ωm, σ₈) ma per catturare w₀") è corretta come intento, ma non giustifica la presentazione di una metrica di performance negativa senza questa qualifica.
+Sezione interessata: Impegni R3-2; narrativa scientifica del paper
+Evidenza: Se un referee di Nature Astronomy vede R²_B=0.820 vs R²_A=0.888 su (Ωm, σ₈) e R²=0.006 su w₀, chiederà: "Qual è il vantaggio del Ramo B rispetto al Ramo A su qualsiasi osservabile?" La risposta deve essere anticipata nel paper con una dichiarazione esplicita dei target di Phase 5–6, non lasciata alla sezione discussione.
+
+3. INFO
+Concern: La scelta di non includere j* nel SR (CS4-6, Opzione A) è difendibile sulla base di max|r(j*_k, w₀)|=0.040 su 32 componenti — valore comparabile al rumore su N=2000. Tuttavia, l'argomento "aggiungere 32 variabili di rumore aumenta lo spazio di ricerca" presuppone che tutte le 32 componenti di j* siano ugualmente non informative su w₀. Il test R3-3 MMD verifica la separazione binaria (w₀<−1 vs w₀≥−1) ma non la correlazione con w₀ come variabile continua nell'intera gamma [−1.30, −0.70]. Le 32 componenti di j* potrebbero avere una correlazione non lineare con w₀ nella gamma phantom (w₀<−1) non rilevata dal MMD con split binario. Questa possibilità è fisicamente plausibile perché la fisica del phantom crossing è non lineare. La scelta Opzione A è conservativa e non introduce bias di conferma — introduce semmai un bias di omissione in una direzione che non è stata testata esaustivamente. Per il paper, questa scelta deve essere dichiarata con le sue limitazioni.
+Sezione interessata: Considerazioni specifiche CS4-6; completezza dell'esplorazione
+Evidenza: Il MMD con split binario (phantom vs non-phantom) non cattura dipendenze continue di j* da w₀. Un test complementare sarebbe la correlazione di Spearman tra componenti di j* e w₀ come variabile continua (N=2000, potere statistico elevato). Con N=2000 e soglia p<0.05 Bonferroni-corretta per 32 test, la soglia di rilevabilità è |r_Spearman|>0.074 — confrontabile con max|r(j*_k, w₀)|=0.040. Non bloccante, ma informativo.
+
+---
+
+OBIEZIONI CANONICHE APPLICATE
+
+OC-1 POWER SPECTRUM SUFFICIENCY
+"Perché la PH porta informazione aggiuntiva rispetto a P(k)+B(k)?"
+Applicabilità: ALTA
+Finding: OC-1 è formalmente rimandato a pre-submission (CS4-5). Tuttavia, Phase 4 aggiunge una dimensione critica a questa obiezione: il Ramo A mostra R²(σ₈)=0.987 con sole 8 feature scalari TDA su 400 campi — un valore di predittività straordinariamente alto che supera i benchmark Yip et al. 2024 (σ(σ₈)=±0.005 da diagrammi completi). Prima che OC-1 possa essere chiusa, deve essere verificato che questa predittività del Ramo A non sia un artefatto del regime non-lineare del LHC (σ₈∈[0.60, 1.00] è un range molto ampio, e una regressione Ridge su questo range può raggiungere R² alti anche con predittori parzialmente correlati). Il benchmark contro P(k) è quindi necessario non solo per il claim della PH ma per verificare la validità della R²(σ₈)=0.987 stessa.
+
+OC-2 VOLUME SCALING
+Applicabilità: BASSA per Phase 4
+Finding: Phase 4 non produce vincoli parametrici — produce un risultato negativo sulla SR. Il confronto con la letteratura (Yip 2024, σ(w)=±0.062) rimane irrilevante finché il segnale su w₀ è assente a z=0. La rilevanza di OC-2 riprende a Phase 5.
+
+OC-3 HOD DEGENERACY
+Applicabilità: BASSA (Phase 4 su materia oscura pura)
+Finding: Non applicabile. Come per Phase 3, il rischio HOD emerge a Phase 5–6. Il risultato negativo di Phase 4 su materia pura non può essere contaminato da HOD per definizione.
+
+OC-4 STATISTICAL ROBUSTNESS
+"I threshold di gate sono prior congelati o modificati retroattivamente?"
+Applicabilità: ALTA
+Finding: I threshold R²≥0.50 e R²≥0.70 sono dichiarati in CAUCHY_Execution_Parameters §6. I 20 seed sono definiti deterministicamente (42+i×100). La soglia di stabilità ≥10/20 è congelata. Il FAIL_NEGATIVE non è retroattivo — il risultato R²_max=0.006 è così lontano da entrambe le soglie che nessuna variazione procedurale potrebbe invertirlo. La calibrazione pilota a 300 iterazioni (Concern 1) non ha modificato il threshold: ha scelto parsimony=0.001, che è il valore più permissivo e quindi il meno favorevole a un PASS artificiale. Nessuna evidenza di p-hacking. Il risultato negativo è genuino.
+
+OC-5 2D VS 3D DISTINCTIVENESS
+Applicabilità: MEDIA
+Finding: Phase 4 usa le 8 feature TDA scalari del Ramo A, incluse b2_max_count, b2_mean_persistence, b2_high_persist (feature β₂). Tutte mostrano |r(feature, w₀)|≤0.013. La distintività 3D di β₂ non produce vantaggio su w₀ a z=0 in real space. Questo è coerente con l'argomento fisico di CS4-2 e con il Gate 1b FAIL precedente. L'ablation β₁-only vs β₁+β₂ (R3-5, rimandato) su w₀ produrrebbe risultati identicamente nulli per entrambi — non è un test prioritario. Diventa rilevante quando il segnale torna in Phase 5 a z>0, dove β₂ (vuoti 3D) ha maggiore potere discriminante per l'equazione di stato dell'energia oscura secondo la letteratura (Prat et al. 2025, estensione 3D).

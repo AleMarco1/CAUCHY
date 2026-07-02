@@ -1,0 +1,173 @@
+{
+  "schema_version": "2.0",
+  "metadata": {
+    "timestamp": "2026-06-06T20:00:00Z",
+    "phase": "7.1",
+    "gate_id": "GATE_7.1",
+    "gate_passed": true,
+    "frozen_prior_version": "v1.0",
+    "framing": "CONSERVATIVO",
+    "venue_target": "JCAP (primary) / PRD (secondary)",
+    "reviewer_verdict": "NON-BLOCKING — draft può iniziare",
+    "reviewer_timestamp": "2026-06-06",
+    "deviations_from_methodology": "Sub-Phase 7.1 non era esplicitamente schedulata in CAUCHY_Systematic_Methodology_v2.md. I quattro task (7.1a-d) sono stati definiti operativamente in risposta a peer review esterna (maggio 2026, score 3/10) che identificava pre-submission blockers L6, R5-3, citazioni, RSD HOD. Il documento methodology prevedeva genericamente 'calcoli supplementari pre-draft' senza specificarne il contenuto."
+  },
+
+  "tasks_completed": {
+    "7.1a_T1_variability": {
+      "status": "CLOSED",
+      "blocker_resolved": "L6 (peer review esterna maggio 2026)",
+      "result": {
+        "sigma_B_mean": 1.6839,
+        "sigma_B_std": 0.4263,
+        "sigma_B_range": [1.0289, 2.5758],
+        "CV_pct": 25.3,
+        "n_runs": 10,
+        "sign_alternating": true,
+        "n_positive_rho": 5,
+        "n_negative_rho": 5,
+        "reference_phase5_sigma_B": 0.983,
+        "all_below_3sigma": true
+      },
+      "interpretation": "Null fisico confermato con varianza spiegata dalla training stochasticity. Segno alternante di rho su componenti diverse conferma assenza direzione stabile w0 nel latent space j*.",
+      "paper_statement": "sigma_B = 1.68 ± 0.43σ (mean±std, N=10 run indipendenti con seed diversi, CV=25.3%). Segno alternante su 5/10 run. Riferimento Phase 5 (seed=42): 0.98σ. Null fisicamente atteso (H(z=0)≡H₀).",
+      "source": "phase7_t1_variability.json",
+      "debug_path": "v1 architettura errata → v2 checkpoint errato → v3 correlazione marginale → v4 colonna w0 errata (wa vs w0) → v5 finale corretto"
+    },
+
+    "7.1b_R53_beyond_pk": {
+      "status": "CLOSED",
+      "commitment_resolved": "R5-3 (pre-submission, gate5_prior_v1_0.json)",
+      "result": {
+        "b2_dm_marginal_sigma": 0.095,
+        "pk_ridge_marginal_sigma": 2.263,
+        "r_partial_b2_dm_w0_given_om_s8": 0.070,
+        "sigma_partial_b2_dm": 1.39,
+        "V1_verdict": "UNSTABLE",
+        "V2_verdict": "CHECK_REQUIRED",
+        "V3_verdict": "PK_COMPETITIVE",
+        "tracer_activation": {
+          "r_partial_b2_dm": 0.025,
+          "sigma_partial_b2_dm": 1.12,
+          "r_partial_b2_hod_b3": -0.083,
+          "sigma_partial_b2_hod_b3": 3.73,
+          "ratio_hod_vs_dm": 3.33,
+          "note": "Post-hoc, non pre-specificato — dichiarare esplicitamente nel paper"
+        }
+      },
+      "interpretation": "b2_DM a z=0 non è sensibile a w0 per costruzione fisica (H(z=0)≡H₀). Il segnale topologico emerge sui campi galattici HOD B3 (3.73σ vs 1.12σ) — il bias del tracer rompe la degenerazione parametrica. P(k) è competitivo con TDA su campi DM ma il confronto rilevante per il paper è su campi galattici HOD (+9% TDA, Phase 5).",
+      "bug_corrected": "Tutti gli script inizialmente leggevano w0=params[:,5] (=wa) invece di params[:,6] (=w0). Bug corretto prima dei risultati finali.",
+      "sources": ["phase7_pk_comparison_r53.json", "phase7_r53_partial_corr.json", "phase7_r53_robustness.json"]
+    },
+
+    "7.1c_citations": {
+      "status": "CLOSED",
+      "citations_identified": [
+        {
+          "label": "Calles et al. 2025",
+          "arxiv": "2412.15405",
+          "paper_section": "Introduction §1 + Methods §3 Ramo B",
+          "note": "Coincide con 'Yip et al. 2024' della peer review — stesso paper"
+        },
+        {
+          "label": "Smith, Grove et al. 2024",
+          "arxiv": "2312.08792",
+          "paper_section": "Methods §3.3 HOD",
+          "note": "Ufficiale DESI BGS HOD fitting, justifica log_Mmin=12.5"
+        },
+        {
+          "label": "Spurio Mancini et al. 2024",
+          "arxiv": "2410.10616",
+          "paper_section": "Discussion §5",
+          "note": "Field-level SBI per dark energy, metodo complementare"
+        }
+      ],
+      "source": "phase7_citations.md"
+    },
+
+    "7.1d_RSD_HOD_confirmation": {
+      "status": "CLOSED",
+      "motivation": "Gate 7.0 testava Kaiser su DM. Task 7.1d estende a Kaiser+FoG su campi galattici HOD.",
+      "result": {
+        "delta_sigma_hod": -0.004,
+        "delta_sigma_dm_gate70": 0.034,
+        "N": 200,
+        "n_errors": 0,
+        "verdict": "NEGLIGIBLE"
+      },
+      "rsd_coverage_complete": {
+        "kaiser_dm": "+0.034σ (Gate 7.0)",
+        "kaiser_fog_hod": "-0.004σ (Task 7.1d)",
+        "conclusion": "Entrambi sub-σ, margine >250×. Segnale DESI +3.09σ blindato alle RSD."
+      },
+      "caveat": "Velocità satelliti = velocità alone (no dispersione intra-alone aggiuntiva). Approssimazione conservativa: sottostima FoG → lower bound su sistematico RSD.",
+      "source": "phase7_rsd_hod_confirmation.json"
+    }
+  },
+
+  "nomenclature_lock": {
+    "status": "FROZEN",
+    "key_finding": "Tutte le feature CAUCHY Ramo A sono β₁ (H1, loops) o β₀ (H0). NON esistono feature β₂ (H2, vuoti 3D) nel pipeline corrente.",
+    "main_feature_paper_name": "⟨pers₁⟩ (β₁ mean persistence)",
+    "main_feature_internal_name": "b2_mean_persistence",
+    "source": "phase7_nomenclature_lock.json"
+  },
+
+  "reviewer_concerns": {
+    "blocking": "nessuno",
+    "non_blocking": [
+      "C1: Framing T1 variability — 'null con varianza spiegata' non 'null stabile'",
+      "C2: Tracer activation post-hoc — dichiarare esplicitamente nel paper",
+      "C3: P(k) vs TDA asimmetria — riportare entrambi i confronti (DM e HOD)"
+    ],
+    "info": [
+      "I4: Debug path T1 (4 bug) — documentare trasparentemente nel paper",
+      "I5: Naming convention b2_mean_persistence → ⟨pers₁⟩ — risolvere prima del draft"
+    ],
+    "pre_submission_blockers_preexisting": [
+      "R5-1: HOD fitting su mock DESI BGS (non eseguito)",
+      "R3-5: β₂ contribution ablation (β₂ non presente nel pipeline — gap strutturale)"
+    ]
+  },
+
+  "open_items_pre_submission": {
+    "R5-1": {
+      "description": "HOD fitting su DESI BGS mock catalogs (Smith & Grove 2024 prior)",
+      "priority": "BLOCKING pre-submission",
+      "status": "NOT STARTED"
+    },
+    "R3_5_beta2": {
+      "description": "Ablation β₁ vs β₂ contribution. β₂ non presente nel pipeline corrente.",
+      "priority": "NON-BLOCKING per draft, da valutare per submission",
+      "status": "OPEN — minima viable response: dichiarazione nel paper come future work"
+    }
+  },
+
+  "gate_verdict": "PASS",
+  "gate_note": "Sub-Phase 7.1 completa. Reviewer: NON-BLOCKING. Draft Sub-Phase 7.2 autorizzato. R5-1 e R3-5 rimangono open prima della submission.",
+  "next_phase": "7.2 — Paper draft (nuova sessione)",
+
+  "key_numbers_frozen": {
+    "main_signal": "+3.09σ (Confronto B, σ_px-matched, Gate 6)",
+    "phase5_convergence": "+3.08σ (Phase 5, configurazione indipendente)",
+    "rsd_kaiser_dm": "Δ=+0.034σ (Gate 7.0, N=200)",
+    "rsd_fog_hod": "Δ=-0.004σ (Task 7.1d, N=200)",
+    "t1_sigma_B": "1.68±0.43σ (N=10 run)",
+    "tracer_activation_hod": "3.73σ partial (post-hoc)",
+    "tracer_activation_dm": "1.12σ partial",
+    "pk_ridge_marginal": "2.26σ (campi DM, z=0)"
+  },
+
+  "sources_frozen": [
+    "phase6_gate_result.json",
+    "phase7_rsd_test.json",
+    "phase7_t1_variability.json",
+    "phase7_pk_comparison_r53.json",
+    "phase7_r53_partial_corr.json",
+    "phase7_r53_robustness.json",
+    "phase7_rsd_hod_confirmation.json",
+    "phase7_nomenclature_lock.json",
+    "phase7_citations.md",
+    "phase7_r35_beta_contribution.md"
+  ]
+}

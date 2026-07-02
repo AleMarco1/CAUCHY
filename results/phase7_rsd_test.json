@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "script_version": "phase7_rsd_test_v2",
+  "test_id": "RSD_bifurcation_test",
+  "timestamp": "2026-06-05T07:18:24.681829+00:00",
+  "n_fields_requested": 200,
+  "sim_indices_stride": 10,
+  "tda_params": {
+    "sigma_px": 0.64,
+    "n_thresh": 100,
+    "filtration": "superlevel_via_negation_gudhi_CubicalComplex",
+    "convention": "v3",
+    "feature": "b2_mean_persistence_H2",
+    "note": "n_thresh=100 consistent with Phase 5/6. Phase 1 used n_thresh=50."
+  },
+  "realspace_baseline_internal": {
+    "source": "DM nwLH PCS fields, same sim indices, recomputed with n_thresh=100",
+    "n_valid": 200,
+    "n_errors": 0,
+    "b2_mean": 0.105125138464803,
+    "b2_std": 0.013272445566894393
+  },
+  "realspace_baseline_phase1_reference": {
+    "source": "phase1_tda_baseline.json fvecs_nwlh_stats (n_thresh=50, N=2000)",
+    "b2_mean": 0.12376738339662552,
+    "b2_std": 0.018904492259025574,
+    "note": "Not used for verdict \u2014 retained for cross-check only"
+  },
+  "redshiftspace": {
+    "filename": "df_m_128_RS_z=0.npy",
+    "n_valid": 200,
+    "n_errors": 0,
+    "b2_mean": 0.10557911487833907,
+    "b2_std": 0.010785846934591444
+  },
+  "delta_mean_b2": 0.0004539764135360752,
+  "delta_sigma": 0.03420442835858627,
+  "delta_sign": "RS > real",
+  "verdict": "PAPER_B_ACTIVE",
+  "notes": "\u0394 = 0.034\u03c3 < 1.0\u03c3. RSD shift sub-sigma on DM fields. DESI signal +3.09\u03c3 survives. Paper B activated. HOD B3 RS run recommended for paper-quality confirmation."
+}

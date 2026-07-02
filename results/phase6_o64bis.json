@@ -1,0 +1,45 @@
+{
+  "schema_version": "2.0",
+  "output_id": "O6-4bis",
+  "generated_at": "2026-05-08T12:06:22.728175+00:00",
+  "authority": "Risposta BLOCKING 1, ciclo 3 review Gate 6",
+  "motivation": "Test \u03c3_px ha dimostrato che b2_mean_persistence dipende da \u03c3_px (\u0394=+8.42\u03c3 tra \u03c3_px=0.216 e \u03c3_px=0.640 sui mock). Il confronto corretto richiede \u03c3_px equivalente su DESI e mock. R=14.8 Mpc/h su DESI produce \u03c3_px=0.640, identico al mock R=5 Mpc/h.",
+  "smoothing": {
+    "R_mpc_h": 14.8,
+    "cell_size_mpc_h": 23.135625,
+    "sigma_px_desi": 0.6397,
+    "sigma_px_mock_R5": 0.64,
+    "equivalence": "sigma_px"
+  },
+  "b2_desi_R148": 0.11859898462187093,
+  "b2_desi_R5_canonical": 0.45885732769966125,
+  "delta_b2_R148_vs_R5": -0.34025834307779035,
+  "z_scores": {
+    "vs_mock_z05_hod_R5": {
+      "value": -6.222258615703551,
+      "mock_mean": 0.2922,
+      "mock_std": 0.0279,
+      "note": "mock z=0.5 HOD R=5 Mpc/h (\u03c3_px=0.640) \u2014 confronto principale",
+      "citability": "CITABILE se \u03c3_px equivalente \u00e8 criterio accettato"
+    },
+    "vs_mock_dm_raw_R5": {
+      "value": -1.7363195262708278,
+      "mock_mean": 0.1502,
+      "mock_std": 0.0182,
+      "note": "mock DM raw R=5 Mpc/h (\u03c3_px=0.640) \u2014 cross-check",
+      "citability": "CROSS-CHECK \u2014 mock DM, no HOD"
+    }
+  },
+  "sigma_px_test_reference": {
+    "b2_mock_sigma_px_0216": 0.3032,
+    "b2_mock_sigma_px_0640": 0.1502,
+    "delta_sigma_signal": 8.42,
+    "conclusion": "\u03c3_px \u00e8 la variabile determinante per b2_mean_persistence su griglia discreta"
+  },
+  "field_files": {
+    "field_R148": "D:\\projects\\cauchy\\data\\processed\\phase6_fields\\bgs_ngc_delta_128_R148.npy",
+    "field_R5_canonical": "D:\\projects\\cauchy\\data\\processed\\phase6_fields\\bgs_ngc_delta_128.npy",
+    "mask": "D:\\projects\\cauchy\\data\\processed\\phase6_fields\\bgs_ngc_mask_128.npy",
+    "canonical_preserved": true
+  }
+}

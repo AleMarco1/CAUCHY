@@ -1,0 +1,245 @@
+{
+  "schema_version": "2.0",
+  "timestamp": "2026-06-07T11:20:06.940450+00:00",
+  "n_thresh": 100,
+  "n_bootstrap": 20,
+  "tda_convention": "birth=-diag[:,0], death=-diag[:,1], pers=birth-death>0 (fix v3)",
+  "regions": {
+    "NGC": {
+      "region": "NGC",
+      "features": [
+        -0.19675150513648987,
+        11132.0,
+        1.026602029800415,
+        13601.8994140625,
+        29683.0,
+        0.45885732769966125,
+        2969.0,
+        86.0
+      ],
+      "features_err_jackknife": [
+        0.12085578280348395,
+        303.9003112959526,
+        0.05863666359636132,
+        231.10475015130126,
+        371.8446884853046,
+        0.005184488001019461,
+        37.1114865895505,
+        33.352698223342216
+      ],
+      "feature_names": [
+        "b1_peak_pos",
+        "b1_peak_height",
+        "b1_fwhm",
+        "b1_integral",
+        "b2_max_count",
+        "b2_mean_persistence",
+        "b2_high_persist",
+        "b0_at_mean"
+      ],
+      "n_bootstrap_valid": 20,
+      "tda_diagnostics": {
+        "n_loops_beta1": 29683,
+        "n_components_beta0": 8333,
+        "b1_curve_max": 11132.0,
+        "nu_min": -0.9667030358314515,
+        "nu_max": 5.38539710998536,
+        "persistence_mean": 0.4588573139578293,
+        "persistence_std": 0.42754727408026
+      },
+      "delta_mean": -1.1104331676392576e-08,
+      "delta_std": 1.6529597043991089,
+      "n_valid_voxels": 307805,
+      "elapsed_s": 184.306574344635,
+      "prior_comparison": {
+        "status": "completed",
+        "desi_in_prior_3sigma": false,
+        "feature_comparison": {
+          "b1_peak_pos": {
+            "desi_value": -0.19675150513648987,
+            "mock_mean": 0.03367118909955025,
+            "mock_std": 1.2265480756759644,
+            "z_score": -0.18786274978178216,
+            "percentile": 34.699999999999996,
+            "in_3sigma_prior": true
+          },
+          "b1_peak_height": {
+            "desi_value": 11132.0,
+            "mock_mean": 32388.748046875,
+            "mock_std": 9443.890625,
+            "z_score": -2.2508464880569283,
+            "percentile": 7.000000000000001,
+            "in_3sigma_prior": true
+          },
+          "b1_fwhm": {
+            "desi_value": 1.026602029800415,
+            "mock_mean": 0.3620539605617523,
+            "mock_std": 0.48941493034362793,
+            "z_score": 1.3578418393817089,
+            "percentile": 99.6,
+            "in_3sigma_prior": true
+          },
+          "b1_integral": {
+            "desi_value": 13601.8994140625,
+            "mock_mean": 29841.1015625,
+            "mock_std": 7816.642578125,
+            "z_score": -2.0775162719967737,
+            "percentile": 6.45,
+            "in_3sigma_prior": true
+          },
+          "b2_max_count": {
+            "desi_value": 29683.0,
+            "mock_mean": 133785.828125,
+            "mock_std": 1872.73388671875,
+            "z_score": -55.588692479634894,
+            "percentile": 0.0,
+            "in_3sigma_prior": false
+          },
+          "b2_mean_persistence": {
+            "desi_value": 0.45885732769966125,
+            "mock_mean": 0.23851440846920013,
+            "mock_std": 0.018593966960906982,
+            "z_score": 11.850237213700694,
+            "percentile": 100.0,
+            "in_3sigma_prior": false
+          },
+          "b2_high_persist": {
+            "desi_value": 2969.0,
+            "mock_mean": 13379.0400390625,
+            "mock_std": 187.26275634765625,
+            "z_score": -55.59055223846058,
+            "percentile": 0.0,
+            "in_3sigma_prior": false
+          },
+          "b0_at_mean": {
+            "desi_value": 86.0,
+            "mock_mean": 1430.697021484375,
+            "mock_std": 1577.05419921875,
+            "z_score": -0.8526637969389502,
+            "percentile": 4.65,
+            "in_3sigma_prior": true
+          }
+        },
+        "note": "z_score = (DESI - mock_mean) / mock_std"
+      }
+    },
+    "SGC": {
+      "region": "SGC",
+      "features": [
+        -0.31807196140289307,
+        6374.0,
+        1.0390443801879883,
+        7855.43505859375,
+        15999.0,
+        0.49104776978492737,
+        1600.0,
+        40.0
+      ],
+      "features_err_jackknife": [
+        0.1274974841444913,
+        285.6069497102455,
+        0.0051652193897266255,
+        151.01591821685892,
+        272.3439208576763,
+        0.006689210656616,
+        27.322337773852553,
+        22.774986753679883
+      ],
+      "feature_names": [
+        "b1_peak_pos",
+        "b1_peak_height",
+        "b1_fwhm",
+        "b1_integral",
+        "b2_max_count",
+        "b2_mean_persistence",
+        "b2_high_persist",
+        "b0_at_mean"
+      ],
+      "n_bootstrap_valid": 20,
+      "tda_diagnostics": {
+        "n_loops_beta1": 15999,
+        "n_components_beta0": 4573,
+        "b1_curve_max": 6374.0,
+        "nu_min": -0.9860290312767028,
+        "nu_max": 6.3614987564086976,
+        "persistence_mean": 0.49104777879172884,
+        "persistence_std": 0.46124672907876946
+      },
+      "delta_mean": -2.835135681777956e-09,
+      "delta_std": 2.078494071960449,
+      "n_valid_voxels": 172225,
+      "elapsed_s": 178.719486951828,
+      "prior_comparison": {
+        "status": "completed",
+        "desi_in_prior_3sigma": false,
+        "feature_comparison": {
+          "b1_peak_pos": {
+            "desi_value": -0.31807196140289307,
+            "mock_mean": 0.03367118909955025,
+            "mock_std": 1.2265480756759644,
+            "z_score": -0.2867748582203708,
+            "percentile": 10.65,
+            "in_3sigma_prior": true
+          },
+          "b1_peak_height": {
+            "desi_value": 6374.0,
+            "mock_mean": 32388.748046875,
+            "mock_std": 9443.890625,
+            "z_score": -2.754664267077426,
+            "percentile": 6.05,
+            "in_3sigma_prior": true
+          },
+          "b1_fwhm": {
+            "desi_value": 1.0390443801879883,
+            "mock_mean": 0.3620539605617523,
+            "mock_std": 0.48941493034362793,
+            "z_score": 1.383264746645362,
+            "percentile": 99.6,
+            "in_3sigma_prior": true
+          },
+          "b1_integral": {
+            "desi_value": 7855.43505859375,
+            "mock_mean": 29841.1015625,
+            "mock_std": 7816.642578125,
+            "z_score": -2.8126738921686774,
+            "percentile": 5.25,
+            "in_3sigma_prior": true
+          },
+          "b2_max_count": {
+            "desi_value": 15999.0,
+            "mock_mean": 133785.828125,
+            "mock_std": 1872.73388671875,
+            "z_score": -62.8956569645762,
+            "percentile": 0.0,
+            "in_3sigma_prior": false
+          },
+          "b2_mean_persistence": {
+            "desi_value": 0.49104776978492737,
+            "mock_mean": 0.23851440846920013,
+            "mock_std": 0.018593966960906982,
+            "z_score": 13.581467679633281,
+            "percentile": 100.0,
+            "in_3sigma_prior": false
+          },
+          "b2_high_persist": {
+            "desi_value": 1600.0,
+            "mock_mean": 13379.0400390625,
+            "mock_std": 187.26275634765625,
+            "z_score": -62.90113564917589,
+            "percentile": 0.0,
+            "in_3sigma_prior": false
+          },
+          "b0_at_mean": {
+            "desi_value": 40.0,
+            "mock_mean": 1430.697021484375,
+            "mock_std": 1577.05419921875,
+            "z_score": -0.8818321032804747,
+            "percentile": 4.55,
+            "in_3sigma_prior": true
+          }
+        },
+        "note": "z_score = (DESI - mock_mean) / mock_std"
+      }
+    }
+  }
+}

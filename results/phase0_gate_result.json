@@ -1,0 +1,117 @@
+{
+  "schema_version": "2.0",
+  "metadata": {
+    "timestamp": "2026-04-27T09:30:00Z",
+    "git_commit": "PENDING_COMMIT",
+    "python_version": "3.11.15",
+    "numpy_seed": 42,
+    "phase": 0,
+    "gate_id": "GATE_0",
+    "gate_passed": true,
+    "frozen_prior_version": "v1.0",
+    "deviations_from_protocol": "numpy 2.4.3 e scipy 1.17.1 usati in esecuzione vs numpy=1.26 e scipy=1.12 dichiarati in environment.yml. environment.yml aggiornato post-esecuzione per allineamento. Vedi non_blocking_items C2."
+  },
+  "results": {
+    "fiducial": {
+      "n_fields_found": 2000,
+      "n_fields_used": 2000,
+      "n_fields_passed": 2000,
+      "n_fields_rejected": 0,
+      "pass_rate": 1.0,
+      "checksums_complete": true,
+      "dataset_mean_voxel_mean": -1.8e-10
+    },
+    "lhc": {
+      "n_fields_found": 2000,
+      "n_fields_used": 2000,
+      "n_fields_passed": 2000,
+      "n_fields_rejected": 0,
+      "pass_rate": 1.0,
+      "checksums_complete": true,
+      "dataset_mean_voxel_mean": -3.8e-11
+    },
+    "nwlh": {
+      "n_fields_found": 2000,
+      "n_fields_used": 2000,
+      "n_fields_passed": 2000,
+      "n_fields_rejected": 0,
+      "pass_rate": 1.0,
+      "checksums_complete": true,
+      "dataset_mean_voxel_mean": -1.8e-10
+    },
+    "overall_pass_rate": 1.0,
+    "preprocessing_pipeline_locked": true,
+    "script_hash_sha256": "46920023f0d2e4b912049a9114f8029b6813fe85b2aadee52cce7fa0885e8dae",
+    "manifest_artifact": "results/phase0_data_manifest.json",
+    "lock_artifact": "results/phase0_preprocessing_lock.json"
+  },
+  "gate_evaluation": {
+    "criteria": [
+      {
+        "name": "pass_rate_fiducial",
+        "threshold": 0.99,
+        "observed": 1.0,
+        "passed": true
+      },
+      {
+        "name": "pass_rate_lhc",
+        "threshold": 0.99,
+        "observed": 1.0,
+        "passed": true
+      },
+      {
+        "name": "pass_rate_nwlh",
+        "threshold": 0.99,
+        "observed": 1.0,
+        "passed": true
+      },
+      {
+        "name": "max_rejected_fields_per_dataset",
+        "threshold": 20,
+        "observed": 0,
+        "passed": true
+      },
+      {
+        "name": "manifest_checksums_complete",
+        "threshold": true,
+        "observed": true,
+        "passed": true
+      },
+      {
+        "name": "preprocessing_pipeline_version_locked",
+        "threshold": true,
+        "observed": true,
+        "passed": true
+      },
+      {
+        "name": "reviewer_verdict",
+        "threshold": "PROCEED_OR_NON_BLOCKING",
+        "observed": "NON-BLOCKING",
+        "passed": true
+      }
+    ],
+    "overall_passed": true
+  },
+  "reviewer_verdict": {
+    "verdict": "NON-BLOCKING",
+    "non_blocking_items": [
+      {
+        "concern": "C1 — Smoothing gaussiano sub-pixel: R=5 Mpc/h corrisponde a sigma=0.64 pixel sulla griglia 128^3 (pixel_size=7.8125 Mpc/h). Abedi et al. 2025 usano griglia 512^3 dove R=5 Mpc/h corrisponde a sigma~2.56 pixel. La citazione come standard diretto non e' trasferibile senza conversione esplicita.",
+        "resolution": "deferred",
+        "resolution_note": "Rimandato con impegno vincolante: lo script Phase 1 include sensitivity check su 50 campi fiduciali a R=5 Mpc/h e R=10 Mpc/h. Il risultato (delta_beta_k normalizzato per k=0,1,2) e' registrato in phase1_tda_baseline.json sezione smoothing_sensitivity e incluso nel prompt Review 1. Se delta_beta_k > 1 sigma per qualsiasi k, si apre discussione su ricalibrzione formale (Methodology §2.4)."
+      },
+      {
+        "concern": "C2 — Discrepanza versioni librerie: environment.yml specificava numpy=1.26 e scipy=1.12; esecuzione ha usato numpy=2.4.3 e scipy=1.17.1. Vulnerabilita' di riproducibilita' per un referee che usa environment.yml come riferimento.",
+        "resolution": "resolved",
+        "resolution_note": "environment.yml aggiornato: numpy=1.26 -> numpy=2.4, scipy=1.12 -> scipy=1.17. Versioni ora corrispondono all'ambiente di esecuzione effettivo. Compatibilita' stack verificata: breaking changes di numpy 2.x (copy-on-write, C API) non impattano numpy.load ne' scipy.ndimage.gaussian_filter."
+      },
+      {
+        "concern": "C3 — Normalizzazione LHC/nwLH: la media voxel-wise su 2000 campi a cosmologie diverse non e' una quantita' fisica. Introduce dipendenza combinata formale del campo preprocessato dalla composizione del sampling LHC, potenzialmente problematica per training CNN/GNN che assumono campi i.i.d. condizionati ai parametri.",
+        "resolution": "deferred",
+        "resolution_note": "Rimandato a Phase 2 con motivazione numerica: dataset_mean_voxel_mean ~10^-10 per tutti e tre i dataset, compatibile con zero macchina float64. I campi delta(x) CIC hanno media identicamente zero per costruzione algebrica (conservazione della massa). La dipendenza combinata e' formalmente corretta ma numericamente nulla. Valutazione formale dell'impatto sul training CNN in Phase 2: verificare distribuzione delle medie per-campo nel training set e assenza di correlazioni spurie."
+      }
+    ],
+    "review_artifact_path": "results/phase0_review.json"
+  },
+  "notes": "Gate 0 chiuso in data 2026-04-27. Pass rate 100% su tutti e tre i dataset (6000/6000 campi). Nessun campo rigettato. Tutti i criteri tecnici superati con margine ampio. Il verdict NON-BLOCKING e' compatibile con gate_passed=true in quanto tutti e tre i concern hanno resolution assegnata (C1: deferred con impegno vincolante Phase 1; C2: resolved; C3: deferred con motivazione numerica). Prossimo gate: GATE_1 (bipartito 1a+1b), Phase 1 TDA Baseline."
+}

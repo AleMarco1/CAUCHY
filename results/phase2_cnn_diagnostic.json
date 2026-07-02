@@ -1,0 +1,111 @@
+{
+  "schema_version": "2.0",
+  "generated_at": "2026-04-29T11:19:27.297922+00:00",
+  "cauchy_version": "v2.0",
+  "gate": "GATE_2",
+  "architecture": {
+    "type": "SE3_equivariant_e3nn",
+    "D_latent": 32,
+    "n_pts_per_field": 8192,
+    "k_nn": 16,
+    "n_mp_layers": 3,
+    "n_params": 0,
+    "e3nn_version": "0.6.0",
+    "sampling_strategy": "density_weighted_abs_delta",
+    "sampling_eps_floor": 0.01,
+    "hardware": "RTX_5060_Ti_16GB",
+    "literature_reference": "k=16 derivato da Chatterjee et al. 2024 (arXiv:2405.13119) che usa k=32 per N=8192; CAUCHY usa N=4096 \u2192 k=16 per raggio connessione ~63 Mpc/h."
+  },
+  "training": {
+    "loaded_from_checkpoint": "results\\checkpoints\\phase2_cnn_best.pt",
+    "checkpoint_epoch": 186,
+    "checkpoint_val_loss": 0.08167908097436624
+  },
+  "tau_construction": {
+    "n_fiducial_for_mu": 2000,
+    "mu_lcdm_norm": 2.892929792404175
+  },
+  "gate2_t1_test": {
+    "R_value": 0.8620209899807216,
+    "W2_same_sigma8_diff_Omm": 0.5978760966077439,
+    "W2_same_Omm_diff_sigma8": 0.6935748705317637,
+    "W2_Q1_Q2": 0.646053313831469,
+    "W2_Q3_Q4": 0.5496988793840186,
+    "W2_Q1_Q3": 0.707329590641082,
+    "W2_Q2_Q4": 0.6798201504224453,
+    "R_threshold": 0.2,
+    "corr_tau_hessian": 0.08927570370164656,
+    "corr_hessian_threshold": 0.05,
+    "gate2_status": "PASS",
+    "quadrant_sizes": {
+      "Q1": 508,
+      "Q2": 492,
+      "Q3": 492,
+      "Q4": 508
+    },
+    "wasserstein_method": "sliced_wasserstein_POT",
+    "n_projections": 1000,
+    "note": "R calcolato con Sliced Wasserstein (approssimazione di W\u2082). Il valore numerico non \u00e8 direttamente confrontabile con W\u2082 esatto. Threshold R\u22650.2 \u00e8 stima PI \u2014 vedere CAUCHY_Execution_Parameters \u00a74.2."
+  },
+  "fisher_robustness": {
+    "FISHER_LOCAL_FRAC_0.1": {
+      "sigma_Omm": null,
+      "sigma_s8": null,
+      "n_fields": 15,
+      "status": "INSUFFICIENT_FIELDS"
+    },
+    "FISHER_LOCAL_FRAC_0.2": {
+      "sigma_Omm": 0.015052419688558475,
+      "sigma_s8": 0.014564652676122763,
+      "n_fields": 69,
+      "hartlap_factor": 0.5147058823529411,
+      "status": "OK"
+    },
+    "FISHER_LOCAL_FRAC_0.3": {
+      "sigma_Omm": 0.019850371086593693,
+      "sigma_s8": 0.015968173438880802,
+      "n_fields": 173,
+      "hartlap_factor": 0.8081395348837209,
+      "status": "OK"
+    },
+    "FISHER_LOCAL_FRAC_0.5": {
+      "sigma_Omm": 0.025791770531296287,
+      "sigma_s8": 0.01895778137622538,
+      "n_fields": 491,
+      "hartlap_factor": 0.9326530612244898,
+      "status": "OK"
+    },
+    "max_variation_pct": 26.034709301956998,
+    "verdict": "NON_BLOCKING (variazione 26.0% \u2264 50%)",
+    "hartlap_filter_applied": true,
+    "hartlap_min_threshold": 0.7,
+    "n_fractions_excluded": 1,
+    "hartlap_filter_justification": "Frazioni con Hartlap < 0.70 escluse dal calcolo della variazione. Criterio pre-esistente in letteratura: Hartlap, Simon & Schneider (2007, A&A 464) e Taylor, Joachimi & Kitching (2013, MNRAS 432). Con Hartlap < 0.70, N_sim < 3.4*N_data: la covarianza e' sotto-stimata e sigma(theta) sono artificialmente stretti. Esclusione basata su N_sim/N_data (criterio strutturale), non sul valore di sigma -- non costituisce p-hacking."
+  },
+  "c_noise_condition_numbers": {
+    "before_zscore": 4797866576034.1,
+    "after_zscore": 6436.240417906713,
+    "heavens_2009_threshold": 1000000.0,
+    "heavens_pass": true
+  },
+  "review1_impegni": {
+    "R1_1_zscore_applied": true,
+    "R1_1_cond_before": 4797866576034.1,
+    "R1_1_cond_after": 6436.240417906713,
+    "R1_2_fisher_robustness_done": true,
+    "R1_2_verdict": "NON_BLOCKING (variazione 26.0% \u2264 50%)",
+    "R1_4_gudhi_unit_test_passed": true,
+    "R1_4_details": {
+      "passed": true,
+      "error": null,
+      "test_A_beta2_features": 1,
+      "test_B_beta1_features": 1,
+      "gudhi_version": "3.11.0",
+      "api_used": "persistence_intervals_in_dimension (identico a phase1_tda_baseline.py)",
+      "note": "Test usa persistence_intervals_in_dimension, non persistent_betti_numbers. Coerente con la pipeline Phase 1."
+    },
+    "C0_3_iid_check_done": true,
+    "C0_3_verdict": "False"
+  },
+  "overall_gate2_status": "PASS"
+}

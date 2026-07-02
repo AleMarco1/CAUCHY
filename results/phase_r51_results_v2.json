@@ -1,0 +1,108 @@
+{
+  "schema_version": "2.0",
+  "task": "R5-1_HOD_restricted_prior",
+  "timestamp": "2026-06-11T11:46:18.198306+00:00",
+  "frozen_design": {
+    "n_sim": 500,
+    "K": 20,
+    "n_perm": 1000,
+    "seed": 42,
+    "selection": "uniform_w0_step4_sorted",
+    "gate_threshold_pass": 2.0,
+    "gate_threshold_borderline": 1.5,
+    "rejection_sampling": {
+      "n_gal_lo": 600000,
+      "n_gal_hi": 1200000,
+      "max_attempts": 50,
+      "fallback": "HOD_B3_median_if_max_attempts_exceeded"
+    }
+  },
+  "prior_restricted": {
+    "model": "Zheng2007_5param",
+    "source": "Smith & Grove 2024 (arXiv:2312.08792) + vincolo fisico Phase 5",
+    "parameters": {
+      "log_Mmin": [
+        12.2,
+        13.1
+      ],
+      "sigma_logM": [
+        0.2,
+        0.8
+      ],
+      "log_M0": [
+        11.5,
+        13.0
+      ],
+      "log_M1": [
+        13.0,
+        14.2
+      ],
+      "alpha": [
+        0.5,
+        1.5
+      ]
+    },
+    "fixed": {
+      "A_cen": 0.0,
+      "A_sat": 0.0,
+      "eta_vel": 1.0,
+      "eta_conc": 1.0
+    },
+    "B3_params_in_prior": true,
+    "anti_circularity": "Prior derivato da letteratura indipendentemente da B3. B3=(12.5,0.55,12.25,13.5,1.0) cade dentro il prior ma non \u00e8 il suo centro."
+  },
+  "primary_result": {
+    "feature": "b2_mean_persistence (\u27e8pers\u2081\u27e9, H1 mean persistence)",
+    "feature_index": 5,
+    "r_partial": -0.04587263691172556,
+    "sigma_marg": 0.19079954003981955,
+    "r_null_mean": 0.0015584096314024767,
+    "r_null_std": 0.045848787817195605,
+    "n_perm": 1000
+  },
+  "vif_analysis": {
+    "VIF_restricted": 0.8008609414100647,
+    "VIF_flat_prior_phase5": 2.483,
+    "reduction_pct": 67.74623675352136
+  },
+  "K_convergence": {
+    "sigma_by_K": {
+      "5": 0.09763399440191899,
+      "10": 0.16235922029864638,
+      "15": 0.10628429087496212,
+      "20": 0.22221617741916358
+    },
+    "delta_sigma": 0.11593188654420146,
+    "converged": true,
+    "threshold": 0.3
+  },
+  "n_gal_diagnostics": {
+    "mean": 813473.2582781457,
+    "std": 118089.87121299523,
+    "min": 178748.1,
+    "max": 1058041.0,
+    "target_bgs": 900000,
+    "rejection_window": [
+      600000,
+      1200000
+    ],
+    "acceptance_rate_mean": 0.2761612990367775,
+    "acceptance_rate_std": 0.1256911205951045,
+    "max_attempts": 50
+  },
+  "gate_r51": {
+    "verdict": "FAIL",
+    "sigma_marg": 0.19079954003981955,
+    "threshold_pass": 2.0,
+    "interpretation": "HOD mis-calibration sistematica dominante. Claim da rivedere"
+  },
+  "n_completed": 151,
+  "n_fallback": 0,
+  "t_total_h": 19.740844578080708,
+  "traceability": {
+    "base_script": "src/phase5_hod_b3.py",
+    "prior_source": "Smith & Grove 2024 (arXiv:2312.08792)",
+    "physical_bound_source": "phase5_gate_result.json -> frozen_hod_analysis.physical_bound_log_Mmin",
+    "gate_threshold_source": "PI decision 2026-06-08 (Q4)"
+  }
+}

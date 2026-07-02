@@ -1,0 +1,140 @@
+{
+  "schema_version": "2.0",
+  "timestamp": "2026-05-04T14:38:04.957200+00:00",
+  "n_fields": 2000,
+  "n_good_features": 7,
+  "good_feature_names": [
+    "b1_peak_pos",
+    "b1_peak_height",
+    "b1_integral",
+    "b2_max_count",
+    "b2_mean_persistence",
+    "b2_high_persist",
+    "b0_at_mean"
+  ],
+  "sigma_reference_ols": 4.123690244585818,
+  "r_reference_ols": 0.09256748563507317,
+  "n_perm": 1000,
+  "seed": 42,
+  "tests": {
+    "T1_nonlinear_residualization": {
+      "status": "completed",
+      "sigma_ols": 4.123690244585818,
+      "sigma_gbr": 6.4503758851108675,
+      "r_gbr": 0.14392532890212012,
+      "ratio_gbr_ols": 1.5642241542220252,
+      "verdict": "OK \u2014 segnale robusto a non-linearita"
+    },
+    "T2_ngal_contamination": {
+      "status": "completed",
+      "r_pearson": 0.13015193472199865,
+      "p_pearson": 5.1640938213236624e-09,
+      "r_spearman": 0.1254007168501792,
+      "p_spearman": 1.8357422380682602e-08,
+      "sigma_ngal": 5.68872165085995,
+      "sigma_tda_controlling_ngal": 3.082998242528333,
+      "ratio_sigma_ngal_control": 0.7476308984594908,
+      "verdict": "OK \u2014 TDA porta 3.08sigma indipendente da n_gal (threshold >= 2.0)"
+    },
+    "T3_null_injection": {
+      "status": "completed",
+      "method": "single_feature_b2_mean_persistence",
+      "rationale": "Feature singola evita bias adattivo OLS nella combinazione",
+      "n_injection": 20,
+      "sigma_null_mean": 0.547155281813581,
+      "sigma_null_std": 0.39077297321442495,
+      "sigma_null_max": 1.6546822159631827,
+      "sigma_null_values": [
+        0.5535447798308487,
+        1.6546822159631827,
+        0.4945508772481598,
+        0.31503256846368816,
+        0.042308732030978874,
+        0.6361000520380966,
+        0.34986421093479,
+        0.14926797992091342,
+        0.23606217372577418,
+        0.6629716268051102,
+        0.3227058236803139,
+        0.46664836582714175,
+        0.9574495931720215,
+        0.6741462470185138,
+        0.09597733532295721,
+        0.4209790720732516,
+        0.40167987670909017,
+        1.3557902000703799,
+        0.754082171020599,
+        0.3992617344158054
+      ],
+      "verdict": "OK \u2014 distribuzione null ben calibrata"
+    },
+    "T4_phantom_quintessence_split": {
+      "phantom_w0_lt_minus1": {
+        "n": 1000,
+        "r_obs": 0.11092227873152298,
+        "sigma": 3.3903942685787163,
+        "status": "completed"
+      },
+      "quintessence_w0_gt_minus1": {
+        "n": 1000,
+        "r_obs": 0.11428718230799621,
+        "sigma": 3.5052858087377303,
+        "status": "completed"
+      },
+      "full_sample": {
+        "n": 2000,
+        "r_obs": 0.09256748563507317,
+        "sigma": 4.039977956448087,
+        "status": "completed"
+      },
+      "asymmetry_ratio": 0.9672233459900416,
+      "verdict": "OK \u2014 segnale presente in entrambi i regimi"
+    }
+  },
+  "feature_sigmas": {
+    "b1_peak_pos": {
+      "r_partial": -0.007254818151788843,
+      "sigma": 0.30764152966210345
+    },
+    "b1_peak_height": {
+      "r_partial": 0.03420931173727152,
+      "sigma": 1.5981633834909295
+    },
+    "b1_integral": {
+      "r_partial": 0.03452868396394691,
+      "sigma": 1.5453976084473433
+    },
+    "b2_max_count": {
+      "r_partial": 0.05597639119975308,
+      "sigma": 2.572256538919904
+    },
+    "b2_mean_persistence": {
+      "r_partial": -0.08315196831668009,
+      "sigma": 3.686158256950893
+    },
+    "b2_high_persist": {
+      "r_partial": 0.05597602075047016,
+      "sigma": 2.3237837641553956
+    },
+    "b0_at_mean": {
+      "r_partial": 1.63155695799104e-05,
+      "sigma": -0.05904546492898771
+    }
+  },
+  "global_verdict": "SEGNALE VERIFICATO \u2014 tutti i test anti-artefatto superati",
+  "summary": {
+    "n_ok": 4,
+    "n_warn": 0,
+    "n_crit": 0,
+    "n_na": 0,
+    "sigma_ols": 4.123690244585818,
+    "sigma_gbr": 6.4503758851108675,
+    "sigma_ngal_controlled": 3.082998242528333
+  },
+  "verdicts": {
+    "T1": "OK \u2014 segnale robusto a non-linearita",
+    "T2": "OK \u2014 TDA porta 3.08sigma indipendente da n_gal (threshold >= 2.0)",
+    "T3": "OK \u2014 distribuzione null ben calibrata",
+    "T4": "OK \u2014 segnale presente in entrambi i regimi"
+  }
+}

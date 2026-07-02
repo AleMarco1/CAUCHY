@@ -1,0 +1,39 @@
+{
+  "schema_version": "2.0",
+  "timestamp": "2026-05-08T12:02:58.691883+00:00",
+  "ngrid": 128,
+  "zmin": 0.1,
+  "zmax": 0.4,
+  "R_smooth_mpc_h": 14.8,
+  "sigma_smooth_note": "sigma_px = R_smooth / cell_size, calcolato per regione",
+  "d_C_zmin_mpc_h": 292.535950750378,
+  "d_C_zmax_mpc_h": 1080.7298534541035,
+  "cosmology": {
+    "Omm": 0.3175,
+    "OmL": 0.6825,
+    "units": "h=1"
+  },
+  "regions": {
+    "NGC": {
+      "region": "NGC",
+      "N_data": 217614,
+      "N_rand": 13248857,
+      "alpha": 0.015541612150790961,
+      "box_size_mpc_h": 1997.3629167166155,
+      "cell_size_mpc_h": 15.604397786848558,
+      "box_min": [
+        -1085.5836039835003,
+        -1059.3513403117618,
+        -194.44091723978792
+      ],
+      "n_valid_voxels": 307805,
+      "survey_fill_fraction": 0.1467728614807129,
+      "delta_std_in_survey": 0.5295231342315674,
+      "nz_ratio_mean": 1.0509859254242426,
+      "nz_ratio_std": 0.08975665828700052,
+      "R_smooth_mpc_h": 14.8,
+      "sigma_smooth_px": 0.9484505715737068,
+      "elapsed_s": 195.10878610610962
+    }
+  }
+}

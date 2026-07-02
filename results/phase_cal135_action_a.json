@@ -1,0 +1,51 @@
+{
+  "schema_version": "2.0",
+  "task": "cal135_action_a_reviewer_round2",
+  "timestamp": "2026-06-14T07:06:20.575414+00:00",
+  "concern_C2_sigma_partial_v2": {
+    "n_sims": 2000,
+    "r_partial": 0.000384602439048194,
+    "p_value": 0.9862856848192765,
+    "sigma_partial": -0.79531829812672,
+    "r_null_mean": -0.000754301837842374,
+    "r_null_std": 0.022977437764578824,
+    "n_perm": 1000,
+    "verdict": "NON CITABILE \u2014 \u03c3_partial=-0.80\u03c3 < 1.5\u03c3 su campione non biased",
+    "note": "Cal135 v2 completo, nessun fallback \u2014 sostituisce valore biased da Gruppo A v1 (N=925)"
+  },
+  "concern_C1_density_controlled": {
+    "n_gal_window": [
+      400000,
+      750000
+    ],
+    "n_sims_dc": 653,
+    "frac_dc": 0.3265,
+    "b2_mean_dc": 0.26510897278785706,
+    "b2_std_dc": 0.006485351361334324,
+    "z_anomaly_dc": 29.896765249778387,
+    "sigma_partial_dc": 2.5986556549607682,
+    "shift_vs_full": 0.004692882299423218,
+    "verdict": "ROBUSTO \u2014 \u27e8pers\u2081\u27e9_DC=0.2651 coerente con full sample (shift=+0.0047). z_DC=+29.90\u03c3."
+  },
+  "ngal_confounding": {
+    "r_b2_log_ngal": -0.15126574558491973,
+    "p_b2_log_ngal": 1.0480681895202963e-11,
+    "sigma_partial_with_ngal": 0.8900929944203938,
+    "sigma_partial_without_ngal": -0.79531829812672,
+    "delta_sigma": -1.6854112925471139
+  },
+  "z_anomaly_summary": {
+    "B3_original": 5.96,
+    "cal135_v2_full": 9.45,
+    "cal135_v2_DC": 29.896765249778387,
+    "BGS_value": 0.459,
+    "B3_mock_mean": 0.292,
+    "cal135_v2_mock_mean": 0.26041609048843384,
+    "cal135_v2_DC_mock_mean": 0.26510897278785706
+  },
+  "traceability": {
+    "features_source": "results/phase_b3_cal135_v2_features.npz",
+    "n_gal_source": "results/phase_b3_cal135_v2_fields/cal135_XXXX.npz",
+    "reviewer_concern": "Round 2 NON-BLOCKING C1+C2 (2026-06-14)"
+  }
+}

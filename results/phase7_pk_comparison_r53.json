@@ -1,0 +1,130 @@
+{
+  "schema_version": "2.0",
+  "task": "7.1b_R5-3",
+  "timestamp": "2026-06-06T19:28:54.837257Z",
+  "description": "Beyond-P(k) test: b2_mean_persistence vs Ridge/MLP(P(k)). Pre-submission commitment R5-3.",
+  "traceability": {
+    "gate4_r_b2_dm_frozen": 0.0028,
+    "phase5_sigma_b2_hod_b3": 3.69,
+    "phase5_sigma_conservative": 3.08,
+    "phase6_sigma_pk_combination": 3.37,
+    "sources": [
+      "gate4_prior_v1_0.json -> frozen_feature_correlations_w0",
+      "phase5_gate_result.json -> ramo_a_results",
+      "phase6_pk_comparison.json -> interpretazione_B_ramo_a",
+      "phase0_preprocessing_lock.json -> sigma_px=0.64",
+      "phase1_tda_baseline.json -> n_thresh=50, common_thresholds"
+    ]
+  },
+  "parameters": {
+    "n_nwlh": 2000,
+    "split_seed": 42,
+    "n_train": 1600,
+    "n_test": 400,
+    "sigma_px": 0.64,
+    "n_thresh": 50,
+    "thresh_lo": -0.8752182717073207,
+    "thresh_hi": 0.7132173435468943,
+    "n_k_bins": 64,
+    "ridge_alphas": [
+      0.001,
+      10000.0
+    ],
+    "ridge_cv_folds": 5,
+    "mlp_hidden": [
+      64,
+      32
+    ],
+    "mlp_max_iter": 500,
+    "pk_method": "Pylians3"
+  },
+  "confronto_A": {
+    "description": "Base DM nwLH identica per TDA e P(k) — confronto cleanest",
+    "n_train": 1600,
+    "n_test": 400,
+    "split_seed": 42,
+    "tda_dm": {
+      "label": "b2_DM_test",
+      "n": 400,
+      "r_pearson": 0.0047407394064987105,
+      "p_pearson": 0.9246972110455415,
+      "sigma_t": 0.09457851693399144,
+      "p_sigma_t": 0.9246972110455413
+    },
+    "pk_dm_regressors": {
+      "ridge": {
+        "alpha_best": 138.9495494373136,
+        "r_pearson": 0.11271072755447778,
+        "p_pearson": 0.024174294023514863,
+        "sigma_t": 2.2629920918050934,
+        "p_sigma_t": 0.024174294023515137
+      },
+      "mlp": {
+        "hidden": [
+          64,
+          32
+        ],
+        "r_pearson": 0.09822319755402653,
+        "p_pearson": 0.049638580496569454,
+        "sigma_t": 1.9690682430368893,
+        "p_sigma_t": 0.0496385804965693,
+        "n_iter": 130
+      }
+    },
+    "gain_tda_vs_ridge_pct": -95.7938880270227,
+    "gain_tda_vs_mlp_pct": -95.17350328175671,
+    "pk_method": "Pylians3",
+    "n_k_bins": 110,
+    "pk_errors_n": 0,
+    "b2_dm_cache": "D:\\projects\\cauchy\\results\\phase7_b2_dm_nwlh_cache.npz",
+    "b2_dm_errors_n": 0
+  },
+  "confronto_B": {
+    "description": "TDA HOD B3 z=0.5 vs Ridge/MLP(P(k) DM z=0) — condizioni segnale principale",
+    "caveat": "Tracer diverso: TDA su galassie HOD (traccia picchi aloni), P(k) su DM. Gain include tracer bias. Confronto A è la misura pulita.",
+    "n_train": 1600,
+    "n_test": 400,
+    "tda_hod_b3": {
+      "label": "b2_HOD_B3_test",
+      "n": 400,
+      "r_pearson": -0.008280287466396738,
+      "p_pearson": 0.8688728951918354,
+      "sigma_t": 0.1651968794459532,
+      "p_sigma_t": 0.8688728951918369
+    },
+    "pk_dm_regressors": {
+      "ridge": {
+        "alpha_best": 138.9495494373136,
+        "r_pearson": 0.11271072755447778,
+        "p_pearson": 0.024174294023514863,
+        "sigma_t": 2.2629920918050934,
+        "p_sigma_t": 0.024174294023515137
+      },
+      "mlp": {
+        "hidden": [
+          64,
+          32
+        ],
+        "r_pearson": 0.09822319755402653,
+        "p_pearson": 0.049638580496569454,
+        "sigma_t": 1.9690682430368893,
+        "p_sigma_t": 0.0496385804965693,
+        "n_iter": 130
+      }
+    },
+    "gain_tda_hod_vs_ridge_pct": -92.65350544171181,
+    "gain_tda_hod_vs_mlp_pct": -91.56992678654932,
+    "reference_phase5_phase6": {
+      "sigma_b2_hod_b3_permtest": 3.69,
+      "sigma_pk_combination_phase6": 3.37,
+      "gain_phase6_pct": 9.3,
+      "sources": [
+        "phase5_gate_result.json -> ramo_a_results.sigma_primary",
+        "phase6_pk_comparison.json -> interpretazione_B_ramo_a"
+      ]
+    }
+  },
+  "r5_3_status": "CHIUSO",
+  "citability": "PAPER-QUALITY. Confronto A: base identica DM — misura pulita beyond-P(k). Confronto B: condizioni segnale fisico — con caveat tracer dichiarato.",
+  "elapsed_s": 159.2
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": "2.0",
+  "generated_at": "2026-05-01T19:57:05.774844+00:00",
+  "gate": "GATE_4_apertura",
+  "script": "src/phase4_opening.py",
+  "gate3_prior_verified": {
+    "best_epoch": 171,
+    "split_seed": 42,
+    "p90_threshold": 0.35589513778686577
+  },
+  "R3_1_corrected_correlations": {
+    "r_yhat_Omm_vs_Omm_true": 0.8930211663246155,
+    "p_yhat_Omm": 0.0,
+    "r_yhat_s8_vs_s8_true": 0.9182219505310059,
+    "p_yhat_s8": 0.0,
+    "r2_Omm": 0.7974867820739746,
+    "r2_s8": 0.8431315422058105,
+    "method": "r(Linear(j*), y_true) \u2014 Linear fit su 1600 LHC train seed=42"
+  },
+  "R3_2_variance_added_equivalent": {
+    "r_ramoA_Ridge_Omm": 0.8880521655082703,
+    "p_ramoA_Ridge_Omm": 0.0,
+    "r_ramoA_Ridge_s8": 0.9936367869377136,
+    "p_ramoA_Ridge_s8": 0.0,
+    "r2_ramoA_Omm": 0.7886366248130798,
+    "r2_ramoA_s8": 0.9873140454292297,
+    "r2_ramoB_mean": 0.8203091621398926,
+    "r2_ramoA_mean": 0.8879753351211548,
+    "variance_added_equivalent_pct": -7.62027645111084,
+    "method": "stesso test set 400 LHC seed=42, r(yhat,ytrue), Ridge alpha=1.0"
+  }
+}

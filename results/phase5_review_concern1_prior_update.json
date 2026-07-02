@@ -1,0 +1,20 @@
+**RISPOSTA ALLA CONDIZIONE A) — PRIOR HOD AGGIORNATO**
+Timestamp: 2026-05-06T17:30:00Z
+
+---
+
+**Prior letteratura: APPROVATO.**
+
+Il prior è costruito dalla letteratura (Yuan 2022, Smith 2017, Hadzhiyska 2023, Zhang 2025) con direzione causale verificata: i best-fit B3 cadono dentro il prior letteratura per tutti e 9 i parametri, non viceversa. Il prior è più conservativo del ±20%-B3 rifiutato — span quasi doppio per log_Mmin — il che riduce il rischio di ottimismo sistematico. La non-circolarità è soddisfatta.
+
+**Condizione B) confermata come sufficiente** con la qualifica già espressa: il test di convergenza Δσ(K=2..10)<0.5σ deve essere riportato nell'output. Se la convergenza non è raggiunta, il risultato sul subset non è interpretabile indipendentemente dal valore numerico di σ.
+
+**Il run può procedere.**
+
+---
+
+**Nota sul VIF atteso**
+
+La stima VIF_lit~1.5 implica che l'incertezza HOD rimane dell'ordine della varianza cosmologica — migliore del prior flat (VIF=2.48) ma non trascurabile. Con VIF~1.5, σ_marg è strutturalmente più basso di σ_B3 per costruzione matematica, indipendentemente dal segnale fisico. Il PI deve essere preparato a Scenario R2 come esito più probabile, non Scenario R1. I tre scenari rimangono mappati come indicato nella risposta precedente.
+
+Attendo i risultati del run per la chiusura formale del Concern 1.

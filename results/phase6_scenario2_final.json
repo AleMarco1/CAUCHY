@@ -1,0 +1,93 @@
+{
+  "schema_version": "2.0",
+  "output_id": "phase6_scenario2_final",
+  "generated_at": "2026-05-08T19:30:36.263586+00:00",
+  "geometry": {
+    "cell_desi_mpc_h": 15.6046875,
+    "cell_mock_mpc_h": 7.8125,
+    "sigma_px_desi_R5": 0.3204,
+    "sigma_px_desi_R10": 0.6408,
+    "sigma_px_mock_R5": 0.64,
+    "sigma_px_mock_R10": 1.28,
+    "note": "box canonico DESI=1997 Mpc/h (da phase6_bgs_voxelize.py)"
+  },
+  "confronto_A": {
+    "label": "R fisico fisso (upper bound)",
+    "desi_R": 5.0,
+    "mock_R": 5.0,
+    "sigma_px_desi": 0.3204,
+    "sigma_px_mock": 0.64,
+    "b2_desi": 0.45885732769966125,
+    "b2_mock_mean": 0.2922431184761226,
+    "b2_mock_std": 0.027896014555943077,
+    "z_score": 5.972688639425824,
+    "citability": "upper bound \u2014 \u03c3_px diversi (0.321 vs 0.640)"
+  },
+  "confronto_B": {
+    "label": "\u03c3_px equivalente (primario conservativo)",
+    "desi_R": 10.0,
+    "mock_R": 5.0,
+    "sigma_px_desi": 0.6408,
+    "sigma_px_mock": 0.64,
+    "b2_desi": 0.37857,
+    "b2_mock_mean": 0.2922431184761226,
+    "b2_mock_std": 0.027896014555943077,
+    "z_score": 3.094595514737642,
+    "citability": "primario conservativo \u2014 \u03c3_px equivalente (0.640), R fisico diverso (10 vs 5 Mpc/h)"
+  },
+  "confronto_C": {
+    "label": "R fisico E \u03c3_px identici (ideale)",
+    "desi_R": 10.0,
+    "mock_R": 10.0,
+    "sigma_px_desi": 0.6408,
+    "sigma_px_mock": 1.28,
+    "b2_desi": 0.37857,
+    "b2_mock_mean": 0.11621413328871132,
+    "b2_mock_std": 0.02074048175525799,
+    "z_score": 12.649458667698399,
+    "citability": "ideale \u2014 stesso R fisico (10 Mpc/h), \u03c3_px diversi (0.641 vs 1.280)",
+    "note": "\u03c3_px mock=1.280 > \u03c3_px DESI=0.641 \u2014 mock pi\u00f9 smoothed fisicamente"
+  },
+  "sigma_px_test": {
+    "b2_mock_sigma_px_0216": 0.3032,
+    "std": 0.0182,
+    "b2_mock_sigma_px_0640": 0.1502,
+    "delta_sigma_signal": 8.42,
+    "conclusion": "b2 dipende fortemente da \u03c3_px \u2014 bias griglia confermato e quantificato"
+  },
+  "correlazioni_R10": {
+    "r_b2_w0": -0.0342,
+    "p_w0": 0.127,
+    "r_b2_Omm": -0.7869,
+    "p_Omm": 0.0,
+    "r_b2_s8": -0.4866,
+    "p_s8": 2e-119,
+    "z_condizionato_cosmo": 34.49,
+    "note": "z_cond enorme \u2014 artefatto della regressione lineare con r(b2,Omm)=-0.79 dominante"
+  },
+  "o63_aggiornato_R10": {
+    "LCDM": {
+      "z": 12.87,
+      "N": 1167
+    },
+    "DESI_CMB": {
+      "z": 12.2,
+      "N": 400
+    },
+    "DESI_SN": {
+      "z": 13.35,
+      "N": 67
+    },
+    "r_b2_w0": -0.034,
+    "note": "Stesso pattern R=5: nessuna discriminazione tra modelli w0CDM"
+  },
+  "coerenza_interna": {
+    "phase5_primario": 3.69,
+    "phase5_conservativo": 3.08,
+    "phase6_A": 5.972688639425824,
+    "phase6_B": 3.094595514737642,
+    "phase6_C": 12.649458667698399,
+    "note": "phase6_B (+3.09\u03c3) \u2248 phase5_conservativo (+3.08\u03c3) \u2014 coerenza eccellente"
+  },
+  "paper_statement_scenario2": "The DESI BGS NGC b2_mean_persistence measurement deviates from the \u039bCDM mock distribution at multiple smoothing configurations. At fixed physical smoothing R=5 Mpc/h (Confronto A), the deviation is +5.97\u03c3; this configuration has different grid smoothing parameters (\u03c3_px=0.321 for DESI vs \u03c3_px=0.640 for mocks). At matched grid smoothing (\u03c3_px=0.640 for both, Confronto B: DESI R=10, mock R=5 Mpc/h), the deviation is +3.09\u03c3 \u2014 consistent with the Phase 5 conservative estimate (+3.08\u03c3). At identical physical scale R=10 Mpc/h for both (Confronto C), the deviation is +12.65\u03c3. The grid discretization contributes ~2.9\u03c3 to the Confronto A estimate. We adopt +3.09\u03c3 (Confronto B) as the primary conservative result."
+}

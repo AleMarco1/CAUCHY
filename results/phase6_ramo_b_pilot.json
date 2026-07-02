@@ -1,0 +1,25 @@
+{
+  "schema_version": "2.0",
+  "output_id": "phase6_ramo_b_pilot",
+  "generated_at": "2026-05-09T05:59:43.865381+00:00",
+  "latent_desi_norm": 2.7832412719726562,
+  "mu_lcdm_norm_scalar": 2.892929792404175,
+  "tau_norm_desi": 3.2514584064483643,
+  "anomaly": {
+    "tau_norm_desi": 3.2514584064483643,
+    "z_vs_LHC": -0.721035663131363,
+    "LHC_mean": 4.252034835815429,
+    "LHC_std": 1.3876933978850552,
+    "LHC_pct": 30.0,
+    "z_vs_nwLH": -0.6836974699313556,
+    "nwLH_mean": 4.584092268943786,
+    "nwLH_std": 1.949157223924232,
+    "nwLH_pct": 28.000000000000004
+  },
+  "domain_adaptation": {
+    "coord_normalization": "DESI 1997.4 Mpc/h \u2192 Mock 1000.0 Mpc/h",
+    "outlier_clip": 6.23,
+    "std_desi_vs_mock": "0.63 vs 1.7 \u2014 non normalizzata (limitazione dichiarata)"
+  },
+  "interpretation": "z > 2\u03c3: DESI anomalo in spazio latente \u2192 Ramo B produce segnale. z < 1\u03c3: null result informativo."
+}

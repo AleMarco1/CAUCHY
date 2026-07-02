@@ -1,0 +1,25 @@
+# CAUCHY — pip dependencies
+# For the full environment (including GPU torch), conda is recommended: see environment.yml
+
+numpy>=1.24
+scipy>=1.10
+matplotlib>=3.7
+astropy>=5.3
+h5py
+
+# Persistent homology
+gudhi>=3.8
+
+# Projected clustering
+treecorr>=5.0
+
+# Branch B (SE(3)-equivariant network)
+# Install the CUDA build of torch matching your system from https://pytorch.org first.
+torch>=2.0
+e3nn==0.6.0
+
+# Optional
+pysr
+
+# Pylians (density field / power spectrum utilities) is installed separately;
+# see https://pylians3.readthedocs.io/

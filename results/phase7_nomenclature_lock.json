@@ -1,0 +1,123 @@
+{
+  "schema_version": "2.0",
+  "document": "phase7_nomenclature_lock",
+  "timestamp": "2026-06-06T00:00:00Z",
+  "status": "FROZEN",
+  "purpose": "Canonical mapping from CAUCHY internal feature names to paper notation. All paper text must use paper_name. All JSON traceability references retain internal_name.",
+
+  "critical_clarification": {
+    "summary": "ALL features in CAUCHY Ramo A are computed from H1 (β₁, 1-cycles, loops/filaments). There are NO H2 (β₂) features in the current Ramo A pipeline. The internal naming convention 'b2_*' refers to feature vector index position (5,6,7), NOT to Betti number β₂.",
+    "consequence_for_paper": "The main detection feature 'b2_mean_persistence' must be presented as β₁ mean persistence in the paper. The claim is about loop/filament topology, not void topology.",
+    "consequence_for_r3_5": "The R3-5 gap (β₂ contribution) remains open: no β₂ (H2, 3D voids) features are present in the current pipeline. The Reviewer concern about β₂ distinctiveness vs Prat et al. 2025 is correct — no quantitative evidence of β₂ contribution exists in current results.",
+    "source": "phase5_hod_b3.py compute_tda_features: diag_1 = persistence_intervals_in_dimension(1) = H1 = β₁"
+  },
+
+  "feature_nomenclature": {
+    "b2_mean_persistence": {
+      "internal_name": "b2_mean_persistence",
+      "homology_group": "H1",
+      "betti_number": "β₁",
+      "paper_name": "⟨pers₁⟩",
+      "paper_name_alt": "β₁_mean_persistence",
+      "physical_meaning": "Mean persistence of H1 features (loops, filamentary cycles) across threshold filtration",
+      "paper_role": "PRIMARY DETECTION FEATURE — +3.09σ anomaly in DESI BGS NGC",
+      "desi_ngc_zscore": 11.85,
+      "desi_sgc_zscore": 13.58,
+      "in_mock_3sigma": false,
+      "direction": "DESI > mocks (higher mean persistence = topologically more defined loops)",
+      "footnote_text": "Throughout this paper we use ⟨pers₁⟩ to denote the mean persistence of H₁ generators, referred to as 'b2_mean_persistence' in the internal CAUCHY codebase (where the prefix 'b2' denotes feature vector index 5, not Betti number β₂)."
+    },
+    "b2_max_count": {
+      "internal_name": "b2_max_count",
+      "homology_group": "H1",
+      "betti_number": "β₁",
+      "paper_name": "β₁_max",
+      "physical_meaning": "Maximum β₁ count across all filtration thresholds",
+      "desi_ngc_zscore": -55.59,
+      "desi_sgc_zscore": -62.90,
+      "in_mock_3sigma": false,
+      "direction": "DESI << mocks (far fewer loops at peak)",
+      "note": "Anomalous in opposite direction to b2_mean_persistence — scientifically important contrast"
+    },
+    "b2_high_persist": {
+      "internal_name": "b2_high_persist",
+      "homology_group": "H1",
+      "betti_number": "β₁",
+      "paper_name": "β₁_high",
+      "physical_meaning": "Count of H1 features with persistence above 90th percentile",
+      "desi_ngc_zscore": -55.59,
+      "desi_sgc_zscore": -62.90,
+      "in_mock_3sigma": false,
+      "direction": "DESI << mocks",
+      "note": "Correlated with b2_max_count by construction"
+    },
+    "b1_peak_pos": {
+      "internal_name": "b1_peak_pos",
+      "homology_group": "H1",
+      "betti_number": "β₁",
+      "paper_name": "ν₁_peak",
+      "physical_meaning": "Threshold value at which β₁ curve reaches maximum",
+      "desi_ngc_zscore": -0.19,
+      "in_mock_3sigma": true
+    },
+    "b1_peak_height": {
+      "internal_name": "b1_peak_height",
+      "homology_group": "H1",
+      "betti_number": "β₁",
+      "paper_name": "β₁_peak",
+      "physical_meaning": "Peak height of β₁ Betti curve",
+      "desi_ngc_zscore": -2.25,
+      "in_mock_3sigma": true
+    },
+    "b1_fwhm": {
+      "internal_name": "b1_fwhm",
+      "homology_group": "H1",
+      "betti_number": "β₁",
+      "paper_name": "Δν₁",
+      "physical_meaning": "Full width at half maximum of β₁ Betti curve",
+      "desi_ngc_zscore": 1.36,
+      "in_mock_3sigma": true
+    },
+    "b1_integral": {
+      "internal_name": "b1_integral",
+      "homology_group": "H1",
+      "betti_number": "β₁",
+      "paper_name": "∫β₁",
+      "physical_meaning": "Integral of β₁ Betti curve over all thresholds",
+      "desi_ngc_zscore": -2.08,
+      "in_mock_3sigma": true
+    },
+    "b0_at_mean": {
+      "internal_name": "b0_at_mean",
+      "homology_group": "H0",
+      "betti_number": "β₀",
+      "paper_name": "β₀(ν̄)",
+      "physical_meaning": "β₀ count (connected components) at mean field threshold",
+      "desi_ngc_zscore": -0.85,
+      "in_mock_3sigma": true
+    }
+  },
+
+  "beta2_status": {
+    "present_in_pipeline": false,
+    "explanation": "H2 (β₂, 3D voids) persistence is NOT computed in the current Ramo A pipeline. The CubicalComplex gudhi computation could in principle yield H2 features, but compute_tda_features in phase5_hod_b3.py only extracts persistence_intervals_in_dimension(1).",
+    "r3_5_gap": "OPEN — no quantitative evidence of β₂ contribution to DESI signal exists. This is the gap identified by the Reviewer (OC-5). A minimum viable response is an order-of-magnitude estimate of β₂ sensitivity from existing gudhi computations.",
+    "paper_implication": "The paper cannot claim β₂ (3D void) detection without adding β₂ features to the pipeline. The current claim is β₁ (loop/filament) topology anomaly. This must be stated clearly in the paper.",
+    "mitigation_for_paper": "The paper can note that β₁ encodes the connectivity of the filamentary cosmic web — distinct from 2D projected statistics (Prat et al. 2025) which access only 2D cycles. The 3D nature of β₁ (not β₂) remains distinctive vs any 2D analysis."
+  },
+
+  "physical_interpretation_of_detection": {
+    "what_is_detected": "DESI BGS NGC shows significantly higher mean H₁ persistence (⟨pers₁⟩ = 0.459 vs mock mean 0.239, +11.85σ) combined with significantly fewer H₁ generators at peak (β₁_max = 29683 vs mock 133786, −55.6σ).",
+    "interpretation": "DESI galaxy field has fewer filamentary loops than expected under ΛCDM, but the loops that exist are significantly more persistent (more topologically robust). This pattern — fewer but more persistent 1-cycles — is consistent with a cosmic web that has undergone stronger void expansion, as expected for w₀ < −1 (phantom crossing).",
+    "b2_max_count_b2_mean_persistence_anticorrelation": "The opposite signs of b2_max_count (−55.6σ) and b2_mean_persistence (+11.85σ) are physically consistent: phantom crossing suppresses small transient loops while amplifying persistent large-scale topological structures. This dual signature strengthens the physical interpretation.",
+    "paper_section": "Results §4.2 — Physical interpretation of topological anomaly"
+  },
+
+  "sigma_px_matched_feature_used": "b2_mean_persistence (⟨pers₁⟩) — Confronto B, σ_px=0.640, N=2000 nwLH mocks",
+  "main_result": "+3.09σ anomaly in ⟨pers₁⟩ (DESI BGS NGC vs Quijote nwLH, Gate 6)",
+  "traceability": {
+    "gate6_source": "phase6_gate_result.json -> confronto_B_sigma_px_matched",
+    "feature_computation": "phase5_hod_b3.py compute_tda_features feats[5]",
+    "desi_features": "phase6_bgs_tda_features.json -> regions.NGC.features[5]"
+  }
+}

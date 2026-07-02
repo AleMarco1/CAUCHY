@@ -1,0 +1,775 @@
+{
+  "schema_version": "2.0",
+  "task": "H2_diagnostic_128grid",
+  "timestamp": "2026-06-08T10:24:39.213144+00:00",
+  "parameters": {
+    "n_fields": 10,
+    "ngrid": 128,
+    "sigma_smooth": 0.64,
+    "seed": 42,
+    "hod_b3_params": [
+      12.5,
+      0.55,
+      12.25,
+      13.5,
+      1.0,
+      0.0,
+      0.0,
+      1.0,
+      1.0
+    ],
+    "field_types": [
+      "DM",
+      "HOD"
+    ]
+  },
+  "noise_threshold": {
+    "value": 0.05,
+    "description": "ratio H\u2082/H\u2081 < 0.05 \u2192 H\u2082 non affidabile a questa risoluzione"
+  },
+  "summary_DM": {
+    "H2_count_mean": 74008.5,
+    "H2_count_std": 1735.5237393939617,
+    "H2_count_min": 70436,
+    "H2_count_max": 76645,
+    "H2_count_zero_fraction": 0.0,
+    "H2_pers_mean": 0.08662876591339423,
+    "H2_pers_max": 0.09253991185430481,
+    "H1_pers_mean": 0.24669705701728234,
+    "ratio_H2_H1_mean": 0.3602185885122734,
+    "ratio_H2_H1_max": 0.46178292836770757
+  },
+  "summary_HOD": {
+    "H2_count_mean": 71750.9,
+    "H2_count_std": 1903.2231844951868,
+    "H2_count_min": 67268,
+    "H2_count_max": 73687,
+    "H2_count_zero_fraction": 0.0,
+    "H2_pers_mean": 0.07316452159484127,
+    "H2_pers_max": 0.07938706341340276,
+    "H1_pers_mean": 0.24584638240172607,
+    "ratio_H2_H1_mean": 0.3041747457618574,
+    "ratio_H2_H1_max": 0.3739457102486497
+  },
+  "test_A_correlations": {
+    "DM": {
+      "r_H1_pers_mean": 0.07955394119978972,
+      "p_H1": 0.8270729474931678,
+      "r_H2_pers_mean": -0.29807432506197706,
+      "p_H2_pers": 0.402871859482888,
+      "r_H2_count": 0.2729105107570628,
+      "p_H2_cnt": 0.4455205141878708,
+      "interpretation": "H\u2082 COMPARABILE a H\u2081 \u2192 potenzialmente interessante per Paper A",
+      "explanation_scenario": 3
+    },
+    "HOD": {
+      "r_H1_pers_mean": 0.38913160087964976,
+      "p_H1": 0.26638160133431543,
+      "r_H2_pers_mean": -0.1760099997809134,
+      "p_H2_pers": 0.6266858433240159,
+      "r_H2_count": -0.14204849139038397,
+      "p_H2_cnt": 0.6954632440270476,
+      "interpretation": "H\u2082 DEBOLE rispetto a H\u2081 \u2192 segnale fisico ma non competitivo",
+      "explanation_scenario": 2
+    }
+  },
+  "test_B_gaussian": {
+    "results": [
+      {
+        "label": "white_noise_no_smooth",
+        "sigma_smooth": 0.0,
+        "H1": {
+          "count": 385925,
+          "pers_mean": 0.591224516113578
+        },
+        "H2": {
+          "count": 285703,
+          "pers_mean": 0.8046024095822386
+        },
+        "ratio_H2_H1": 1.3609083988453372
+      },
+      {
+        "label": "white_noise_smooth_0.64",
+        "sigma_smooth": 0.64,
+        "H1": {
+          "count": 188337,
+          "pers_mean": 0.14818437911344728
+        },
+        "H2": {
+          "count": 117270,
+          "pers_mean": 0.15740461458383823
+        },
+        "ratio_H2_H1": 1.0622213726274892
+      },
+      {
+        "label": "white_noise_smooth_2.0",
+        "sigma_smooth": 2.0,
+        "H1": {
+          "count": 10261,
+          "pers_mean": 0.0166438030524766
+        },
+        "H2": {
+          "count": 5248,
+          "pers_mean": 0.013921237362609988
+        },
+        "ratio_H2_H1": 0.8364216590834092
+      }
+    ],
+    "physical_H2_count_mean": 72879.7,
+    "gaussian_H2_count_sigma064": 117270,
+    "ratio_physical_over_gaussian": 0.6214692589750149,
+    "lattice_verdict": "ARTEFATTO RETICOLO CONFERMATO \u2014 H\u2082 fisico non distinguibile da rumore Gaussiano"
+  },
+  "paper_statement": "H\u2082 features show non-negligible persistence at 128\u00b3 resolution (mean ratio H\u2082/H\u2081 = 0.332); their cosmological sensitivity is deferred to Paper A.",
+  "integrated_verdict": "SCENARIO 1 \u2014 Artefatto reticolo cubico confermato (Test B)",
+  "integrated_action": "H\u2082 features at 128\u00b3 are lattice artifacts: physical fields produce fewer H\u2082 generators than a smoothed Gaussian random field (ratio physical/Gaussian = 0.621 < 1.0). Exclusion from CAUCHY pipeline is fully justified. Note: Test A correlations on N=10 fields are statistically uninformative (all p > 0.25) and are overridden by Test B. Paper B statement: H\u2082 generators at 128\u00b3 are numerical lattice artifacts; higher-resolution analysis is deferred to Paper A.",
+  "per_field_results": [
+    {
+      "field_idx": 0,
+      "sim_idx": 731,
+      "w0": -1.29985,
+      "field_type": "DM",
+      "H0": {
+        "count": 43010,
+        "pers_mean": 0.5033843433061171,
+        "pers_max": 3.829266333414649,
+        "pers_std": 0.4791191877793022,
+        "pers_p90": 1.1597643507191011,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 142562,
+        "pers_mean": 0.23549919169690917,
+        "pers_max": 1.4922518181423408,
+        "pers_std": 0.23233343435021514,
+        "pers_p90": 0.5749349443190573,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 74257,
+        "pers_mean": 0.08959255491520801,
+        "pers_max": 0.6376750641721546,
+        "pers_std": 0.08683010085553128,
+        "pers_p90": 0.21065521113295,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.3804367831143765,
+      "t_s": 11.388826131820679
+    },
+    {
+      "field_idx": 0,
+      "sim_idx": 731,
+      "w0": -1.29985,
+      "field_type": "HOD",
+      "H0": {
+        "count": 37669,
+        "pers_mean": 1.4098652999007275,
+        "pers_max": 52.92564784356667,
+        "pers_std": 2.3303696121933313,
+        "pers_p90": 3.4093004790658537,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 132324,
+        "pers_mean": 0.22975149824473892,
+        "pers_max": 2.631090871674047,
+        "pers_std": 0.24570507150209622,
+        "pers_p90": 0.5756992254834576,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 72304,
+        "pers_mean": 0.07323306871065369,
+        "pers_max": 0.5590704241176512,
+        "pers_std": 0.06992805136467826,
+        "pers_p90": 0.17180705524644774,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.31874903654662307,
+      "t_s": 12.343850374221802
+    },
+    {
+      "field_idx": 1,
+      "sim_idx": 302,
+      "w0": -1.23985,
+      "field_type": "DM",
+      "H0": {
+        "count": 43264,
+        "pers_mean": 0.5034736815661243,
+        "pers_max": 3.9614025686498544,
+        "pers_std": 0.4720921210545962,
+        "pers_p90": 1.1562211022816533,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 143644,
+        "pers_mean": 0.23658475488312197,
+        "pers_max": 1.5392073083049094,
+        "pers_std": 0.2322524534691468,
+        "pers_p90": 0.577574963224155,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 75022,
+        "pers_mean": 0.09118448883764663,
+        "pers_max": 0.7165909028650588,
+        "pers_std": 0.08749231907301412,
+        "pers_p90": 0.21360144985643129,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.38541996876634654,
+      "t_s": 9.794841766357422
+    },
+    {
+      "field_idx": 1,
+      "sim_idx": 302,
+      "w0": -1.23985,
+      "field_type": "HOD",
+      "H0": {
+        "count": 39011,
+        "pers_mean": 1.2023564041941026,
+        "pers_max": 49.12183210554563,
+        "pers_std": 1.9215565269051536,
+        "pers_p90": 2.8121510007452595,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 135376,
+        "pers_mean": 0.23570114401397374,
+        "pers_max": 1.6008761818843118,
+        "pers_std": 0.2451264643639857,
+        "pers_p90": 0.5878207245326503,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 73330,
+        "pers_mean": 0.07893234996343529,
+        "pers_max": 0.5751521251176319,
+        "pers_std": 0.0751696454131746,
+        "pers_p90": 0.1857992692116714,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.3348831856274559,
+      "t_s": 11.27997350692749
+    },
+    {
+      "field_idx": 2,
+      "sim_idx": 585,
+      "w0": -1.17985,
+      "field_type": "DM",
+      "H0": {
+        "count": 42967,
+        "pers_mean": 0.5455810314847206,
+        "pers_max": 5.006177818613568,
+        "pers_std": 0.5249746781541524,
+        "pers_p90": 1.2722827406169626,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 140996,
+        "pers_mean": 0.24628632051015692,
+        "pers_max": 1.6911639151198055,
+        "pers_std": 0.24705194463937682,
+        "pers_p90": 0.6058559869694446,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 73642,
+        "pers_mean": 0.08680997047458573,
+        "pers_max": 0.811610476329838,
+        "pers_std": 0.08534063372032416,
+        "pers_p90": 0.2031091484133195,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.3524758106530958,
+      "t_s": 9.372793436050415
+    },
+    {
+      "field_idx": 2,
+      "sim_idx": 585,
+      "w0": -1.17985,
+      "field_type": "HOD",
+      "H0": {
+        "count": 39544,
+        "pers_mean": 1.1552385798509455,
+        "pers_max": 30.524977064710953,
+        "pers_std": 1.6448767021620376,
+        "pers_p90": 2.757016848865449,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 133676,
+        "pers_mean": 0.2435496601326149,
+        "pers_max": 2.3673034688459205,
+        "pers_std": 0.25879071999990955,
+        "pers_p90": 0.6086975341875731,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 71617,
+        "pers_mean": 0.07649955529589951,
+        "pers_max": 0.6826007083569956,
+        "pers_std": 0.0746541239354057,
+        "pers_p90": 0.17921768984382755,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.31410249250294514,
+      "t_s": 11.178562641143799
+    },
+    {
+      "field_idx": 3,
+      "sim_idx": 1680,
+      "w0": -1.11985,
+      "field_type": "DM",
+      "H0": {
+        "count": 44946,
+        "pers_mean": 0.7244434632313099,
+        "pers_max": 5.2125399865178785,
+        "pers_std": 0.6847210618184497,
+        "pers_p90": 1.6726824846513724,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 138420,
+        "pers_mean": 0.2952333922729175,
+        "pers_max": 1.8208839135396457,
+        "pers_std": 0.3007198695901443,
+        "pers_p90": 0.7366077003535827,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 72179,
+        "pers_mean": 0.07932739764596929,
+        "pers_max": 0.6294813728565609,
+        "pers_std": 0.07533146178777657,
+        "pers_p90": 0.18415080090985447,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.26869385280320196,
+      "t_s": 9.303756475448608
+    },
+    {
+      "field_idx": 3,
+      "sim_idx": 1680,
+      "w0": -1.11985,
+      "field_type": "HOD",
+      "H0": {
+        "count": 39160,
+        "pers_mean": 1.6310218237495016,
+        "pers_max": 110.77373395736853,
+        "pers_std": 2.996477737552182,
+        "pers_p90": 3.637051719450238,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 132046,
+        "pers_mean": 0.2864367938661859,
+        "pers_max": 2.4901400948254713,
+        "pers_std": 0.30511259290148224,
+        "pers_p90": 0.7236530394545567,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 69507,
+        "pers_mean": 0.06390265523365384,
+        "pers_max": 0.6014747463206951,
+        "pers_std": 0.06194543205321577,
+        "pers_p90": 0.15003270578411013,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.2230951351295571,
+      "t_s": 9.947844743728638
+    },
+    {
+      "field_idx": 4,
+      "sim_idx": 590,
+      "w0": -1.05985,
+      "field_type": "DM",
+      "H0": {
+        "count": 42655,
+        "pers_mean": 0.4889862267781047,
+        "pers_max": 4.645862577125538,
+        "pers_std": 0.4633904908276289,
+        "pers_p90": 1.1311344687865628,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 142477,
+        "pers_mean": 0.22909600364028565,
+        "pers_max": 1.589418291691777,
+        "pers_std": 0.22678766485936236,
+        "pers_p90": 0.5607858407688991,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 74544,
+        "pers_mean": 0.08939028133027631,
+        "pers_max": 0.7914187248866664,
+        "pers_std": 0.0873212492196312,
+        "pers_p90": 0.20965498773908836,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.39018699545118285,
+      "t_s": 9.571951150894165
+    },
+    {
+      "field_idx": 4,
+      "sim_idx": 590,
+      "w0": -1.05985,
+      "field_type": "HOD",
+      "H0": {
+        "count": 38178,
+        "pers_mean": 1.263634139098666,
+        "pers_max": 36.99648947481963,
+        "pers_std": 1.8879671055722882,
+        "pers_p90": 3.096817691929993,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 133277,
+        "pers_mean": 0.22821545808361793,
+        "pers_max": 2.1243028187148307,
+        "pers_std": 0.2441765028534616,
+        "pers_p90": 0.5688303486237912,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 72413,
+        "pers_mean": 0.07472884510723628,
+        "pers_max": 0.6052863618661166,
+        "pers_std": 0.07287794956331842,
+        "pers_p90": 0.17565142732224556,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.3274486563476156,
+      "t_s": 12.513594150543213
+    },
+    {
+      "field_idx": 5,
+      "sim_idx": 173,
+      "w0": -0.99985,
+      "field_type": "DM",
+      "H0": {
+        "count": 43074,
+        "pers_mean": 0.47615118624667035,
+        "pers_max": 3.5926060285042016,
+        "pers_std": 0.4528111661717153,
+        "pers_p90": 1.1020266045229257,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 143793,
+        "pers_mean": 0.22583707421355992,
+        "pers_max": 1.5042039995095209,
+        "pers_std": 0.22210004296717248,
+        "pers_p90": 0.5500942362424759,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 75539,
+        "pers_mean": 0.09096819895177853,
+        "pers_max": 0.6777457041159121,
+        "pers_std": 0.08797951053061262,
+        "pers_p90": 0.21358758172250766,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.40280454070068067,
+      "t_s": 9.77757740020752
+    },
+    {
+      "field_idx": 5,
+      "sim_idx": 173,
+      "w0": -0.99985,
+      "field_type": "HOD",
+      "H0": {
+        "count": 37653,
+        "pers_mean": 1.373444516701255,
+        "pers_max": 39.19466886213233,
+        "pers_std": 2.1226213088884274,
+        "pers_p90": 3.3628253653412687,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 133184,
+        "pers_mean": 0.22498684770321692,
+        "pers_max": 2.6525994001984374,
+        "pers_std": 0.23896928195717823,
+        "pers_p90": 0.5620581252833873,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 72898,
+        "pers_mean": 0.07425864926906535,
+        "pers_max": 0.5477330164989445,
+        "pers_std": 0.07088995997188971,
+        "pers_p90": 0.17427056476513952,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.3300577346059842,
+      "t_s": 12.913480997085571
+    },
+    {
+      "field_idx": 6,
+      "sim_idx": 638,
+      "w0": -0.93985,
+      "field_type": "DM",
+      "H0": {
+        "count": 45221,
+        "pers_mean": 0.8486558398523066,
+        "pers_max": 6.370558585594104,
+        "pers_std": 0.8029109463958066,
+        "pers_p90": 1.94939320244145,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 135707,
+        "pers_mean": 0.31346618063120707,
+        "pers_max": 2.145818401034773,
+        "pers_std": 0.33106106101305,
+        "pers_p90": 0.7986806261957967,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 70436,
+        "pers_mean": 0.07123705683603172,
+        "pers_max": 0.7176387569144245,
+        "pers_std": 0.0705111817773302,
+        "pers_p90": 0.16792224729301175,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.22725595690286637,
+      "t_s": 9.58854055404663
+    },
+    {
+      "field_idx": 6,
+      "sim_idx": 638,
+      "w0": -0.93985,
+      "field_type": "HOD",
+      "H0": {
+        "count": 40618,
+        "pers_mean": 1.5066069012318482,
+        "pers_max": 39.5749755977385,
+        "pers_std": 1.8974302572637023,
+        "pers_p90": 3.5850898292274356,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 129509,
+        "pers_mean": 0.3126344605327791,
+        "pers_max": 2.4570713471523393,
+        "pers_std": 0.33984796519742005,
+        "pers_p90": 0.8019860023137454,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 67268,
+        "pers_mean": 0.05843615323014148,
+        "pers_max": 0.5657607298753639,
+        "pers_std": 0.06068108806381578,
+        "pers_p90": 0.14077772730481522,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.1869152656126165,
+      "t_s": 9.607853412628174
+    },
+    {
+      "field_idx": 7,
+      "sim_idx": 305,
+      "w0": -0.87985,
+      "field_type": "DM",
+      "H0": {
+        "count": 43413,
+        "pers_mean": 0.6150393796977928,
+        "pers_max": 4.9832184978592275,
+        "pers_std": 0.5922007535593603,
+        "pers_p90": 1.424289940730519,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 139001,
+        "pers_mean": 0.2655176225026968,
+        "pers_max": 1.872867755455884,
+        "pers_std": 0.2677933582372493,
+        "pers_p90": 0.6557473914210799,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 72648,
+        "pers_mean": 0.08367982805504387,
+        "pers_max": 0.756197558252127,
+        "pers_std": 0.08178741695929938,
+        "pers_p90": 0.19597580202973638,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.3151573415967671,
+      "t_s": 9.86173415184021
+    },
+    {
+      "field_idx": 7,
+      "sim_idx": 305,
+      "w0": -0.87985,
+      "field_type": "HOD",
+      "H0": {
+        "count": 40181,
+        "pers_mean": 1.1684596429015186,
+        "pers_max": 27.738867604908066,
+        "pers_std": 1.4971047834784146,
+        "pers_p90": 2.7673495608004086,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 132675,
+        "pers_mean": 0.25978158094724524,
+        "pers_max": 2.178736955009553,
+        "pers_std": 0.2763623727522579,
+        "pers_p90": 0.6513331686620424,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 71173,
+        "pers_mean": 0.07397669333936151,
+        "pers_max": 0.6649920806065618,
+        "pers_std": 0.07215996142578515,
+        "pers_p90": 0.17412578485973979,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.2847649670527804,
+      "t_s": 11.092291593551636
+    },
+    {
+      "field_idx": 8,
+      "sim_idx": 1853,
+      "w0": -0.81985,
+      "field_type": "DM",
+      "H0": {
+        "count": 42343,
+        "pers_mean": 0.40526813185663746,
+        "pers_max": 3.1304764307691415,
+        "pers_std": 0.3801442084763547,
+        "pers_p90": 0.9321879925794391,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 144322,
+        "pers_mean": 0.2003969964446527,
+        "pers_max": 1.1902541411872625,
+        "pers_std": 0.19682281477200894,
+        "pers_p90": 0.48902847061261434,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 76645,
+        "pers_mean": 0.09253991185430481,
+        "pers_max": 0.6352278518231368,
+        "pers_std": 0.09042832191138422,
+        "pers_p90": 0.2192292736048925,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.46178292836770757,
+      "t_s": 12.286242961883545
+    },
+    {
+      "field_idx": 8,
+      "sim_idx": 1853,
+      "w0": -0.81985,
+      "field_type": "HOD",
+      "H0": {
+        "count": 38621,
+        "pers_mean": 1.066607790803196,
+        "pers_max": 26.254067705080562,
+        "pers_std": 1.4579148166150986,
+        "pers_p90": 2.638758862653631,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 135135,
+        "pers_mean": 0.21229569222926906,
+        "pers_max": 1.603672271925744,
+        "pers_std": 0.2207705012929303,
+        "pers_p90": 0.527987383723265,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 73687,
+        "pers_mean": 0.07938706341340276,
+        "pers_max": 0.5277608398569021,
+        "pers_std": 0.07605657457548343,
+        "pers_p90": 0.1873624872260078,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.3739457102486497,
+      "t_s": 19.48341131210327
+    },
+    {
+      "field_idx": 9,
+      "sim_idx": 1142,
+      "w0": -0.75985,
+      "field_type": "DM",
+      "H0": {
+        "count": 42526,
+        "pers_mean": 0.4555162708301539,
+        "pers_max": 3.733501322818576,
+        "pers_std": 0.42964438885349143,
+        "pers_p90": 1.0505627283301848,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 143774,
+        "pers_mean": 0.21905303337731588,
+        "pers_max": 1.3097711770337683,
+        "pers_std": 0.2151849085644823,
+        "pers_p90": 0.5331577460739937,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 75173,
+        "pers_mean": 0.09155797023309756,
+        "pers_max": 0.7403673251886539,
+        "pers_std": 0.08878738923289035,
+        "pers_p90": 0.214785569797501,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.41797170676650797,
+      "t_s": 13.221725463867188
+    },
+    {
+      "field_idx": 9,
+      "sim_idx": 1142,
+      "w0": -0.75985,
+      "field_type": "HOD",
+      "H0": {
+        "count": 39032,
+        "pers_mean": 1.082492254094515,
+        "pers_max": 26.86335739593241,
+        "pers_std": 1.460191927606439,
+        "pers_p90": 2.626811532558389,
+        "all_zero": false
+      },
+      "H1": {
+        "count": 134662,
+        "pers_mean": 0.22511068826361894,
+        "pers_max": 1.9873813439111099,
+        "pers_std": 0.23620311002264177,
+        "pers_p90": 0.5602225010509845,
+        "all_zero": false
+      },
+      "H2": {
+        "count": 73312,
+        "pers_mean": 0.07829018238556307,
+        "pers_max": 0.6018447690397335,
+        "pers_std": 0.07486233413241533,
+        "pers_p90": 0.18432044095520447,
+        "all_zero": false
+      },
+      "noise_ratio_H2_over_H1": 0.3477852739443464,
+      "t_s": 16.001317739486694
+    }
+  ],
+  "t_total_min": 4.606211340427398,
+  "traceability": {
+    "pipeline_source": "src/phase5_hod_b3.py (compute_tda_features esteso con dim=2)",
+    "gudhi_method": "CubicalComplex.persistence_intervals_in_dimension(2)",
+    "sigma_px_source": "phase7_nomenclature_lock.json -> sigma_px=0.640",
+    "paper_section": "Discussion/Limitations Paper B"
+  }
+}

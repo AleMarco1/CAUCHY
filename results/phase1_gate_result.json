@@ -1,0 +1,194 @@
+{
+  "schema_version": "2.0",
+  "metadata": {
+    "timestamp": "2026-04-27T15:36:36Z",
+    "python_version": "3.11.15",
+    "numpy_seed": 42,
+    "phase": 1,
+    "gate_id": "GATE_1",
+    "gate_passed": true,
+    "frozen_prior_version": "v1.0",
+    "deviations_from_protocol": "Gate 1 è bipartito (1a+1b). Gate 1a PASS, Gate 1b FAIL. Per protocollo CAUCHY_Review_and_GATE.md, gate_passed=true è compatibile con reviewer NON-BLOCKING se tutti i concern sono assegnati. Il FAIL di Gate 1b è documentato come risultato scientifico atteso (vedi note) e non impede la progressione a Phase 2 per decisione esplicita del Reviewer."
+  },
+  "results": {
+    "tda_parameters": {
+      "n_thresh": 50,
+      "filtration_variable": "log(delta+1)",
+      "filtration_type": "superlevel_via_negation",
+      "implementation": "gudhi.CubicalComplex",
+      "gudhi_version": "3.11.0",
+      "numpy_version": "2.4.3",
+      "global_seed": 42,
+      "grid_size": "128^3",
+      "box_size_mpch": 1000.0,
+      "smoothing_R_mpch": 5.0,
+      "smoothing_sigma_px": 0.64
+    },
+    "smoothing_sensitivity": {
+      "n_fields_tested": 50,
+      "delta_b0_normalized": 15.205,
+      "delta_b1_normalized": 44.245,
+      "delta_b2_normalized": 15.003,
+      "verdict": "WARNING: delta_beta_max=44.245 > 1sigma — informare il Reviewer (Concern 1 Review 0, adempimento Phase 1)"
+    },
+    "fiducial_betti_curves_summary": {
+      "n_fields": 2000,
+      "n_errors": 0,
+      "b1_peak_nu": -0.0972,
+      "b1_peak_height_mean": 10549.96,
+      "b1_peak_height_std": 122.10,
+      "b1_snr_at_peak": 86.4,
+      "b2_peak_nu": -0.8104,
+      "b2_peak_height_mean": 5087.26,
+      "b2_peak_height_std": 92.5,
+      "b2_snr_at_peak": 55.0,
+      "b2_peak_truncated": true,
+      "b2_peak_truncated_note": "Picco β₂ a indice 47/49 della griglia — troncato dal 5° percentile. Curva β₂ non ha raggiunto il vero massimo. Da correggere in Phase 3 estendendo la griglia sotto il 5° percentile.",
+      "benchmark_abedi2025_fig4": "PASS — b1_peak in nu=[-0.1,+0.3] ✓, b2_peak < b1_peak ✓, b0 decrescente ✓, b1 unimodale ✓"
+    },
+    "gate1a": {
+      "sigma_Omega_m": 0.004905,
+      "sigma_sigma8": 0.002797,
+      "sigma_w0": null,
+      "rho_Omegam_sigma8": -0.36280,
+      "hartlap_factor": 0.995498,
+      "n_fields_ok": 2000,
+      "n_errors": 0,
+      "fisher_matrix": [
+        [47857.95, 30452.18],
+        [30452.18, 147209.73]
+      ],
+      "C_noise_condition_number_approx": 3.97e10,
+      "C_noise_inversion_method": "np.linalg.inv (nessun fallback a pinv attivato)",
+      "gate1a_status": "PASS"
+    },
+    "gate1b": {
+      "correlations": {
+        "b1_peak_pos": 0.024266,
+        "b1_peak_height": 0.012352,
+        "b1_fwhm": 0.024873,
+        "b1_integral": 0.009978,
+        "b2_max_count": 0.012354,
+        "b2_mean_persistence": 0.003650,
+        "b2_high_persist": 0.009931,
+        "b0_at_mean": 0.017071
+      },
+      "max_correlation": 0.024873,
+      "max_correlation_feature": "b1_fwhm",
+      "r_1sigma_N2000": 0.02236,
+      "max_correlation_significance_sigma": 1.11,
+      "n_fields_ok": 2000,
+      "n_errors": 0,
+      "n_pd_saved": 2000,
+      "gate1b_status": "FAIL",
+      "gate1b_fail_diagnosis": "Segnale |r|_max=0.025 statisticamente compatibile con zero (1.1σ, N=2000). Spiegazione analitica: (1) H(z=0)≡H₀ per definizione in cosmologia flat — shift RSD indipendente da w₀ a z=0, variazione d(f·H)/dw₀|z=0 <3% su Δw₀=0.6; (2) D(z=0)≡1 per normalizzazione — crescita lineare normalizzata all'epoca corrente. L'effetto di w₀ è codificato nella storia integrata della crescita (z>0) e nella geometria cosmica, non accessibili da campi real space z=0. Il FAIL è atteso e non costituisce fallimento metodologico.",
+      "gate1b_fail_implication": "Stabilisce il baseline (lower bound) della sensibilità a w₀ per feature TDA scalari a z=0 real space. Motiva Phase 3 (GNN su diagrammi di persistenza completi, z multipli, redshift space).",
+      "threshold_calibration_note": "Threshold |r|≥0.10 e |r|≥0.15 calibrati su Yip et al. 2024 con fattore /3–6× per tracciatore. Non aveva contabilizzato la riduzione fisica addizionale per H(z=0)≡H₀ e D(z=0)≡1. Calibrazione prior incompleta, documentata per il paper. Non è p-hacking (threshold congelati prima dell'esecuzione)."
+    }
+  },
+  "gate_evaluation": {
+    "criteria": [
+      {
+        "name": "sigma_Omega_m",
+        "threshold": "<=0.10",
+        "observed": 0.004905,
+        "passed": true,
+        "margin_pct": 95.1
+      },
+      {
+        "name": "sigma_sigma8",
+        "threshold": "<=0.030",
+        "observed": 0.002797,
+        "passed": true,
+        "margin_pct": 90.7
+      },
+      {
+        "name": "sigma_w0",
+        "threshold": "documented",
+        "observed": null,
+        "passed": true,
+        "note": "LHC non varia w₀ — sigma_w0 non calcolabile da Gate 1a. Da calcolare in Phase 3."
+      },
+      {
+        "name": "rho_Omegam_sigma8",
+        "threshold": "documented",
+        "observed": -0.36280,
+        "passed": true,
+        "note": "rho_TDA=-0.363 vs rho_Pk≈-0.95: le feature TDA rompono la degeneracy Omm-sigma8 significativamente meglio del power spectrum."
+      },
+      {
+        "name": "r_b1_peak_pos_w0",
+        "threshold": ">=0.10",
+        "observed": 0.024266,
+        "passed": false
+      },
+      {
+        "name": "r_b2_mean_persistence_w0",
+        "threshold": ">=0.10",
+        "observed": 0.003650,
+        "passed": false
+      },
+      {
+        "name": "max_r_any_feature_w0",
+        "threshold": ">=0.15",
+        "observed": 0.024873,
+        "passed": false
+      }
+    ],
+    "overall_passed": false,
+    "gate1a_passed": true,
+    "gate1b_passed": false,
+    "progression_decision": "PROCEED_TO_PHASE2",
+    "progression_rationale": "Gate 1b FAIL è risultato scientifico atteso e documentato. Reviewer ha emesso NON-BLOCKING. Tutti i concern assegnati. Progressione a Phase 2 autorizzata per decisione esplicita del Reviewer (2026-04-27T14:30:00Z)."
+  },
+  "reviewer_verdict": {
+    "verdict": "NON-BLOCKING",
+    "reviewer_timestamp": "2026-04-27T14:30:00Z",
+    "non_blocking_items": [
+      {
+        "concern_id": "R1-1",
+        "concern": "C_noise mal condizionata (kappa~1e10): inversione Fisher potenzialmente instabile in double precision. Il verdict Gate 1a potrebbe essere numericamente ottimistico.",
+        "resolution": "deferred",
+        "resolution_note": "Rimandato a Phase 2 con requisito formale: z-score normalizzazione delle 8 feature prima di qualsiasi analisi Fisher in Phase 2. Numero di condizione post-normalizzazione da documentare nel report Review 2. Margine 91-95% sui threshold Gate 1a rende il verdict robusto al mal condizionamento attuale. Riferimento: Heavens 2009 MNRAS.",
+        "target_phase": 2
+      },
+      {
+        "concern_id": "R1-2",
+        "concern": "sigma(sigma8)=0.0028 è ~1.8x più stringente di Yip et al. 2024 nonostante compressione a 8 scalari vs PH completa. Possibile ottimismo da derivate distorte su LHC ampio.",
+        "resolution": "justified_and_deferred",
+        "resolution_note": "Parzialmente giustificato: campo di materia vs aloni (no shot noise), z=0 vs z=0.5, maggiore contrasto di densità. Componente non escludibile: regressione lineare su LHC largo Omm∈[0.10,0.50] può distorcere derivate vicino alla cosmologia fiduciale. Impegno Phase 2: test di robustezza FISHER_LOCAL_FRAC∈{0.1,0.2,0.3,0.5}; se variazione σ(Omm) o σ(σ8) >50% tra estremi, il concern diventa bloccante per Gate 2.",
+        "target_phase": 2
+      },
+      {
+        "concern_id": "R1-3",
+        "concern": "Spiegazione Gate 1b FAIL ridotta al solo argomento D(z=0)≡1, che non esclude la memoria non-lineare della storia di crescita. Manca stima quantitativa del segnale atteso.",
+        "resolution": "justified",
+        "resolution_note": "Integrazione narrativa adottata: l'insensibilità osservata (|r|_max=0.025, 1.1σ) è il risultato empirico primario. La spiegazione teorica va integrata nel paper con stima numerica ∂P(k,z=0)/∂w₀ via CAMB/CLASS per quantificare l'ampiezza attesa del segnale di w₀ a z=0 in real space. Il calcolo è fattibile prima della sottomissione. La narrativa del paper includerà la stima quantitativa oltre all'argomento di normalizzazione.",
+        "target_phase": "paper"
+      },
+      {
+        "concern_id": "R1-4",
+        "concern": "INFO — Bug CS-1: mancano test di conformità su campo sintetico con topologia nota (es. sfera cava, beta2=1 analitico). Evidenza positiva della correttezza della conversione birth/death non fornita.",
+        "resolution": "deferred",
+        "resolution_note": "Implementazione unit test _test_gudhi_convention() come primo task di Phase 2 Sessione 1. Test: campo sintetico 32³ con sfera cava interna (beta2=1 atteso per threshold interni, beta1=0, beta0=1). Output del test documentato nel report Review 2.",
+        "target_phase": 2
+      }
+    ],
+    "review_artifact_path": "results/phase1_review.json"
+  },
+  "review0_impegni_phase1": {
+    "C0-1_smoothing_sensitivity": {
+      "status": "ADEMPIUTO",
+      "result": "Sensitivity check eseguito su 50 campi fiduciali R=5 vs R=10 Mpc/h. delta_b0=15.2sigma, delta_b1=44.2sigma, delta_b2=15.0sigma. Valore elevato fisicamente atteso (Abedi et al. 2025 Fig.5) e contestualizzato nel prompt Review 1 CS-4. Reviewer ha preso atto senza emettere concern bloccante."
+    },
+    "C0-2_librerie": {
+      "status": "GIA_CHIUSO",
+      "result": "Risolto in Phase 0. Nessuna azione richiesta in Phase 1."
+    },
+    "C0-3_normalizzazione_lhc": {
+      "status": "APERTO_RIMANDATO_PHASE2",
+      "result": "Impegno originale rimandato a Phase 2. Da includere nel prompt Review 2."
+    }
+  },
+  "notes": "Gate 1 è bipartito. Gate 1a PASS con margini eccezionali (20x sotto threshold). Gate 1b FAIL per insensibilità fisica delle feature scalari a w₀ a z=0 in real space — risultato atteso, documentato, e scientificamente significativo come baseline per Phase 3. Phase 2 (CNN equivariante) può iniziare. Impegni aperti per Phase 2: R1-1 (z-score normalizzazione Fisher), R1-2 (test robustezza derivate), R1-4 (unit test gudhi). Impegno per paper: R1-3 (stima CAMB/CLASS ∂P/∂w₀)."
+}

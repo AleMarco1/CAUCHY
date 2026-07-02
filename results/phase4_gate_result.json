@@ -1,0 +1,237 @@
+{
+  "schema_version": "2.0",
+  "metadata": {
+    "timestamp": "2026-05-02T12:30:00Z",
+    "phase": 4,
+    "gate_id": "GATE_4",
+    "gate_passed": true,
+    "gate_outcome": "FAIL_NEGATIVE",
+    "gate_outcome_note": "FAIL_NEGATIVE e' un esito valido per Gate 4 per esplicita previsione di Methodology §4.3. Il gate si chiude positivamente (gate_passed=true) perche' il risultato negativo e' documentato con interpretazione fisica.",
+    "frozen_prior_version": "v1.0",
+    "reviewer_verdict": "NON-BLOCKING",
+    "deviations_from_protocol": "Nessuna deviazione dal protocollo in Phase 4. Gli impegni R3-1, R3-2, R3-3 (prerequisiti obbligatori) sono stati completati prima dell'avvio del SR, come prescritto. La calibrazione del parsimony_coefficient e' stata eseguita su 3 run pilota a 300 iterazioni anziche' sul run completo a 1000 iterazioni — scelta documentata e difendibile data l'assenza di segnale (risultato identico a qualsiasi parsimony testato)."
+  },
+
+  "prerequisites_apertura": {
+    "R3_1_corrected_correlations": {
+      "r_yhat_Omm_vs_Omm_true": 0.8930211663246155,
+      "p_yhat_Omm": 0.0,
+      "r_yhat_s8_vs_s8_true": 0.9182219505310059,
+      "p_yhat_s8": 0.0,
+      "r2_Omm": 0.7974867820739746,
+      "r2_s8": 0.8431315422058105,
+      "method": "r(Linear(j*), y_true) — Linear fit su 1600 LHC train seed=42, test su 400 held-out",
+      "verdict": "CHIUSO — valori confermano Gate 3, segnale non artefatto da test multiplo",
+      "script": "src/phase4_opening.py"
+    },
+    "R3_2_variance_added_equivalent": {
+      "r_ramoA_Ridge_Omm": 0.8880521655082703,
+      "r_ramoA_Ridge_s8": 0.9936367869377136,
+      "r2_ramoA_Omm": 0.7886366248130798,
+      "r2_ramoA_s8": 0.9873140454292297,
+      "r2_ramoB_mean": 0.8203091621398926,
+      "r2_ramoA_mean": 0.8879753351211548,
+      "variance_added_equivalent_pct": -7.62027645111084,
+      "method": "Ridge(alpha=1.0) su 8 feature TDA, stesso test set 400 LHC seed=42, stessa statistica r(yhat,ytrue)",
+      "interpretation": "Ramo B inferiore al Ramo A come predittore aggregato di (Omm, sigma8). Il Ramo A domina su sigma8 (R2=0.987) per correlazione strutturale tra feature beta1 e sigma8 a z=0. Il Ramo B non e' progettato per battere il Ramo A su (Omm, sigma8) — il suo target e' w0. Questo risultato e' documentato come da impegno R3-2 e riportato nel paper con interpretazione fisica (Concern 2 Reviewer: il valore scientifico del Ramo B e' interamente prospettico, contingente a Phase 5-6).",
+      "verdict": "CHIUSO — risultato documentato con interpretazione fisica",
+      "script": "src/phase4_opening.py"
+    },
+    "R3_3_mmd_w0": {
+      "mmd_stat": 1.0311603546142578e-05,
+      "mmd_pvalue": 0.34865134865134867,
+      "n_permutations": 1000,
+      "kernel": "RBF",
+      "kernel_bandwidth": 0.797784686088562,
+      "n_fields_w0_low": 1000,
+      "n_fields_w0_high": 1000,
+      "w0_threshold": -1.0,
+      "verdict": "NON_SIGNIFICATIVO",
+      "max_abs_r_jstar_w0": 0.04028135538101196,
+      "max_abs_r_component_index": 17,
+      "interpretation": "j* non mostra separazione distribuzionale su w0. Atteso: j* addestrato su (Omm, sigma8), non su w0. Confermato da max|r(j*_k, w0)|=0.040 < soglia rumore.",
+      "verdict_gate": "CHIUSO — prerequisito soddisfatto, segnale assente documentato",
+      "script": "src/phase4_opening.py"
+    }
+  },
+
+  "sr_configuration": {
+    "library": "PySR",
+    "julia_version": "1.12.5",
+    "binary_operators": ["+", "-", "*", "/"],
+    "unary_operators": ["square", "cube", "sqrt", "log", "exp", "abs"],
+    "maxsize": 20,
+    "parsimony_coeff": 0.001,
+    "parsimony_calibration": "3 run pilota a 300 iterazioni con parsimony in {0.001, 0.005, 0.010}. Tutti producono R2_test in [-0.030, +0.001] a complessita'=7. parsimony=0.001 scelto come valore piu' permissivo (massima esplorazione).",
+    "n_iterations_per_run": 1000,
+    "n_runs": 20,
+    "seed_formula": "42 + i * 100 per i in 0..19",
+    "parallelism": "serial",
+    "deterministic": true,
+    "model_selection": "best (AIC/BIC)",
+    "feature_preprocessing": "Z-score su train set (mu e sigma calcolati su 1600 train, applicati identicamente a train e test)",
+    "preprocessing_mean": [-0.1252908706665039, 16024.2724609375, 0.7421644330024719, 12654.5703125, 7822.44140625, 0.12349636107683182, 2303.86962890625, 899.0349731445312],
+    "preprocessing_std": [0.052553270012140274, 4584.7880859375, 0.13039612770080566, 2765.962646484375, 2062.6953125, 0.018977930769324303, 521.2098999023438, 166.5804443359375]
+  },
+
+  "feature_correlations_w0_train": {
+    "b1_peak_pos": 0.0066,
+    "b1_peak_height": 0.0069,
+    "b1_fwhm": 0.0133,
+    "b1_integral": 0.0082,
+    "b2_max_count": 0.0075,
+    "b2_mean_persistence": 0.0028,
+    "b2_high_persist": 0.0071,
+    "b0_at_mean": 0.0055,
+    "max_abs_r": 0.0133,
+    "note": "Tutte le correlazioni lineari feature-w0 sono al livello del rumore. Coerente con Gate 1b e R3-3."
+  },
+
+  "sr_results": {
+    "n_runs_total": 20,
+    "n_runs_successful": 20,
+    "r2_max_all_runs": 0.006191038723583064,
+    "r2_max_run_idx": 18,
+    "r2_median_all_runs": -0.01,
+    "dominant_expression_form": "C0 + C1 / (feature - C2) con C0 approx -1.001, C1 approx 1e-3",
+    "dominant_expression_interpretation": "PySR ha trovato il predittore ottimale in assenza di segnale: la media di w0 (-1.001) con piccole correzioni da singole feature. C1 ~ 1e-3 e' tre ordini di grandezza inferiore al range di w0 (0.60). Non c'e' segnale fisico.",
+    "expression_histogram_top5": [
+      {"canonical": "# - #/(# - b1_peak_pos)", "frequency": 3, "frequency_pct": 15.0, "r2_test_max": -0.007},
+      {"canonical": "# + #/(b1_peak_pos - #)", "frequency": 2, "frequency_pct": 10.0, "r2_test_max": -0.026},
+      {"canonical": "-#*# - #/(# - b1_peak_pos)", "frequency": 2, "frequency_pct": 10.0, "r2_test_max": -0.030},
+      {"canonical": "# + #/(b2_high_persist - #)", "frequency": 2, "frequency_pct": 10.0, "r2_test_max": -0.001},
+      {"canonical": "11 forme singolari (freq=1 ciascuna)", "frequency": 1, "frequency_pct": 5.0, "r2_test_max": 0.006}
+    ],
+    "stability_max": "3/20 (15%) — soglia >=10/20 (50%) non raggiunta",
+    "output_file": "results/phase4_sr_expressions.json",
+    "runs_dir": "results/phase4_sr_runs/"
+  },
+
+  "gate_evaluation": {
+    "criteria": [
+      {
+        "name": "stabilita_espressione",
+        "threshold": ">=10/20 run (50%)",
+        "observed": "3/20 (15%)",
+        "passed": false,
+        "authority": "CAUCHY_Execution_Parameters §6 — Methodology §4.3"
+      },
+      {
+        "name": "r2_test_minima",
+        "threshold": 0.50,
+        "observed": 0.006191038723583064,
+        "passed": false,
+        "authority": "CAUCHY_Execution_Parameters §6"
+      },
+      {
+        "name": "r2_test_forte",
+        "threshold": 0.70,
+        "observed": 0.006191038723583064,
+        "passed": false,
+        "authority": "CAUCHY_Execution_Parameters §6"
+      },
+      {
+        "name": "risultato_negativo_documentato",
+        "threshold": "documentazione esplicita con interpretazione fisica",
+        "observed": "presente — interpretazione fisica in physical_interpretation",
+        "passed": true,
+        "authority": "CAUCHY_Execution_Parameters §6 — Methodology §4.3"
+      },
+      {
+        "name": "reviewer_verdict",
+        "threshold": "PROCEED_OR_NON_BLOCKING",
+        "observed": "NON-BLOCKING",
+        "passed": true
+      }
+    ],
+    "overall_passed": true,
+    "overall_outcome": "FAIL_NEGATIVE — gate chiuso come da Methodology §4.3"
+  },
+
+  "physical_interpretation": "Nessuna espressione analitica stabile (R2>=0.50, freq>=10/20) trovata. La relazione tra feature TDA (Ramo A, 8 scalari) e w0 non e' algebricamente semplice a z=0. Fisicamente atteso: H(z=0)=H0 per definizione e D(z=0)=1 per normalizzazione rendono l'effetto di w0 sulla struttura a grande scala a z=0 non distinguibile dalla degenerazione con H0 e A_s. Questo e' il terzo test indipendente che converge sulla stessa conclusione (Gate 1b, R3-3 MMD, SR). Phase 5 (z=0.5/1.0/2.0, redshift space) e' fisicamente motivata perche' a z>0: D(z)!=1, H(z) porta memoria integrale di w(z), e i termini RSD amplificano il contrasto tra cosmologie con w0 diverso.",
+
+  "reviewer_verdict": {
+    "verdict": "NON-BLOCKING",
+    "review_timestamp": "2026-05-02T12:30:00Z",
+    "non_blocking_items": [
+      {
+        "concern_id": "R4-1",
+        "severity": "non_blocking",
+        "concern": "Calibrazione parsimony su 3 run pilota a 300 iterazioni (30% del run completo) non e' sufficiente per escludere formalmente che espressioni piu' complesse (maxsize>20) nascondano segnale debole.",
+        "resolution": "documentare_nel_paper",
+        "resolution_note": "Il paper deve dichiarare esplicitamente: (a) perche' e' stato scelto il limite inferiore del range parsimony testato; (b) che la scelta non e' stata guidata da run con segnale (segnale assente a priori per ragioni fisiche); (c) che maxsize=20 e' coerente con la letteratura PySR per problemi fisici. Con R2_max=0.006 e segnale fisico atteso a livello di rumore, questo concern non ha impatto pratico.",
+        "target_phase": "pre_submission"
+      },
+      {
+        "concern_id": "R4-2",
+        "severity": "non_blocking",
+        "concern": "Il risultato R3-2 (-7.6% varianza aggiuntiva) deve essere riportato nel paper con il suo pieno significato: il Ramo B e' sistematicamente inferiore al Ramo A su (Omm, sigma8) e produce segnale nullo su w0 a z=0. Il valore scientifico del Ramo B e' interamente prospettico.",
+        "resolution": "documentare_nel_paper",
+        "resolution_note": "Il paper deve dichiarare esplicitamente che il contributo del Ramo B e' contingente al successo di Phase 5-6 su osservabili a z>0. La narrativa 'il Ramo B non e' progettato per battere il Ramo A su (Omm, sigma8)' e' corretta ma insufficiente senza questa qualifica prospettica.",
+        "target_phase": "pre_submission"
+      }
+    ],
+    "info_items": [
+      {
+        "concern_id": "R4-3",
+        "severity": "info",
+        "concern": "Il test R3-3 MMD usa split binario (w0<-1 vs w0>=-1) ma non testa dipendenza continua di j* da w0 in [−1.30, −0.70]. Un test Spearman su w0 come variabile continua potrebbe rilevare correlazioni non lineari nella gamma phantom.",
+        "resolution": "considerare_per_paper",
+        "resolution_note": "Con N=2000 e Bonferroni su 32 test, soglia di rilevabilita' e' |r_Spearman|>0.074 vs max|r|=0.040 osservato. Il test aggiuntivo e' computazionalmente banale ma fisicamente non prioritario dato il risultato MMD. Considerare come nota a pie' di pagina nel paper.",
+        "target_phase": "pre_submission"
+      }
+    ],
+    "oc_findings": {
+      "OC1": {
+        "applicability": "ALTA",
+        "finding": "OC-1 rimandato a pre-submission. NUOVO: R2(sigma8)=0.987 del Ramo A solleva la questione se questa predittivita' sia artefatto del range LHC ampio (sigma8 in [0.60, 1.00]). Il benchmark vs P(k) e' necessario anche per validare R2(sigma8)=0.987, non solo per il claim della PH. Priorita' OC-1 elevata da 'alta' a 'critica'.",
+        "priority_update": "CRITICA — da completare prima della sottomissione"
+      },
+      "OC2": {"applicability": "BASSA", "finding": "Phase 4 produce risultato negativo, OC-2 irrilevante. Riprende a Phase 5."},
+      "OC3": {"applicability": "BASSA", "finding": "Non applicabile — materia oscura pura."},
+      "OC4": {"applicability": "ALTA", "finding": "Nessuna evidenza di p-hacking. Threshold frozen, seed deterministici, FAIL_NEGATIVE con R2_max=0.006 distante da qualsiasi soglia. Il risultato negativo e' genuino."},
+      "OC5": {"applicability": "MEDIA", "finding": "Feature beta2 mostrano |r(feature, w0)|<=0.013 come beta1. Ablation R3-5 produrrebbe risultati identicamente nulli per entrambi a z=0. Riprende a Phase 5."}
+    }
+  },
+
+  "impegni_aperti_phase5": [
+    {
+      "id": "R4-1_presubmission",
+      "descrizione": "Documentare nel paper la scelta di parsimony=0.001 e maxsize=20: motivazione, assenza di guida da segnale, confronto con letteratura PySR.",
+      "gate": "pre_submission",
+      "priorita": "normale"
+    },
+    {
+      "id": "R4-2_presubmission",
+      "descrizione": "Dichiarare nel paper che il valore scientifico del Ramo B e' interamente prospettico (contingente a Phase 5-6). Non occultare il -7.6% R3-2 nella metrica aggregata.",
+      "gate": "pre_submission",
+      "priorita": "alta"
+    },
+    {
+      "id": "R4-3_presubmission",
+      "descrizione": "Valutare aggiunta test Spearman j* vs w0 continuo come nota a pie' di pagina. Soglia rilevabilita' |r|>0.074 vs osservato 0.040 — probabile negativo ma informativo.",
+      "gate": "pre_submission",
+      "priorita": "bassa"
+    },
+    {
+      "id": "OC1_CRITICO_presubmission",
+      "descrizione": "Benchmark GNN vs regressore su P(k): stesso test set 400 campi LHC, stessa statistica r(yhat,ytrue). Necessario anche per validare R2(sigma8)=0.987 del Ramo A — non solo per claim PH vs P(k). Priorita' elevata a CRITICA dal Reviewer Phase 4.",
+      "gate": "pre_submission",
+      "priorita": "critica"
+    },
+    {
+      "id": "R3_5_presubmission",
+      "descrizione": "Ablation beta1-only vs beta1+beta2 su j*. Diventa rilevante a Phase 5 dove il segnale e' atteso.",
+      "gate": "pre_submission",
+      "priorita": "normale"
+    },
+    {
+      "id": "R3_4_NA",
+      "descrizione": "Monitoring attivazioni j* nel training loop: non applicabile a Phase 4 (no retraining GNN). Applicare se Phase 5-6 richiede retraining.",
+      "gate": "N/A_phase4",
+      "priorita": "bassa"
+    }
+  ],
+
+  "notes": "Gate 4 chiuso come FAIL_NEGATIVE. Il risultato negativo e' scientificamente valido e fisicamente atteso. Phase 5 (z multipli, redshift space) e' autorizzata. Il checkpoint GNN e i grafi topologici rimangono invariati — nessun retraining eseguito in Phase 4. Output SR: results/phase4_sr_expressions.json, runs in results/phase4_sr_runs/ (20 file JSON + 3 pilota)."
+}

@@ -1,0 +1,77 @@
+CAUCHY REVIEW — PHASE 5
+Timestamp: 2026-05-06T14:00:00Z
+Verdict: BLOCKING
+
+---
+
+RAGIONAMENTO COMPLESSIVO
+
+Phase 5 produce il primo risultato positivo dell'intera pipeline CAUCHY: σ=3.69σ (HOD deterministico, b2_mean_persistence) e σ=3.08σ (controllo n_gal). Questo è scientificamente significativo e costituirebbe un risultato pubblicabile su una rivista di primo livello — ma solo se il trattamento HOD fosse conforme alle specifiche metodologiche proprie. Non lo è, e questa non conformità è il motivo del BLOCKING.
+
+Il problema centrale è che il risultato principale (3.69σ) è prodotto da un HOD fisso deterministico a 5 parametri, mentre il Methodology §5.2 e l'Execution Design §5.6 specificano esplicitamente "HOD AbacusSummit 9 parametri con marginalizzazione MCMC" come vincolo hard. Questa specifica non era arbitraria: era la lezione diretta di un errore metodologico precedente (versione v3.x), documentato nel progetto, in cui un HOD fisso aveva assorbito il segnale w₀. Il PI conosce questa storia. Il run parallelo di marginalizzazione HOD (Run A, K=10 forward sampling) ha mostrato σ_A=0.66σ vs σ_B3=2.10σ sugli stessi indici — una differenza di fattore ~3 sul segnale. Questo non dimostra che il segnale di 3.69σ sia falso; dimostra che la marginalizzazione HOD diluisce il segnale. La domanda scientifica rilevante — quanta di quella diluizione è dovuta a marginalizzazione corretta vs perdita di potere statistico per campionamento insufficiente del prior HOD — non è risolta con K=10 forward samples.
+
+Un referee di Nature Astronomy che vede "σ=3.69σ con HOD fisso" e nella sezione metodi legge "abbiamo eseguito un test di marginalizzazione che ha ridotto il segnale a 0.66σ" rigetterà il paper senza ulteriore review. Il controllo per n_gal (T4, σ=3.08σ) non è un sostituto della marginalizzazione HOD: n_gal è la densità media per campo, invariante rispetto alla distribuzione spaziale dei satelliti che è modulata dai parametri HOD liberi. La struttura topologica dei filamenti e delle sfere vuote (β₁, β₂) è sensibile proprio alla distribuzione spaziale dei satelliti, non alla densità media.
+
+Il percorso di uscita dal BLOCKING è identificabile: la marginalizzazione HOD con K sufficientemente grande (l'ordine di grandezza standard nella letteratura SBI per HOD è K=50–200 per problemi con 5–9 parametri) deve produrre σ≥2.0σ per la citabilità in un paper di primo livello. Con K=10 il PI ha già un'indicazione di dove il segnale cade dopo marginalizzazione — deve verificare se cade sopra o sotto questa soglia con campionamento affidabile.
+
+La citabilità di σ=3.69σ è condizionale: condizionale alla dimostrazione che il segnale resiste a marginalizzazione HOD robusta. Se resiste (σ≥2.0σ dopo MCMC o forward sampling K≥50), il risultato è pubblicabile. Se non resiste, il risultato principale di CAUCHY è il Ramo A a z=0 con σ_conservativo=3.08σ su campi di materia oscura pura — un risultato significativo ma con qualifiche importanti.
+
+Gli altri concerns (Ramo B negativo, OC-1 parzialmente chiuso, cronologia Phase 5bis) sono non-bloccanti per le ragioni esposte sotto, ma devono essere risolti prima della sottomissione.
+
+---
+
+CONCERNS
+
+1. BLOCKING
+Concern: Il risultato principale σ=3.69σ (e σ=3.08σ controllo n_gal) proviene da HOD deterministico Zheng 2007 a 5 parametri con parametri fissati. Questo viola direttamente il vincolo hard specificato nel Methodology §5.2 e nell'Execution Design §5.6 ("HOD AbacusSummit 9 parametri con marginalizzazione MCMC"). Il run parallelo Run A con K=10 forward samples produce σ_A(b2)=0.66σ sugli stessi campi — fattore ~3 di riduzione. Con K=10 forward samples il campionamento del prior HOD è insufficiente per qualsiasi stima affidabile della sensitività marginale: la varianza di σ_A su K=10 samples da una distribuzione HOD a 5–9 parametri è dell'ordine di grandezza di σ_A stesso. Il segnale residuo dopo marginalizzazione corretta è sconosciuto. Il controllo per n_gal (T4) non è equivalente alla marginalizzazione HOD per le ragioni fisiche descritte nel ragionamento complessivo.
+Sezione interessata: Metodi — HOD Ramo A; gate criteria; citabilità risultato principale
+Evidenza: La letteratura standard per marginalizzazione HOD in analisi di struttura a grande scala (Hadzhiyska et al. 2023 MNRAS; Contreras et al. 2023 MNRAS; Bose et al. 2022 MNRAS) usa K≥50–200 forward samples per prior HOD a 5–9 parametri per ottenere stime stabili dell'incertezza marginale. K=10 è insufficiente. Con σ_A=0.66σ su K=10, il segnale post-marginalizzazione potrebbe essere compatibile con zero o con 2–3σ a seconda del regime di campionamento — non è possibile distinguere senza K adeguato.
+
+2. NON-BLOCKING
+Concern: Il confronto OLS per la chiusura di OC-1 è parzialmente adattivo. Il guadagno +22% (4.20σ TDA vs 3.37σ P(k)) usa 6 feature TDA selezionate adattativamente vs 8 feature P(k) handcrafted su k fissi. Questo confronto non è isometrico: la selezione adattiva delle 6 feature TDA introduce adaptive bias, mentre le 8 feature P(k) non sono ottimizzate. Il confronto corretto richiederebbe o lo stesso numero di feature, o selezione cross-validated, o un regressore su P(k) full-shape addestrato con la stessa procedura del Ramo A. Il confronto su feature singola (b2_mean_persistence 3.69σ vs P(k) best 3.37σ) è il più difendibile ma soffre dello stesso problema: P(k) best è scelto post-hoc sui dati. OC-1 non è formalmente chiuso come specificato nella Review Phase 4 ("regressore equivalente addestrato su P(k) dei 1600 campi training"). È chiuso in forma approssimata, difendibile con le qualifiche corrette nel paper.
+Sezione interessata: Risultati — confronto TDA vs P(k); chiusura OC-1
+Evidenza: Il Reviewer Phase 4 aveva specificato "regressore equivalente addestrato su P(k)." Il confronto eseguito usa feature handcrafted a k fissi, non un regressore addestrato. La differenza non è banale: un regressore ottimizzato su P(k) con gli stessi 1600 campi potrebbe superare il confronto handcrafted. Detto questo, la differenza 3.69σ vs 3.37σ è modesta (+9% su feature singola) e la claim "TDA porta informazione aggiuntiva" è supportata ma non con il margine sufficiente a escludere che un P(k) ottimizzato raggiunga lo stesso livello. Prima della sottomissione, il confronto con regressore P(k) addestrato è necessario.
+
+3. NON-BLOCKING
+Concern: Il Ramo B (σ_B~1.0σ, non significativo) chiude come quarta evidenza coerente di assenza di segnale w₀ in j* a z=0. Questo è scientificamente corretto e non richiede Scenario C nel senso di una revisione metodologica — è un risultato atteso per design. Tuttavia, l'assenza di una soglia frozen per σ_B nel gate4_prior_v1_0.json crea un'asimmetria nel record: il gate design non aveva pre-specificato cosa costituisce un risultato negativo accettabile per Ramo B. Per il paper, il risultato negativo di Ramo B deve essere dichiarato come esito di un test pre-specificato (con la soglia dichiarata retroattivamente come "qualsiasi valore non significativo al 5% dopo FWER"), non come un'assenza post-hoc. Il CHANGELOG deve documentare che l'assenza di soglia per σ_B era intenzionale e giustificata dal design (j* non è addestrato su w₀).
+Sezione interessata: Gate criteria — Ramo B; record scientifico pre-registered design
+Evidenza: La struttura del progetto CAUCHY è basata su gate pre-registrati. L'assenza di una soglia per σ_B è una lacuna nel record pre-registrato che un referee identificherà. Il fatto che il risultato sia fisicamente atteso non esonera dal requisito di pre-registrazione.
+
+4. NON-BLOCKING
+Concern: La cronologia Phase 5bis (istituzionalizzata 2026-05-05, un giorno prima della conclusione Ramo B 2026-05-06) è documentata nel CHANGELOG. La sequenza — letteratura esterna → Phase 5bis → risultato negativo Ramo B — è epistemicamente corretta se e solo se il CHANGELOG mostra che la decisione di istituire Phase 5bis era basata interamente sulla letteratura Neumann/Artola/Wang & Wang, senza conoscenza del risultato Ramo B. Il CHANGELOG deve contenere il timestamp preciso di: (a) commit iniziale Phase 5bis, (b) primo risultato σ_B disponibile. Se (a) precede (b), la cronologia è pulita. Se i due eventi sono contemporanei o se esiste ambiguità, il framing nel paper deve essere più cauto ("Phase 5bis è stata progettata indipendentemente dal risultato Ramo B, come documentato nel version-controlled CHANGELOG").
+Sezione interessata: Integrità del record scientifico; Phase 5bis
+Evidenza: Un referee che vede "Phase 5bis istituita il giorno prima del risultato negativo Ramo B" senza documentazione cronologica chiara interpreterà la sequenza come post-hoc rationalization. La documentazione CHANGELOG con timestamp deve essere sufficiente per disambiguare.
+
+5. INFO
+Concern: Il test T1 (σ monotona con |w₀−(−1)|) è un validation check necessario ma non sufficiente. La monotonia è una condizione necessaria per un segnale fisico, ma non esclude che il segnale sia prodotto da correlazioni spurie tra w₀ e le condizioni iniziali delle simulazioni Quijote nel campionamento nwLH. Il dataset nwLH è un Latin Hypercube su w₀ con Ωm e σ₈ variati simultaneamente — la decomposizione del segnale tra w₀, Ωm e σ₈ nel regression Ramo A richiede che il controllo per Ωm e σ₈ sia esplicito, non solo tramite T4 (controllo n_gal). Il documento non specifica se la correlazione parziale b2_mean_persistence ~ w₀ | Ωm, σ₈ è stata calcolata per Ramo A. È stata calcolata solo per Ramo B (ρ_partial = −0.031). Questo test deve essere incluso anche per Ramo A.
+Sezione interessata: Metodi — validation checks T1–T4; controllo Ωm/σ₈
+Evidenza: Il dataset nwLH (w₀∈[−1.30,−0.70], Ωm∈[0.10,0.50], σ₈∈[0.60,1.00]) ha correlazioni potenziali tra w₀ e gli altri parametri dipendentemente dal design del LHC. Il prompt specifica r(w₀, Ωm)=−0.006 e r(w₀, σ₈)=−0.010 nel dataset originale (Phase 1), ma queste correlazioni dopo la voxelizzazione HOD potrebbero non essere identiche alle correlazioni sulle feature TDA prodotte dai campi galattici, che dipendono non linearmente da tutti i parametri simultaneamente.
+
+---
+
+OBIEZIONI CANONICHE APPLICATE
+
+OC-1 POWER SPECTRUM SUFFICIENCY
+"Perché la PH porta informazione aggiuntiva rispetto a P(k)+B(k)?"
+Applicabilità: ALTA
+Finding: OC-1 è parzialmente chiusa (Concern 2). La differenza b2_mean_persistence 3.69σ vs P(k) best 3.37σ su feature singola è il confronto più conservativo e difendibile, ma il margine è modesto (+9%). Il guadagno +22% OLS è adattativamente biased e non è citabile senza qualifiche. La chiusura formale di OC-1 richiede il confronto con un regressore P(k) addestrato sugli stessi 1600 campi training con la stessa procedura — non prodotto in questa fase. OC-1 rimane aperto come impegno pre-submission.
+
+OC-2 VOLUME SCALING
+"I risultati sono consistenti con le stime Fisher della letteratura scalate per volume?"
+Applicabilità: ALTA
+Finding: σ=3.69σ da permutation test su b2_mean_persistence in un volume (1 Gpc/h)³ è consistente con le aspettative della letteratura per una statistica TDA di ordine superiore con N=2000 simulazioni — Yip et al. 2024 ottiene σ(w)≈±0.062 (16σ equivalente) ma su sette parametri marginalizzati con aloni in redshift space, un setup molto più informativo. Il confronto diretto non è possibile per differenza di setup. Il risultato di Phase 5 è il primo gate CAUCHY che produce un segnale positivo — la verifica di scaling è plausibile ma non verificabile fino alla sottomissione, quando il volume e il tracciatore saranno definiti per DESI.
+
+OC-3 HOD DEGENERACY
+"Il segnale topologico potrebbe essere assorbito dai parametri HOD liberi?"
+Applicabilità: ALTA — questo è esattamente il Concern 1 BLOCKING
+Finding: La riduzione da 3.69σ a 0.66σ nel run di marginalizzazione K=10 è l'evidenza più diretta della rilevanza di OC-3. Il documento riconosce esplicitamente che "la marginalizzazione HOD diluisce il segnale come atteso" — ma non quantifica la diluizione con campionamento affidabile. Con K=10 samples, il run di marginalizzazione ha potere statistico insufficiente per distinguere σ=0 da σ=1–2σ. OC-3 non è chiusa, è il concern principale di questa review.
+
+OC-4 STATISTICAL ROBUSTNESS
+"I threshold di gate sono prior congelati?"
+Applicabilità: ALTA
+Finding: Il permutation test N=1000 con seed=42 è pre-specificato. I validation checks T1–T4 sono definiti prima del run. La soglia σ≥3.0σ per "venue Nature Astronomy/PRL" è nel prior. Il confronto P(k) è pre-specificato come componente di Gate 5. La selezione adattiva delle 6 feature TDA per il confronto OLS (+22%) non era pre-specificata — questo è un'analisi post-hoc che non può essere presentata come risultato principale senza qualifica. La soglia σ_B non era pre-specificata (Concern 3). I due problemi di pre-specificazione sono identificati e non invalidano il gate design complessivo, ma devono essere dichiarati nel paper.
+
+OC-5 2D VS 3D DISTINCTIVENESS
+"Il contributo di β₂ (vuoti 3D) è genuinamente inaccessibile alle analisi 2D?"
+Applicabilità: ALTA
+Finding: b2_mean_persistence è la feature primaria con σ=3.69σ. β₂ conta i vuoti tridimensionali — per definizione inaccessibili alle analisi 2D (Prat et al. 2025 opera su mappe di lensing 2D). Questo è il primo gate CAUCHY dove OC-5 può ricevere una risposta positiva diretta: il feature principale del risultato positivo è β₂, inaccessibile in 2D. Tuttavia, la difendibilità di OC-5 dipende dalla risoluzione del Concern 1 (BLOCKING): se σ_B2 si riduce a ~1σ dopo marginalizzazione HOD corretta, OC-5 perde la sua forza empirica. La risposta a OC-5 è condizionale alla robustezza HOD.

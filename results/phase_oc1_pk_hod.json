@@ -1,0 +1,57 @@
+{
+  "schema_version": "2.0",
+  "task": "OC-1_pk_hod_isometric_v2",
+  "timestamp": "2026-06-08T12:32:43.119866+00:00",
+  "design": {
+    "n_sim": 2000,
+    "n_valid": 2000,
+    "seed": 42,
+    "n_perm": 1000,
+    "n_kbins": 32,
+    "pk_transform": "log10",
+    "hod_model": "B3_deterministic_median",
+    "stat_method": "5-fold CV predictions on full sample (unbiased, coerente con Phase 5)"
+  },
+  "results": {
+    "tda_pers1_hod": {
+      "sigma_marginal": 2.986077222254061,
+      "sigma_partial": 2.7970272986950264,
+      "r_pearson": -0.08315196831667997,
+      "reference_phase5": 3.73
+    },
+    "ridge_pk_hod": {
+      "alpha_best": 126.89610031679234,
+      "cv_r2": 0.00031979563168487156,
+      "sigma_marginal": 1.8464991424000774,
+      "sigma_partial": 1.9524617528547008,
+      "r_pearson": 0.058193694041717044
+    },
+    "mlp_pk_hod": {
+      "n_iter": 35,
+      "sigma_marginal": 2.4532739156708843,
+      "sigma_partial": 2.506636826025985,
+      "r_pearson": 0.06977262342730797
+    }
+  },
+  "confronto_A_reference": {
+    "source": "phase7_pk_comparison_r53.json",
+    "ridge_pk_dm": 2.26,
+    "tda_dm": 0.095,
+    "note": "Campi DM identici \u2014 misura pulita beyond-P(k) su DM"
+  },
+  "isometric_comparison": {
+    "gain_tda_vs_best_pk_partial_pct": 11.584859593754143,
+    "best_pk_partial": 2.506636826025985,
+    "tda_partial": 2.7970272986950264,
+    "verdict": "TDA SUPERIORE \u2014 \u27e8pers\u2081\u27e9 porta informazione topologica non catturata da P(k)"
+  },
+  "oc1_status": "CLOSED",
+  "n_fallback": 0,
+  "t_total_min": 104.54068439006805,
+  "traceability": {
+    "tda_source": "results/phase5_hod_b3_features.npz -> fvecs_hod_b3[:,5]",
+    "pk_source": "calcolato on-the-fly (HOD B3 deterministico, seed=42+sim_idx)",
+    "method_note": "5-fold CV predictions su full sample \u2014 nessun train/test leakage, coerente con permutation test Phase 5",
+    "commitment": "R5-3 phase5_gate_result.json impegni_pre_submission"
+  }
+}

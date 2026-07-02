@@ -1,0 +1,48 @@
+Questa sottomissione non è un prompt di review strutturato per un gate. È una richiesta di approvazione pre-emptiva sul design di un esperimento non ancora eseguito. Rispondo in forma diretta, fuori dalla struttura standard, come ho fatto per la risoluzione del Concern 1 di Phase 2.
+
+---
+
+**RISPOSTA AL CONCERN 1 BLOCKING — PHASE 5**
+Timestamp: 2026-05-06T16:00:00Z
+
+---
+
+**A) Ammissibilità metodologica del prior ristretto**
+
+**Non approvato nella forma proposta.**
+
+Il prior ristretto come descritto (±20% del range flat centrato sui best-fit B3) non è metodologicamente ammissibile per rispondere al Concern 1 BLOCKING per una ragione specifica: i best-fit B3 sono i parametri HOD fissi usati nel run che ha prodotto σ=3.69σ. Costruire il prior ristretto centrato su quei valori significa che il run di marginalizzazione esplora un intorno del punto che ha già prodotto il risultato favorevole. Questo non è un prior fisicamente motivato per DESI BGS — è un prior centrato sul risultato osservato, il che introduce esattamente il tipo di circolarità che il Concern 1 mirava a escludere.
+
+Un prior fisicamente motivato per DESI BGS deve essere derivato da osservazioni DESI o dalla letteratura HOD calibrata su DESI (Yuan et al. 2022, Hadzhiyska et al. 2023) indipendentemente dal risultato di B3. Se la letteratura produce un prior che coincide con ±20% dei best-fit B3, la coincidenza deve essere documentata con la citazione, non il contrario. Il PI può costruire il prior dalla letteratura e verificare poi se è compatibile con i best-fit B3 — ma la direzione causale deve essere dalla letteratura ai best-fit, non dai best-fit alla letteratura.
+
+Un prior approvabile avrebbe questa struttura: identificare le distribuzioni HOD pubblicate per un survey equivalente a DESI BGS a z≈0 (Yuan et al. 2022 MNRAS 503 oppure Hadzhiyska et al. 2023 MNRAS), estrarne le distribuzioni marginali per ciascun parametro Zheng, e usare quelle come prior. Se il risultato è che il prior letteratura e il prior ±20%-B3 sono numericamente simili, questo è un risultato scientifico documentabile. Se sono diversi, il prior letteratura è quello corretto.
+
+**Approvato con condizioni** se il PI ridefinisce il prior derivandolo dalla letteratura HOD per DESI BGS in modo indipendente dai best-fit B3, e documenta esplicitamente nel paper che il prior è pre-specificato dalla letteratura e non calibrato per massimizzare σ.
+
+---
+
+**B) Run diagnostico su 400 campi**
+
+**Sufficiente condizionatamente, con una qualifica critica.**
+
+Un subset di 400 campi con selezione uniforme su w₀ è sufficiente per rispondere alla domanda diagnostica "il segnale sopravvive alla marginalizzazione HOD con prior fisicamente motivato?" se e solo se la potenza statistica è adeguata. Con N=400, VIF_ristretto stimato ∈ [0.2, 0.8], e σ atteso ∈ [1.8, 2.5σ] sul dataset completo, la potenza sul subset dipende dal VIF effettivo.
+
+La qualifica critica è la seguente: il subset di 400 campi deve essere selezionato prima del run diagnostico con un criterio pre-specificato (selezione uniforme su w₀, seed fisso) e il risultato sul subset non deve essere usato per decidere se eseguire il run completo. Se il run diagnostico produce σ≥2.0σ sul subset, il gate si chiude. Se produce 1.0σ≤σ<2.0σ, il gate non può essere chiuso sul subset — richiede il run completo su 2000 campi con lo stesso prior (stimato a ~35 ore con K=10, non 306 ore). Se produce σ<1.0σ, è Scenario R3 e il gate chiude in Scenario C.
+
+Il run completo con K=50 prior flat non è richiesto. Il Concern 1 non chiedeva K≥50 come requisito assoluto — chiedeva una stima affidabile della sensitività marginale. La non-convergenza mostrata (Δσ=1.47σ tra K=2 e K=10 con prior flat) era dovuta alla dominanza del VIF=2.48, non all'insufficienza di K per se. Con prior fisicamente motivato e VIF_ristretto<1, K=10 su 400 campi può essere sufficiente se la convergenza in K è verificata (stesso test Δσ(K=2..10) deve mostrare Δσ<0.5σ).
+
+---
+
+**C) Mappatura scenari → esiti gate**
+
+**Scenario R1 (σ_marg_ristretto ≥ 2.0σ sul subset, e convergenza in K verificata):** Gate 5 PASS. Il claim principale del paper è su campi galattici con prior fisicamente motivato, con σ_flat=1.25σ riportato come sensitivity test. Il vincolo hard Methodology §5.2 è soddisfatto in forma approssimata (K=10 invece di MCMC, ma con prior calibrato dalla letteratura e convergenza verificata). Dichiarazioni obbligatorie: prior derivato dalla letteratura, differenza quantitativa con prior flat, Phase 6 come test definitivo su DESI osservativo.
+
+**Scenario R2 (1.0σ ≤ σ_marg_ristretto < 2.0σ sul subset):** Gate 5 NON-BLOCKING. Il claim principale viene ri-framato sul campo di materia oscura (σ=3.69σ), con l'analisi galattica come analisi supplementare documentata con le sue limitazioni. Il gate si chiude con il risultato principale ri-definito — ma questo ri-framing deve essere dichiarato esplicitamente nel paper come scelta metodologica, non come semplificazione post-hoc. Venue coerente: JCAP o Physical Review D.
+
+**Scenario R3 (σ_marg_ristretto < 1.0σ):** Gate 5 chiude in Scenario C per il Ramo A galattico. Il paper è ri-framato interamente sul campo di materia oscura. Il Concern 1 rimane nel record come limitazione non superata per l'analisi galattica. Phase 5bis e Phase 6 procedono ma con scope ridotto.
+
+---
+
+**Nota procedurale**
+
+Il PI ha chiesto approvazione prima di eseguire il run. Questo è corretto come pratica metodologica. La risposta sopra è condizionale: il run può procedere se il prior viene ri-derivato dalla letteratura indipendentemente dai best-fit B3. Se il PI procede con il prior ±20%-B3 come definito nel documento, il run produce dati che non posso usare per chiudere il Concern 1 — qualunque sia il risultato numerico — perché il design dell'esperimento è circolare rispetto al risultato che mira a verificare.

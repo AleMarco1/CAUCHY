@@ -1,0 +1,108 @@
+{
+  "schema_version": "2.0",
+  "metadata": {
+    "timestamp": "2026-05-09T06:03:27.660826+00:00",
+    "phase": 6,
+    "gate_id": "GATE_6",
+    "gate_passed": true,
+    "frozen_prior_version": "v1.0",
+    "framing": "CONSERVATIVO",
+    "venue_target": "Physical Review D / JCAP",
+    "deviations_from_protocol": "O6-4bis aggiunto come risposta al BLOCKING 1 del Reviewer (asimmetria sigma_px). Scenario 2 (tre confronti espliciti) adottato in risposta al ciclo di review invece del singolo z-score canonico originalmente previsto. Ramo B pilot eseguito come analisi supplementare non prevista nel prior. Gate D2 (n_gal discrepanza) FAIL accettato con framing CONSERVATIVO coerente con Gate 5bis. DESI DR1 usato invece di DR2 (DR2 non accessibile al momento del run). "
+  },
+  "results": {
+    "O6_2_sigma_desi": {
+      "confronto_A": {
+        "label": "R fisico fisso",
+        "z_score": 5.97,
+        "citability": "upper_bound"
+      },
+      "confronto_B": {
+        "label": "sigma_px equivalente",
+        "z_score": 3.09,
+        "citability": "primario_conservativo"
+      },
+      "confronto_C": {
+        "label": "R fisico identico",
+        "z_score": 12.65,
+        "citability": "amplificante_dichiarato"
+      },
+      "phase5_conservative_reference": 3.08,
+      "convergence_note": "Phase6_B (3.09\u03c3) \u2248 Phase5_conservativo (3.08\u03c3) \u2014 robustezza inter-pipeline",
+      "partial_corr_ngal": "non_eseguita \u2014 confonder strutturalmente ridotto per costruzione mock z=0.5"
+    },
+    "O6_1_systematics": {
+      "S1_redshift": {
+        "verdict": "NON_DOMINANT",
+        "delta_sigma": 0.57,
+        "threshold": 1.0
+      },
+      "S2_tracer": {
+        "verdict": "BORDERLINE",
+        "delta_sigma": 1.15,
+        "threshold": 1.0,
+        "note": "varianza cosmica P=41.5% \u2014 differenza ordinaria"
+      },
+      "S3_smoothing": {
+        "verdict": "DOMINANT",
+        "delta_sigma": 2.88,
+        "threshold": 0.5,
+        "note": "segnale amplificato a R=10 \u2014 R=5 e scelta conservativa"
+      },
+      "S4_boss": {
+        "verdict": "DEFERRED",
+        "note": "limitazione dichiarata nel paper"
+      }
+    },
+    "O6_3_triple_baseline": {
+      "z_lcdm": 5.98,
+      "z_desi_cmb": 5.97,
+      "z_desi_sn": 5.97,
+      "r_b2_w0": -0.045,
+      "note": "b2 non discrimina w0 nei mock (wa=0 fisso)"
+    },
+    "O6_4_smoothing": {
+      "delta_sigma_desi": 2.88,
+      "z_desi_vs_mock_R10": 12.65,
+      "omm_required_to_explain": -1.557,
+      "note": "Omm=-1.56 fisicamente impossibile \u2014 segnale non spiegabile da Omm"
+    },
+    "O6_5_pk": {
+      "sigma_pk_combination": 3.37,
+      "sigma_tda_b2": 3.69,
+      "gain_b2_pct": 9,
+      "gain_conservative_pct": -9,
+      "note": "confronto su base non equivalente (P(k) DM vs TDA HOD) \u2014 qualificato"
+    },
+    "ramo_b_pilot": {
+      "z_vs_lhc": -0.72,
+      "z_vs_nwlh": -0.68,
+      "percentile": 30.0,
+      "verdict": "NULL_RESULT",
+      "interpretation": "DESI non anomalo in spazio latente CNN \u2014 coerente con anomalia specifica in b2_mean_persistence alla scala della griglia"
+    },
+    "reviewer_cycles": 3,
+    "reviewer_final_verdict": "NON-BLOCKING",
+    "nb_concerns_resolved": {
+      "NB1": "argomento teorico CubicalComplex \u2014 Cohen-Steiner 2007",
+      "NB2": "Confronto C reframed come confronto con asimmetria invertita",
+      "NB3": "Omm=-1.56 per spiegare b2_DESI \u2014 fisicamente impossibile",
+      "NB4": "BOSS DR12 discussion nel paper",
+      "NB5": "convergenza Phase5/6 qualificata correttamente"
+    }
+  },
+  "gate_verdict": "PASS",
+  "gate_note": "Gate 6 PASS con framing CONSERVATIVO. Valore primario +3.09\u03c3 (Confronto B, sigma_px equivalente). Tre confronti espliciti A/B/C nel paper. Ramo B null result dichiarato come risultato scientifico. Phase 7 (redazione paper) autorizzata.",
+  "phase7_authorized": true,
+  "open_pre_submission_concerns": [
+    "R5-1 CRITICA: HOD fitting su mock DESI BGS (AbacusSummit)",
+    "R5-2 ALTA: dichiarare log_Mmin=12.5 != best-fit AbacusSummit (13.08)",
+    "R5-3 ALTA: confronto P(k) addestrato vs TDA (chiuso con O6-5 con qualifica)",
+    "R4-2_inherited ALTA: Ramo B valore scientifico interamente prospettico",
+    "C5bis-1 ALTA: documentare risoluzione grid beta IDE nel paper",
+    "NB4: BOSS DR12 discussion nel paper",
+    "NB5: convergenza Phase5/6 qualificata nel paper",
+    "OC-3: framing senza attribuzione a w0 \u2014 dichiarare esplicitamente",
+    "OC-4: natura frequentista del z-score \u2014 dichiarare esplicitamente"
+  ]
+}

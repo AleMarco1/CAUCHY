@@ -1,0 +1,114 @@
+{
+  "schema_version": "2.0",
+  "metadata": {
+    "timestamp": "2026-05-03T14:53:01.313739+00:00",
+    "phase": 5,
+    "script": "src/phase5_sanity_check.py",
+    "seed": 42,
+    "n_fields_used": 100,
+    "n_perm": 50,
+    "python_version": "3.11.15 | packaged by Anaconda, Inc. | (main, Mar 11 2026, 17:12:15) [MSC v.1942 64 bit (AMD64)]",
+    "deviations_from_protocol": "none"
+  },
+  "prior_asserts": {
+    "gate3_path": "prior\\gate3_prior_v1_0.json",
+    "gate3_schema_version": "2.0",
+    "gate3_best_epoch": 171,
+    "gate3_checkpoint": "results/checkpoints/phase3_gnn_best.pt",
+    "gate3_r_Omm_observed": 0.8815309246339746,
+    "gate3_r_s8_observed": 0.8899869948194397,
+    "gate3_persistence_p90": 0.35589513778686577,
+    "gate4_path": "prior\\gate4_prior_v1_0.json",
+    "gate4_outcome": "FAIL_NEGATIVE",
+    "gate4_reviewer": "NON-BLOCKING",
+    "gate4_r3_1_r_Omm": 0.8930211663246155,
+    "gate4_r3_1_r_s8": 0.9182219505310059,
+    "gate4_r3_3_mmd_pvalue": 0.34865134865134867,
+    "gate4_sr_r2_max": 0.006191038723583064,
+    "gate4_phase5_authorized": true,
+    "verdict": "PASS"
+  },
+  "hod_fixed_check": {
+    "hod_fixed_applied": false,
+    "fields_source": "dark_matter_only_nwLH",
+    "fields_path": "data\\processed\\phase0_fields\\nwlh",
+    "note": "Marginalizzazione HOD AbacusSummit 9 parametri in phase5_hod_mcmc.py (Sessione 2)",
+    "vincolo_hard_ref": "Methodology \u00a75.2",
+    "verdict": "PASS \u2014 OK \u2014 nessun HOD fisso applicato. I campi usati in questo script sono DM puri."
+  },
+  "emcee_check": {
+    "emcee_found": true,
+    "emcee_version": "3.1.6",
+    "functional_test": "PASS",
+    "error": null,
+    "n_walkers_phase5": 36,
+    "n_walkers_note": "36 = 4 \u00d7 9 parametri HOD AbacusSummit (PI decision B.3)",
+    "verdict": "PASS"
+  },
+  "partial_correlation_dm_only": {
+    "n_fields": 100,
+    "idx_sample_min": 85,
+    "idx_sample_max": 1991,
+    "seed": 42,
+    "method": "OLS residualization \u2014 regress feature su (Omm, s8), Pearson sui residui",
+    "authority": "Methodology \u00a75.1",
+    "note": "Dark matter only \u2014 lower bound del segnale atteso. HOD non applicato.",
+    "features": {
+      "b1_peak_pos": {
+        "r_partial": -0.09114315294439365,
+        "p_value": 0.36713573611642375
+      },
+      "b1_peak_height": {
+        "r_partial": -0.005383454384661757,
+        "p_value": 0.9576059494878079
+      },
+      "b1_fwhm": {
+        "r_partial": 0.025983703943511578,
+        "p_value": 0.7974771026009155
+      },
+      "b1_integral": {
+        "r_partial": -0.07011249268889101,
+        "p_value": 0.48820679050092225
+      },
+      "b2_max_count": {
+        "r_partial": -0.024672229912156972,
+        "p_value": 0.8074961146864468
+      },
+      "b2_mean_persistence": {
+        "r_partial": -0.10628229296191075,
+        "p_value": 0.292595459988589
+      },
+      "b2_high_persist": {
+        "r_partial": -0.056558660786780145,
+        "p_value": 0.576213942882348
+      },
+      "b0_at_mean": {
+        "r_partial": 0.005413841569906097,
+        "p_value": 0.9573668778160552
+      }
+    },
+    "max_abs_r_partial": 0.10628229296191075,
+    "best_feature": "b2_mean_persistence",
+    "gate1b_threshold_ref": 0.1,
+    "comparison_note": "Gate 1b usava correlazione diretta (non parziale) su tutti i 2000 campi. Questo test usa correlazione parziale su campione ridotto \u2014 non comparabile direttamente."
+  },
+  "permutation_test_preliminary": {
+    "n_perm": 50,
+    "feature_tested": "b2_mean_persistence",
+    "r_obs": -0.10628229296191075,
+    "null_mean": -0.01572132323191241,
+    "null_std": 0.0946173454118766,
+    "sigma_preliminary": 0.9571286251561958,
+    "interpretation": "SEGNALE DEBOLE su DM-only \u2014 lower bound, atteso per campione ridotto",
+    "note": "Preliminare \u2014 N=50 permutazioni, 100 campi DM-only. Run completo (Sessione 3-4): N=1000, 2000 campi con HOD."
+  },
+  "verdict": {
+    "prior_asserts": "PASS",
+    "hod_fixed_check": "PASS",
+    "emcee": "PASS",
+    "partial_corr_computed": "PASS",
+    "permutation_preliminary": "PASS",
+    "phase5_session1_status": "COMPLETE",
+    "next_step": "Attendere completamento Globus transfer halo catalogs nwLH. Poi Sessione 2: phase5_hod_mcmc.py con marginalizzazione MCMC AbacusSummit 9 parametri."
+  }
+}

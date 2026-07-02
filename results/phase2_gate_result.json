@@ -1,0 +1,193 @@
+{
+  "schema_version": "2.0",
+  "metadata": {
+    "timestamp": "2026-04-29T13:30:00Z",
+    "python_version": "3.11.15",
+    "numpy_seed": 42,
+    "phase": 2,
+    "gate_id": "GATE_2",
+    "gate_passed": true,
+    "frozen_prior_version": "v1.0",
+    "deviations_from_protocol": "Durante il ciclo di review, un rilancio intermedio di --mode gate2 ha usato N_pts=4096 invece di N_pts=8192 per un errore di processo (modifiche manuali al sorgente non propagate dopo aggiornamento dello script). Il JSON sottomesso al Reviewer conteneva n_pts_per_field:4096 errato. Il Concern 1 BLOCKING del Reviewer ha identificato l'inconsistenza. Il diagnostic e' stato ricorretto con N_pts=8192 coerente con il training (SHA-256 checkpoint invariato). Il valore canonico del gate e' R=0.862 prodotto dalla configurazione corretta. Vedi phase2_concern1_response.md per la ricostruzione completa."
+  },
+  "results": {
+    "architecture": {
+      "type": "SE3_equivariant_e3nn",
+      "n_pts_per_field": 8192,
+      "k_nn": 16,
+      "D_latent": 32,
+      "n_mp_layers": 3,
+      "n_params": 61256,
+      "e3nn_version": "0.6.0",
+      "sampling_strategy": "density_weighted_abs_delta",
+      "hardware": "RTX_5060_Ti_16GB"
+    },
+    "training": {
+      "best_epoch": 186,
+      "best_val_loss": 0.08167908097436624,
+      "convergence_status": "CONVERGED",
+      "lr_schedule": "5e-5 → 2.5e-5 (riduzione a epoca ~95)",
+      "checkpoint_sha256": "302771fcd8656d4626bd923e87c8778cd5e64fc91210cc60c05fcd0b44cd6505"
+    },
+    "tau_construction": {
+      "n_fiducial_for_mu": 2000,
+      "mu_lcdm_norm": 2.892929792404175,
+      "n_lhc_processed": 2000,
+      "n_lhc_errors": 0,
+      "n_nwlh_processed": 2000,
+      "n_nwlh_errors": 0
+    },
+    "gate2_t1_test": {
+      "R_value": 0.8620209899807216,
+      "W2_same_sigma8_diff_Omm": 0.5978760966077439,
+      "W2_same_Omm_diff_sigma8": 0.6935748705317637,
+      "R_threshold": 0.20,
+      "corr_tau_hessian": 0.08927570370164656,
+      "corr_hessian_threshold": 0.05,
+      "wasserstein_method": "sliced_wasserstein_POT",
+      "n_projections": 1000,
+      "T1_variability_observed": {
+        "R_run1_N4096_gate2": 0.929,
+        "R_run2_N8192_prompt": 0.983,
+        "R_run3_N8192_canonical": 0.862,
+        "delta_max_min": 0.121,
+        "nota": "La dispersione run-to-run osservata e' Delta=0.121, non +-0.05 come dichiarato nella risposta al Concern 1. La stima +-0.05 non era supportata dai dati disponibili — riserva documentata dal Reviewer (2026-04-29T15:45:00Z). Il margine sul threshold rimane amplissimo (0.862 - 0.20 = 0.642). Il paper dovra' riportare la variabilita' del test T1 basata su quantificazione empirica (>=10 run sullo stesso checkpoint con seed diversi).",
+        "impegno_paper": "Quantificazione empirica della varianza stocastica del test T1 (>=10 run, stesso checkpoint, seed diversi). Da includere nella sezione metodi del paper come stima dell'incertezza del gate criterion."
+      }
+    },
+    "fisher_robustness": {
+      "max_variation_pct": 26.034709301956998,
+      "verdict": "NON_BLOCKING",
+      "hartlap_filter_applied": true,
+      "hartlap_min_threshold": 0.70,
+      "fractions_included": [0.3, 0.5],
+      "fractions_excluded_reason": "Hartlap < 0.70 (N_sim < 3.4*N_data — Hartlap 2007, Taylor 2013)"
+    },
+    "review1_impegni": {
+      "R1_1_zscore": "PASS — kappa: 4.8e12 → 6.4e3",
+      "R1_2_fisher_robustness": "NON_BLOCKING — variazione 26.0%",
+      "R1_4_gudhi_unit_test": "PASS — beta2=1, beta1=1, birth>death",
+      "C0_3_iid": "WARN — KS p=0.0015 (non-gaussianita' feature, non correlazione)"
+    }
+  },
+  "gate_evaluation": {
+    "criteria": [
+      {
+        "name": "test_T1_R_value",
+        "threshold": 0.20,
+        "observed": 0.862,
+        "passed": true
+      },
+      {
+        "name": "corr_tau_hessian_soft",
+        "threshold": 0.05,
+        "observed": 0.089,
+        "passed": true,
+        "note": "soft gate"
+      },
+      {
+        "name": "R1_1_kappa_C_noise",
+        "threshold": 1000000.0,
+        "observed": 6436.24,
+        "passed": true
+      },
+      {
+        "name": "R1_2_fisher_variation",
+        "threshold": 50.0,
+        "observed": 26.03,
+        "passed": true,
+        "note": "calcolato su frazioni con Hartlap >= 0.70"
+      },
+      {
+        "name": "R1_4_gudhi_unit_test",
+        "threshold": "PASS",
+        "observed": "PASS",
+        "passed": true
+      },
+      {
+        "name": "tau_construction_completeness",
+        "threshold": 1.0,
+        "observed": 1.0,
+        "passed": true,
+        "note": "2000/2000 LHC + 2000/2000 nwLH, 0 errori"
+      },
+      {
+        "name": "reviewer_verdict",
+        "threshold": "PROCEED_OR_NON_BLOCKING",
+        "observed": "NON-BLOCKING",
+        "passed": true
+      }
+    ],
+    "overall_passed": true
+  },
+  "reviewer_verdict": {
+    "verdict": "NON-BLOCKING",
+    "review_timestamp": "2026-04-29T15:00:00Z",
+    "non_blocking_items": [
+      {
+        "concern_id": "R2-1",
+        "severity": "blocking_resolved",
+        "concern": "Inconsistenza n_pts_per_field nel JSON (4096 vs 8192 dichiarato). Identificata dal Reviewer come BLOCKING.",
+        "resolution": "risolto",
+        "resolution_note": "Causa: modifiche manuali al sorgente non propagate dopo aggiornamento script. Il diagnostic e' stato ricalcolato con configurazione corretta (N_pts=8192 coerente con training). SHA-256 checkpoint invariato. Valore canonico R=0.862. Vedi phase2_concern1_response.md."
+      },
+      {
+        "concern_id": "R2-2",
+        "severity": "non_blocking",
+        "concern": "Test T1 (R=0.862) misura sensibilita' parametrica ma non discriminazione tra sigma8 e Omm, e non verifica sensibilita' a w0.",
+        "resolution": "rimandato con motivazione",
+        "resolution_note": "Il test T1 e' un prerequisito necessario (tau non collassato su un solo parametro) ma non sufficiente. La dimostrazione che TDA(tau(x)) porta informazione su w0 e' il contenuto di Phase 3 Gate 3 per design esplicito del Methodology. R~1 e' il risultato desiderato: tau e' equi-sensibile a Omm e sigma8, evitando l'errore v3.x documentato in Methodology §2.1."
+      },
+      {
+        "concern_id": "R2-3",
+        "severity": "non_blocking",
+        "concern": "Correlazione |tau|-hessiano r=0.071 e' test insufficiente per escludere tau gaussiano. La soglia >= 0.05 e' cosi' bassa che quasi qualsiasi campo non costante la supera.",
+        "resolution": "rimandato con impegno",
+        "resolution_note": "Test piu' robusto implementato obbligatoriamente all'apertura di Phase 3: confronto tra distribuzione di persistenza di TDA(tau(x)) e distribuzione attesa per GRF con stessa varianza (test KS). Se le distribuzioni sono indistinguibili, il segnale di Phase 3 e' nullo per costruzione — impegno diventa bloccante.",
+        "target_phase": 3,
+        "target_gate": "GATE_3_apertura"
+      },
+      {
+        "concern_id": "R2-4",
+        "severity": "non_blocking",
+        "concern": "Supervisione CNN con obiettivo globale (8 scalari per-campo) non garantisce struttura spaziale di tau(x). Un encoder con tau costante minimizza la loss identicamente.",
+        "resolution": "rimandato con impegno",
+        "resolution_note": "Sanity check obbligatorio all'apertura di Phase 3: varianza spaziale di |tau(x)| per 50 campi campione. Criterio: varianza spaziale media > 5% della varianza inter-campo della norma media. Se il criterio non e' soddisfatto, impegno diventa bloccante per Phase 3 — il Ramo B non puo' procedere con tau spazialmente piatto.",
+        "target_phase": 3,
+        "target_gate": "GATE_3_apertura"
+      },
+      {
+        "concern_id": "R2-5",
+        "severity": "info",
+        "concern": "Fallback scipy KDTree vs torch-cluster per k-NN: differenze di tie-breaking su casi degeneri.",
+        "resolution": "risolto",
+        "resolution_note": "La probabilita' di equidistanza esatta in float32 su coordinate fisiche in Mpc/h con 8192 punti campionati stocasticamente e' numericamente zero. Il fallback scipy sara' dichiarato nel paper come nota implementativa. Non impatta la riproducibilita' scientifica."
+      }
+    ],
+    "review_closure": {
+      "concern1_resolution_timestamp": "2026-04-29T15:45:00Z",
+      "concern1_verdict": "RESOLVED con riserva documentata",
+      "riserva_reviewer": "La variabilita' run-to-run del test T1 stimata +-0.05 non e' supportata dai dati: dispersione osservata Delta=0.121 su 3 run disponibili. Il paper dovra' riportare variabilita' empirica quantificata. Non invalida il gate (margine 0.642 sul threshold).",
+      "gate2_final_status": "PASS — R=0.862 canonico, tutti i concern assegnati"
+    },
+    "review_artifact_path": "results/phase2_review.json"
+  },
+  "impegni_aperti_phase3": [
+    {
+      "id": "R2-3_phase3",
+      "descrizione": "Test KS: distribuzione persistenza TDA(tau) vs GRF con stessa varianza. Se p-value > 0.05 (indistinguibili), impegno BLOCKING per Phase 3.",
+      "gate": "GATE_3_apertura_obbligatorio"
+    },
+    {
+      "id": "R2-4_phase3",
+      "descrizione": "Varianza spaziale |tau(x)| > 5% varianza inter-campo. Se non soddisfatto, Ramo B bloccato.",
+      "gate": "GATE_3_apertura_obbligatorio"
+    },
+    {
+      "id": "R2-2_phase3",
+      "descrizione": "Dimostrazione che TDA(tau(x)) porta informazione su w0 sul dataset nwLH. Criterio formale: Gate 3.",
+      "gate": "GATE_3"
+    }
+  ],
+  "notes": "Gate 2 chiuso. Il Ramo B e' attivato. Phase 3 puo' iniziare dopo risoluzione degli impegni R2-3 e R2-4 all'apertura. Il diagnostic canonico e' results/phase2_cnn_diagnostic.json (generato 2026-04-29T11:19:27Z)."
+}

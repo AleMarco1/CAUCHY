@@ -1,0 +1,70 @@
+CAUCHY REVIEW — GATE 6 RICALIBRZIONE 1 (RISPOSTA AL BLOCKING)
+Timestamp: 2026-05-08T16:00:00Z
+Verdict: BLOCKING
+
+---
+
+RAGIONAMENTO COMPLESSIVO
+
+La risposta del PI è metodologicamente consapevole e identifica correttamente le azioni necessarie. Tuttavia, il gate è sottomesso *prima* che le azioni A1, A2, A3 siano eseguite — il documento è un piano di risoluzione, non un insieme di risultati. Un gate di review richiede risultati, non intenzioni. I tre concern bloccanti rimangono aperti nella misura in cui le analisi che li affronterebbero non sono state condotte.
+
+Questo non è un giudizio negativo sul piano — il piano è ragionevole. Ma la logica del framework a gate è precisa: il ciclo di ricalibrzione si chiude quando i risultati richiesti sono prodotti e sottomessi, non quando il PI enuncia l'intenzione di produrli. Sottomettere questa risposta come ciclo di ricalibrzione consuma uno dei due cicli disponibili senza avanzare lo stato scientifico del gate.
+
+Ci sono inoltre due problemi nuovi introdotti dalla risposta del PI che devono essere registrati. Il primo riguarda la proposta di risoluzione per BLOCKING 1: il test O6-4bis (R=14.8 Mpc/h su DESI per ottenere σ_px=0.640) non risolve il concern nel modo proposto dal PI. L'equivalenza σ_px non è equivalenza fisica: portare σ_px_DESI a 0.640 usando R=14.8 Mpc/h significa applicare uno smoothing fisico 3× più grande su DESI rispetto ai mock — il campo DESI risultante avrebbe strutture soppresse a scale 3× più grandi. Questo non è un confronto su base equivalente in senso fisico; è un confronto su base equivalente in senso di griglia discreta. I due criteri di equivalenza producono configurazioni diverse, e la scelta tra essi deve essere giustificata da argomenti fisici espliciti, non solo numerici.
+
+Il secondo problema riguarda la risposta alla discrepanza NGC-SGC (BLOCKING 3): il PI propone r(b2, n_gal) come test. Questo è utile come diagnostica ma non è sufficiente come risoluzione: anche se r(b2, n_gal) è significativo, questo dimostrerebbe che b2 è confuso con n_gal — il che indebolisce ulteriormente l'interpretazione del segnale come anomalia cosmologica, non la rafforza. Il concern rimane aperto indipendentemente dall'esito di r(b2, n_gal).
+
+Il gate non può chiudersi con un piano di esecuzione. La ri-sottomissione deve contenere i risultati di A1, A2, A3.
+
+---
+
+CONCERNS
+
+1. BLOCKING (ereditato — non risolto)
+Concern: BLOCKING 1 rimane aperto perché O6-4bis non è stato eseguito. Il test proposto (R=14.8 Mpc/h su DESI) è metodologicamente discutibile per le ragioni indicate nel ragionamento complessivo: equivalenza σ_px non implica equivalenza fisica. La risoluzione corretta richiede che il test sia eseguito e che il PI giustifichi esplicitamente quale criterio di equivalenza (fisico o di griglia) è scientificamente appropriato per la statistica b2_mean_persistence. Questa giustificazione deve precedere l'interpretazione del risultato di O6-4bis.
+Sezione interessata: BLOCKING 1 precedente; proposta O6-4bis
+Evidenza: R_fisico=14.8 Mpc/h sopprime strutture a scale 3× più grandi di R_fisico=5 Mpc/h. La persistenza topologica β₂ è sensibile alla scala di smoothing fisico — non è una statistica invariante rispetto a riscalamenti del filtro. I due campi (DESI con R=14.8, mock con R=5) hanno diversi spettri di potenza effettivi dopo smoothing, rendendo il confronto b2 non direttamente interpretabile come test dell'anomalia cosmologica.
+
+2. BLOCKING (ereditato — non risolto)
+Concern: BLOCKING 2 rimane aperto perché il run completo A3 (~5h) non è stato eseguito. Il piano di esecuzione ("lanciare phase6_mock_calibration_R10.py --mode full") è identificato correttamente ma non costituisce un risultato. La sistematica S3 rimane DOMINANT con stima su N=10.
+Sezione interessata: BLOCKING 2 precedente; azione A3
+Evidenza: Il gate non può chiudersi con una sistematica dominante quantificata su N=10 campioni. Nessun argomento nella risposta modifica questo fatto.
+
+3. BLOCKING (ereditato — parzialmente affrontato ma non risolto)
+Concern: La proposta di risoluzione per BLOCKING 3 (r(b2, n_gal) sui mock) è utile come diagnostica ma introduce un'implicazione che la risposta del PI non affronta. Se r(b2, n_gal) risulta significativo, ciò implica che la differenza NGC-SGC è spiegata dal diverso n_gal — ma implica anche che il segnale b2_DESI è parzialmente confuso con n_gal. In questo caso, la partial correlation per n_gal (non eseguita in O6-2 con la motivazione che il confonder era "strutturalmente ridotto") diventa necessaria anche per il confronto DESI vs mock, non solo per la differenza NGC-SGC. La risposta del PI non risolve questa implicazione circolare: il test proposto per chiudere BLOCKING 3 potrebbe aprire retroattivamente un problema in O6-2.
+Sezione interessata: BLOCKING 3 precedente; O6-2 partial correlation; azione A1
+Evidenza: La motivazione originale per non eseguire la partial correlation in O6-2 era "n_gal mock z=0.5 (~186K) compatibile con DESI (217K) per costruzione." Se A1 dimostra che r(b2, n_gal) ≠ 0 sui mock, questa motivazione è invalidata anche per differenze n_gal moderate — il che richiede di rieseguire O6-2 con controllo n_gal. Il PI deve valutare questo scenario prima di eseguire A1 e documentare la strategia condizionale.
+
+4. NON-BLOCKING (nuovo)
+Concern: La risposta al OC-3 ("b2_mean_persistence misura la topologia del campo dominato da Ωm e σ₈ — non da w0 direttamente") è fisicamente plausibile ma non è dimostrata. Se b2 è dominato da Ωm e σ₈, il segnale anomalo vs ΛCDM potrebbe essere spiegato da valori di Ωm o σ₈ diversi dal fiduciale Planck 2018 usato per la voxelizzazione. I mock nwLH variano entrambi questi parametri — la correlazione r(b2, Ωm) e r(b2, σ₈) deve essere reportata. Se queste correlazioni sono forti, il segnale di +5.97σ potrebbe essere compatibile con una deviazione di Ωm o σ₈ rispetto al fiduciale, non con dark energy dinamica.
+Sezione interessata: O6-3; OC-3; framing del paper
+Evidenza: La GNN di Gate 3 riporta correlazioni [0.847, 0.743, 0.799] per (w₀, Ωm, σ₈) — la correlazione con Ωm (0.743) e σ₈ (0.799) è comparabile a quella con w₀ (0.847). Se b2_mean_persistence ha sensibilità simile, il segnale anomalo deve essere verificato rispetto anche a questi parametri.
+
+5. INFO (nuovo)
+Concern: La risposta OC-1 afferma che il valore canonico [5.40σ, 5.97σ] usa "la configurazione metodologicamente corretta per Phase 6." Questa affermazione non è neutrale: implica che le altre configurazioni (3.08σ con controllo n_gal, >13σ con R=10) sono metodologicamente non corrette. Se il PI intende sostenere questa posizione nel paper, deve argomentare esplicitamente perché la configurazione HOD z=0.5 senza partial correlation è "corretta" rispetto alla configurazione con partial correlation. Il valore 3.08σ con partial correlation è più conservativo e più difendibile — presentare 5.97σ come valore canonico senza questa discussione sarà oggetto di obiezione da qualsiasi referee.
+Sezione interessata: O6-2; framing del paper; OC-1
+Evidenza: La partial correlation è uno standard metodologico per il controllo dei confonder. Classificare come "non necessaria" una procedura standard di controllo, mentre la configurazione senza controllo produce un valore 94% più alto, è una scelta che richiede giustificazione esplicita.
+
+---
+
+OBIEZIONI CANONICHE APPLICATE
+
+OC-1 PRIOR VOLUME
+Applicabilità: ALTA
+Finding: Il range [3.08σ, >13σ] identificato nella review precedente non è ridotto dalla risposta del PI. La risposta qualifica i valori estremi con caveat, ma non produce un valore robusto indipendente dalla configurazione. Fino a quando A2 e A3 non sono eseguiti, il valore canonico [5.40σ, 5.97σ] rimane una scelta specifica di configurazione, non una misura robusta.
+
+OC-2 REPLICABILITÀ
+Applicabilità: ALTA
+Finding: Invariato rispetto alla review precedente. S4 BOSS DR12 rimane deferred. La discrepanza NGC-SGC di 3.8σ non è risolta. La replicabilità del segnale non è dimostrata.
+
+OC-3 DEGENERAZIONE
+Applicabilità: ALTA
+Finding: La risposta del PI accetta implicitamente che b2 non è un probe diretto di w0, ma non produce r(b2, Ωm) e r(b2, σ₈) che permettano di escludere interpretazioni alternative del segnale. Questo è ora un concern NON-BLOCKING formale (concern 4 sopra).
+
+OC-4 FREQUENTISMO VS. BAYESIANESIMO
+Applicabilità: MEDIA
+Finding: Il PI accetta il concern e indica che il paper sarà riscritto per dichiarare esplicitamente la natura frequentista della significatività. Questa è una risoluzione accettabile — da verificare nel testo del paper in Phase 7.
+
+OC-5 IDECAMB / CONTRIBUTO ORIGINALE
+Applicabilità: N/A
+Finding: Non pertinente.

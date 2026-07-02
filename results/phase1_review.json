@@ -1,0 +1,69 @@
+```
+CAUCHY REVIEW — PHASE 1
+Timestamp: 2026-04-27T14:30:00Z
+Verdict: NON-BLOCKING
+
+---
+
+RAGIONAMENTO COMPLESSIVO
+
+Phase 1 presenta un risultato bipartito con un esito asimmetrico: Gate 1a supera con margine ampio (σ(Ωm)=0.0049, σ(σ₈)=0.0028, margini 95% e 91% rispettivamente), mentre Gate 1b fallisce con |r|_max=0.025, incompatibile con il threshold hard di 0.10 per oltre un ordine di grandezza in percentuale.
+
+**Sul Gate 1a:** i vincoli Fisher sono numericamente credibili ma presentano tre fonti di ottimismo sistematico che devono essere quantificate prima della sottomissione. Primo: si tratta di 8 feature scalari compressa da un campo 128³ — la compressione è estrema, e il Fisher lineare sopravvaluta l'informazione quando le derivate sono calcolate con regressione lineare locale su un campione LHC eterogeneo. Secondo: la matrice di covarianza C_noise ha numero di condizione ~4×10¹⁰ (CS-2 del PI), e la sua inversione via `np.linalg.inv` su una matrice così mal condizionata produce stime di Fisher instabili — il margine del 91-95% non è sufficiente a escludere che l'ottimismo numerico del condizionamento stia contribuendo in modo non trascurabile. Terzo: il confronto con Yip et al. 2024 (σ(σ₈)=±0.005, σ(w)=±0.051 su aloni in redshift space) mostra che CAUCHY Phase 1 ottiene σ(σ₈)=0.0028 — un fattore ~1.8× migliore di Yip con solo 8 scalari vs diagrammi di persistenza completi. Questo è sospetto e richiede spiegazione, non semplice accettazione.
+
+**Sul Gate 1b FAIL:** la spiegazione analitica fornita (H(z=0)≡H₀ per cosmologie flat, D(z=0)≡1 per normalizzazione) è fisicamente corretta nei suoi elementi costitutivi, ma è parzialmente incompleta come giustificazione del FAIL. L'argomento H(z=0)≡H₀ elimina la sensibilità via espansione cinematica, ma l'effetto di w₀ sul campo δ(x) a z=0 agisce anche via il fattore di crescita integrato — e la claim che D(z=0)≡1 "elimina la memoria" deve essere distinta con maggiore cura: D(z=0) è normalizzato a 1 per costruzione, ma la topologia delle strutture non lineari a z=0 porta la storia integrata di crescita D(z<z_nl) dove le strutture si sono formate, e questa storia è modulata da w₀. Il documento presenta questo come "memoria assente" ma in realtà il canale è presente — semplicemente è debole per Δw₀=0.6 su un range z=0 in real space senza RSD realistiche. La debolezza del segnale deve essere quantificata, non solo dichiarata assente per argomenti di normalizzazione.
+
+Nonostante queste riserve, il FAIL di Gate 1b è genuino e il progetto può procedere: il valore scientifico del FAIL è correttamente identificato come baseline per Phase 3, e la progressione a Phase 2 è razionalmente giustificata. I concerns identificati sotto sono però non-bloccanti non per ragioni di compiacenza, ma perché non invalidano il gate 1a né la decisione di procedere — invalidano invece la difendibilità di alcuni claim numerici se portati direttamente in un paper.
+
+---
+
+CONCERNS
+
+1. NON-BLOCKING
+Concern: I vincoli Fisher σ(Ωm)=0.0049 e σ(σ₈)=0.0028 sono sistematicamente ottimistici per via del mal condizionamento di C_noise (~4×10¹⁰). L'inversione via `np.linalg.inv` su una matrice con tale numero di condizione produce risultati numericamente instabili — piccole perturbazioni nei dati producono grandi variazioni in C_noise^{-1}. Il margine sui threshold (91-95%) non garantisce robustezza: un mal condizionamento di 4×10¹⁰ comporta perdita di ~10 cifre significative in double precision, il che può gonfiare o deflazionare le diagonali di F_ij in modo imprevedibile. La claim che "il verdict non cambia" deve essere verificata, non asserta.
+Sezione interessata: Metodi — Fisher analysis; Gate 1a risultati
+Evidenza: Con condition number κ(C)~10¹⁰ e double precision machine epsilon ~10⁻¹⁶, la precisione dell'inversione è ~10⁻⁶, il che introduce errori relativi dell'ordine di 10⁴ × (machine epsilon) sugli elementi di C^{-1}. La raccomandazione standard per Fisher matrix analysis cosmologica (vedi es. Heavens 2009, MNRAS) è κ(C) < 10⁶ per inversione stabile. La normalizzazione z-score deve essere applicata e il Fisher ricalcolato prima della sottomissione del paper.
+
+2. NON-BLOCKING
+Concern: I vincoli Fisher di CAUCHY Phase 1 (σ(σ₈)=0.0028, σ(Ωm)=0.0049) sono un fattore ~1.8× e ~2.4× più stringenti rispetto ai risultati di Yip et al. 2024 (σ(σ₈)=±0.005, σ(Ωm)=±0.012), ottenuti con diagrammi di persistenza completi su aloni Quijote nello stesso volume. CAUCHY Phase 1 usa solo 8 scalari su un campo di materia pura (non aloni) — un vettore dati molto meno ricco. Questa discrepanza non è spiegata nel documento e costituisce un segnale di ottimismo sistematico che deve essere investigato. Le possibili spiegazioni — campo di materia vs aloni, LHC vs derivate numeriche standard, regressione locale vs derivate a cosmologie spaziose — devono essere identificate e quantificate.
+Sezione interessata: Gate 1a risultati; comparazione letteratura
+Evidenza: Yip et al. 2024, Table 2: σ(σ₈)=±0.005 da PH completa su 1 (Gpc/h)³, aloni, z=0.5. CAUCHY Phase 1: σ(σ₈)=0.0028 da 8 scalari su campo materia, z=0. Il campo di materia contiene più informazione degli aloni (rimozione del bias), il che può ridurre il margine, ma non di un fattore ~1.8× con una compressione a 8 scalari. La regressione lineare locale sul LHC (con 2000 campi su un range ampio Ωm∈[0.10,0.50], σ₈∈[0.60,1.00]) può avere derivate distorte vicino alla cosmologia fiduciale, gonfiando artificialmente le derivate di Fisher.
+
+3. NON-BLOCKING
+Concern: La spiegazione del Gate 1b FAIL è fisicamente corretta ma incompleta. L'argomento D(z=0)≡1 dimostra che il fattore di crescita lineare è normalizzato, non che la topologia non-lineare a z=0 sia insensibile a w₀. Le strutture virializzate e i vuoti formati a z<z_nl portano la storia integrata di crescita — che include l'imprinting di w₀ attraverso la sopprecessione (o l'accelerazione) della crescita a z>0. L'insensibilità osservata (|r|_max=0.025) è un fatto empirico, ma la giustificazione teorica ridotta al solo argomento D(z=0)≡1 è difettosa come argomento sufficiente. Deve essere integrata con una stima quantitativa dell'ampiezza attesa del segnale di w₀ su δ(x) a z=0 in real space — per esempio via la derivata parziale ∂σ₈(z=0)/∂w₀ o via la variazione attesa nel power spectrum P(k,z=0) per Δw₀=0.6 — che mostri che il segnale teorico è dell'ordine di grandezza del |r| osservato.
+Sezione interessata: Considerazioni specifiche CS-5; interpretazione scientifica del FAIL
+Evidenza: Per w₀wCDM con w₀∈[−1.30,−0.70] e altri parametri fissi, la variazione in D(z=0) è ~0% per costruzione, ma la variazione nel power spectrum P(k,z=0) via l'equazione di Eisenstein-Hu non è zero — l'effetto integrale di w₀ sulla crescita influenza la normalizzazione dell'amplitude tramite la storia di crescita a z>0, anche se D(z=0)≡1. Una stima numerica di ∂P(k,z=0)/∂w₀ con il codice CAMB/CLASS (già disponibile nel setup Quijote) risolverebbe questa ambiguità.
+
+4. INFO
+Concern: Il bug CS-1 (inversione colonne birth/death nella conversione gudhi→ν) è stato dichiarato identificato e corretto prima del full run. Non c'è evidenza che il bug abbia propagato ai dati. Tuttavia, la documentazione del bug e della sua correzione non include: (a) un test di conformità su un campo sintetico con topologia nota (es. un cubo con una singola sfera vuota interna, dove β₂=1 è computabile analiticamente), (b) un confronto diretto tra output pre-bugfix e post-bugfix per verificare che il post-bugfix sia corretto e non semplicemente "diverso da zero". Per il record scientifico, questa verifica dovrebbe essere documentata.
+Sezione interessata: Considerazioni specifiche CS-1; qualità del codice
+Evidenza: La dichiarazione "Betti curves identicamente zero → bug identificato → corretto" è una sequenza plausibile ma non fornisce evidenza positiva della correttezza della versione attuale. Il sanity check riporta SNR=87σ per β₁ e 55σ per β₂, che è evidenza positiva della non-nullità, ma non è un test di correttezza della mappatura birth/death vs la filtrazione di supralivello attesa.
+
+---
+
+OBIEZIONI CANONICHE APPLICATE
+
+OC-1 POWER SPECTRUM SUFFICIENCY
+"Perché la PH porta informazione aggiuntiva rispetto a P(k)+B(k)?"
+Applicabilità: MEDIA
+Finding: Phase 1 opera su 8 feature scalari e non fornisce una comparazione diretta con P(k)+B(k). Il documento non include questo confronto. La comparazione di Yip et al. 2024 dimostra il surplus informativo della PH completa su aloni, ma Phase 1 usa una compressione a 8 scalari che è un sottoinsieme non ottimizzato. La claim implicita che "il FAIL di Gate 1b è una proprietà della TDA" non è distinguibile da "il FAIL è una proprietà della compressione a 8 scalari" — un P(k) con Δw₀=0.6 a z=0 mostrerebbe anch'esso correlazioni basse, ma non necessariamente |r|<0.025. Questo concern è residuo e trasparente per il gate attuale, ma diventa centrale in Phase 3.
+
+OC-2 VOLUME SCALING
+"I risultati sono consistenti con le stime Fisher della letteratura scalate per volume e tipo di tracciatore?"
+Applicabilità: ALTA
+Finding: Come documentato nel Concern 2, i vincoli di Gate 1a sono un fattore ~1.8-2.4× più stringenti di Yip et al. 2024 nonostante l'uso di una compressione molto più aggressiva (8 scalari vs diagrammi completi). Questa inconsistenza con la letteratura non è spiegata e deve essere risolta. Il volume è lo stesso ((1 Gpc/h)³), il tracciatore è diverso (materia vs aloni), il redshift è diverso (z=0 vs z=0.5) — ma questi fattori non spiegano un fattore 1.8-2.4× a favore di CAUCHY con meno informazione in input.
+
+OC-3 HOD DEGENERACY
+Applicabilità: N/A per Phase 1
+Finding: Phase 1 opera su campi di materia oscura pura — HOD non applicabile.
+
+OC-4 STATISTICAL ROBUSTNESS
+"I threshold di gate sono prior congelati o sono stati modificati retroattivamente?"
+Applicabilità: ALTA
+Finding: I threshold di Gate 1a sono congelati e correttamente documentati. Il Gate 1b FAIL è genuino — non c'è evidenza di soglie abbassate retroattivamente per far passare il gate. Il FAIL è registrato onestamente. Un concern residuo: la calibrazione dei threshold di Gate 1b (|r|≥0.10, |r|≥0.15) era basata su Yip et al. 2024 con fattore /3-6× per differenza di tracciatore — questo fattore di riduzione non era ancorato a una stima fisica esplicita dell'effetto di w₀ su campi di materia vs aloni a z=0. La calibrazione era ragionevole ma non aveva anticipato la riduzione fisica addizionale dovuta a D(z=0)≡1. Non è p-hacking, ma è una calibrazione prior incompleta che deve essere documentata nel paper.
+
+OC-5 2D VS 3D DISTINCTIVENESS
+"Il contributo di β₂ (vuoti 3D) è genuinamente inaccessibile alle analisi 2D concorrenti?"
+Applicabilità: MEDIA
+Finding: β₂ è incluso nel vettore delle 8 feature (b2_max_count, b2_mean_persistence, b2_high_persist). Il Gate 1b mostra |r(b2_mean_persistence, w₀)|=0.0037 e |r(b2_max_count, w₀)|=0.012 — entrambi non significativi. La distintività di β₂ rispetto alle analisi 2D non è dimostrabile al livello di Phase 1 con 8 scalari su real-space z=0. La questione rimane aperta per Phase 3 dove i diagrammi di persistenza completi sono disponibili. Concern specifico: il troncamento della curva β₂ (picco a indice 47/49 della griglia, CS-6) significa che b2_max_count è sottostimato sistematicamente — la correlazione con w₀ è calcolata su una feature troncata, non sulla feature completa. Questo deve essere corretto nella griglia di soglie per Phase 3.
+```

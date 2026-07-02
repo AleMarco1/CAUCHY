@@ -1,0 +1,87 @@
+{
+  "schema_version": "2.0",
+  "timestamp": "2026-05-06T19:09:32.589854+00:00",
+  "n_fields_analyzed": 1029,
+  "K_min_threshold": 5,
+  "K_mean": 10.0,
+  "n_perm": 1000,
+  "seed": 42,
+  "variance_decomposition": {
+    "b1_peak_pos": {
+      "sigma2_intra": 9.7193021774292,
+      "sigma2_inter": 3.1141152381896973,
+      "VIF": 3.1210476922104013,
+      "SNR_HOD": 0.3204052288261497
+    },
+    "b1_peak_height": {
+      "sigma2_intra": 191706704.0,
+      "sigma2_inter": 51446324.0,
+      "VIF": 3.7263440629888347,
+      "SNR_HOD": 0.268359545736074
+    },
+    "b1_fwhm": {
+      "sigma2_intra": 39.528194427490234,
+      "sigma2_inter": 4.984780311584473,
+      "VIF": 7.92977663140499,
+      "SNR_HOD": 0.12610695691472726
+    },
+    "b1_integral": {
+      "sigma2_intra": 145633120.0,
+      "sigma2_inter": 29187784.0,
+      "VIF": 4.989523014148659,
+      "SNR_HOD": 0.2004199594158252
+    },
+    "b2_max_count": {
+      "sigma2_intra": 51917656.0,
+      "sigma2_inter": 15630324.0,
+      "VIF": 3.321598195917116,
+      "SNR_HOD": 0.3010598937671608
+    },
+    "b2_mean_persistence": {
+      "sigma2_intra": 0.0008538105175830424,
+      "sigma2_inter": 0.0003438041021581739,
+      "VIF": 2.483421553795859,
+      "SNR_HOD": 0.40267025889000624
+    },
+    "b2_high_persist": {
+      "sigma2_intra": 519173.4375,
+      "sigma2_inter": 156302.828125,
+      "VIF": 3.3215869714449546,
+      "SNR_HOD": 0.3010609111237514
+    },
+    "b0_at_mean": {
+      "sigma2_intra": 4925885.0,
+      "sigma2_inter": 572952.0,
+      "VIF": 8.597378139879082,
+      "SNR_HOD": 0.11631453028237565
+    }
+  },
+  "b2_mean_persistence_primary": {
+    "VIF": 2.483421553795859,
+    "SNR_HOD": 0.40267025889000624,
+    "VIF_interpretation": "HOD contribuisce varianza comparabile al segnale \u2192 marginalizzazione critica",
+    "rho_marginalized_w0": -0.03902664051585645,
+    "sigma_marginalized": 1.2541387384456648,
+    "p_value": 0.188,
+    "sigma_partial_w0_given_Omm_s8": 0.25813828746795436,
+    "p_partial": 0.802,
+    "rho_partial": 0.008375445355074196
+  },
+  "sigma_b3_subset_comparison": {
+    "sigma_b3_subset": 2.7459641640550148,
+    "sigma_marginalized_same_subset": 1.2541387384456648,
+    "ratio_marg_over_b3": 0.45672072302210365
+  },
+  "K_convergence": {
+    "sigma_by_K": {
+      "2": 1.6625379591322196,
+      "3": 1.0608388699351514,
+      "5": 0.19486131549427854,
+      "7": 1.5944139728579654,
+      "10": 1.3310785389850788
+    },
+    "delta_sigma_K2_to_K10": 1.4676766436379411,
+    "convergence_interpretation": "NON CONVERGENTE \u2014 \u03c3 sensibile a K"
+  },
+  "note_for_reviewer": "Variance decomposition risponde al Concern 1 BLOCKING della Review Phase 5. VIF = sigma2_intra/sigma2_inter misura il rapporto tra incertezza HOD e varianza cosmologica. VIF << 1 indica che il segnale w0 domina sull'incertezza HOD. La convergenza in K mostra se K=10 \u00e8 sufficiente per stimare feat_marginalized."
+}

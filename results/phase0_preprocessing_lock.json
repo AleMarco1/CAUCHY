@@ -1,0 +1,35 @@
+{
+  "schema_version": "2.0",
+  "locked_at": "2026-04-27T07:34:22.044009+00:00",
+  "cauchy_version": "v2.0",
+  "gate": "GATE_0",
+  "preprocessing_steps": [
+    {
+      "step": "gaussian_smoothing",
+      "R_Mpc_h": 5.0,
+      "sigma_pixels": 0.64,
+      "pixel_size_Mpc_h": 7.8125,
+      "box_size_Mpc_h": 1000.0,
+      "grid_size": 128,
+      "implementation": "scipy.ndimage.gaussian_filter",
+      "boundary_mode": "wrap",
+      "source": "Abedi et al. 2025 arXiv:2410.01751v2; Jalali Kanafi et al. 2024 MNRAS"
+    },
+    {
+      "step": "per_cosmology_normalization",
+      "method": "subtract_dataset_mean_field",
+      "description": "Subtract the voxel-wise mean field computed as the arithmetic mean of all passed fields in the same dataset. Applied after smoothing. Preserves amplitude information (sigma_8 signal in beta_1, beta_2).",
+      "n_fields_for_mean": 2000,
+      "source": "CAUCHY_Systematic_Methodology_v2.0 §0.2, §0.3"
+    }
+  ],
+  "output_dtype": "float64",
+  "output_dtype_rationale": "Raw inputs are float32; promoted to float64 for preprocessing to avoid accumulated rounding in Gaussian filter + subtraction. Scientifically equivalent: delta(x) values in [-1, ~100] are well within float32 range but float64 eliminates any sub-percent rounding.",
+  "global_seed": 42,
+  "script_path": "D:\\projects\\cauchy\\src\\phase0_data_prep.py",
+  "script_hash_sha256": "46920023f0d2e4b912049a9114f8029b6813fe85b2aadee52cce7fa0885e8dae",
+  "python_version": "3.11.15 | packaged by Anaconda, Inc. | (main, Mar 11 2026, 17:12:15) [MSC v.1942 64 bit (AMD64)]",
+  "numpy_version": "2.4.3",
+  "scipy_version": "1.17.1",
+  "platform": "Windows-10-10.0.26200-SP0"
+}

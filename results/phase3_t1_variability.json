@@ -1,0 +1,183 @@
+{
+  "schema_version": "2.0",
+  "generated_at": "2026-04-29T18:50:23.665214+00:00",
+  "gate": "GATE_3",
+  "authority": "phase2_gate_result.json T1_variability_observed.impegno_paper",
+  "script_version": "phase3_t1_variability.py v1.0",
+  "gate2_prior_verified": {
+    "checkpoint_sha256": "302771fcd8656d4626bd923e87c8778cd5e64fc91210cc60c05fcd0b44cd6505",
+    "status": "OK"
+  },
+  "t1_variability_empirical": {
+    "n_runs": 15,
+    "n_runs_requested": 15,
+    "n_runs_failed": 0,
+    "R_mean": 0.8628445895290244,
+    "R_std": 0.07315697939971484,
+    "R_min": 0.7327071750062836,
+    "R_max": 0.9816701649998031,
+    "R_delta_max_min": 0.2489629899935195,
+    "R_canonical_gate2": 0.862,
+    "R_threshold_gate2": 0.2,
+    "margin_above_threshold": 0.6628445895290245,
+    "note": "Quantificazione empirica della varianza stocastica del test T1. Richiesta dalla riserva Reviewer Phase 2 (phase2_gate_result.json). Da includere nella sezione metodi del paper come stima dell'incertezza del gate criterion.",
+    "per_run_results": [
+      {
+        "seed": 42,
+        "R": 0.799550769762769,
+        "W2_same_s8_diff_omm": 0.554538324482627,
+        "W2_same_omm_diff_s8": 0.6935623670866597,
+        "n_fields_sampled": 200,
+        "model_loaded": true,
+        "ot_backend": "POT_sliced"
+      },
+      {
+        "seed": 142,
+        "R": 0.8911044400213256,
+        "W2_same_s8_diff_omm": 0.6036769854432813,
+        "W2_same_omm_diff_s8": 0.6774480726735401,
+        "n_fields_sampled": 200,
+        "model_loaded": true,
+        "ot_backend": "POT_sliced"
+      },
+      {
+        "seed": 242,
+        "R": 0.8170297897346775,
+        "W2_same_s8_diff_omm": 0.4919689855313448,
+        "W2_same_omm_diff_s8": 0.6021432654139905,
+        "n_fields_sampled": 200,
+        "model_loaded": true,
+        "ot_backend": "POT_sliced"
+      },
+      {
+        "seed": 342,
+        "R": 0.8073117900522715,
+        "W2_same_s8_diff_omm": 0.5595653803098503,
+        "W2_same_omm_diff_s8": 0.6931217742696657,
+        "n_fields_sampled": 200,
+        "model_loaded": true,
+        "ot_backend": "POT_sliced"
+      },
+      {
+        "seed": 442,
+        "R": 0.864978574767022,
+        "W2_same_s8_diff_omm": 0.6040544002505279,
+        "W2_same_omm_diff_s8": 0.6983460837896791,
+        "n_fields_sampled": 200,
+        "model_loaded": true,
+        "ot_backend": "POT_sliced"
+      },
+      {
+        "seed": 542,
+        "R": 0.8562566457095327,
+        "W2_same_s8_diff_omm": 0.5469639949124214,
+        "W2_same_omm_diff_s8": 0.6387851091762126,
+        "n_fields_sampled": 200,
+        "model_loaded": true,
+        "ot_backend": "POT_sliced"
+      },
+      {
+        "seed": 642,
+        "R": 0.8351419589908268,
+        "W2_same_s8_diff_omm": 0.5609216331383411,
+        "W2_same_omm_diff_s8": 0.6716482474622045,
+        "n_fields_sampled": 200,
+        "model_loaded": true,
+        "ot_backend": "POT_sliced"
+      },
+      {
+        "seed": 742,
+        "R": 0.8548682757870223,
+        "W2_same_s8_diff_omm": 0.5543309452794352,
+        "W2_same_omm_diff_s8": 0.6484401877810921,
+        "n_fields_sampled": 200,
+        "model_loaded": true,
+        "ot_backend": "POT_sliced"
+      },
+      {
+        "seed": 842,
+        "R": 0.7470081185670904,
+        "W2_same_s8_diff_omm": 0.4990237730234194,
+        "W2_same_omm_diff_s8": 0.6680299191133905,
+        "n_fields_sampled": 200,
+        "model_loaded": true,
+        "ot_backend": "POT_sliced"
+      },
+      {
+        "seed": 942,
+        "R": 0.9384481416970725,
+        "W2_same_s8_diff_omm": 0.6267945025691839,
+        "W2_same_omm_diff_s8": 0.6679053159354125,
+        "n_fields_sampled": 200,
+        "model_loaded": true,
+        "ot_backend": "POT_sliced"
+      },
+      {
+        "seed": 1042,
+        "R": 0.7327071750062836,
+        "W2_same_s8_diff_omm": 0.5367875321364763,
+        "W2_same_omm_diff_s8": 0.7326085378266877,
+        "n_fields_sampled": 200,
+        "model_loaded": true,
+        "ot_backend": "POT_sliced"
+      },
+      {
+        "seed": 1142,
+        "R": 0.9074530953154429,
+        "W2_same_s8_diff_omm": 0.5616767670236262,
+        "W2_same_omm_diff_s8": 0.618959558266072,
+        "n_fields_sampled": 200,
+        "model_loaded": true,
+        "ot_backend": "POT_sliced"
+      },
+      {
+        "seed": 1242,
+        "R": 0.9816701649998031,
+        "W2_same_s8_diff_omm": 0.6183240624104958,
+        "W2_same_omm_diff_s8": 0.6298694657900903,
+        "n_fields_sampled": 200,
+        "model_loaded": true,
+        "ot_backend": "POT_sliced"
+      },
+      {
+        "seed": 1342,
+        "R": 0.968822598910446,
+        "W2_same_s8_diff_omm": 0.6064940808824726,
+        "W2_same_omm_diff_s8": 0.6260114922634401,
+        "n_fields_sampled": 200,
+        "model_loaded": true,
+        "ot_backend": "POT_sliced"
+      },
+      {
+        "seed": 1442,
+        "R": 0.9403173036137813,
+        "W2_same_s8_diff_omm": 0.6229925696621486,
+        "W2_same_omm_diff_s8": 0.6625344096805346,
+        "n_fields_sampled": 200,
+        "model_loaded": true,
+        "ot_backend": "POT_sliced"
+      }
+    ],
+    "base_seed": 42,
+    "seeds_used": [
+      42,
+      142,
+      242,
+      342,
+      442,
+      542,
+      642,
+      742,
+      842,
+      942,
+      1042,
+      1142,
+      1242,
+      1342,
+      1442
+    ]
+  },
+  "timing": {
+    "total_seconds": 18.0
+  }
+}

@@ -1,0 +1,74 @@
+CAUCHY REVIEW — PHASE 3
+Timestamp: 2026-05-01T10:00:00Z
+Verdict: NON-BLOCKING
+
+---
+
+RAGIONAMENTO COMPLESSIVO
+
+Phase 3 è il gate di attivazione formale del Ramo B: dimostra che il GNN addestrato su TDA(τ(x)) produce un embedding j* correlato con (Ωm, σ₈). Le correlazioni osservate — |r(j*, Ωm)|=0.882, |r(j*, σ₈)|=0.890 — sono numericamente forti, e i prerequisiti R2-3 e R2-4 sono superati con ampio margine. Tuttavia il gate presenta tre vulnerabilità metodologiche che devono essere risolte prima della progressione a Phase 4, nessuna delle quali invalida il gate attuale.
+
+Il problema statisticamente più rilevante è il test multiplo. Le correlazioni riportate sono il massimo su 32 componenti di j* — non la correlazione di j* come vettore con i parametri. Prendere il max su 32 componenti introduce un bias positivo sostanziale: sotto l'ipotesi nulla (j* non correlato con θ), il valore atteso di max|r| su 32 componenti con N=400 non è zero ma è stimabile intorno a 0.15–0.20. Le correlazioni osservate (0.882, 0.890) sono talmente superiori a questa soglia che il bias da test multiplo non inverte l'interpretazione qualitativa, ma il metodo di reporting non è pubblicabile in questa forma. Un referee di Nature Astronomy chiederà immediatamente la p-value corretta per Bonferroni, o la correlazione di j* come vettore con il parametro target (correlazione canonica, o in alternativa la correlazione del valore predetto ŷ = Linear(j*) con y_true).
+
+Il secondo problema riguarda il leak informativo architetturale. Il GNN è addestrato con target (Ωm, σ₈) — j* è per costruzione ottimizzato a separare i campi lungo quelle direzioni. La correlazione |r(j*, Ωm)|=0.882 non è quindi un risultato indipendente dall'architettura: è quasi tautologica, dato che il linear layer finale Linear(32→2) proietta j* su (Ωm, σ₈). La varianza aggiuntiva rispetto al Ramo A (+79.2%) è la metrica più informativa tra quelle riportate, ma anche questa è parzialmente gonfiata perché il confronto è con le 8 feature scalari del Ramo A, non con un benchmark informazionale equivalente (es. P(k)).
+
+Terzo: l'impegno R2-2, formalmente rimandato a Gate 3, non è soddisfatto. Il documento dichiara che il test rilevante per w₀ è Phase 6, ma Gate 3 doveva chiudere R2-2 come impegno aperto. |r(j*, w₀)|=0.031 quantifica il segnale assente ma non dimostra — nemmeno a livello indicativo — che lo spazio j* conterrà informazione su w₀ nella forma distribuzionale di Phase 6. Questo non è un BLOCKING perché il razionale fisico è corretto, ma R2-2 deve essere riassegnato esplicitamente a Phase 6 con un impegno formale, non semplicemente dichiarato "atteso per design" senza un test intermedio.
+
+La scoperta del dying ReLU nel primo run (25/32 componenti collassate a zero) e la sua correzione sono correttamente documentate. Tuttavia, il fatto che il bug abbia richiesto uno script diagnostico dedicato per essere identificato indica che l'architettura GNN non ha un sistema di monitoraggio automatico delle attivazioni integrato nella pipeline. Questo deve essere aggiunto come check standard prima di Phase 4.
+
+---
+
+CONCERNS
+
+1. NON-BLOCKING
+Concern: Le correlazioni |r(j*, Ωm)|=0.882 e |r(j*, σ₈)|=0.890 sono riportate come max su 32 componenti di j*. Questo introduce un problema di test multiplo non corretto. Con 32 componenti e N=400, il valore atteso di max|r| sotto H₀ (nessuna correlazione) è stimabile tramite simulazione Monte Carlo a circa 0.15–0.25, che non è trascurabile. La statistica corretta per un vettore latente multidimensionale è: (a) la correlazione del valore predetto ŷ=Linear(j*→2) con y_true, che usa j* in modo unificato attraverso il layer supervisionato; oppure (b) la correlazione canonica tra j* [400×32] e θ [400×2]; oppure (c) il max|r| corretto per Bonferroni (moltiplicando la p-value per 32). Le correlazioni ŷ vs y_true sono già implicite nella val_loss=0.0133, ma non sono riportate esplicitamente. Il metodo "max su 32 componenti" non è pubblicabile senza correzione.
+Sezione interessata: Risultati — correlazioni Gate 3; metodi statistici
+Evidenza: Con N=400 e 32 test, il threshold Bonferroni-corretto a p<0.05 è |r|>sqrt(F_32,368 / (F_32,368 + 368)) ≈ 0.24. Le correlazioni osservate superano abbondantemente questa soglia, ma il metodo di reporting deve essere corretto. La correlazione tra ŷ(Ωm) e Ωm_true è la statistica naturale e deve essere riportata.
+
+2. NON-BLOCKING
+Concern: La varianza aggiuntiva vs Ramo A (+79.2%) è calcolata come (r²_GNN − r²_RamoA_best) × 100, dove r²_RamoA_best è letto da phase1_tda_baseline.json senza ricalcolo. Non è specificato quale componente di j* produce r²_GNN né quale feature del Ramo A produce r²_RamoA_best. Questa comparazione mescola metriche eterogenee: il Ramo A usa correlazione di Pearson tra feature scalari TDA e parametri (da |r|_max≈0.025 per w₀ in Gate 1b, ma valori diversi per Ωm e σ₈ non riportati esplicitamente), mentre il Ramo B usa max|r| su 32 componenti di j*. Il confronto non è su base equivalente e gonfia artificialmente il "+79.2%".
+Sezione interessata: Risultati — varianza aggiuntiva vs Ramo A; confronto baseline
+Evidenza: La metrica "+79.2% varianza aggiuntiva" richiede che r²_RamoA_best sia la correlazione del miglior predittore del Ramo A per lo stesso parametro e sullo stesso test set. I dati disponibili non specificano questo denominatore. Prima della sottomissione, il confronto deve essere fatto su: (a) stesso test set (400 campi LHC), (b) stessa statistica (correlazione del valore predetto vs valore vero), (c) con il Ramo A riaddestrato su training set equivalente.
+
+3. NON-BLOCKING
+Concern: L'impegno R2-2 ("dimostrazione che TDA(τ(x)) porta informazione su w₀") era formalmente rimandato a Gate 3. Il documento dichiara che |r(j*, w₀)|=0.031 è "atteso per design" e che il test rilevante è Phase 6. Questa giustificazione è fisicamente corretta ma costituisce un secondo rinvio dell'impegno, non la sua chiusura. Gate 3 non ha prodotto nessun test — nemmeno indicativo — che j* o TDA(τ) portino informazione su w₀ in forma distribuzionale. La chiusura dell'impegno richiede: o un test distribuzionale preliminare (es. MMD o t-SNE visivo della distribuzione di j* sui campi nwLH stratificati per w₀), o una riassegnazione formale a Phase 6 con documentazione dell'argomento fisico che la giustifica, diversa da "il test lineare non è il test rilevante".
+Sezione interessata: Impegni aperti — R2-2; interpretazione |r(j*, w₀)|
+Evidenza: Un test distribuzionale preliminare (es. Maximum Mean Discrepancy tra distribuzione di j* per w₀<−1 vs w₀>−1 sui 2000 campi nwLH) non richiede analisi di Phase 6 e fornirebbe evidenza positiva che lo spazio j* è sensibile a w₀ in modo non lineare. In assenza di questo test, R2-2 rimane aperto come impegno non soddisfatto.
+
+4. INFO
+Concern: Il dying ReLU nel primo run GNN (25/32 componenti collassate) ha richiesto uno script diagnostico dedicato per l'identificazione. Questo indica l'assenza di monitoraggio automatico delle attivazioni nella pipeline di training. Con un'architettura GNN su dati sparsi (grafi con media 1395 nodi), il collasso di neuroni è un rischio elevato specialmente nelle fasi iniziali del training. Per Phase 4, il monitoraggio della distribuzione delle attivazioni di j* (media, varianza, percentuale di neuroni morti) deve essere integrato nel loop di training standard, non aggiunto post-hoc come script diagnostico.
+Sezione interessata: Metodi — architettura GNN; robustezza del training
+Evidenza: Il documento riporta "25/32 componenti di j* a zero (dying neurons)" nel primo run. Il fix (rimozione ReLU dal layer j*) è corretto e verificato. Ma il fatto che il bug sia stato identificato tramite "NaN nelle correlazioni" piuttosto che tramite monitoring delle attivazioni indica un gap nel sistema di controllo qualità del training.
+
+5. INFO
+Concern: Il grafo k-NN in Phase 3 è costruito nello spazio (birth, death) con k=5. Questa metrica di vicinanza mescola feature β₁ e β₂ che vivono in scale di persistenza diverse. Un nodo β₂ con (birth=−0.8, death=−0.9) e un nodo β₁ con (birth=−0.8, death=−0.85) risultano vicini nello spazio (birth, death) nonostante la loro diversa natura topologica. La feature di nodo dim_β₁/dim_β₂ encode la dimensione come scalare, ma il grafo k-NN non la usa per la separazione. Questo può creare archi tra feature topologicamente diverse che confondono il message passing del GNN. Il documento non discute questa scelta.
+Sezione interessata: Metodi — costruzione grafo topologico
+Evidenza: La letteratura standard per PersLay e GraphTopoNet usa grafi separati per dimensione omologica, o usa la dimensione come peso degli archi, non come feature di nodo con grafo unificato. La scelta di un grafo unificato in (birth, death) per β₁ e β₂ è legittima ma deve essere giustificata o confrontata con la variante a grafi separati.
+
+---
+
+OBIEZIONI CANONICHE APPLICATE
+
+OC-1 POWER SPECTRUM SUFFICIENCY
+"Perché la PH porta informazione aggiuntiva rispetto a P(k)+B(k)?"
+Applicabilità: ALTA
+Finding: La varianza aggiuntiva "+79.2%" vs Ramo A non risponde a OC-1 — il Ramo A non è P(k). Il confronto tra j* e P(k) non è presente. Con |r(j*, Ωm)|≈0.88 e val_loss=0.013, il GNN mostra un'accuratezza predittiva significativa su (Ωm, σ₈), ma non è dimostrato che questo accuratezza superi quella di un regressore equivalente addestrato direttamente su P(k) o B(k) con gli stessi 1600 campi di training. Questo confronto è necessario prima della sottomissione del paper. Come già osservato in Yip et al. 2024 (Table 4), escludere β₁ aumenta σ(σ₈) dell'81% e σ(w) del 104%, confermando che le feature topologiche portano informazione su questi parametri — ma questo benchmark è su aloni, non su TDA(τ).
+
+OC-2 VOLUME SCALING
+"I risultati sono consistenti con le stime Fisher della letteratura?"
+Applicabilità: MEDIA
+Finding: Il GNN con val_loss=0.013 su (Ωm_norm, σ₈_norm) in [0,1] corrisponde a un RMSE ≈ 0.115 nelle unità normalizzate. Sul range Ωm∈[0.10,0.50] questo corrisponde a σ(Ωm)≈0.046 — circa 10× peggiore dei vincoli Fisher del Ramo A (σ(Ωm)=0.0049). Questa non è un'inconsistenza: il GNN su 1600 campi senza ottimizzazione è un regressore diretto, non un'analisi Fisher su 2000 campi con regime lineare locale. La comparazione appropriata è con i vincoli SBI su campo intero (Hahn et al. 2023 SimBIG). La pipeline non ha ancora raggiunto la fase di inference — Gate 3 misura correlazione dell'embedding, non vincoli parametrici finali.
+
+OC-3 HOD DEGENERACY
+Applicabilità: BASSA (Phase 3 su materia oscura)
+Finding: TDA(τ(x)) opera ancora sul campo di materia oscura pura. HOD non applicabile. Il rischio HOD emerge a Phase 5-6 quando la pipeline viene applicata a tracciatori galattici. In quella fase, la degeneracy τ(x) vs HOD sarà la vulnerabilità principale del Ramo B.
+
+OC-4 STATISTICAL ROBUSTNESS
+"I threshold di gate sono prior congelati o modificati retroattivamente?"
+Applicabilità: ALTA
+Finding: La soglia persistenza p90=0.35589 è calcolata e congelata prima del training GNN — correttamente documentata. I threshold |r|≥0.20 per (Ωm, σ₈) sono ancorati in gate2_prior_v1_0.json. Il split seed=42 è coerente con Phase 2. Il dataset nwLH non è mai entrato nel training — verificabile dalla struttura dello split dichiarata. Nessuna evidenza di p-hacking strutturale. Il Concern 1 (test multiplo su 32 componenti) è una vulnerabilità statistica nel reporting, non nel gate design. La riserva T1 variability è soddisfatta empiricamente (R_std=0.073 su 15 run, R_min=0.733 > 0.20 su tutti i run).
+
+OC-5 2D VS 3D DISTINCTIVENESS
+"Il contributo di β₂ (vuoti 3D) è genuinamente inaccessibile alle analisi 2D?"
+Applicabilità: ALTA
+Finding: TDA(τ(x)) include β₂ nel grafo GNN (feature dim_β₂, persistenze β₂ sopra soglia: 306.882 su 50 campi proxy). Tuttavia, il contributo differenziale di β₂ rispetto a β₁ nel determinare j* non è quantificato. Il documento non riporta un'ablazione β₁-only vs β₁+β₂. Yip et al. 2024 (Table 4) mostrano che escludere β₂ aumenta σ di circa il 22% per la maggior parte dei parametri — ma su aloni a z=0.5, non su TDA(τ) a z=0. Prima della sottomissione, un'ablazione β₁-only vs β₁+β₂ su j* è necessaria per rispondere a OC-5 con evidenza positiva. Prat et al. 2025 (β₂ inaccessibile in 2D) resta l'argomento qualitativo, ma il contributo quantitativo di β₂ al potere predittivo di Gate 3 deve essere misurato.

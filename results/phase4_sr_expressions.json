@@ -1,0 +1,286 @@
+{
+  "schema_version": "2.0",
+  "generated_at": "2026-05-02T08:51:43.627592+00:00",
+  "gate": "GATE_4",
+  "script": "src/phase4_sr.py",
+  "target": "w0",
+  "target_dataset": "nwLH \u2014 2000 campi, split 1600/400 seed=42",
+  "features": [
+    "b1_peak_pos",
+    "b1_peak_height",
+    "b1_fwhm",
+    "b1_integral",
+    "b2_max_count",
+    "b2_mean_persistence",
+    "b2_high_persist",
+    "b0_at_mean"
+  ],
+  "n_features": 8,
+  "parsimony_coeff": 0.001,
+  "n_iterations": 1000,
+  "maxsize": 20,
+  "feature_preprocessing": "Z-score su train set",
+  "preprocessing_mean": [
+    -0.1252908706665039,
+    16024.2724609375,
+    0.7421644330024719,
+    12654.5703125,
+    7822.44140625,
+    0.12349636107683182,
+    2303.86962890625,
+    899.0349731445312
+  ],
+  "preprocessing_std": [
+    0.052553270012140274,
+    4584.7880859375,
+    0.13039612770080566,
+    2765.962646484375,
+    2062.6953125,
+    0.018977930769324303,
+    521.2098999023438,
+    166.5804443359375
+  ],
+  "n_runs_total": 20,
+  "n_runs_successful": 20,
+  "stability_threshold": 0.5,
+  "r2_threshold_min": 0.5,
+  "r2_threshold_strong": 0.7,
+  "best_expression": {
+    "formula": "-1.0010146 - 0.0006050001/(0.17381607 - b1_peak_pos)",
+    "canonical": "# - #/(# - b1_peak_pos)",
+    "frequency": 3,
+    "frequency_pct": 15.0,
+    "r2_test": -0.007308671001096556,
+    "complexity": 7,
+    "aic": -239.07908525102266
+  },
+  "expression_histogram": [
+    {
+      "canonical_formula": "# - #/(# - b1_peak_pos)",
+      "frequency": 3,
+      "frequency_pct": 15.0,
+      "r2_test_mean": -0.0360928374410312,
+      "r2_test_max": -0.007308671001096556,
+      "r2_test_min": -0.07765336787682031,
+      "best_example": {
+        "formula": "-1.0010146 - 0.0006050001/(0.17381607 - b1_peak_pos)",
+        "r2_test": -0.007308671001096556,
+        "complexity": 7,
+        "aic": -239.07908525102266,
+        "run_idx": 17
+      }
+    },
+    {
+      "canonical_formula": "# + #/(b1_peak_pos - #)",
+      "frequency": 2,
+      "frequency_pct": 10.0,
+      "r2_test_mean": -0.027478819306274382,
+      "r2_test_max": -0.025602118897913195,
+      "r2_test_min": -0.02935551971463557,
+      "best_example": {
+        "formula": "-1.0013788 + 0.0007433129/(b1_peak_pos - 0.17494075)",
+        "r2_test": -0.025602118897913195,
+        "complexity": 7,
+        "aic": -231.87997281131297,
+        "run_idx": 16
+      }
+    },
+    {
+      "canonical_formula": "-#*# - #/(# - b1_peak_pos)",
+      "frequency": 2,
+      "frequency_pct": 10.0,
+      "r2_test_mean": -0.03279551565316552,
+      "r2_test_max": -0.02953983792850967,
+      "r2_test_min": -0.03605119337782137,
+      "best_example": {
+        "formula": "-1*1.0013866 - 0.00075263093/(0.17505465 - b1_peak_pos)",
+        "r2_test": -0.02953983792850967,
+        "complexity": 7,
+        "aic": -230.34714483854128,
+        "run_idx": 10
+      }
+    },
+    {
+      "canonical_formula": "# + #/(b2_high_persist - #)",
+      "frequency": 2,
+      "frequency_pct": 10.0,
+      "r2_test_mean": -0.01993258393025321,
+      "r2_test_max": -0.0013065003225332106,
+      "r2_test_min": -0.03855866753797321,
+      "best_example": {
+        "formula": "-1.0015048 + 0.000443607/(b2_high_persist - 0.3495963)",
+        "r2_test": -0.0013065003225332106,
+        "complexity": 7,
+        "aic": -241.4696630499558,
+        "run_idx": 14
+      }
+    },
+    {
+      "canonical_formula": "-#*# + #/(b1_peak_pos - #)",
+      "frequency": 1,
+      "frequency_pct": 5.0,
+      "r2_test_mean": -7.736547143423694,
+      "r2_test_max": -7.736547143423694,
+      "r2_test_min": -7.736547143423694,
+      "best_example": {
+        "formula": "-1*1.0020511 + 0.00056252826/(b1_peak_pos - 0.17811248)",
+        "r2_test": -7.736547143423694,
+        "complexity": 7,
+        "aic": 625.0140970836826,
+        "run_idx": 1
+      }
+    },
+    {
+      "canonical_formula": "-#*# + #/(b1_peak_pos - #*#)",
+      "frequency": 1,
+      "frequency_pct": 5.0,
+      "r2_test_mean": -0.018483432697658397,
+      "r2_test_max": -0.018483432697658397,
+      "r2_test_min": -0.018483432697658397,
+      "best_example": {
+        "formula": "-1*1.0013889 + 0.0005501664/(b1_peak_pos - 1*0.17512536)",
+        "r2_test": -0.018483432697658397,
+        "complexity": 7,
+        "aic": -234.66604601620503,
+        "run_idx": 2
+      }
+    },
+    {
+      "canonical_formula": "-(b1_fwhm/(b1_fwhm - #*#) - #/(b2_mean_persistence - #)) + #/(b2_high_persist - #)",
+      "frequency": 1,
+      "frequency_pct": 5.0,
+      "r2_test_mean": -0.20806290653662374,
+      "r2_test_max": -0.20806290653662374,
+      "r2_test_min": -0.20806290653662374,
+      "best_example": {
+        "formula": "-(b1_fwhm/(b1_fwhm - 1*0.0002807293) - 0.00042673774/(b2_mean_persistence - 0.6063663)) + 0.0006126284/(b2_high_persist - 0.31360185)",
+        "r2_test": -0.20806290653662374,
+        "complexity": 17,
+        "aic": -146.38465284568642,
+        "run_idx": 3
+      }
+    },
+    {
+      "canonical_formula": "# - #/(-b2_max_count - #)",
+      "frequency": 1,
+      "frequency_pct": 5.0,
+      "r2_test_mean": 0.0019372149568964714,
+      "r2_test_max": 0.0019372149568964714,
+      "r2_test_min": 0.0019372149568964714,
+      "best_example": {
+        "formula": "-1.0017799 - 0.0005744657/(-b2_max_count - 0.5053013)",
+        "r2_test": 0.0019372149568964714,
+        "complexity": 7,
+        "aic": -242.76755960126707,
+        "run_idx": 5
+      }
+    },
+    {
+      "canonical_formula": "# - #/(# - b2_high_persist)",
+      "frequency": 1,
+      "frequency_pct": 5.0,
+      "r2_test_mean": -0.0011853880776793169,
+      "r2_test_max": -0.0011853880776793169,
+      "r2_test_min": -0.0011853880776793169,
+      "best_example": {
+        "formula": "-1.0013751 - 0.0004543621/(0.34969568 - b2_high_persist)",
+        "r2_test": -0.0011853880776793169,
+        "complexity": 7,
+        "aic": -241.51804766342786,
+        "run_idx": 7
+      }
+    },
+    {
+      "canonical_formula": "# - (-#)*#/(b2_high_persist - #*#)",
+      "frequency": 1,
+      "frequency_pct": 5.0,
+      "r2_test_mean": -0.0015305163890446671,
+      "r2_test_max": -0.0015305163890446671,
+      "r2_test_min": -0.0015305163890446671,
+      "best_example": {
+        "formula": "-1.0016787 - (-1)*0.00047115554/(b2_high_persist - 1*0.349602)",
+        "r2_test": -0.0015305163890446671,
+        "complexity": 7,
+        "aic": -241.38018355039532,
+        "run_idx": 8
+      }
+    },
+    {
+      "canonical_formula": "# + #/(b2_max_count**# - #*#)",
+      "frequency": 1,
+      "frequency_pct": 5.0,
+      "r2_test_mean": -0.009320317980150206,
+      "r2_test_max": -0.009320317980150206,
+      "r2_test_min": -0.009320317980150206,
+      "best_example": {
+        "formula": "-1.0010219 + 0.0014283643/(b2_max_count**2 - 1*1.934145)",
+        "r2_test": -0.009320317980150206,
+        "complexity": 8,
+        "aic": -236.2810613577689,
+        "run_idx": 11
+      }
+    },
+    {
+      "canonical_formula": "# - (-#)*#/(b1_peak_pos - #)",
+      "frequency": 1,
+      "frequency_pct": 5.0,
+      "r2_test_mean": -0.0407013662687028,
+      "r2_test_max": -0.0407013662687028,
+      "r2_test_min": -0.0407013662687028,
+      "best_example": {
+        "formula": "-1.0015056 - (-1)*0.0007866106/(b1_peak_pos - 0.17525885)",
+        "r2_test": -0.0407013662687028,
+        "complexity": 7,
+        "aic": -226.03397148857627,
+        "run_idx": 13
+      }
+    },
+    {
+      "canonical_formula": "# - (-#)*#/(b2_high_persist - #)",
+      "frequency": 1,
+      "frequency_pct": 5.0,
+      "r2_test_mean": -0.07615877358638601,
+      "r2_test_max": -0.07615877358638601,
+      "r2_test_min": -0.07615877358638601,
+      "best_example": {
+        "formula": "-1.0012627 - (-1)*0.0006561254/(b2_high_persist - 0.3136134)",
+        "r2_test": -0.07615877358638601,
+        "complexity": 7,
+        "aic": -212.6327181078191,
+        "run_idx": 15
+      }
+    },
+    {
+      "canonical_formula": "b1_integral**#/(((# - (b2_mean_persistence - #))/#)) - #",
+      "frequency": 1,
+      "frequency_pct": 5.0,
+      "r2_test_mean": 0.006191038723583064,
+      "r2_test_max": 0.006191038723583064,
+      "r2_test_min": 0.006191038723583064,
+      "best_example": {
+        "formula": "b1_integral**2/(((0.48910522 - (b2_mean_persistence - 0.2759342))/0.0013906304)) - 1.0009122",
+        "r2_test": 0.006191038723583064,
+        "complexity": 12,
+        "aic": -234.47603515605704,
+        "run_idx": 18
+      }
+    },
+    {
+      "canonical_formula": "# - (-#)*#/(b1_peak_pos - #*#)",
+      "frequency": 1,
+      "frequency_pct": 5.0,
+      "r2_test_mean": -0.0035108092823146198,
+      "r2_test_max": -0.0035108092823146198,
+      "r2_test_min": -0.0035108092823146198,
+      "best_example": {
+        "formula": "-1.0011437 - (-1)*0.00043040919/(b1_peak_pos - 1*0.1734392)",
+        "r2_test": -0.0035108092823146198,
+        "complexity": 7,
+        "aic": -240.5900577762005,
+        "run_idx": 19
+      }
+    }
+  ],
+  "gate4_status": "FAIL_NEGATIVE",
+  "physical_interpretation": "Nessuna espressione stabile trovata con R\u00b2 \u2265 0.50. Risultato negativo: la relazione tra feature TDA (Ramo A) e w\u2080 non \u00e8 algebricamente semplice a z=0. Fisicamente atteso: H(z=0) \u2261 H\u2080, D(z=0) \u2261 1 rendono l'effetto di w\u2080 sulle strutture topologiche non distinguibile a z=0. Gate 4 chiuso negativamente \u2014 documentazione esplicita come da Methodology \u00a74.3. Phase 5 (z=0.5/1.0/2.0, redshift space) motivata."
+}

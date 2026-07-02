@@ -1,0 +1,106 @@
+{
+  "schema_version": "2.0",
+  "output_id": "O6-3",
+  "generated_at": "2026-05-08T07:58:09.395013+00:00",
+  "authority": "CAUCHY_Execution_Design_v2.md \u00a76 O6-3",
+  "feature_primary": "b2_mean_persistence",
+  "desi_ngc_b2": 0.45885732769966125,
+  "desi_ngc_b2_err": 0.005184488001019461,
+  "cpl_references": {
+    "DESI_CMB": {
+      "source": "Karim et al. 2025, Table V (DESI DR2 Results II)",
+      "combination": "DESI DR2 + CMB",
+      "w0": -0.838,
+      "w0_err": 0.086,
+      "wa": -0.62,
+      "wa_err": 0.35,
+      "significance_vs_LCDM": "3.1\u03c3"
+    },
+    "DESI_CMB_DESY5": {
+      "source": "Karim et al. 2025, Table V",
+      "combination": "DESI DR2 + CMB + DESY5",
+      "w0": -0.667,
+      "w0_err": 0.079,
+      "wa": -1.079,
+      "wa_err": 0.314,
+      "significance_vs_LCDM": "4.2\u03c3"
+    },
+    "DESI_CMB_DES_Dovekie": {
+      "source": "Karim et al. 2025 + Capozziello et al. 2026",
+      "combination": "DESI DR2 + CMB + DES-Dovekie",
+      "w0": -0.83,
+      "w0_err_approx": 0.09,
+      "wa": -0.65,
+      "wa_err_approx": 0.35,
+      "note": "Sostanzialmente simile a DESI+CMB; DES-Dovekie non modifica significativamente i best-fit CPL"
+    }
+  },
+  "mock_availability_note": "I mock nwLH coprono w0\u2208[-1.30,-0.70] con wa=0 (fissato). Non sono disponibili simulazioni con wa\u22600. Il confronto con i best-fit CPL completi (w0,wa jointly varied) non \u00e8 eseguibile con i dati disponibili \u2014 dichiarato come limitazione.",
+  "triple_baseline": {
+    "A_LCDM": {
+      "label": "\u039bCDM Quijote fiduciale",
+      "w0_ref": -1.0,
+      "wa_ref": 0.0,
+      "w0_bin": [
+        -1.3,
+        -0.95
+      ],
+      "n_mock": 1167,
+      "w0_mean_mock": -1.125,
+      "b2_mean": 0.2928,
+      "b2_std": 0.0278,
+      "z_score_desi": 5.98,
+      "mock_source": "nwLH z=0.5 HOD (phase6_mock_features_z05.npz)"
+    },
+    "B_DESI_CMB": {
+      "label": "DESI DR2 best-fit CPL (DESI+CMB, 3.1\u03c3)",
+      "w0_ref": -0.838,
+      "wa_ref": 0.0,
+      "w0_ref_note": "wa=0 approssimato \u2014 mock disponibili hanno wa=0",
+      "w0_bin": [
+        -0.9,
+        -0.78
+      ],
+      "n_mock": 400,
+      "w0_mean_mock": -0.84,
+      "b2_mean": 0.2908,
+      "b2_std": 0.0281,
+      "z_score_desi": 5.97,
+      "mock_source": "nwLH z=0.5 HOD (phase6_mock_features_z05.npz)"
+    },
+    "C_DESI_CMB_DESY5": {
+      "label": "DESI DR2 best-fit CPL (DESI+CMB+DESY5, 4.2\u03c3)",
+      "w0_ref": -0.667,
+      "wa_ref": -1.079,
+      "w0_ref_note": "wa=-1.079 non simulato \u2014 mock hanno wa=0; w0 approssimato",
+      "w0_bin": [
+        -0.72,
+        -0.62
+      ],
+      "n_mock": 67,
+      "w0_mean_mock": -0.71,
+      "b2_mean": 0.2904,
+      "b2_std": 0.0282,
+      "z_score_desi": 5.97,
+      "mock_source": "nwLH z=0.5 HOD (phase6_mock_features_z05.npz)",
+      "n_mock_warning": "N=67 \u2014 campione limitato; stima meno precisa"
+    }
+  },
+  "key_finding": {
+    "r_b2_w0": -0.0447,
+    "r_b2_w0_pvalue": 0.046,
+    "interpretation": "b2_mean_persistence ha correlazione quasi nulla con w0 (r=-0.045, p=0.046). I tre mock subset producono z-score identici: +5.97\u03c3\u2013+5.98\u03c3. Il segnale DESI \u00e8 anomalo rispetto a tutti i modelli w0CDM (wa=0) testati, inclusi i best-fit CPL DESI DR2. b2_mean_persistence non discrimina tra \u039bCDM e w0CDM con wa=0 \u2014 la feature \u00e8 insensibile a variazioni di w0 nell intervallo [-1.3,-0.7].",
+    "cosmological_implication": "L anomalia topologica DESI non \u00e8 riproducibile variando solo w0 nei mock. Possibili spiegazioni: (1) wa\u22600 \u00e8 necessario e le simulazioni wa=0 non catturano la dinamica rilevante; (2) il segnale \u00e8 guidato da \u03a9m/\u03c3\u2088 anzich\u00e9 da w0; (3) l anomalia \u00e8 di natura diversa da un EoS w0wa standard. Questo risultato suggerisce che b2_mean_persistence potrebbe essere pi\u00f9 sensibile alla storia dell espansione integrata che al valore di w0.",
+    "limitation": "Non sono disponibili simulazioni con wa\u22600. La previsione CPL completa (w0=-0.667, wa=-1.079) non \u00e8 testabile con i mock correnti. Da dichiarare nel paper come limitazione principale."
+  },
+  "paper_statement": "We compare the DESI NGC b2_mean_persistence measurement (0.459\u00b10.005) against three theoretical baselines: (A) \u039bCDM Quijote fiducial (b2_mock=0.293\u00b10.028, \u0394=+5.98\u03c3), (B) DESI DR2+CMB CPL best-fit (w0=-0.838, wa=0 approx., b2_mock=0.291\u00b10.028, \u0394=+5.97\u03c3), and (C) DESI DR2+CMB+DESY5 CPL best-fit (w0=-0.667, wa=0 approx., b2_mock=0.290\u00b10.028, \u0394=+5.97\u03c3). The b2_mean_persistence feature shows no significant variation across these w0CDM models (r(b2,w0)=-0.045), indicating that the topological anomaly cannot be explained by the w0 variation alone. Simulations with wa\u22600 are not available; testing the full CPL prediction (wa=-1.079) remains a limitation of the present analysis.",
+  "gate6_impact": {
+    "O6-3_complete": true,
+    "signal_consistent_across_baselines": true,
+    "z_score_range": [
+      5.97,
+      5.98
+    ],
+    "key_result": "DESI anomalo vs tutti i modelli w0CDM (wa=0) \u2014 wa\u22600 non testabile"
+  }
+}

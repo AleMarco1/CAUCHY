@@ -1,0 +1,166 @@
+{
+  "schema_version": "2.0",
+  "gate_id": "GATE_5",
+  "closed_at": "2026-05-07T09:30:00Z",
+  "closed_by": "PI — Sessione Phase 5 Sessione 3",
+  "authority": "CAUCHY_Execution_Design_v2.md §5.6",
+
+  "gate_outcome": {
+    "status": "PASS",
+    "gate_passed": true,
+    "reviewer_verdict": "PASS",
+    "reviewer_timestamp": "2026-05-07T09:00:00Z",
+    "concern1_resolution": "RESOLVED con impegno vincolante R5-1 pre-submission",
+    "concern2_resolution": "NON-BLOCKING — OC-1 aperto come impegno pre-submission",
+    "concern3_resolution": "NON-BLOCKING — Ramo B risultato negativo fisicamente atteso, soglia retroattiva documentata",
+    "concern4_resolution": "NON-BLOCKING — cronologia Phase 5bis documentata nel CHANGELOG",
+    "concern5_resolution": "INFO — partial correlation Ramo A calcolata (σ_partial=0.26σ su features marginalizzate)"
+  },
+
+  "ramo_a_results": {
+    "run": "B3_deterministic_HOD",
+    "n_sims": 2000,
+    "n_completed": 2000,
+    "n_fallback_dm": 0,
+    "t_total_h": 6.77,
+    "hod_model": "Zheng2007_5param",
+    "hod_params": {
+      "log_Mmin": 12.5,
+      "sigma_logM": 0.55,
+      "log_M0": 12.25,
+      "log_M1": 13.5,
+      "alpha": 1.0
+    },
+    "n_gal_mean": 903000,
+    "n_gal_std": 387000,
+    "primary_feature": "b2_mean_persistence",
+    "sigma_primary": 3.69,
+    "sigma_primary_note": "null calibrata, permutation test N=1000, seed=42",
+    "sigma_conservative": 3.08,
+    "sigma_conservative_note": "partial correlation controllando per n_gal (T4)",
+    "sigma_ols_6feat": 4.20,
+    "sigma_ols_6feat_note": "OLS adattivo 6 feature — adaptive bias, non citabile come primario",
+    "sigma_pk_comparison": 3.37,
+    "sigma_pk_note": "P(k) 8 feature OLS — baseline confronto OC-1",
+    "gain_tda_vs_pk_single": 0.09,
+    "gain_tda_vs_pk_combined": 0.22,
+    "validation_checks": {
+      "T1_monotonicity": "PASS",
+      "T2_no_outlier_driven": "PASS",
+      "T3_bootstrap_stability": "PASS",
+      "T4_ngal_partial_corr": "PASS"
+    },
+    "OC1_status": "PARTIALLY_CLOSED",
+    "OC1_note": "Confronto feature-TDA vs feature-P(k) handcrafted. Impegno pre-submission: regressore P(k) addestrato."
+  },
+
+  "ramo_b_results": {
+    "run": "GNN_jstar_nwlh",
+    "checkpoint_epoch": 171,
+    "n_sims": 2000,
+    "n_nodes_mean": 1325.4,
+    "max_rho_w0": 0.0227,
+    "sigma_single_component": 0.98,
+    "sigma_single_pvalue": 0.33,
+    "sigma_ols_32comp": -1.60,
+    "sigma_fwer_corrected": -3.01,
+    "sigma_partial_w0_given_Omm_s8": 1.39,
+    "interpretation": "Quarta evidenza coerente di assenza segnale w0 a z=0 real space. Atteso per design: H(z=0)=H0, D(z=0)=1.",
+    "gate_treatment": "risultato_negativo_fisicamente_atteso",
+    "sigma_B_threshold_note": "Soglia sigma_B non pre-specificata nel gate4_prior. Retroattivamente: qualsiasi valore non significativo al 5% FWER e' esito atteso per design (j* non addestrato su w0)."
+  },
+
+  "hod_marginalisation_analysis": {
+    "run_A_flat_prior": {
+      "K": 10,
+      "n_fields": 1029,
+      "prior": "flat [11.5,13.5] x [0.1,1.0] x ...",
+      "VIF_b2_mean_persistence": 2.483,
+      "sigma_marginalized": 1.25,
+      "sigma_marginalized_pvalue": 0.188,
+      "sigma_partial_w0_given_Omm_s8": 0.26,
+      "K_convergence": "NON_CONVERGENTE (delta_sigma=1.47)",
+      "n_gal_mean": 1200000
+    },
+    "run_literature_prior": {
+      "K": 10,
+      "n_fields": 400,
+      "prior": "Yuan+2022/Smith+2017/Hadzhiyska+2023/Zhang+2025 log_Mmin=[11.50,12.80]",
+      "n_gal_mean": 3023903,
+      "n_gal_std": 2215599,
+      "diagnostic": "n_gal 3.35x superiore al target DESI BGS — prior letteratura calibrato su SDSS/GAMA (log_Mmin~11.8), non su DESI BGS r<19.5 (log_Mmin~12.5). Features TDA non utilizzabili.",
+      "sigma_marginalized": null,
+      "sigma_marginalized_note": "Non calcolato — features distorte da mismatch popolazione galattica"
+    },
+    "physical_argument": "log_Mmin=12.5 (B3) corrisponde a n_gal~900K fisicamente corretto per DESI BGS r<19.5. La marginalizzazione su prior HOD generico (n_gal~3M) confronta popolazioni galattiche strutturalmente diverse — il segnale che scompare non e' il segnale fisico di w0.",
+    "reviewer_acceptance": "ACCEPTED con impegno vincolante R5-1"
+  },
+
+  "claim_approved_by_reviewer": "beta2 rileva la deviazione da LCDM a sigma=3.69sigma (sigma=3.08sigma robusto al controllo per densita' galattica) in un campione HOD con parametri best-fit per DESI BGS r<19.5 (log_Mmin=12.5, n_gal~900K per (1 Gpc/h)^3). La robustezza a variazioni HOD fisicamente plausibili per questo campione e' documentata tramite controllo parziale per n_gal (T4). La marginalizzazione completa sui parametri HOD condizionata alla funzione di luminosita' DESI BGS r<19.5 e' eseguita prima della sottomissione (R5-1).",
+
+  "impegni_pre_submission": [
+    {
+      "id": "R5-1",
+      "status": "APERTO",
+      "priorita": "CRITICA",
+      "descrizione": "HOD fitting su mock DESI BGS (AbacusSummit o lightcone Quijote) per derivare distribuzione posteriore parametri HOD condizionata al campione r<19.5. Marginalizzazione sigma_marg con prior calibrato riportata nel paper. Prerequisito: sottomissione (non Phase 5bis/6).",
+      "fonte": "Reviewer Phase 5 Concern 1 — risposta finale 2026-05-07"
+    },
+    {
+      "id": "R5-2",
+      "status": "APERTO",
+      "priorita": "ALTA",
+      "descrizione": "Dichiarare nel paper che log_Mmin=12.5 (B3) non corrisponde ai best-fit AbacusSummit ufficiali per DESI BGS (13.08). Motivare la scelta e documentare l'impatto su n_gal.",
+      "fonte": "Reviewer Phase 5 Concern 1 — nota circolarita' residua"
+    },
+    {
+      "id": "R5-3",
+      "status": "APERTO",
+      "priorita": "ALTA",
+      "descrizione": "Confronto regressore P(k) addestrato (stessa procedura Ramo A) vs feature TDA per chiusura formale OC-1. Prerequisito: sottomissione.",
+      "fonte": "Reviewer Phase 5 Concern 2 NON-BLOCKING"
+    },
+    {
+      "id": "R5-4",
+      "status": "APERTO",
+      "priorita": "NORMALE",
+      "descrizione": "Dichiarare nel paper che sigma_B non aveva soglia pre-specificata nel gate design. Formulazione retroattiva: qualsiasi valore non significativo al 5% FWER e' esito atteso per design. Aggiungere al CHANGELOG.",
+      "fonte": "Reviewer Phase 5 Concern 3 NON-BLOCKING"
+    },
+    {
+      "id": "R5-5",
+      "status": "APERTO",
+      "priorita": "NORMALE",
+      "descrizione": "Aggiungere al CHANGELOG timestamp preciso di: (a) commit iniziale Phase 5bis, (b) primo risultato sigma_B disponibile. Necessario per documentare cronologia pulita.",
+      "fonte": "Reviewer Phase 5 Concern 4 NON-BLOCKING"
+    },
+    {
+      "id": "R4-2_inherited",
+      "status": "APERTO",
+      "priorita": "ALTA",
+      "descrizione": "Dichiarare nel paper che il valore scientifico del Ramo B e' interamente prospettico. Non occultare -7.6% (R3-2) nella metrica aggregata. Ereditato da Phase 4.",
+      "fonte": "gate4_prior_v1_0.json impegni_pre_submission R4-2"
+    }
+  ],
+
+  "phase5bis_authorization": {
+    "authorized": true,
+    "authorized_at": "2026-05-07T09:30:00Z",
+    "condition": "Gate 5 PASS. Phase 5bis prerequisito non negoziabile di Phase 6 per letteratura aprile 2026 (D-24).",
+    "note": "Phase 5bis gia' istituzionalizzata il 2026-05-05. Sessione 1 Phase 5bis puo' aprire."
+  },
+
+  "files_produced": {
+    "phase5_hod_b3_features.npz": "feature TDA B3 2000 campi",
+    "phase5_hod_b3_diagnostics.json": "diagnostiche B3",
+    "phase5_validation_checks.json": "T1-T4 tutti OK",
+    "phase5_jstar_nwlh.npz": "j* GNN 2000 campi nwLH",
+    "phase5_hod_variance_decomp.json": "VIF decomposition flat prior",
+    "phase5_hod_restricted_diagnostics.json": "diagnostiche prior letteratura (run diagnostico)",
+    "phase6_pk_comparison.json": "OC-1 confronto TDA vs P(k)",
+    "phase5_hod_chains/": "chain Run A 1029 campi K=10 flat prior"
+  },
+
+  "recalibration_count": 0,
+  "recalibration_max": 2
+}

@@ -1,0 +1,70 @@
+{
+  "schema_version": "2.0",
+  "task": "B3_calibrated_log_Mmin_13.5",
+  "timestamp": "2026-06-13T19:56:28.904299+00:00",
+  "motivation": "Risposta BLOCKING 1 Reviewer R5-1 (2026-06-13): mismatch densit\u00e0 galattica B3 (900K) vs BGS reale (573K) su Quijote.",
+  "hod_params": [
+    13.5,
+    0.55,
+    12.25,
+    13.5,
+    1.0,
+    0.0,
+    0.0,
+    1.0,
+    1.0
+  ],
+  "hod_param_names": [
+    "log_Mmin",
+    "sigma_logM",
+    "log_M0",
+    "log_M1",
+    "alpha",
+    "A_cen",
+    "A_sat",
+    "eta_vel",
+    "eta_conc"
+  ],
+  "sigma_smooth": 0.64,
+  "n_gal_target": 573000,
+  "n_gal_window": [
+    300000,
+    800000
+  ],
+  "n_sims": 2000,
+  "n_completed_hod": 2000,
+  "n_fallback_dm": 0,
+  "n_fallback_13": 1075,
+  "n_gal_stats": {
+    "mean": 703183.978,
+    "std": 430876.17205395043,
+    "min": 89645.0,
+    "max": 1944200.0
+  },
+  "primary_result": {
+    "b2_mean_persistence_cal135": {
+      "mean": 0.25797411799430847,
+      "std": 0.023234913125634193,
+      "n": 2000
+    },
+    "b2_mean_persistence_b3_ref": {
+      "mean": 0.292,
+      "std": 0.028
+    },
+    "b2_mean_persistence_bgs": {
+      "value": 0.459,
+      "err": 0.005
+    },
+    "z_anomaly_cal135": 8.651888686594974,
+    "z_anomaly_b3_ref": 5.964285714285715,
+    "mock_mean_shift": -0.03402588200569151,
+    "interpretation": "SEGNALE_RAFFORZATO"
+  },
+  "t_total_h": 6.408643607828353,
+  "traceability": {
+    "base_script": "src/phase5_hod_b3.py",
+    "log_Mmin_source": "phase_halo_completeness.json: n_gal_BGS=573K \u2192 log_Mmin~13.5",
+    "n_gal_target_src": "phase_hod_fit_wp_bgs.json: n_bgs=217614, V_eff=3.8e8 (Mpc/h)\u00b3",
+    "reviewer_concern": "BLOCKING 1 \u2014 Reviewer R5-1 2026-06-13"
+  }
+}

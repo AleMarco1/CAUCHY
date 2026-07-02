@@ -1,0 +1,65 @@
+```
+CAUCHY REVIEW — PHASE 0
+Timestamp: 2026-04-27T09:15:00Z
+Verdict: NON-BLOCKING
+
+---
+
+RAGIONAMENTO COMPLESSIVO
+
+Phase 0 è una fase di integrità dei dati e version-lock, non una fase di analisi scientifica. Il suo perimetro è correttamente definito e limitato. I gate criteria applicati sono appropriati per lo scopo dichiarato: verificare che 6.000 campi Quijote siano integri, finiti, fisicamente plausibili e tracciati con checksum. Il pass rate 100% è un risultato atteso — i campi Quijote sono prodotti da pipeline N-body consolidate e già validate dalla comunità (Villaescusa-Navarro et al. 2020). Un pass rate inferiore al 100% sarebbe stato il risultato anomalo da spiegare.
+
+La scelta di R=5 Mpc/h come scala di smoothing è direttamente ancorata alla letteratura di riferimento: Abedi et al. 2025 (arXiv:2410.01751v2) usano esattamente R=5 Mpc/h su campi di materia Quijote con superlevel filtration, e questo è il benchmark diretto di CAUCHY. La conversione σ_pixel = R/pixel_size = 5.0/7.8125 ≈ 0.640 pixel è aritmeticamente corretta data la griglia 128³ su box (1 Gpc/h)³.
+
+Tuttavia, R=5 Mpc/h corrisponde a σ ≈ 0.64 pixel, che è sub-pixel. Questo non invalida il preprocessing ma introduce una questione metodologica non banale: uno smoothing gaussiano con σ < 1 pixel non sta realmente sopprimendo strutture sub-griglia in senso fisico, ma sta principalmente agendo come un filtro numerico di peso ≈ 1 sull'elemento centrale della kernel. L'effetto fisico atteso da R=5 Mpc/h è concettualmente corretto, ma la sua realizzazione numerica su una griglia 128³/(1 Gpc/h)³ (pixel_size = 7.8125 Mpc/h) è al limite della risoluzione della griglia: la scala fisica è inferiore alla risoluzione del campionamento. Questo aspetto deve essere documentato e giustificato nel metodo, non solo citato come "standard da letteratura".
+
+La normalizzazione per-cosmologia (sottrazione della media voxel-wise del dataset) è una scelta difendibile e preferibile alla normalizzazione per-campo per il fine dichiarato, ma introduce una asimmetria metodologica tra i tre dataset che deve essere esplicitata. Il dataset mean ≈ 10⁻¹⁰ è il risultato corretto e atteso per campi CIC con ⟨δ⟩=0 per costruzione; non segnala anomalie.
+
+La discrepanza tra le versioni di librerie specificate nell'`environment.yml` (numpy=1.26, scipy=1.12) e quelle effettivamente usate (numpy=2.4.3, scipy=1.17.1) è una vulnerabilità di riproducibilità non trascurabile che deve essere risolta prima della Phase 1, non differita. Il lock file registra le versioni effettive, ma il mismatch con l'environment dichiarato crea ambiguità nel record scientifico.
+
+---
+
+CONCERNS
+
+1. NON-BLOCKING
+Concern: Lo smoothing gaussiano con σ_pixel = 0.64 pixel è sub-pixel. Sulla griglia 128³ con pixel_size = 7.8125 Mpc/h, R=5 Mpc/h è inferiore alla risoluzione del campionamento. L'implementazione `scipy.ndimage.gaussian_filter` con σ=0.64 applica un kernel che pesa dominantemente il voxel centrale, producendo un'operazione numericamente quasi-identitaria. Questo solleva la domanda se lo smoothing stia effettivamente sopprimendo strutture spurie sub-griglia o stia semplicemente propagando un parametro ereditato dalla letteratura su un setup di griglia diverso. La giustificazione "Abedi et al. 2025 usano R=5 Mpc/h" è corretta ma non sufficiente, perché il paper Abedi et al. non dichiara esplicitamente la risoluzione della griglia usata per quell'analisi, e la conversione σ_pixel deve essere verificata nel loro setup specifico.
+Sezione interessata: Metodi — Step 1 Gaussian smoothing
+Evidenza: Con pixel_size=7.8125 Mpc/h, R=5 Mpc/h corrisponde a σ=0.64 pixel. Il kernel gaussiano discreto a σ<1 pixel concentra >90% del peso sul voxel centrale, rendendo lo smoothing numericamente quasi-trasparente. Abedi et al. 2025 (arXiv:2410.01751) non specificano esplicitamente la griglia usata — la citazione come "standard" va verificata nel contesto equivalente. Se la griglia Abedi è a risoluzione superiore (es. 256³ o 512³), l'equivalenza non è diretta.
+
+2. NON-BLOCKING
+Concern: La discrepanza tra `environment.yml` (numpy=1.26, scipy=1.12) e versioni effettive usate (numpy=2.4.3, scipy=1.17.1) rappresenta una vulnerabilità di riproducibilità. Il cambio da numpy 1.x a 2.x introduce modifiche nel comportamento di default di alcune funzioni di I/O e nel trattamento dei dtype. La claim che "le API sono stabili attraverso queste versioni" è plausibile per `gaussian_filter` e `load`, ma non è stata verificata con un test di conformità esplicito (confronto di output su un campo campione). Per un paper a Nature Astronomy, la riproducibilità computazionale deve essere dimostrabile, non solo asserta.
+Sezione interessata: Metodi — Ambiente di esecuzione; riproducibilità
+Evidenza: NumPy 2.0 ha introdotto breaking changes documentati (https://numpy.org/doc/stable/release/2.0.0-notes.html), inclusi cambiamenti nel comportamento di copy-on-write e in alcune funzioni di cast. Sebbene `gaussian_filter` di scipy sia probabilmente stabile, l'assenza di un test esplicito lascia aperta la vulnerabilità. Il lock file registra le versioni effettive, ma l'`environment.yml` difforme è il documento che un referee userebbe per tentare la replica.
+
+3. NON-BLOCKING
+Concern: La normalizzazione per-cosmologia applica una sottrazione voxel-wise calcolata su tutti i 2.000 campi di ciascun dataset. Per i dataset LHC e nwLH — che per costruzione hanno cosmologie non uniformi distribuite su ipercubi latini — la "media del dataset" non corrisponde a una media fisica significativa: è la media di 2.000 campi a cosmologie diverse. La sottrazione di questa media introduce una modifica dipendente dalla distribuzione del campionamento LHC, il che significa che il campo normalizzato per un singolo campo LHC dipende dall'intero insieme del sampling LHC, non solo dalla cosmologia di quel campo. Questa dipendenza combinata non è discussa e potrebbe introdurre correlazioni tra i campi preprocessati che non esistono nei dati originali.
+Sezione interessata: Metodi — Step 2 Normalizzazione per-cosmologia; implicazioni per Phase 2–4 (training CNN/GNN)
+Evidenza: Per il dataset fiduciale (cosmologia fissa) la media voxel-wise ha interpretazione fisica diretta come μ_ΛCDM. Per LHC e nwLH, la media mescola cosmologie diverse; il campo sottratto è un artefatto del campionamento LHC, non una quantità fisica. Questo introduce una dipendenza implicita del campo preprocessato dalla composizione del dataset, potenzialmente problematica per il training di modelli ML in Phase 2–4 che assumono campi i.i.d. condizionati ai parametri cosmologici.
+
+---
+
+OBIEZIONI CANONICHE APPLICATE
+
+OC-1 POWER SPECTRUM SUFFICIENCY
+"Perché la PH porta informazione aggiuntiva rispetto a P(k)+B(k)?"
+Applicabilità: N/A per Phase 0
+Finding: Phase 0 è un gate di integrità dati. Questa obiezione è rilevante a partire da Phase 1. Nessun finding applicabile.
+
+OC-2 VOLUME SCALING
+"I risultati sono consistenti con le stime Fisher della letteratura scalate per volume e tipo di tracciatore?"
+Applicabilità: N/A per Phase 0
+Finding: Phase 0 non produce numeri scientifici. Rilevante da Phase 1. Nessun finding applicabile.
+
+OC-3 HOD DEGENERACY
+Applicabilità: N/A per Phase 0
+Finding: Phase 0 opera su campi di materia pura (dark matter), non su tracciatori galattici. HOD non applicabile fino a Phase 5–6.
+
+OC-4 STATISTICAL ROBUSTNESS
+"I threshold di gate sono prior congelati o sono stati modificati retroattivamente per far passare il gate (p-hacking)?"
+Applicabilità: ALTA
+Finding: Il documento dichiara che i threshold erano fissati nel `prior/gate0_prior_v1.0.json` prima dell'esecuzione (congelato 2026-04-25, esecuzione 2026-04-27). I threshold sono appropriati e conservativi (pass rate ≥ 99%, max_rejected ≤ 20). Il gate è stato superato con margine ampio (pass rate 100% vs threshold 99%). Non ci sono evidenze di retroattività. Il record è internamente consistente. Concern residuo: il prior JSON non è allegato come file leggibile in modo indipendente — solo il manifest e il lock file sono forniti. Per la riproducibilità del record, il prior JSON originale dovrebbe essere allegato alla documentazione di Phase 0.
+
+OC-5 2D VS 3D DISTINCTIVENESS
+Applicabilità: N/A per Phase 0
+Finding: β₂ non è calcolato in questa fase. Rilevante da Phase 1 in poi.
+```

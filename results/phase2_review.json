@@ -1,0 +1,73 @@
+```
+CAUCHY REVIEW — PHASE 2
+Timestamp: 2026-04-29T15:00:00Z
+Verdict: NON-BLOCKING
+
+---
+
+RAGIONAMENTO COMPLESSIVO
+
+Phase 2 è il gate di attivazione del Ramo B. La sua funzione non è produrre vincoli cosmologici — è dimostrare che la CNN SE(3)-equivariante produce un campo di tensione τ(x) che codifica struttura dipendente dai parametri cosmologici in modo non banale. Il gate supera formalmente su tutti i criteri dichiarati. Tuttavia, l'analisi rivela una serie di vulnerabilità metodologiche che, prese singolarmente, non invalidano il gate, ma che in combinazione rappresentano un rischio non trascurabile per la difendibilità scientifica del Ramo B nelle fasi successive.
+
+Il risultato più robusto è R=0.983 nel test T1, con margine ×4.9 sul threshold. Nonostante l'uso di Sliced Wasserstein invece di W₂ esatto, il margine è abbondante. Tuttavia, il test T1 misura la separabilità di τ̄ (media per-campo) nel piano (σ₈, Ωm) — non misura se τ(x) codifica informazione su w₀, che è il target finale del Ramo B. Il fatto che R≈1 implica che le distribuzioni di τ̄ reagiscono quasi identicamente a variazioni di σ₈ e a variazioni di Ωm — questo è un risultato di sensitività ma non di fattorizzazione: R=0.983 significa che i due tipi di variazione producono distanze di Wasserstein quasi identiche, non che τ discrimina tra i due parametri.
+
+La discrepanza documentata tra il prompt (N_pts=8192, raggio ~50 Mpc/h) e il JSON allegato (n_pts_per_field=4096, raggio ~63 Mpc/h nella nota letteratura) è un'inconsistenza del record scientifico che deve essere risolta. Il checkpoint SHA-256 registrato (302771fcd8...) è stato prodotto da quale configurazione? I 4000 campi τ(x) salvati corrispondono a N_pts=8192 o N_pts=4096? Questa non è una questione estetica: il raggio di connessione k-NN determina le scale fisiche rappresentate nella point cloud, e la configurazione con cui i τ(x) sono stati prodotti deve corrispondere a quella dichiarata nel paper.
+
+La convergenza CNN a val_loss=0.0817 è accettabile in assoluto, ma la val_loss MSE z-score non è una metrica di qualità fisica — misura la capacità della CNN di riprodurre 8 feature TDA normalizzate, non la qualità di τ(x) come rappresentazione del campo di tensione cosmologica. Un modello che memorizza la media delle feature senza catturare variazione spaziale raggiunge val_loss bassa ma τ(x) inutile. Il test hessiano con r=0.071 è il solo discriminante disponibile, e il suo valore basso è preoccupante.
+
+---
+
+CONCERNS
+
+1. BLOCKING
+Concern: Inconsistenza documentata tra il prompt di review (N_pts=8192, raggio k-NN ~50 Mpc/h) e il JSON allegato (n_pts_per_field=4096, letteratura reference: "k=16 derivato da k=32 per N=8192; CAUCHY usa N=4096 → k=16 per raggio ~63 Mpc/h"). I 4000 campi τ(x) salvati su disco e il checkpoint phase2_cnn_best.pt sono stati prodotti con N_pts=4096 o N_pts=8192? Il prompt afferma che il run a N_pts=4096 era "precedente" e che il run finale usa N_pts=8192, ma il JSON (generato al timestamp del gate) registra n_pts_per_field=4096. Se il JSON riflette il run effettivo, allora i τ(x) salvati e il gate T1 sono stati calcolati con N_pts=4096, non 8192. CS-6 spiega che n_params=0 è un "artefatto di serializzazione in modalità gate2" — ma se la modalità gate2 non registra correttamente n_params, non è garantito che registri correttamente n_pts. La correttezza del record dipende dalla risoluzione di questa ambiguità.
+Sezione interessata: Metodi — architettura CNN; output prodotti; record scientifico
+Evidenza: Il JSON allegato (`phase2_cnn_diagnostic.json`, campo `architecture.n_pts_per_field`) riporta 4096. Il prompt riporta 8192. Il checkpoint SHA-256 è unico — deve corrispondere a una sola configurazione. La discrepanza è interna al documento di questa review.
+
+2. NON-BLOCKING
+Concern: Il test T1 (R=0.983) misura la distanza di Wasserstein tra distribuzioni di τ̄ in quadranti del piano (σ₈, Ωm), ma non verifica che τ discrimina tra σ₈ e Ωm — verifica solo che τ è sensibile a entrambi in misura simile. R≈1 può essere prodotto da un τ che reagisce identicamente a entrambi i parametri (nessun potere discriminante), mentre R>1 o R<1 indicherebbe sensibilità asimmetrica. Il threshold R≥0.20 è privo di precedente letterale in letteratura (come dichiarato nella nota al gate criteria) e non ha una giustificazione fisica che lo colleghi alla capacità di discriminare w₀ nelle fasi successive. Il gate misura sensibilità parametrica ma non informazione cosmologica specifica.
+Sezione interessata: Gate criteria — Test T1; interpretazione scientifica
+Evidenza: Per costruzione, W₂(stesso-σ₈, Ωm-diverso)=0.453 e W₂(stesso-Ωm, σ₈-diverso)=0.460 sono quasi identiche. R=0.453/0.460=0.983. Questo indica che τ̄ non discrimina tra σ₈ e Ωm — reagisce allo stesso modo a entrambe le variazioni. Per il Ramo B, il target è w₀, che non è incluso nel test T1. La catena logica "R≥0.20 → τ porta informazione su w₀" non è dimostrata.
+
+3. NON-BLOCKING
+Concern: La correlazione |τ|–hessiano di Pearson r=0.071 è marginalmente sufficiente per superare il soft gate (soglia ≥0.05), ma è un test insufficiente per escludere che τ(x) abbia imparato struttura prevalentemente gaussiana. Il Laplaciano discreto ∇²δ(x) è una funzione lineare del campo — non è una statistica non-lineare. Un campo τ(x) che riproduce semplicemente la varianza locale di δ (equivalente al modulo del gradiente o al valore assoluto del campo smoothed) produrrebbe r>0.071 con il Laplaciano pur non contenendo informazione topologica non-lineare. Il test non distingue tra "τ cattura topologia" e "τ cattura ampiezza locale". La soglia soft ≥0.05 è così bassa che quasi qualsiasi campo non costante la supera.
+Sezione interessata: Metodi — Test soft hessiano; interpretazione di τ(x)
+Evidenza: r(|τ|, |∇²δ|)=0.071 con r_1σ(N=128³) ≈ 10⁻³ — il valore è statisticamente significativo ma fisicamente debole. Il test esclude τ=costante ma non esclude τ∝P(k). Un test più discriminante sarebbe la correlazione tra |τ| e le Betti curve calcolate su δ(x) per lo stesso campo — ovvero verificare che τ porta informazione che non è già nel power spectrum.
+
+4. NON-BLOCKING
+Concern: La supervisione CNN è MSE z-score sulle 8 feature TDA di Phase 1. Questo implica che τ(x) = CNN(δ) è ottimizzato per riprodurre 8 scalari globali per-campo — l'encoder non ha incentivo a produrre una rappresentazione spazialmente strutturata di τ. Il campo τ(x) risultante potrebbe essere spazialmente uniforme (o quasi) se le 8 feature scalari sono determinate dalla distribuzione globale del campo δ piuttosto che dalla struttura locale. La costruzione τ(x) = CNN_encoder(δ) − μ_ΛCDM produce un vettore latente per-punto, ma l'encoder non è addestrato con un obiettivo spaziale — è addestrato con un obiettivo globale (media delle 8 feature per campo). La coerenza tra struttura spaziale di τ e struttura topologica locale di δ non è garantita dall'architettura.
+Sezione interessata: Metodi — Supervisione CNN; costruzione τ(x)
+Evidenza: L'obiettivo di training è MSE(τ̄_field, fvec_lhc) dove τ̄_field è la media delle attivazioni latenti sui punti del campo. Un campo τ(x) spazialmente costante ma con media giusta minimizza la loss identicamente a un campo spazialmente strutturato. Phase 3 applicherà TDA(τ(x)) — se τ(x) è quasi spazialmente uniforme, la TDA su τ produce segnale nullo indipendentemente dalla cosmologia.
+
+5. INFO
+Concern: Il fallback scipy KDTree per la costruzione del grafo k-NN (invece di torch-cluster) è dichiarato "funzionalmente equivalente". Questo è vero per la correttezza del grafo k-NN, ma può introdurre differenze nelle performance computazionali e nella riproducibilità se torch-cluster e scipy KDTree usano strategie di tie-breaking diverse per punti equidistanti. Per il record scientifico, la dipendenza dal fallback deve essere documentata esplicitamente nel paper come limitazione dell'implementazione.
+Sezione interessata: Metodi — implementazione k-NN; riproducibilità
+Evidenza: Le due librerie usano algoritmi diversi (ball-tree vs kd-tree con tie-breaking diversi). Per un dataset cosmologico continuo con 8192 punti campionati stochasticamente, i tie esatti sono rari ma non impossibili in zone di bassa densità. Questo non invalida il gate ma deve essere dichiarato.
+
+---
+
+OBIEZIONI CANONICHE APPLICATE
+
+OC-1 POWER SPECTRUM SUFFICIENCY
+"Perché la PH porta informazione aggiuntiva rispetto a P(k)+B(k)?"
+Applicabilità: MEDIA
+Finding: Phase 2 non applica PH a τ(x) — produce τ(x) come input per Phase 3. Il test T1 non dimostra che TDA(τ) porta informazione aggiuntiva rispetto a P(k). Il Concern 3 identifica che il test hessiano attuale non discrimina tra τ gaussiano e τ topologico. La risposta a OC-1 per Phase 2 è rinviata a Phase 3, ma le vulnerabilità metodologiche attuali (Concern 3 e 4) aumentano il rischio che Phase 3 produca un segnale TDA(τ) non distinguibile da P(τ).
+
+OC-2 VOLUME SCALING
+"I risultati sono consistenti con le stime Fisher della letteratura?"
+Applicabilità: BASSA per Phase 2
+Finding: Il test Fisher robustness (variazione 13.6% tra frac=0.3 e frac=0.5) è consistente con le aspettative per una regressione lineare su 2000 campi LHC. Non ci sono claim di vincoli cosmologici da confrontare con la letteratura in questa fase.
+
+OC-3 HOD DEGENERACY
+Applicabilità: BASSA
+Finding: Phase 2 opera su campi di materia oscura pura (Quijote). HOD non applicabile. Questo concern diventa rilevante a Phase 5-6 quando la pipeline viene applicata a dati osservativi.
+
+OC-4 STATISTICAL ROBUSTNESS
+"I threshold di gate sono prior congelati?"
+Applicabilità: ALTA
+Finding: Il threshold R≥0.20 è dichiarato dal PI stesso come "stima operativa senza precedente letterale in letteratura". Questo è un'ammissione che il threshold non è ancorato a una giustificazione fisica o a una calibrazione empirica. Il criterio Hartlap≥0.70 per l'esclusione delle frazioni nel test Fisher robustness è metodologicamente corretto nella sua logica (è un filtro su N_sim/N_data strutturale, non post-hoc sui risultati) e ancorato a letteratura primaria (Hartlap et al. 2007). Non costituisce p-hacking. Il BLOCKING di Concern 1 è la vulnerabilità più grave per l'OC-4: se i τ(x) prodotti corrispondono a N_pts=4096 e non 8192, il gate T1 con R=0.983 potrebbe essere stato calcolato su rappresentazioni diverse da quelle descritte nel paper.
+
+OC-5 2D VS 3D DISTINCTIVENESS
+Applicabilità: BASSA per Phase 2
+Finding: β₂ non è calcolato in Phase 2. τ(x) è prodotto come campo latente — la TDA su τ(x) sarà in Phase 3. Rinviato.
+```

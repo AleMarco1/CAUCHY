@@ -1,0 +1,50 @@
+{
+  "schema_version": "2.0",
+  "output_id": "phase6_sigma_px_test",
+  "generated_at": "2026-05-08T11:21:18.970066+00:00",
+  "authority": "Risposta BLOCKING 1, ciclo 3 review Gate 6",
+  "n_mock": 200,
+  "n_errors": 0,
+  "cell_size_mock_mpc_h": 7.8125,
+  "b2_desi_r5_canonical": 0.45885732769966125,
+  "configs": {
+    "sigma_px_0216": {
+      "R_mpc_h": 1.6875,
+      "sigma_px": 0.216,
+      "note": "\u03c3_px uguale a DESI (R=1.69 Mpc/h su box 1000 Mpc/h)",
+      "n_mock": 200,
+      "b2_mean": 0.3031752128148754,
+      "b2_std": 0.04267581897711015,
+      "z_score_desi": 3.6480170414137434
+    },
+    "sigma_px_0640": {
+      "R_mpc_h": 5.0,
+      "sigma_px": 0.64,
+      "note": "\u03c3_px canonico mock (R=5 Mpc/h \u2014 configurazione O6-4)",
+      "n_mock": 200,
+      "b2_mean": 0.1501666021445242,
+      "b2_std": 0.01818108369333005,
+      "z_score_desi": 16.978675790837702
+    },
+    "sigma_px_1280": {
+      "R_mpc_h": 10.0,
+      "sigma_px": 1.28,
+      "note": "\u03c3_px doppio (R=10 Mpc/h \u2014 gi\u00e0 calcolato in O6-4)",
+      "n_mock": 200,
+      "b2_mean": 0.08363118038426288,
+      "b2_std": 0.009532995202655692,
+      "z_score_desi": 39.36078214021006
+    }
+  },
+  "verdict_blocking1": "SOSTANZIALE",
+  "delta_b2_lowsig_vs_highsig": 0.1530086106703512,
+  "delta_in_sigma_signal": 8.415813559369086,
+  "interpretation": "b2_mean_persistence \u00e8 sensibile a \u03c3_px (+8.42\u03c3). Il concern BLOCKING 1 \u00e8 sostanziale: \u03c3_px diverso introduce bias misurabile. Il confronto DESI vs mock richiede correzione.",
+  "crosscheck_o64": {
+    "b2_r5_canonical": 0.1502,
+    "b2_r5_this_run": 0.1501666021445242,
+    "b2_r10_canonical": 0.0836,
+    "b2_r10_this_run": 0.08363118038426288
+  },
+  "paper_statement": "To assess the impact of grid discretization on b2_mean_persistence, we computed the statistic on 200 nwLH mock fields with three smoothing configurations: \u03c3_px=0.216 (matching DESI, R=1.7 Mpc/h), \u03c3_px=0.640 (canonical mock, R=5 Mpc/h), and \u03c3_px=1.280 (R=10 Mpc/h). The difference between \u03c3_px=0.216 and \u03c3_px=0.640 is +0.1530 (+8.42\u03c3_signal), above the non-dominance threshold of 0.5\u03c3."
+}

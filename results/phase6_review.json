@@ -1,0 +1,81 @@
+```
+CAUCHY-IDE REVIEW — WP ESTERNO / GATE 6 (CAUCHY PHASE 6 — TDA DESI DR1 BGS NGC)
+Timestamp: 2026-05-08T10:00:00Z
+Verdict: BLOCKING
+
+---
+
+RAGIONAMENTO COMPLESSIVO
+
+Questo gate non appartiene al progetto CAUCHY-IDE (IDE-CPL, CLASS, evidenza bayesiana) ma al progetto CAUCHY (TDA, CNN, GNN, DESI DR1 BGS). I due progetti hanno pipeline, metodologie e domande scientifiche distinte. La review viene condotta applicando gli stessi standard PRD/JCAP del mandato, ma senza applicare le obiezioni canoniche OC-1–OC-5 specifiche di CAUCHY-IDE dove non pertinenti.
+
+Il progetto presenta un risultato numerico impressionante (σ_DESI ∈ [+5.40σ, +5.97σ]) e una struttura di gate ben documentata. Tuttavia, esistono tre problemi che insieme invalidano la difendibilità del risultato principale in una submission PRD/JCAP: (1) il confronto DESI vs mock è affetto da un'asimmetria di smoothing così grave da rendere il z-score non interpretabile come misura di anomalia fisica; (2) la sistematica S3 è classificata DOMINANT con una stima pilot su N=10 mock, il che significa che l'entità della sistematica dominante è sconosciuta; (3) la classificazione S2 come BORDERLINE oscura una discrepanza NGC-SGC di 3.8σ che, in assenza di una spiegazione fisica verificata, costituisce un segnale di allarme interno non risolto.
+
+Il problema del smoothing è il più grave e da solo giustifica il BLOCKING. Su DESI, R=5 Mpc/h corrisponde a σ_px=0.216, ovvero lo smoothing Gaussiano è praticamente nullo sul campo voxelizzato a 23.1 Mpc/h per cella. Sui mock Quijote (cell=7.8 Mpc/h per box 1000 Mpc/h, NGRID=128), la stessa R=5 Mpc/h corrisponde a σ_px=0.64 — un filtro che rimuove realmente le strutture sub-pixel. Il campo DESI è quindi quasi non-filtrato, mentre i mock sono significativamente smoothed. La persistenza topologica β₂ è sensibile proprio alla struttura sub-cella: misurare b2_mean_persistence su un campo non-filtrato e confrontarlo con un campo filtrato produce necessariamente un bias verso valori alti per DESI. Il z-score di +5.97σ potrebbe essere interamente spiegato da questa asimmetria, e nessun argomento prodotto nel gate dimostra il contrario.
+
+Il framing CONSERVATIVO (ereditato da Gate 5bis) non è sufficiente a rendere difendibile un risultato in cui la sistematica dominante (S3) è stimata su N=10 pilot e la direzione dell'asimmetria sistematica favorisce esattamente il segnale osservato.
+
+---
+
+CONCERNS
+
+1. BLOCKING
+Concern: L'asimmetria di smoothing DESI vs mock (σ_px=0.216 vs 0.640) introduce un bias sistematico non quantificato nella direzione del segnale osservato. Su DESI, R=5 Mpc/h applicato a celle di 23.1 Mpc/h è un filtro sub-pixel estremo che lascia il campo quasi invariato rispetto all'output CIC. Sui mock Quijote (celle ~7.8 Mpc/h per box 1000 Mpc/h, NGRID=128), la stessa R produce un filtro reale. La feature b2_mean_persistence (persistenza media β₂) misura la struttura dei cluster nel campo di densità: un campo non-smoothed ha strutture più fini e un numero maggiore di feature topologiche con persistenza elevata rispetto a un campo smoothed. Questa asimmetria produce necessariamente un valore di b2 DESI artificialmente elevato rispetto ai mock, indipendentemente dalla cosmologia sottostante.
+Sezione interessata: Metodi — Voxelizzazione DESI BGS NGC; O6-2; sistematica S3; Considerazione 1
+Evidenza: La derivazione è diretta dalla definizione di smoothing Gaussiano. Sia cell_DESI=23.1 Mpc/h e cell_mock=7.8 Mpc/h. σ_px = R/cell. Per R=5: σ_DESI=0.216, σ_mock=0.641. Il kernel Gaussiano a σ=0.216 px ha FWHM=0.51 px — non rimuove nessuna struttura sub-cella. Il kernel a σ=0.641 px ha FWHM=1.51 px — sopprime significativamente le strutture alla scala della cella. Il documento riconosce questa asimmetria ("σ_px=0.216 — sub-pixel estremo") ma non la quantifica in termini di impatto su b2. Il confronto corretto richiederebbe o (a) applicare un smoothing fisicamente equivalente su entrambi i campi (stesso σ fisico in Mpc/h, non stesso R), o (b) dimostrare che b2 è insensibile a questa differenza con un test esplicito.
+
+2. BLOCKING
+Concern: La sistematica S3 (smoothing R=5 vs R=10 Mpc/h) è classificata DOMINANT (Δ=2.88σ > threshold 0.5σ) e la stima del z-score a R=10 (">+13σ") è basata su un pilot N=10 mock. Una stima su N=10 campioni ha un'incertezza sulla media di σ/√10, dove σ è la dispersione del mock. Con 2000 mock la dispersione è ben misurata (σ_mock≈0.028), ma la stima del valore medio a R=10 su N=10 ha un'incertezza di ~0.028/√10 ≈ 0.009. Il z-score pilota ">+13σ" è quindi affetto da un'incertezza di ~±1-2σ nella stima. Più critico: la classificazione S3 DOMINANT implica che la sistematica di smoothing è la fonte principale di variazione del segnale — ma il run completo a R=10 non è stato eseguito, quindi l'entità quantitativa della sistematica dominante è sconosciuta. Il framing CONSERVATIVO non risolve questo problema: dichiarare R=5 "scelta conservativa" non è equivalente a quantificare la sistematica.
+Sezione interessata: O6-4; O6-1 sistematica S3; Considerazione 3
+Evidenza: La documentazione stessa indica "Run completo (2000 mock z=0.5 HOD a R=10, ~5h) non eseguito." Un referee PRD chiederà il run completo prima della pubblicazione. Il gate non può chiudersi con una sistematica DOMINANT quantificata su N=10.
+
+3. BLOCKING
+Concern: La discrepanza NGC vs SGC di 3.8σ (in unità jackknife) è classificata BORDERLINE con threshold 1.0σ e superata di quasi 4× la threshold. L'attribuzione a "geometrie survey diverse (fill 14.7% vs 8.2%)" è un'ipotesi qualitativa non verificata quantitativamente. NGC e SGC sono osservazioni dello stesso universo con la stessa cosmologia — una differenza di 3.8σ nella feature primaria richiede una spiegazione verificata. Se la differenza è dovuta alla fill fraction, deve essere dimostrato con mock che hanno fill fraction diversa. Se è dovuta a struttura cosmica reale, deve essere modellata. In nessuno dei due casi l'etichetta BORDERLINE è appropriata per una differenza di 3.8σ.
+Sezione interessata: O6-1 sistematica S2; Considerazione in S2 dettaglio
+Evidenza: Il fatto che entrambe NGC e SGC mostrino z-score elevati rispetto a ΛCDM (NGC: +5.97σ, SGC: +7.13σ) non risolve il problema — amplifica la domanda sulla differenza interna. Se il segnale è cosmologico, perché le due regioni differiscono di 3.8σ? Questo è inconsistente con un segnale cosmologico isotropo, a meno che la differenza non sia interamente spiegata da effetti sistematici di survey (fill, geometria, incompletezza). La dimostrazione richiede mock con geometria DESI NGC e SGC replicata, non un argomento qualitativo.
+
+4. NON-BLOCKING
+Concern: Il confronto TDA vs P(k) (O6-5, Interpretazione B) — il claim "+9% TDA vs P(k) feature singola" — è su base non equivalente perché P(k) è calcolato su mock DM raw mentre le feature TDA sono estratte da mock HOD. Questa asimmetria è dichiarata nel documento ma non quantificata. Il P(k) DM e il P(k) HOD differiscono per il bias galattico b(k), che su scale non-lineari (k > 0.1 h/Mpc) non è costante. Il claim di superiorità della TDA rispetto al P(k) non può essere sostenuto finché il confronto non è su base equivalente (entrambi su HOD, o entrambi su DM).
+Sezione interessata: O6-5; Considerazione 4
+Evidenza: La documentazione stessa classifica questa come "nota metodologica critica." Un referee identificherà immediatamente l'asimmetria. Il confronto corretto richiede P(k) estratto dallo stesso campo HOD usato per la TDA.
+
+5. NON-BLOCKING
+Concern: Il volume effettivo DESI NGC (fill 14.7% × box 2961³ ≈ 3.8×10⁸ (Mpc/h)³) è ~2.6× più piccolo del volume mock Quijote (10⁹ (Mpc/h)³). Il numero di strutture topologiche indipendenti (voids, filaments, clusters) scala con il volume. Un campo con volume effettivo più piccolo ha meno strutture indipendenti e quindi una stima di b2_mean_persistence con varianza più alta — ma questa varianza non è quella catturata dai 20 patch jackknife (che misurano la varianza spaziale interna al survey, non la varianza cosmica). L'errore jackknife ±0.005 sottostima l'incertezza totale su b2 DESI perché non include la varianza cosmica.
+Sezione interessata: O6-2; errore jackknife; Considerazione 2
+Evidenza: Per un campo con volume effettivo V_eff, la varianza cosmica su una statistica topologica scala come 1/N_indep dove N_indep ~ V_eff/V_corr (V_corr = volume di correlazione tipico per β₂). Con V_eff DESI ≪ V_mock, l'errore totale su b2 DESI è dominato dalla varianza cosmica, non dall'errore jackknife. Il z-score di +5.97σ è quindi sovrastimato.
+
+6. INFO
+Concern: Il confronto con baseline CPL (O6-3) usa mock con wa=0, mentre il best-fit DESI DR2+CMB+DESY5 ha wa=−1.079. Il claim che "il segnale DESI è anomalo rispetto a tutti i modelli testati" non include il modello CPL completo, che è esattamente il modello che la letteratura DESI DR2 indica come più favorito. Questa limitazione è dichiarata, ma ha implicazioni per il framing del paper: il titolo o l'abstract non possono affermare che il segnale è anomalo rispetto ai modelli di dark energy favoriti da DESI DR2, perché quei modelli non sono stati testati.
+Sezione interessata: O6-3; Considerazione 6; framing conservativo
+Evidenza: Karim et al. (2025) reportano wa=−1.079 come best-fit. I mock nwLH hanno wa=0 fisso. La previsione b2_mean_persistence per wa=−1.079 è sconosciuta. Il confronto triplo (O6-3) testa solo la variazione di w0 a wa=0 fisso, trovando r≈0 — il che implica che la feature non discrimina nemmeno il parametro che varia nei mock. Questa è un'informazione critica sull'interpretabilità del segnale.
+
+7. INFO
+Concern: Il HOD mismatch strutturale tra Phase 5 (log_Mmin=12.5, n_gal~900K) e Phase 6 (log_Mmin=13.34, n_gal~186K) rende non direttamente comparabili le significatività σ_Phase5=3.69σ e σ_Phase6=5.97σ. Se i numeri vengono citati insieme nel paper, un referee chiederà perché σ aumenta di 2.28σ cambiando HOD e redshift. La risposta potrebbe essere fisica (il segnale è reale e più forte a z~0.2-0.3 con questo HOD) o metodologica (il cambio HOD introduce un bias). Il concern R5-1 (HOD fitting su mock DESI BGS con AbacusSummit) rimane aperto e questa comparazione non deve essere fatta nel paper senza risolverlo.
+Sezione interessata: Considerazione 7; confronto Phase 5 vs Phase 6
+Evidenza: La comparazione diretta di z-score tra run con HOD diversi non è metodologicamente corretta senza controllare per l'effetto HOD.
+
+---
+
+OBIEZIONI CANONICHE APPLICATE
+[Nota: le OC sono specifiche di CAUCHY-IDE. Vengono applicate dove pertinenti al progetto CAUCHY-TDA, con adattamento esplicito.]
+
+OC-1 PRIOR VOLUME
+Applicabilità: MEDIA (adattata: dipendenza del z-score dalla scelta metodologica)
+Finding: Il z-score di +5.97σ dipende criticamente da tre scelte metodologiche: R=5 Mpc/h (vs R=10 che produce >+13σ, non quantificato), HOD log_Mmin=13.34 (vs B3 che produce 3.69σ), e mock z=0.5 (vs z=0 che produce +5.40σ). L'intervallo di significatività ottenibile variando queste scelte è [3.08σ, >13σ] — un range di oltre 10σ. Il risultato è fortemente dipendente dalle scelte metodologiche e il z-score "ufficiale" +5.97σ riflette una configurazione specifica, non una misura robusta.
+
+OC-2 REPLICABILITÀ
+Applicabilità: ALTA
+Finding: La pipeline non è replicata su un dataset indipendente (S4 BOSS DR12 è deferred). Il segnale NGC vs SGC mostra una differenza interna di 3.8σ (jackknife), il che è inconsistente con la replicabilità del segnale all'interno dello stesso survey. La replicabilità è l'obiezione principale che un referee PRD solleverà.
+
+OC-3 DEGENERAZIONE BACKGROUND-PERTURBAZIONI
+Applicabilità: ALTA (adattata: degenerazione TDA-cosmologia)
+Finding: r(b2, w0) = −0.045 (p=0.046) sui mock implica che b2_mean_persistence è quasi insensibile a w0 nel range testato. Il segnale DESI è anomalo rispetto a ΛCDM, ma la feature non discrimina tra cosmologie alternative con w0 ≠ −1 (a wa=0 fisso). Questo viola il prerequisito per interpretare b2 come probe di dark energy: se la feature non correla con il parametro di dark energy, il segnale non può essere attribuito a dark energy dinamica.
+
+OC-4 FREQUENTISMO VS. BAYESIANESIMO
+Applicabilità: MEDIA
+Finding: Il z-score è una metrica frequentista (permutation test). Non è presente nessuna analisi bayesiana (posterior su parametri cosmologici da TDA). La significatività frequentista di +5.97σ non implica un'evidenza bayesiana equivalente, specialmente in presenza di sistematiche dominanti non quantificate (S3) e di una feature con sensibilità quasi nulla ai parametri di dark energy (r≈0).
+
+OC-5 IDECAMB / CONTRIBUTO ORIGINALE
+Applicabilità: N/A
+Finding: Non pertinente al progetto CAUCHY-TDA.
+```

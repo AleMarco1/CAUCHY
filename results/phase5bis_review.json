@@ -1,0 +1,63 @@
+CAUCHY REVIEW — PHASE 5BIS
+Timestamp: 2026-05-07T18:00:00Z
+Verdict: NON-BLOCKING
+
+---
+
+RAGIONAMENTO COMPLESSIVO
+
+Phase 5bis è un'analisi di controllo sistematica, non una fase di scoperta. Il suo scopo è escludere una classe specifica di alternative (IDE quintessenza) come spiegazione del segnale CAUCHY a σ=3.69σ. I risultati numerici sono internamente coerenti e la conclusione principale — che la degenerazione background H(z) tra CPL phantom e IDE non-phantom è strutturalmente impossibile entro tolleranza osservativa 0.5% — è fisicamente corretta e supportata dai dati. Il gate chiude correttamente come PASS_CONSERVATIVE.
+
+Il risultato più robusto è O5b-2: tutte le 50 cosmologie phantom (w₀<−1) non raggiungono convergenza con nessun IDE nel grid β∈[−3,3], con residuo minimo ~3.9% — fattore 8 sopra la tolleranza 0.5%. Questo non è un risultato marginale. È analiticamante atteso: per w₀<−1, la dark energy density cresce con il tempo, producendo una forma H(z) qualitativamente distinta che nessun IDE non-phantom può riprodurre. Il risultato numerico conferma l'attesa analitica.
+
+I concerns identificati sono quattro, tutti non-bloccanti. Il più rilevante scientificamente è una lacuna nel test di degenerazione IDE: il grid β∈[−3,3] è fisicamente ampio ma finito, e la giustificazione della densità di campionamento in β non è documentata. Se il segnale phantom-vs-IDE risiede in una regione stretta del piano (β, w₀_de), un grid grossolano potrebbe perdere casi di quasi-convergenza non identificati. Il secondo concern riguarda la sezione paper O5b-3: il testo contiene un'incongruenza numerica tra le cosmologie quintessenza nel nwLH sample (dichiarate come "47 quintessenza" nel testo ma "50 phantom" sono escluse da N=97, il che lascia 47 quintessenza — coerente — ma poi "55 converged pairs" su 97 totali: se solo 47 sono quintessenza, come possono convergere 55 coppie su 97 totali?). Questa incongruenza deve essere risolta prima della sottomissione.
+
+La decisione di framing CONSERVATIVO è metodologicamente inattaccabile: la soglia max(ΔD/D)>1% era pre-specificata, il risultato osservato è 0.94% — sotto soglia — e il protocollo non ammette eccezioni post-hoc. Il PI ha applicato correttamente il principio. La bozza di abstract è scientificamente accurata nel framing scelto.
+
+---
+
+CONCERNS
+
+1. NON-BLOCKING
+Concern: Il test O5b-2 usa un grid discreto β∈[−3,3] per la ricerca IDE-equivalente, ma non documenta la densità di campionamento in β (numero di punti del grid) né la risoluzione in w₀_de. Se il grid è troppo grossolano, potrebbero esistere coppie (β, w₀_de) con residuo <0.5% non identificate. Questo è particolarmente rilevante per le cosmologie phantom near-boundary (w₀ vicino a −1.0, es. w₀=−1.05) dove la distinzione phantom/non-phantom è più sottile. Il residuo minimo riportato (~3.9%) è rassicurante, ma la dimostrazione della non-convergenza richiede che il minimum sia un vero minimum globale sul grid, non un artefatto di campionamento grossolano.
+Sezione interessata: Metodi — O5b-2 IDE mapping; solidità del risultato negativo
+Evidenza: Il documento non specifica il numero di punti del grid β. Con β∈[−3,3] a N_β punti equidistanti, la risoluzione è Δβ=6/N_β. Per N_β=100, Δβ=0.06 — sufficiente per la maggior parte dei casi. Per N_β=10, Δβ=0.6 — potenzialmente insufficiente nelle regioni di quasi-convergenza. Il valore canonico deve essere documentato nel paper e nei JSON archiviati.
+
+2. NON-BLOCKING
+Concern: La sezione paper O5b-3 contiene un'incongruenza numerica. Il testo recita "Of the 47 quintessence cosmologies (w₀ > −1) in the nwLH sample, 55 out of 97 total mapped cosmologies achieved convergence." Se N=97 totali e 50 sono phantom (w₀<−1) e 3 sono esclusi near-ΛCDM, allora ci sono esattamente 44 quintessenza nel sample (97−50−3=44), non 47. E se 55 su 97 convergono, e tutti i convergenti sono quintessenza, allora 55>44 — impossibile. Una delle quattro cifre (47, 55, 50, 97) è errata. L'incongruenza rende la sezione non pubblicabile nella forma attuale.
+Sezione interessata: Risultati — O5b-3 sezione paper; coerenza numerica
+Evidenza: 97 totali − 3 esclusi near-ΛCDM = 94 analizzati. Se 50 sono phantom, restano 44 quintessenza. Ma il testo dice "47 quintessenza" e "55 convergenti" — entrambi impossibili con queste premesse. Il JSON O5b-2 riporta n_cosmo_tested=97, phantom_cosmologies_n=50, n_ide_found=55 — se tutti i 55 convergenti sono quintessenza e ci sono solo 44-47 quintessenza totali, la contraddizione è nel JSON stesso. Deve essere chiarito: o N_phantom<50, o N_convergent<55, o il conteggio quintessenza è diverso da quello implicato.
+
+3. NON-BLOCKING
+Concern: La soglia di tolleranza BAO 0.5% per la degenerazione H(z) è citata come "commensurate with the precision of next-generation BAO surveys (Karim et al. 2025)" — ma la precisione BAO di DESI DR2 non è uniformemente 0.5% su tutti i redshift e tracer. DESI DR2 raggiunge <0.5% su alcune combinazioni (LRG+ELG a z~0.8–1.1) ma non su BGS (z<0.4) dove l'incertezza è ~1–2%. Per il campione CAUCHY (BGS r<19.5, z~0.15), la soglia 0.5% è più stringente della precisione osservativa effettiva. Questo non invalida il risultato — è una scelta conservativa — ma la claim "commensurate with next-generation BAO surveys" deve essere qualificata con il tracer e il redshift specifici, non generalizzata a "BAO surveys" in modo indifferenziato.
+Sezione interessata: Metodi — O5b-1; sezione paper O5b-3; calibrazione soglia
+Evidenza: Karim et al. 2025 (DESI DR2) riporta precisioni BAO variabili per tracer: BGS ~1–2%, LRG ~0.5%, ELG ~0.6%, QSO ~1.5%. La soglia 0.5% è appropriata per LRG/ELG ma conservativa per BGS — che è il campione target di CAUCHY. Usare la soglia LRG per un test su campione BGS è difendibile ma deve essere dichiarato.
+
+4. INFO
+Concern: Il test O5b-4 (ΔD/D) è condotto solo sulle 55 coppie convergenti da O5b-2 — esclusivamente quintessenza near-ΛCDM con β≈0. Il risultato max(ΔD/D)=0.94% riflette quindi un regime dove la perturbazione IDE è minima per costruzione (β≈0 implica accoppiamento quasi-nullo → perturbazione crescita quasi-nulla). Non è un test del caso generale IDE con β significativo. Questo non è un problema scientifico — le coppie phantom non convergono e non hanno un IDE-equivalente — ma la formulazione nel paper deve chiarire che ΔD/D=0.94% è il massimo per coppie near-ΛCDM quintessenza, non un limite generale sulla degenerazione perturbativa IDE-CPL.
+Sezione interessata: Risultati — O5b-4; framing della conclusione perturbativa
+Evidenza: La sezione paper recita "max(ΔD/D) = 0.94% [...] ruling out IDE as an alternative explanation." Questa conclusione è corretta per le coppie convergenti, ma non per il caso generale IDE con β≠0 — che non ha un CPL-equivalente identificabile entro 0.5%. La distinzione deve essere esplicitata.
+
+---
+
+OBIEZIONI CANONICHE APPLICATE
+
+OC-1 POWER SPECTRUM SUFFICIENCY
+Applicabilità: BASSA per Phase 5bis
+Finding: Phase 5bis non confronta TDA con P(k) — è un test di degenerazione IDE. OC-1 rimane aperto come impegno pre-submission (R5-3).
+
+OC-2 VOLUME SCALING
+Applicabilità: BASSA per Phase 5bis
+Finding: Phase 5bis opera sulle stesse 2000 simulazioni nwLH — il volume è identico a Phase 5. Nessun nuovo confronto volumetrico.
+
+OC-3 HOD DEGENERACY
+Applicabilità: N/A per Phase 5bis
+Finding: Phase 5bis testa degenerazione IDE su campi di materia oscura (simulazioni Quijote DM-only). HOD non applicabile in questa fase. Il test IDE è concettualmente separato dalla questione HOD — riguarda la storia di espansione del background, non la popolazione galattica.
+
+OC-4 STATISTICAL ROBUSTNESS
+Applicabilità: ALTA
+Finding: Il framing CONSERVATIVO è l'applicazione più rigorosa possibile del principio di gate pre-registrato. La soglia max(ΔD/D)>1% era frozen, il risultato 0.94% è sotto soglia, la decisione è univoca. Nessuna evidenza di p-hacking o aggiustamento retroattivo. La scelta di non rinegoziare post-hoc il threshold nonostante il margine di soli −0.06% è metodologicamente ineccepibile e costituisce uno degli esempi più puliti di rigore pre-registrato nell'intero progetto CAUCHY.
+
+OC-5 2D VS 3D DISTINCTIVENESS
+Applicabilità: BASSA per Phase 5bis
+Finding: Phase 5bis non calcola β₁ o β₂ su dati nuovi — analizza la degenerazione teorica H(z)/D(z). La distintività 3D di β₂ è già stabilita in Phase 5 e non è ridiscussa qui.

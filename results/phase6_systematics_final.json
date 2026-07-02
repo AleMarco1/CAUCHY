@@ -1,0 +1,93 @@
+{
+  "schema_version": "2.0",
+  "output_id": "O6-1",
+  "generated_at": "2026-05-09T06:03:56.988205+00:00",
+  "authority": "CAUCHY_Execution_Design_v2.md \u00a76.2",
+  "feature_primary": "b2_mean_persistence",
+  "sigma_signal_reference": 0.0279,
+  "sigma_signal_source": "mock z=0.5 HOD std (phase6_mock_features_z05.npz)",
+  "scenario_2_note": "Tabella sistematiche aggiornata post-Scenario 2. I z-score di riferimento sono quelli del Confronto B (sigma_px equivalente, +3.09sigma). Le threshold e i verdict si riferiscono alla variazione della feature b2, non al z-score assoluto.",
+  "systematics": {
+    "S1_redshift_effective": {
+      "description": "Sensibilita al redshift del mock di riferimento (z=0 vs z=0.5)",
+      "z_score_vs_z0": 11.85,
+      "z_score_vs_z05": 5.97,
+      "sigma_range": [
+        5.4,
+        5.97
+      ],
+      "delta_sigma": 0.57,
+      "threshold": 1.0,
+      "verdict": "NON_DOMINANT",
+      "citability": "CITABILE",
+      "paper_note": "Signal significance ranges from 5.40sigma (mock combined z=0+z=0.5) to 5.97sigma (mock z=0.5 only). Variation 0.57sigma < 1sigma threshold."
+    },
+    "S2_tracer_sensitivity": {
+      "description": "Sensibilita al tracciatore osservativo (NGC vs SGC)",
+      "b2_ngc": 0.45885732769966125,
+      "b2_ngc_err": 0.005184488001019461,
+      "b2_sgc": 0.49104776978492737,
+      "b2_sgc_err": 0.006689210656616,
+      "delta_b2_abs": 0.0322,
+      "delta_b2_sigma_signal": 1.154,
+      "p_cosmic_variance": 0.415,
+      "verdict": "BORDERLINE",
+      "verdict_note": "Delta=1.15sigma appena sopra soglia 1sigma. Test varianza cosmica: P(|diff_mock|>0.032)=41.5% \u2014 differenza ordinaria. Entrambe le regioni mostrano segnale concordante: NGC +5.97sigma, SGC +7.13sigma.",
+      "paper_note": "Both NGC and SGC show concordant anomalies. The NGC-SGC difference (0.032) is consistent with cosmic variance between independent sky regions (P=41.5% in mock pairs)."
+    },
+    "S3_smoothing_scale": {
+      "description": "Sensibilita alla scala di smoothing (Scenario 2)",
+      "confronto_A": {
+        "desi_R": 5,
+        "mock_R": 5,
+        "z": 5.97,
+        "sigma_px_desi": 0.321,
+        "sigma_px_mock": 0.64,
+        "bias": "favorisce DESI"
+      },
+      "confronto_B": {
+        "desi_R": 10,
+        "mock_R": 5,
+        "z": 3.09,
+        "sigma_px_desi": 0.641,
+        "sigma_px_mock": 0.64,
+        "bias": "neutro"
+      },
+      "confronto_C": {
+        "desi_R": 10,
+        "mock_R": 10,
+        "z": 12.65,
+        "sigma_px_desi": 0.641,
+        "sigma_px_mock": 1.28,
+        "bias": "favorisce DESI"
+      },
+      "sigma_px_test_delta": 8.42,
+      "verdict": "DOMINANT",
+      "verdict_note": "b2 dipende fortemente da sigma_px (+8.42sigma). Confronto B (sigma_px neutro) e il valore primario +3.09sigma. R=5 e scelta conservativa pre-specificata. Segnale si amplifica con R crescente \u2014 non soppresso.",
+      "paper_note": "b2_mean_persistence depends strongly on grid smoothing parameter sigma_px. We adopt Confronto B (matched sigma_px=0.640) as primary: z=+3.09sigma. At fixed physical scale R=5 Mpc/h (Confronto A): z=+5.97sigma. At identical physical scale R=10 Mpc/h (Confronto C): z=+12.65sigma. The grid discretization contributes ~2.9sigma to the Confronto A estimate."
+    },
+    "S4_boss_dr12": {
+      "description": "Cross-validazione con BOSS DR12 (LOWZ/CMASS)",
+      "verdict": "DEFERRED",
+      "reason": "Dati BOSS FITS non disponibili.",
+      "paper_note": "External replication with BOSS DR12 is identified as the highest-priority follow-up analysis. The absence of external replication is the primary limitation of this work."
+    }
+  },
+  "summary": {
+    "non_dominant": [
+      "S1_redshift_effective"
+    ],
+    "borderline": [
+      "S2_tracer_sensitivity"
+    ],
+    "dominant": [
+      "S3_smoothing_scale"
+    ],
+    "deferred": [
+      "S4_boss_dr12"
+    ],
+    "primary_z_score": 3.09,
+    "primary_confronto": "B",
+    "overall_assessment": "S1 non-dominante. S2 borderline (varianza cosmica). S3 dominant ma segnale amplificato \u2014 R=5 conservativo. S4 deferred. Nessuna sistematica invalida il risultato primario."
+  }
+}

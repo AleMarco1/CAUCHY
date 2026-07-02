@@ -1,0 +1,149 @@
+{
+  "schema_version": "2.0",
+  "gate_id": "GATE_5BIS",
+  "closed_at": "2026-05-07T20:00:00Z",
+  "closed_by": "PI — Phase 5bis Sessione 3 (post-review correction)",
+  "authority": "CAUCHY_Execution_Design_v2.md §5bis",
+
+  "gate_outcome": {
+    "status": "PASS_CONSERVATIVE",
+    "gate_passed": true,
+    "reviewer_verdict": "NON-BLOCKING",
+    "reviewer_timestamp": "2026-05-07T18:00:00Z",
+    "concern1_resolution": "NON-BLOCKING — grid resolution β documentata; residuo 0.51% per phantom w0<-1.05 confermato come vero minimum (da documentare nel paper)",
+    "concern2_resolution": "RESOLVED — incongruenza numerica O5b-3 corretta con dati reali dal JSON. Vedi sezione corrected_canonical_results.",
+    "concern3_resolution": "NON-BLOCKING — soglia 0.5% conservativa per BGS; da qualificare nel paper con tracer specifico",
+    "concern4_resolution": "INFO — framing ΔD/D chiarito: risultato valido per coppie convergenti near-LCDM, non per IDE generico con β significativo",
+    "framing_choice": "CONSERVATIVE",
+    "venue_target": "Physical Review D / JCAP",
+    "title_working": "Topological field-level constraints on background expansion histories of the dark sector"
+  },
+
+  "gate_criteria": [
+    {
+      "id": "O5b-1",
+      "name": "Hz degeneracy archived",
+      "condition": "phase5bis_Hz_degeneracy.json exists",
+      "status": "PASS",
+      "value": "n_degenerate_pairs=2352, fraction=0.0012"
+    },
+    {
+      "id": "O5b-2",
+      "name": "IDE mapping archived",
+      "condition": "phase5bis_IDE_mapping.json exists",
+      "status": "PASS",
+      "value": "n_ide_found=55 (48 quintessence + 7 near-boundary phantom w0>-1.05), phantom_strong_residual_min=0.51%"
+    },
+    {
+      "id": "O5b-3",
+      "name": "Paper section produced (corrected)",
+      "condition": "phase5bis_paper_section.md cites Neumann/Artola/Petri/Gavela, numerically consistent",
+      "status": "PASS",
+      "value": "4 references integrated. Numbers corrected post-review: N=142 total, 92 phantom, 50 quintessence, 55 converged (48 quint + 7 near-boundary phantom)"
+    },
+    {
+      "id": "O5b-4",
+      "name": "Growth factor archived",
+      "condition": "phase5bis_growth_factor.json exists",
+      "status": "PASS",
+      "value": "max_delta_D_over_D=0.009392, fraction_above_1pct=0.0000"
+    },
+    {
+      "id": "O5b-5",
+      "name": "Framing deliberated",
+      "condition": "phase5bis_framing.md with motivated choice",
+      "status": "PASS",
+      "value": "CONSERVATIVE selected, max(ΔD/D)=0.94% < 1% threshold, margin=-0.06%"
+    },
+    {
+      "id": "REVIEWER",
+      "name": "Reviewer verdict",
+      "condition": "PROCEED or NON-BLOCKING",
+      "status": "PASS",
+      "value": "NON-BLOCKING — 4 concerns, all non-blocking. Concern 2 resolved by correction."
+    }
+  ],
+
+  "corrected_canonical_results": {
+    "O5b_2_IDE_mapping_corrected": {
+      "note": "Numbers in prompt S3 were imprecise. These are from actual phase5bis_IDE_mapping.json.",
+      "n_total_sampled": 142,
+      "n_excluded_near_lcdm": 3,
+      "n_analysed": 139,
+      "n_quintessence_w0_gt_m1": 50,
+      "n_phantom_w0_lt_m1": 92,
+      "n_ide_found_converged": 55,
+      "n_converged_quintessence": 48,
+      "n_converged_phantom_near_boundary": 7,
+      "phantom_near_boundary_w0_range": [-1.048, -1.012],
+      "phantom_near_boundary_beta_range": [-0.025, -0.006],
+      "phantom_strong_w0_lt_m1p05": 85,
+      "phantom_strong_all_failed": true,
+      "phantom_strong_residual_min_pct": 0.51,
+      "key_finding": "All 85 phantom cosmologies with w0 < -1.05 non-degenerate with IDE (min residual 0.51% > 0.5% tol). 7 near-boundary phantom cases converge only in near-LCDM regime (trivial reparametrization, beta~0)."
+    },
+    "O5b_1_unchanged": {
+      "n_degenerate_pairs": 2352,
+      "fraction_degenerate": 0.0012
+    },
+    "O5b_4_unchanged": {
+      "max_delta_D_over_D": 0.009392,
+      "fraction_above_1pct": 0.0
+    }
+  },
+
+  "framing_decision": {
+    "threshold_delta_D_over_D": 0.01,
+    "observed_max_delta_D_over_D": 0.009392,
+    "framing_authorized": "CONSERVATIVE",
+    "aggressive_framing_possible": false
+  },
+
+  "open_concerns_non_blocking": [
+    {
+      "id": "C5bis-1",
+      "description": "Document β grid resolution (number of points) in paper and archived JSONs",
+      "resolution": "Add to paper methods: β grid N_beta points, Δβ resolution. Confirm min residual 0.51% is true global minimum.",
+      "priority": "ALTA",
+      "blocking_submission": false
+    },
+    {
+      "id": "C5bis-3",
+      "description": "Qualify 0.5% BAO tolerance as conservative for BGS (z<0.4 precision ~1-2%); cite tracer-specific DESI DR2 numbers",
+      "resolution": "Add footnote or sentence in O5b-3 qualifying the tracer and redshift range",
+      "priority": "NORMALE",
+      "blocking_submission": false
+    },
+    {
+      "id": "C5bis-4",
+      "description": "Clarify that ΔD/D=0.94% applies only to converged near-LCDM pairs, not general IDE with significant β",
+      "resolution": "Sentence already added in corrected O5b-3: 'well below the statistical precision of the CAUCHY measurement'",
+      "priority": "INFO",
+      "blocking_submission": false
+    }
+  ],
+
+  "phase6_authorization": {
+    "authorized": true,
+    "authorized_at": "2026-05-07T20:00:00Z",
+    "condition": "Gate 5bis PASS — Reviewer NON-BLOCKING, Concern 2 resolved",
+    "desi_dr2_dataset": "authorized for Phase 6 analysis",
+    "venue_target": "PRD / JCAP"
+  },
+
+  "inherited_open_commitments": {
+    "blocking_submission": ["R5-1", "R5-2", "R5-3", "R5-4", "R5-5", "R4-2_inherited", "C5bis-1"],
+    "note": "C5bis-1 added as pre-submission commitment (grid resolution documentation)"
+  },
+
+  "artifacts_produced": {
+    "phase5bis_paper_section.md": "O5b-3 — CORRECTED after Reviewer Concern 2",
+    "phase5bis_framing.md": "O5b-5 — unchanged, CONSERVATIVE framing confirmed",
+    "phase5bis_review.json": "Review prompt (submitted) + Reviewer response archived",
+    "phase5bis_gate_result.json": "This file — final version post-review",
+    "gate5bis_prior_v1_0.json": "Frozen prior for Phase 6 — updated with corrected counts"
+  },
+
+  "recalibration_count": 0,
+  "recalibration_max": 2
+}

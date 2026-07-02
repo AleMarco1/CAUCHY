@@ -1,0 +1,130 @@
+{
+  "schema_version": "2.0",
+  "timestamp": "2026-05-08T08:29:19.810753+00:00",
+  "oc1_closed": true,
+  "n_sim_pk": 2000,
+  "n_perm": 1000,
+  "pk_feature_sigmas": {
+    "Pk_amplitude": {
+      "r": -0.03602183670708611,
+      "sigma": 1.5324211388043023
+    },
+    "Pk_slope": {
+      "r": 0.027076403388849035,
+      "sigma": 1.1604219437629644
+    },
+    "Pk_pivot_k01": {
+      "r": -0.03164253697797568,
+      "sigma": 1.4390526658690939
+    },
+    "Pk_knee_k": {
+      "r": 0.028906118362429872,
+      "sigma": 1.3116857274284306
+    },
+    "Pk_knee_amp": {
+      "r": -0.035666715824485204,
+      "sigma": 1.5474810777593666
+    },
+    "Pk_high_k": {
+      "r": -0.015294027302468902,
+      "sigma": 0.713118787761027
+    },
+    "Pk_integral": {
+      "r": -0.035498598759895396,
+      "sigma": 1.5240928799730524
+    },
+    "Pk_ratio_lo_hi": {
+      "r": -0.023909389002207175,
+      "sigma": 1.0785410222547294
+    }
+  },
+  "interpretazione_A_desi_vs_mock_pk": {
+    "description": "z-score DESI NGC vs mock in spazio P(k) \u2014 confronto con +5.97\u03c3 TDA",
+    "z_score_pk_per_feature": {
+      "Pk_amplitude": {
+        "mock_mean": 110351.4921875,
+        "mock_std": 290877.90625,
+        "desi_value": 1305921.125,
+        "z_score": 4.110211372375488
+      },
+      "Pk_slope": {
+        "mock_mean": -1.0313544273376465,
+        "mock_std": 0.49805617332458496,
+        "desi_value": -1.0020203590393066,
+        "z_score": 0.05889710783958435
+      },
+      "Pk_pivot_k01": {
+        "mock_mean": 4823.6103515625,
+        "mock_std": 3678.31640625,
+        "desi_value": 24003.6796875,
+        "z_score": 5.214361190795898
+      },
+      "Pk_knee_k": {
+        "mock_mean": 0.04018941521644592,
+        "mock_std": 0.022192135453224182,
+        "desi_value": 0.00624221283942461,
+        "z_score": -1.5296951532363892
+      },
+      "Pk_knee_amp": {
+        "mock_mean": 1605.4866943359375,
+        "mock_std": 3568.875,
+        "desi_value": 8151.83740234375,
+        "z_score": 1.8342896699905396
+      },
+      "Pk_high_k": {
+        "mock_mean": 46.224769592285156,
+        "mock_std": 30.10967254638672,
+        "desi_value": 9697.8798828125,
+        "z_score": 320.54998779296875
+      },
+      "Pk_integral": {
+        "mock_mean": 2310.343994140625,
+        "mock_std": 3532.83544921875,
+        "desi_value": 11455.8486328125,
+        "z_score": 2.5887153148651123
+      },
+      "Pk_ratio_lo_hi": {
+        "mock_mean": 851.5260620117188,
+        "mock_std": 888.506591796875,
+        "desi_value": 35.837554931640625,
+        "z_score": -0.91804438829422
+      }
+    },
+    "z_score_pk_combined": 309.3311221373352,
+    "z_score_tda_reference": 5.97,
+    "boxsize_note": "P(k) DESI su box=1997 Mpc/h, mock su 1000 Mpc/h. Feature dimensionali non direttamente confrontabili. Confronto indicativo \u2014 qualificato nel paper.",
+    "citability": "QUALIFICATA \u2014 dichiarare limitazione boxsize nel paper"
+  },
+  "interpretazione_B_ramo_a": {
+    "description": "Correlazione parziale r(Pk, w0 | Omm, s8) sui mock \u2014 confronto con Ramo A",
+    "sigma_pk_combination": 3.3718767013713187,
+    "sigma_tda_b2": 3.686158256950893,
+    "sigma_tda_combination": 4.123690244585818,
+    "sigma_tda_conservative": 3.082998242528333,
+    "gain_b2_pct": 9.320671644125007,
+    "gain_combination_pct": 22.296590587335004,
+    "gain_conservative_pct": -8.567290100658216,
+    "citability": "INFORMATIVA \u2014 prerequisito pre-submission R5-3"
+  },
+  "pk_features_desi_ngc": [
+    1305921.125,
+    -1.0020203590393066,
+    24003.6796875,
+    0.00624221283942461,
+    8151.83740234375,
+    9697.8798828125,
+    11455.8486328125,
+    35.837554931640625
+  ],
+  "pk_feature_names": [
+    "Pk_amplitude",
+    "Pk_slope",
+    "Pk_pivot_k01",
+    "Pk_knee_k",
+    "Pk_knee_amp",
+    "Pk_high_k",
+    "Pk_integral",
+    "Pk_ratio_lo_hi"
+  ],
+  "note_pk_mock": "P(k) calcolato su campi DM Phase 0 se disponibili, altrimenti approssimazione da parametri cosmologici"
+}
