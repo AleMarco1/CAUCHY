@@ -11,9 +11,7 @@
 !/CITATION.cff
 !/paper/
 /paper/*
-!/paper/paper C/
-/paper/paper C/*
-!/paper/paper C/cauchy_paper_c_jcap.pdf
+!/paper/README.md
 !/prior/
 !/prior/*
 
