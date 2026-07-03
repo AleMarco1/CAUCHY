@@ -1,0 +1,131 @@
+{
+  "schema_version": "2.0",
+  "gate_id": "GATE_1",
+  "version": "v1.0",
+  "frozen_at": "2026-04-25T00:00:00Z",
+  "frozen_by": "CAUCHY_Execution_Parameters.md v1.1 — prior congelati prima dell'esecuzione Phase 1",
+  "supersedes": null,
+  "description": "Prior congelato per Gate 1 (bipartito: 1a Fisher su LHC + 1b Correlazioni su nwLH). Stabilito prima del lancio di src/phase1_tda_baseline.py. Gate 1a testa la sensibilità Fisher delle feature TDA a Omega_m e sigma8; Gate 1b testa la correlazione delle feature con w0.",
+  "criteria": [
+    {
+      "name": "sigma_Omega_m",
+      "expression": "sigma_Omega_m <= 0.10",
+      "gate": "1a",
+      "threshold": 0.10,
+      "description": "Vincolo 1-sigma marginalizzato su Omega_m dalla matrice Fisher TDA",
+      "source": "CAUCHY_Execution_Parameters.md v1.1 §3.3",
+      "source_artifact": "CAUCHY_Execution_Parameters.md",
+      "calibration_note": "Calibrato su Yip et al. 2024 arXiv:2403.13985 Table 2 (sigma(Omega_m)=+-0.012 su aloni), fattore ~8x di allargamento per campo di materia e compressione a 8 scalari."
+    },
+    {
+      "name": "sigma_sigma8",
+      "expression": "sigma_sigma8 <= 0.030",
+      "gate": "1a",
+      "threshold": 0.030,
+      "description": "Vincolo 1-sigma marginalizzato su sigma8 dalla matrice Fisher TDA",
+      "source": "CAUCHY_Execution_Parameters.md v1.1 §3.3",
+      "source_artifact": "CAUCHY_Execution_Parameters.md",
+      "calibration_note": "Calibrato su Yip et al. 2024 arXiv:2403.13985 Table 2 (sigma(sigma8)=+-0.005 su aloni), fattore ~6x di allargamento."
+    },
+    {
+      "name": "sigma_w0",
+      "expression": "documented",
+      "gate": "1a",
+      "threshold": null,
+      "description": "Vincolo su w0: solo documentazione, nessun threshold pass/fail. Il dataset LHC non varia w0.",
+      "source": "CAUCHY_Execution_Parameters.md v1.1 §3.3",
+      "source_artifact": "CAUCHY_Execution_Parameters.md"
+    },
+    {
+      "name": "rho_Omegam_sigma8",
+      "expression": "documented and compared to rho_Pk ~ -0.95",
+      "gate": "1a",
+      "threshold": null,
+      "description": "Correlazione Omega_m - sigma8 dalla matrice Fisher: solo documentazione e confronto con power spectrum.",
+      "source": "CAUCHY_Execution_Parameters.md v1.1 §3.3",
+      "source_artifact": "CAUCHY_Execution_Parameters.md"
+    },
+    {
+      "name": "r_b1_peak_pos_w0",
+      "expression": "abs(r(b1_peak_pos, w0)) >= 0.10",
+      "gate": "1b",
+      "threshold": 0.10,
+      "type": "hard",
+      "description": "Correlazione di Pearson tra posizione del picco beta1 e w0 sui campi nwLH",
+      "source": "CAUCHY_Execution_Parameters.md v1.1 §3.4",
+      "source_artifact": "CAUCHY_Execution_Parameters.md",
+      "calibration_note": "Calibrato su Yip et al. 2024 correlazioni in redshift space, fattore /3-6x per differenza tracciatore. Non aveva contabilizzato la riduzione fisica per H(z=0)=H0 e D(z=0)=1 in real space z=0. Calibrazione prior incompleta documentata nel gate result."
+    },
+    {
+      "name": "r_b2_mean_persistence_w0",
+      "expression": "abs(r(b2_mean_persistence, w0)) >= 0.10",
+      "gate": "1b",
+      "threshold": 0.10,
+      "type": "hard",
+      "description": "Correlazione di Pearson tra persistenza media beta2 e w0 sui campi nwLH",
+      "source": "CAUCHY_Execution_Parameters.md v1.1 §3.4",
+      "source_artifact": "CAUCHY_Execution_Parameters.md",
+      "calibration_note": "Stessa nota di r_b1_peak_pos_w0."
+    },
+    {
+      "name": "max_r_any_feature_w0",
+      "expression": "max(abs(r(feature_k, w0))) >= 0.15",
+      "gate": "1b",
+      "threshold": 0.15,
+      "type": "soft",
+      "description": "Almeno una feature con correlazione assoluta >= 0.15 con w0 (soft gate)",
+      "source": "CAUCHY_Execution_Parameters.md v1.1 §3.4",
+      "source_artifact": "CAUCHY_Execution_Parameters.md"
+    }
+  ],
+  "tda_parameters_locked": {
+    "n_thresh": 50,
+    "filtration_variable": "log(delta+1)",
+    "filtration_type": "superlevel_via_negation",
+    "implementation": "gudhi.CubicalComplex",
+    "smoothing_R_mpch": 5.0,
+    "smoothing_sigma_px": 0.64,
+    "percentile_range": [5, 95],
+    "n_features": 8,
+    "feature_names": [
+      "b1_peak_pos",
+      "b1_peak_height",
+      "b1_fwhm",
+      "b1_integral",
+      "b2_max_count",
+      "b2_mean_persistence",
+      "b2_high_persist",
+      "b0_at_mean"
+    ]
+  },
+  "fisher_parameters_locked": {
+    "hartlap_correction": true,
+    "hartlap_formula": "(N_fid - N_feat - 2) / (N_fid - 1)",
+    "N_fid": 2000,
+    "N_feat": 8,
+    "local_fraction": 0.3,
+    "derivative_method": "linear_regression_local"
+  },
+  "datasets": {
+    "fiducial": {
+      "n_fields": 2000,
+      "use": "C_noise and mu_LCDM",
+      "params_file": "latin_hypercube_params.txt (cosmologia fiduciale)"
+    },
+    "lhc": {
+      "n_fields": 2000,
+      "use": "Fisher Gate 1a",
+      "params_file": "data/raw/quijote/3D_cubes/latin_hypercube/latin_hypercube_params.txt",
+      "param_cols": {"Omega_m": 0, "sigma_8": 4}
+    },
+    "nwlh": {
+      "n_fields": 2000,
+      "use": "Correlations Gate 1b",
+      "params_file": "data/raw/quijote/3D_cubes/latin_hypercube_nwLH/latin_hypercube_nwLH_params.txt",
+      "param_cols": {"Omega_m": 0, "sigma_8": 4, "w0": 6},
+      "w0_range": [-1.30, -0.70]
+    }
+  },
+  "recalibration_count": 0,
+  "recalibration_history": []
+}

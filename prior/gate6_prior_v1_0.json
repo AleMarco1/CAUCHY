@@ -1,0 +1,80 @@
+{
+  "schema_version": "2.0",
+  "gate_id": "GATE_6",
+  "version": "v1.0",
+  "frozen_at": "2026-05-09T06:03:27.660826+00:00",
+  "frozen_by": "CAUCHY_Execution_Design_v2.md \u00a76 + Reviewer ciclo 3 NON-BLOCKING",
+  "supersedes": "gate5bis_prior_v1_0.json",
+  "framing_inherited": "CONSERVATIVO",
+  "primary_result": {
+    "feature": "b2_mean_persistence",
+    "dataset": "DESI DR1 BGS NGC",
+    "confronto_B_z_score": 3.09,
+    "confronto_A_z_score": 5.97,
+    "confronto_C_z_score": 12.65,
+    "primary_value": 3.09,
+    "primary_label": "Confronto B \u2014 sigma_px equivalente (DESI R=10, mock R=5)",
+    "b2_desi_r5": 0.45885732769966125,
+    "b2_desi_r10": 0.37857,
+    "mock_r5_mean": 0.2922,
+    "mock_r5_std": 0.0279,
+    "mock_r10_mean": 0.1162,
+    "mock_r10_std": 0.0207,
+    "n_mock": 2000,
+    "hod_log_mmin": 13.34,
+    "mock_redshift": 0.5
+  },
+  "geometry": {
+    "box_desi_mpc_h": 1997.4,
+    "cell_desi_mpc_h": 15.6046875,
+    "cell_mock_mpc_h": 7.8125,
+    "sigma_px_desi_R5": 0.3204,
+    "sigma_px_desi_R10": 0.6408,
+    "sigma_px_mock_R5": 0.64
+  },
+  "sigma_px_test": {
+    "delta_b2_sigma_signal": 8.42,
+    "verdict": "SOSTANZIALE",
+    "implication": "criterio sigma_px equivalente per confronto DESI vs mock"
+  },
+  "omm_test": {
+    "omm_required_to_explain_b2_desi_R10": -1.557,
+    "conclusion": "fisicamente impossibile \u2014 segnale non spiegabile da Omm"
+  },
+  "ramo_b": {
+    "z_vs_lhc": -0.72,
+    "z_vs_nwlh": -0.68,
+    "verdict": "NULL_RESULT",
+    "paper_role": "risultato scientifico dichiarato \u2014 coerente con anomalia specifica b2"
+  },
+  "reviewer_gate6": {
+    "cycles": 3,
+    "final_verdict": "NON-BLOCKING",
+    "blocking_resolved": [
+      "BLOCKING_1_sigma_px",
+      "BLOCKING_2_S3_pilot",
+      "BLOCKING_3_NGC_SGC"
+    ],
+    "nb_concerns": 5,
+    "nb_resolved_at_gate": [
+      "NB1",
+      "NB2",
+      "NB3"
+    ],
+    "nb_deferred_to_paper": [
+      "NB4",
+      "NB5"
+    ]
+  },
+  "frozen_constraints_phase7": {
+    "primary_z_score": 3.09,
+    "primary_label": "Confronto_B",
+    "scenario_2_required": true,
+    "framing": "anomalia topologica beta2 vs LCDM \u2014 no attribuzione a w0",
+    "ramo_b_null_declared": true,
+    "boss_dr12_limitation_declared": true,
+    "cohen_steiner_2007_cited": true
+  },
+  "recalibration_count": 0,
+  "recalibration_max": 2
+}

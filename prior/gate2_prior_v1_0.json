@@ -1,0 +1,81 @@
+{
+  "schema_version": "2.0",
+  "prior_version": "v1.0",
+  "gate_id": "GATE_2",
+  "frozen_at": "2026-04-29T13:30:00Z",
+  "frozen_by": "PI — Sessione Phase 2",
+  "authority": "CAUCHY_Execution_Parameters.md §4.2",
+  "note": "Prior congelato al momento della chiusura di Gate 2. I parametri architetturali CNN sono frozen per garantire che Phase 3 usi i tau(x) prodotti dalla configurazione qui documentata. Qualsiasi modifica richiede Protocollo di Ricalibrzione Formale con review del Reviewer.",
+
+  "gate_criteria": {
+    "test_T1_R_threshold": {
+      "value": 0.20,
+      "observed": 0.862,
+      "authority": "CAUCHY_Execution_Parameters §4.2",
+      "note": "Soglia operativa senza precedente letterale in letteratura (stima PI). Il valore osservato R=0.862 e' robusto a qualsiasi interpretazione ragionevole. Candidato a ricalibrzione formale in Phase 5 dopo calibrazione empirica su dati DESI DR1."
+    },
+    "corr_tau_hessian_soft": {
+      "value": 0.05,
+      "observed": 0.089,
+      "authority": "CAUCHY_Execution_Parameters §4.2",
+      "note": "Soft gate. Non bloccante se non soddisfatto — segnalato al Reviewer. Sostituito in Phase 3 da test KS piu' robusto (impegno R2-3)."
+    },
+    "R1_1_kappa_threshold": {
+      "value": 1000000.0,
+      "observed": 6436.24,
+      "authority": "Heavens (2009, MNRAS) — numero di condizione matrice C_noise"
+    },
+    "R1_2_fisher_variation_threshold": {
+      "value": 50.0,
+      "observed": 26.03,
+      "authority": "CAUCHY_Execution_Parameters §4.2",
+      "note": "Calcolato solo su frazioni con Hartlap >= 0.70 (Hartlap 2007, Taylor 2013)."
+    },
+    "hartlap_filter_threshold": {
+      "value": 0.70,
+      "authority": "Hartlap, Simon & Schneider (2007, A&A 464); Taylor, Joachimi & Kitching (2013, MNRAS 432)",
+      "note": "Frazioni con Hartlap < 0.70 escluse dal calcolo della variazione Fisher. Corrisponde a N_sim >= 3.4 * N_data. Criterio strutturale su N_sim/N_data, non post-hoc sui risultati."
+    }
+  },
+
+  "frozen_architecture": {
+    "n_pts_per_field": 8192,
+    "k_nn": 16,
+    "D_latent": 32,
+    "n_mp_layers": 3,
+    "n_params": 61256,
+    "e3nn_version": "0.6.0",
+    "sampling_strategy": "density_weighted_abs_delta",
+    "sampling_eps_floor": 0.01,
+    "box_size_mpch": 1000.0
+  },
+
+  "frozen_training": {
+    "best_epoch": 186,
+    "best_val_loss": 0.08167908097436624,
+    "lr_initial": 5e-5,
+    "lr_reduced": 2.5e-5,
+    "batch_size": 3,
+    "n_epochs_max": 200,
+    "global_seed": 42,
+    "checkpoint_sha256": "302771fcd8656d4626bd923e87c8778cd5e64fc91210cc60c05fcd0b44cd6505",
+    "checkpoint_path": "results/checkpoints/phase2_cnn_best.pt"
+  },
+
+  "frozen_tau_construction": {
+    "n_fiducial_for_mu": 2000,
+    "mu_lcdm_norm": 2.892929792404175,
+    "tau_lhc_dir": "results/phase2_tau_fields/lhc",
+    "tau_nwlh_dir": "results/phase2_tau_fields/nwlh",
+    "tau_format_primary": "tau_points [8192, 35] — coordinate fisiche (3) + vettore latente (32)",
+    "tau_format_secondary": "tau_grid [128, 128, 128] — norma |tau(x)| su griglia originale"
+  },
+
+  "recalibration_count": 0,
+  "recalibration_max": 2,
+
+  "impegni_fase3_obbligatori": [
+    "R2-3: test KS distribuzione persistenza TDA(tau) vs GRF — obbligatorio prima di Gate 3",
+    "R2-4: varianza spaziale |tau(x)| > 5% varianza inter-campo — obbligatorio prima di Gate 3"
+  ]
+}

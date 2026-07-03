@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "gate_id": "gate8",
+  "title": "Cut-sky mock test — does the DESI topological anomaly survive survey geometry?",
+  "frozen_at": "2026-07-02",
+  "authority": "JCAP simulated referee report (R3-1, R2-4, R1-4); internal code audit phase6_bgs_tda.py + phase6_bgs_voxelize.py",
+  "motivation": "Code audit confirmed the canonical DESI TDA runs gudhi CubicalComplex on the FULL 128^3 embedding cube with ~85% exterior voxels set to 0.0; the mask is used only for thresholds/mean, NOT to exclude the exterior from the filtration. Mocks (compute_b2_full) are periodic boxes with no mask and mode='wrap' smoothing. The two statistics are therefore not like-for-like. This gate tests whether the anomaly is an artefact of the survey geometry / zero-exterior embedding by applying the SAME construction to the mocks.",
+
+  "frozen_desi_reference": {
+    "source": "phase6_bgs_tda_features.json (region NGC, canonical R=5, sigma_px=0.216)",
+    "pers1_desi_ngc": 0.45885732769966125,
+    "beta1_max_desi_ngc": 29683.0,
+    "note": "These DESI values are UNCHANGED by this gate — the same compute_tda_features is applied. Only the mock reference distribution is rebuilt."
+  },
+
+  "test_1_diagnostic": {
+    "purpose": "Isolate the survey-geometry effect. Answer: 'is the anomaly the mask?'",
+    "construction": "Populate Quijote nwLH halos (groups_003, z=0.5) with B3 median HOD; assign velocities (centrals = halo bulk velocity; satellites = halo bulk velocity, NO intra-halo dispersion = option (a), matching the paper's stated approximation); tile the periodic box into the DESI NGC embedding cube; observer at Cartesian origin; convert to (RA,Dec,z_cosmo); apply RSD -> z_obs; carve by the DESI NGC mask voxel + z in [0.1,0.4]; downsample radially to match BGS n(z); voxelize via delta_FKP against the DESI random catalog with exterior set to 0.0 and smoothing R=5 (sigma_px=0.216); run compute_tda_features UNMASKED (identical to DESI canonical).",
+    "hod_params_b3_median": [12.5, 0.55, 12.25, 13.5, 1.0, 0.0, 0.0, 1.0, 1.0],
+    "snapnum": 3,
+    "redshift": 0.5,
+    "space": "redshift-space (RSD applied; centrals must carry halo velocity or the field is real-space and reintroduces the R3-4 mismatch)",
+    "satellite_velocity": "option_a_no_intrahalo_dispersion",
+    "n_pilot": 200,
+    "statistic_reporting": "empirical rank / percentile of DESI within the cut-sky mock distribution. Gaussian sigma is NOT reported as primary because with N=200 the p-floor is ~1/201 (~2.6 sigma-equivalent). Any sigma quoted is auxiliary and flagged as tail extrapolation."
+  },
+
+  "gate_1_decision_frozen": {
+    "DISSOLVED": {
+      "condition": "abs(z_pers1) < 3.0 AND beta1_max_desi within [mock_mean - 3 sigma, mock_mean + 3 sigma]",
+      "meaning": "The anomaly was survey geometry. Both components of the dual signature are reproduced by cut-sky LambdaCDM mocks.",
+      "action": "STOP. Pivot to methodological paper (sigma_px systematic + honest nulls + 'the dual signature is the fingerprint of a truncated persistence diagram'). Do NOT proceed to N=2000."
+    },
+    "SURVIVES": {
+      "condition": "z_pers1 >= 3.0 AND beta1_max_desi < mock_mean - 3 sigma (still anomalous in the same direction)",
+      "meaning": "Survey geometry does not explain the anomaly.",
+      "action": "Proceed to Test 2 (definitive masked pipeline) and scale Test 1 to N=2000. Rewrite as anomaly paper with cut-sky mocks as the reference distribution."
+    },
+    "PARTIAL": {
+      "condition": "any intermediate outcome (one feature dissolves and the other does not; or significance collapses from the current 9-30 sigma to the 3-5 sigma range)",
+      "meaning": "Geometry explains a large part but not all of the signal.",
+      "action": "Downgrade to attempt. Realistic expected outcome = methodological paper with declared residual. Document exact numbers; no post-hoc threshold renegotiation."
+    }
+  },
+
+  "test_2_definitive": {
+    "purpose": "Correct, like-for-like masked pipeline. Produces the publishable number regardless of Test 1 outcome.",
+    "construction": "As Test 1 but exterior EXCLUDED from the filtration on BOTH sides (exterior field -> -inf so exterior cells enter the sublevel of -field last and generate no finite features; loops crossing the survey boundary are cut, identically for mock and DESI). Satellite velocities use option (b): halo bulk + virial dispersion sigma_v(M).",
+    "satellite_velocity": "option_b_virial_dispersion",
+    "requires_desi_recompute": "YES — the DESI field must be re-run through the masked (exterior-excluded) TDA to obtain a new DESI reference consistent with Test 2. Test 2 does not reuse the canonical 0.45886.",
+    "gate_2_threshold": "3.0 sigma (empirical rank at N=2000). This is the definitive publishable significance."
+  },
+
+  "declared_limitations": [
+    "Periodic tiling of the 1000 Mpc/h box into the 1997 Mpc/h embedding cube replicates structure at the box scale; standard for cut-sky mocks from periodic boxes, declared as a limitation.",
+    "Test 1 satellites are uniform-in-sphere (r = r_vir * u^(1/3)), not NFW (R3 minor point 2); acceptable for a diagnostic, addressed in Test 2.",
+    "Gadget group velocity convention (sqrt(a) factor at z=0.5) must be verified against Quijote documentation before the run is treated as final; controlled by a config flag.",
+    "GroupVel binary offset in the FoF reader is inferred from the documented header layout and must be validated on one real file before the full pilot."
+  ],
+
+  "no_post_hoc_renegotiation": true
+}

@@ -1,0 +1,133 @@
+{
+  "schema_version": "2.0",
+  "gate_id": "GATE_0",
+  "version": "v1.0",
+  "frozen_at": "2026-04-25T00:00:00Z",
+  "frozen_by": "CAUCHY_Execution_Parameters_v1.1 + CAUCHY_Systematic_Methodology_v2.0",
+  "supersedes": null,
+  "description": "Gate 0 — Integrità dati e preprocessing version-lock. Superamento di questo gate certifica che i tre dataset Quijote (fiduciali, LHC, nwLH) sono integri, la pipeline di preprocessing è applicata uniformemente e version-locked, e il data manifest con checksum è prodotto.",
+  "criteria": [
+    {
+      "name": "pass_rate_fiducial",
+      "expression": "n_fields_passed_fiducial / n_fields_total_fiducial >= 0.99",
+      "threshold": 0.99,
+      "unit": "fraction",
+      "description": "Tasso di superamento controlli integrità per il dataset fiduciale",
+      "source": "CAUCHY_Execution_Parameters_v1.1 §2.1",
+      "source_artifact": "CAUCHY_Execution_Parameters.md",
+      "rationale": "Meno dell'1% di perdita è accettabile per artefatti di I/O. Le 13.000 fiduciali di riserva assorbono la perdita."
+    },
+    {
+      "name": "pass_rate_lhc",
+      "expression": "n_fields_passed_lhc / n_fields_total_lhc >= 0.99",
+      "threshold": 0.99,
+      "unit": "fraction",
+      "description": "Tasso di superamento controlli integrità per il dataset LHC",
+      "source": "CAUCHY_Execution_Parameters_v1.1 §2.1",
+      "source_artifact": "CAUCHY_Execution_Parameters.md",
+      "rationale": "Identico al fiduciale. Perdita > 1% richiederebbe diagnosi esplicita."
+    },
+    {
+      "name": "pass_rate_nwlh",
+      "expression": "n_fields_passed_nwlh / n_fields_total_nwlh >= 0.99",
+      "threshold": 0.99,
+      "unit": "fraction",
+      "description": "Tasso di superamento controlli integrità per il dataset nwLH",
+      "source": "CAUCHY_Execution_Parameters_v1.1 §2.1",
+      "source_artifact": "CAUCHY_Execution_Parameters.md",
+      "rationale": "Identico. Il nwLH è il dataset critico per Gate 1b e Fase 5."
+    },
+    {
+      "name": "max_rejected_fields_per_dataset",
+      "expression": "max(n_rejected_fiducial, n_rejected_lhc, n_rejected_nwlh) <= 20",
+      "threshold": 20,
+      "unit": "count",
+      "description": "Numero massimo assoluto di campi rigettati per dataset (1% di 2000)",
+      "source": "CAUCHY_Execution_Parameters_v1.1 §2.1",
+      "source_artifact": "CAUCHY_Execution_Parameters.md",
+      "rationale": "Coerente con il threshold del 99% su N=2000 campi."
+    },
+    {
+      "name": "manifest_checksums_complete",
+      "expression": "len(field_checksums) == n_fields_used",
+      "threshold": true,
+      "unit": "boolean",
+      "description": "Checksum SHA-256 presente per ogni campo usato nel manifest",
+      "source": "CAUCHY_Execution_Design_v2.0 §4.3, D-12",
+      "source_artifact": "CAUCHY_Execution_Design_v2.md",
+      "rationale": "Integrità assoluta richiesta per l'audit trail del paper. D-12: ogni sessione produce artefatti con checksum."
+    },
+    {
+      "name": "preprocessing_pipeline_version_locked",
+      "expression": "phase0_preprocessing_lock.json exists AND script_hash is not null",
+      "threshold": true,
+      "unit": "boolean",
+      "description": "La pipeline di preprocessing è applicata uniformemente e version-locked con hash dello script",
+      "source": "CAUCHY_Execution_Design_v2.0 §4.3, D-15",
+      "source_artifact": "CAUCHY_Execution_Design_v2.md",
+      "rationale": "Riproducibilità: il referee deve poter ricostruire esattamente la pipeline applicata."
+    },
+    {
+      "name": "reviewer_verdict",
+      "expression": "reviewer_verdict in ['PROCEED', 'NON-BLOCKING']",
+      "threshold": "PROCEED_OR_NON_BLOCKING",
+      "unit": "categorical",
+      "description": "Il Claude Reviewer ha restituito PROCEED o NON-BLOCKING con tutte le revisioni assegnate",
+      "source": "CAUCHY_Review_and_GATE.md §Gate 0",
+      "source_artifact": "CAUCHY_Review_and_GATE.md",
+      "rationale": "Il gate non si chiude con un esito REVISE BLOCKING aperto. Criterio non negoziabile."
+    }
+  ],
+  "preprocessing_parameters": {
+    "smoothing_scale_Mpc_h": 5.0,
+    "smoothing_kernel": "gaussian",
+    "smoothing_implementation": "scipy.ndimage.gaussian_filter",
+    "smoothing_sigma_pixels": 0.64,
+    "smoothing_pixel_size_Mpc_h": 7.8125,
+    "smoothing_source": "Abedi et al. 2025 arXiv:2410.01751v2; Jalali Kanafi et al. 2024 MNRAS",
+    "normalization": "per_cosmology",
+    "normalization_description": "Sottrai la media del campo mediata su tutti i campi dello stesso dataset",
+    "normalization_source": "CAUCHY_Systematic_Methodology_v2.0 §0.2"
+  },
+  "integrity_checks": {
+    "shape_check": "(128, 128, 128)",
+    "dtype_check": "float32 or float64",
+    "finite_check": "no NaN or Inf",
+    "density_floor_check": "delta >= -1.0 for all voxels",
+    "dynamic_range_check": "std(delta) > 0"
+  },
+  "dataset_parameters": {
+    "fiducial": {
+      "n_fields_used": 2000,
+      "Omega_m": 0.3175,
+      "sigma_8": 0.834,
+      "w0": -1.0,
+      "h": 0.6711,
+      "Omega_b": 0.049,
+      "ns": 0.9624,
+      "box_size_Mpc_h": 1000.0,
+      "grid_size": 128,
+      "source": "Villaescusa-Navarro et al. 2020 (Quijote suite)"
+    },
+    "lhc": {
+      "n_fields_used": 2000,
+      "Omega_m_range": [0.10, 0.50],
+      "sigma_8_range": [0.60, 1.00],
+      "w0": -1.0,
+      "box_size_Mpc_h": 1000.0,
+      "grid_size": 128,
+      "source": "Villaescusa-Navarro et al. 2020 (Quijote suite)"
+    },
+    "nwlh": {
+      "n_fields_used": 2000,
+      "w0_range": [-1.30, -0.70],
+      "Omega_m": 0.3175,
+      "sigma_8": 0.834,
+      "box_size_Mpc_h": 1000.0,
+      "grid_size": 128,
+      "source": "Villaescusa-Navarro et al. 2020 (Quijote suite)"
+    }
+  },
+  "recalibration_count": 0,
+  "recalibration_history": []
+}

@@ -1,0 +1,144 @@
+{
+  "schema_version": "2.0",
+  "prior_version": "v1.0",
+  "gate_id": "GATE_3",
+  "frozen_at": "2026-05-01T10:30:00Z",
+  "frozen_by": "PI — Sessione Phase 3",
+  "authority": "CAUCHY_Execution_Parameters.md §5.2",
+  "note": "Prior congelato al momento della chiusura di Gate 3. I parametri GNN, la soglia di persistenza p90, e il checkpoint sono frozen per garantire che Phase 4 usi lo stesso spazio latente j* prodotto da questa configurazione. Qualsiasi modifica richiede Protocollo di Ricalibrazione Formale con review del Reviewer.",
+
+  "gate_criteria": {
+    "corr_GNN_Omm_threshold": {
+      "value": 0.20,
+      "observed": 0.8815309246339746,
+      "authority": "CAUCHY_Execution_Parameters §5.2",
+      "note": "Riportato come max|r| su 32 componenti di j* — da correggere con r(y_hat, y_true) pre-submission (impegno R3-1)."
+    },
+    "corr_GNN_s8_threshold": {
+      "value": 0.20,
+      "observed": 0.8899869948194397,
+      "authority": "CAUCHY_Execution_Parameters §5.2"
+    },
+    "corr_GNN_w0_soft": {
+      "value": "soft — documentare",
+      "observed": 0.030666532629077356,
+      "authority": "CAUCHY_Execution_Parameters §5.2",
+      "note": "Atteso per design. Test rilevante e' MMD distribuzionale (impegno R3-3, prerequisito Phase 6)."
+    },
+    "variance_added_vs_ramoA_threshold": {
+      "value": "5%",
+      "observed": "79.2%",
+      "authority": "CAUCHY_Execution_Parameters §5.2",
+      "note": "Da ricalcolare su base equivalente pre-submission (impegno R3-2)."
+    }
+  },
+
+  "frozen_gnn_architecture": {
+    "n_params": 13442,
+    "n_node_features": 9,
+    "node_features_ordered": [
+      "birth",
+      "death",
+      "persistence",
+      "dim_is_beta1",
+      "dim_is_beta2",
+      "tau_norm_mean_region",
+      "cx_norm",
+      "cy_norm",
+      "cz_norm"
+    ],
+    "hidden_dim": 64,
+    "latent_dim": 32,
+    "n_layers": 3,
+    "layer_structure": "Linear(9->64) + [GCNConv(64->64)+LayerNorm+ReLU]x2 + GCNConv(64->32)+ReLU + GlobalMeanPool+GlobalMaxPool + Linear(64->32) [no ReLU] + Linear(32->2)",
+    "j_star_activation": "none",
+    "j_star_activation_note": "ReLU rimossa dopo diagnosi dying neurons (25/32 componenti collassate nel primo run). Documentato in phase3_gate_result.json metadata.deviations_from_protocol.",
+    "pooling": "GlobalMeanPool + GlobalMaxPool concatenati",
+    "k_nn_persistence_space": 5,
+    "graph_edge_type": "k-NN bidirezionale in spazio (birth, death)",
+    "graph_node_scope": "beta1 e beta2 unificati",
+    "backend": "torch_geometric"
+  },
+
+  "frozen_gnn_training": {
+    "best_epoch": 171,
+    "best_val_loss": 0.013345126807689667,
+    "lr_initial": 0.001,
+    "optimizer": "AdamW",
+    "weight_decay": 0.0001,
+    "lr_schedule": "CosineAnnealingLR",
+    "gradient_clip_norm": 1.0,
+    "batch_size": 4,
+    "n_epochs_max": 300,
+    "global_seed": 42,
+    "split_seed": 42,
+    "val_split_from_train": 0.10,
+    "val_split_seed": 43,
+    "checkpoint_path": "results/checkpoints/phase3_gnn_best.pt",
+    "checkpoint_sha256": "DA_CALCOLARE_pre_submission",
+    "hardware": "RTX_5060_Ti_16GB"
+  },
+
+  "frozen_graph_construction": {
+    "persistence_threshold_p90": 0.35589513778686577,
+    "persistence_threshold_frozen_before_training": true,
+    "persistence_threshold_source": "percentile 90 della distribuzione di persistenza su 200 campi LHC proxy-fiduciali (seed=1042)",
+    "tda_filtration": "superlevel su tau_grid [128,128,128] via gudhi.CubicalComplex",
+    "tda_field": "tau_grid — norma |tau(x)| su griglia 128^3",
+    "box_size_mpch": 1000.0,
+    "baricentro_normalizzazione": "coordinate fisiche / 1000.0 Mpc/h",
+    "baricentro_metodo": "media pesata per tau_norm dei punti nella regione di nascita della feature (tau_norm >= max(0, birth_real * 0.9))"
+  },
+
+  "frozen_split": {
+    "n_lhc_total": 2000,
+    "n_lhc_train": 1600,
+    "n_lhc_test": 400,
+    "n_nwlh_total": 2000,
+    "split_seed": 42,
+    "nwlh_role": "correlazione post-training e test distribuzionale Phase 6 — mai nel training"
+  },
+
+  "frozen_label_normalization": {
+    "Omm_min": "min(cosmo_lhc[:, 0]) su tutti i 2000 campi LHC",
+    "Omm_max": "max(cosmo_lhc[:, 0]) su tutti i 2000 campi LHC",
+    "s8_min": "min(cosmo_lhc[:, 1]) su tutti i 2000 campi LHC",
+    "s8_max": "max(cosmo_lhc[:, 1]) su tutti i 2000 campi LHC",
+    "formula": "param_norm = (param - param_min) / (param_max - param_min)",
+    "note": "La normalizzazione e' calcolata sui 2000 campi LHC totali (non solo training). Frozen implicita nel checkpoint — qualsiasi retraining deve usare gli stessi min/max."
+  },
+
+  "frozen_tau_source": {
+    "gate2_prior_version": "v1.0",
+    "checkpoint_sha256_phase2": "302771fcd8656d4626bd923e87c8778cd5e64fc91210cc60c05fcd0b44cd6505",
+    "tau_lhc_dir": "results/phase2_tau_fields/lhc",
+    "tau_nwlh_dir": "results/phase2_tau_fields/nwlh",
+    "graphs_cache_dir": "results/graphs_cache",
+    "n_pts_per_field": 8192,
+    "D_latent": 32,
+    "mu_lcdm_norm": 2.892929792404175
+  },
+
+  "frozen_prerequisites_results": {
+    "R2_3_KS_beta1_stat": 0.7613207528027757,
+    "R2_3_KS_beta2_stat": 0.7992657074425669,
+    "R2_3_verdict": "PASS",
+    "R2_4_ratio_pct": 897.1284906627204,
+    "R2_4_verdict": "PASS"
+  },
+
+  "recalibration_count": 0,
+  "recalibration_max": 2,
+
+  "impegni_fase4_obbligatori": [
+    "R3-3: test MMD tra distribuzione j* per w0<-1.0 vs w0>-1.0 sui 2000 campi nwLH — prerequisito obbligatorio per apertura Phase 6",
+    "R3-4: monitoring attivazioni j* (media, varianza, neuroni morti) nel training loop Phase 4"
+  ],
+
+  "impegni_pre_submission": [
+    "R3-1: calcolare r(y_hat, y_true) per Omm e sigma8 — statistica corretta per test multiplo",
+    "R3-2: ricalcolare varianza aggiuntiva vs Ramo A su base equivalente",
+    "R3-5: ablation beta1-only vs beta1+beta2 su j*",
+    "OC1: benchmark GNN vs regressore su P(k)"
+  ]
+}
