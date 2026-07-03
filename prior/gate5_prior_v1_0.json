@@ -1,0 +1,88 @@
+{
+  "schema_version": "2.0",
+  "prior_version": "v1.0",
+  "gate_id": "GATE_5",
+  "frozen_at": "2026-05-07T09:30:00Z",
+  "frozen_by": "PI — Sessione Phase 5 Sessione 3",
+  "authority": "CAUCHY_Execution_Design_v2.md §5.6",
+  "note": "Prior congelato alla chiusura di Gate 5 con esito PASS. Contiene i parametri frozen per Phase 5bis e Phase 6.",
+
+  "gate5_outcome": {
+    "status": "PASS",
+    "gate_passed": true,
+    "reviewer_verdict": "PASS",
+    "primary_result": "sigma_b2_mean_persistence = 3.69sigma (HOD deterministico B3)",
+    "conservative_result": "sigma_b2_mean_persistence = 3.08sigma (controllo n_gal T4)",
+    "venue_target": "JCAP o Physical Review D (rivisto da Nature Astronomy/PRL per qualifiche HOD)"
+  },
+
+  "frozen_ramo_a": {
+    "sigma_primary": 3.69,
+    "sigma_conservative": 3.08,
+    "sigma_pk_baseline": 3.37,
+    "gain_tda_single": 0.09,
+    "feature_primary": "b2_mean_persistence",
+    "feature_index": 5,
+    "hod_log_Mmin": 12.5,
+    "hod_sigma_logM": 0.55,
+    "hod_log_M0": 12.25,
+    "hod_log_M1": 13.5,
+    "hod_alpha": 1.0,
+    "n_gal_target": 903000,
+    "permutation_N": 1000,
+    "permutation_seed": 42
+  },
+
+  "frozen_ramo_b": {
+    "sigma_b_single": 0.98,
+    "sigma_b_fwer": -3.01,
+    "max_rho_w0": 0.0227,
+    "n_nodes_mean": 1325.4,
+    "checkpoint_epoch": 171,
+    "interpretation": "risultato_negativo_fisicamente_atteso"
+  },
+
+  "frozen_hod_analysis": {
+    "VIF_b2_flat_prior": 2.483,
+    "sigma_marg_flat_prior": 1.25,
+    "n_gal_literature_prior": 3023903,
+    "physical_bound_log_Mmin": 12.2,
+    "physical_bound_note": "log_Mmin < 12.2 produce popolazioni galattiche non rappresentative per DESI BGS r<19.5"
+  },
+
+  "frozen_validation": {
+    "T1_monotonicity": "PASS",
+    "T2_no_outlier": "PASS",
+    "T3_bootstrap": "PASS",
+    "T4_ngal_partial": "PASS",
+    "OC1_status": "PARTIALLY_CLOSED"
+  },
+
+  "phase5bis_parameters": {
+    "sigma_ramo_a_primary": 3.69,
+    "sigma_ramo_a_conservative": 3.08,
+    "sigma_ramo_b": 0.98,
+    "note": "Questi valori sono gli input per O5b-4 e O5b-5 di Phase 5bis (framing del paper)"
+  },
+
+  "inherited_from_gate4": {
+    "gate4_prior_version": "v1.0",
+    "checkpoint_gnn": "results/checkpoints/phase3_gnn_best.pt",
+    "best_epoch": 171,
+    "persistence_threshold_p90": 0.35589513778686577,
+    "gate4_outcome": "FAIL_NEGATIVE"
+  },
+
+  "open_commitments_blocking_submission": ["R5-1", "R5-2", "R5-3", "R5-4", "R5-5", "R4-2_inherited"],
+  "open_commitments_blocking_submission_note": "Vedi phase5_gate_result.json impegni_pre_submission per dettagli",
+
+  "phase6_authorization": {
+    "authorized": false,
+    "authorized_at": null,
+    "condition": "Phase 6 autorizzata solo dopo chiusura Gate 5bis (D-24). Gate 5bis non ancora aperto.",
+    "note": "Phase 5bis apre con questa sessione. Phase 6 apre dopo Gate 5bis PASS."
+  },
+
+  "recalibration_count": 0,
+  "recalibration_max": 2
+}

@@ -14,6 +14,8 @@
 !/paper/paper C/
 /paper/paper C/*
 !/paper/paper C/cauchy_paper_c_jcap.pdf
+!/prior/
+!/prior/*
 
 # Eccezione cartella scr: prendi la cartella e tutto il suo contenuto
 !/src/
@@ -26,6 +28,7 @@
 # ...MA prendi SOLO i file direttamente al primo livello di results, ignorando le sottocartelle
 !/results/*
 /results/*/
+
 
 # Escludi file Pickle e dati pesanti
 *.pkl

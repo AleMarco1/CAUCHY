@@ -1,0 +1,134 @@
+{
+  "schema_version": "2.0",
+  "prior_version": "v1.0",
+  "gate_id": "GATE_4",
+  "frozen_at": "2026-05-02T12:30:00Z",
+  "frozen_by": "PI — Sessione Phase 4",
+  "authority": "CAUCHY_Execution_Parameters.md §6",
+  "note": "Prior congelato al momento della chiusura di Gate 4 con esito FAIL_NEGATIVE. Contiene i parametri del SR eseguito e i risultati dei prerequisiti R3-1, R3-2, R3-3 che sono ora parte del record scientifico permanente. Phase 5 usa questo prior come riferimento storico — non ha parametri frozen operativi da Gate 4 (nessun modello addestrato, nessun checkpoint prodotto).",
+
+  "gate4_outcome": {
+    "status": "FAIL_NEGATIVE",
+    "gate_passed": true,
+    "gate_passed_note": "FAIL_NEGATIVE e' esito valido per Gate 4 per Methodology §4.3",
+    "reviewer_verdict": "NON-BLOCKING",
+    "physical_interpretation": "Nessuna espressione simbolica stabile con R2>=0.50 trovata. Atteso fisicamente: H(z=0)=H0 e D(z=0)=1 rendono w0 non rilevabile dalla struttura topologica a z=0. Terza evidenza indipendente dopo Gate 1b e R3-3 MMD."
+  },
+
+  "frozen_sr_results": {
+    "n_runs": 20,
+    "n_runs_successful": 20,
+    "parsimony_coeff": 0.001,
+    "n_iterations": 1000,
+    "maxsize": 20,
+    "seed_formula": "42 + i * 100 per i in 0..19",
+    "r2_max": 0.006191038723583064,
+    "stability_max_frequency": "3/20",
+    "gate4_status": "FAIL_NEGATIVE",
+    "output_file": "results/phase4_sr_expressions.json"
+  },
+
+  "frozen_prerequisites_r3": {
+    "R3_1": {
+      "r_yhat_Omm": 0.8930211663246155,
+      "r_yhat_s8": 0.9182219505310059,
+      "r2_Omm": 0.7974867820739746,
+      "r2_s8": 0.8431315422058105,
+      "verdict": "CHIUSO",
+      "method": "r(Linear(j*), y_true) su 400 test LHC seed=42"
+    },
+    "R3_2": {
+      "variance_added_equivalent_pct": -7.62027645111084,
+      "r2_ramoB_mean": 0.8203091621398926,
+      "r2_ramoA_mean": 0.8879753351211548,
+      "verdict": "CHIUSO",
+      "note": "Ramo B inferiore al Ramo A su (Omm, sigma8). Valore scientifico Ramo B interamente prospettico (Phase 5-6)."
+    },
+    "R3_3": {
+      "mmd_stat": 1.0311603546142578e-05,
+      "mmd_pvalue": 0.34865134865134867,
+      "verdict": "NON_SIGNIFICATIVO",
+      "note": "j* non porta segnale distribuzionale su w0. Atteso per design."
+    }
+  },
+
+  "frozen_feature_correlations_w0": {
+    "dataset": "nwLH train 1600 campi seed=42",
+    "b1_peak_pos": 0.0066,
+    "b1_peak_height": 0.0069,
+    "b1_fwhm": 0.0133,
+    "b1_integral": 0.0082,
+    "b2_max_count": 0.0075,
+    "b2_mean_persistence": 0.0028,
+    "b2_high_persist": 0.0071,
+    "b0_at_mean": 0.0055,
+    "max_abs_r": 0.0133,
+    "note": "Tutte al livello del rumore. Coerente con Gate 1b e R3-3."
+  },
+
+  "frozen_nwlh_split": {
+    "n_nwlh_total": 2000,
+    "n_train": 1600,
+    "n_test": 400,
+    "split_seed": 42,
+    "target": "w0 in [-1.30, -0.70]",
+    "note": "Split nwLH 80/20 seed=42 usato per SR Phase 4. Frozen per riferimento storico — Phase 5 usa split sui propri dataset (z>0)."
+  },
+
+  "frozen_feature_preprocessing": {
+    "method": "Z-score su train set",
+    "mean": [-0.1252908706665039, 16024.2724609375, 0.7421644330024719, 12654.5703125, 7822.44140625, 0.12349636107683182, 2303.86962890625, 899.0349731445312],
+    "std": [0.052553270012140274, 4584.7880859375, 0.13039612770080566, 2765.962646484375, 2062.6953125, 0.018977930769324303, 521.2098999023438, 166.5804443359375],
+    "feature_order": ["b1_peak_pos", "b1_peak_height", "b1_fwhm", "b1_integral", "b2_max_count", "b2_mean_persistence", "b2_high_persist", "b0_at_mean"],
+    "note": "Frozen per riproducibilita'. Phase 5 calcolera' il proprio Z-score sui propri dati di training."
+  },
+
+  "inherited_from_gate3": {
+    "gate3_prior_version": "v1.0",
+    "checkpoint_gnn": "results/checkpoints/phase3_gnn_best.pt",
+    "best_epoch": 171,
+    "split_seed_lhc": 42,
+    "persistence_threshold_p90": 0.35589513778686577,
+    "graphs_cache_lhc": "results/graphs_cache/lhc/",
+    "graphs_cache_nwlh": "results/graphs_cache/nwlh/",
+    "note": "Il checkpoint GNN e i grafi topologici sono invariati da Phase 3. Nessun retraining eseguito in Phase 4."
+  },
+
+  "impegni_pre_submission": [
+    {
+      "id": "R4-1",
+      "descrizione": "Documentare nel paper: scelta parsimony=0.001, motivazione, assenza guida da segnale, confronto letteratura PySR.",
+      "priorita": "normale"
+    },
+    {
+      "id": "R4-2",
+      "descrizione": "Dichiarare nel paper che il valore scientifico del Ramo B e' interamente prospettico. Non occultare -7.6% (R3-2) nella metrica aggregata.",
+      "priorita": "alta"
+    },
+    {
+      "id": "R4-3",
+      "descrizione": "Valutare aggiunta test Spearman j* vs w0 continuo (soglia rilevabilita' |r|>0.074 vs osservato 0.040).",
+      "priorita": "bassa"
+    },
+    {
+      "id": "OC1_CRITICO",
+      "descrizione": "Benchmark GNN vs regressore P(k): r(yhat,ytrue) su 400 test LHC. Necessario anche per validare R2(sigma8)=0.987 del Ramo A. Priorita' elevata a CRITICA dal Reviewer Phase 4.",
+      "priorita": "critica"
+    },
+    {
+      "id": "R3-5",
+      "descrizione": "Ablation beta1-only vs beta1+beta2 su j*. Rilevante a Phase 5 dove il segnale e' atteso.",
+      "priorita": "normale"
+    }
+  ],
+
+  "recalibration_count": 0,
+  "recalibration_max": 2,
+
+  "phase5_authorization": {
+    "authorized": true,
+    "authorized_at": "2026-05-02T12:30:00Z",
+    "condition": "Gate 4 chiuso come FAIL_NEGATIVE. Reviewer NON-BLOCKING. Phase 5 (z multipli, redshift space) fisicamente motivata.",
+    "note": "Phase 5 inizia con acquisizione dataset Quijote a z=0.5, 1.0, 2.0 in redshift space. I concern R4-1 e R4-2 non bloccano la progressione — richiedono documentazione nel paper."
+  }
+}

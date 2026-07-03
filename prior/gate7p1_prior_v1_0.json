@@ -1,0 +1,105 @@
+{
+  "schema_version": "2.0",
+  "gate_id": "GATE_7.1",
+  "version": "v1.0",
+  "frozen_at": "2026-06-06T20:00:00Z",
+  "frozen_by": "CAUCHY_Execution_Design_v2.md §6 + Reviewer Sub-Phase 7.1 NON-BLOCKING",
+  "supersedes": "gate6_prior_v1_0.json (per le sezioni sub-fase 7)",
+  "framing_inherited": "CONSERVATIVO",
+
+  "primary_result": {
+    "feature_internal": "b2_mean_persistence",
+    "feature_paper": "⟨pers₁⟩ (β₁ mean persistence)",
+    "homology_group": "H1",
+    "dataset": "DESI DR1 BGS NGC",
+    "confronto_B_z_score": 3.09,
+    "confronto_A_z_score": 5.97,
+    "confronto_C_z_score": 12.65,
+    "primary_value": 3.09,
+    "primary_label": "Confronto B — σ_px equivalente (DESI R=10, mock R=5)",
+    "phase5_convergence": 3.08,
+    "source": "phase6_gate_result.json (immutato)"
+  },
+
+  "rsd_robustness": {
+    "delta_kaiser_dm": 0.034,
+    "delta_kaiser_dm_source": "phase7_rsd_test.json",
+    "delta_fog_hod_b3": -0.004,
+    "delta_fog_hod_b3_source": "phase7_rsd_hod_confirmation.json",
+    "verdict": "BLINDATO — entrambi sub-σ"
+  },
+
+  "ramo_b": {
+    "sigma_B_phase5_reference": 0.983,
+    "sigma_B_T1_mean": 1.6839,
+    "sigma_B_T1_std": 0.4263,
+    "sigma_B_T1_CV_pct": 25.3,
+    "sigma_B_T1_n_runs": 10,
+    "sigma_B_T1_source": "phase7_t1_variability.json",
+    "verdict": "NULL — segno alternante, null fisicamente atteso a z=0"
+  },
+
+  "beyond_pk": {
+    "b2_dm_marginal_sigma": 0.095,
+    "b2_dm_partial_sigma": 1.39,
+    "pk_ridge_marginal_sigma": 2.263,
+    "pk_ridge_partial_sigma": 2.762,
+    "b2_hod_partial_sigma": 3.73,
+    "tracer_activation_ratio": 3.33,
+    "tracer_activation_note": "post-hoc, non pre-specificato",
+    "verdict_z0_dm": "PK_COMPETITIVE — nessun beyond-pk su campi DM a z=0 (fisicamente atteso)",
+    "verdict_hod": "TDA_SUPERIOR — +65% relativo su basi marginali (Phase 5), tracer activation dimostrata",
+    "source": "phase7_pk_comparison_r53.json, phase7_r53_partial_corr.json, phase7_r53_robustness.json"
+  },
+
+  "nomenclature": {
+    "b2_mean_persistence_is_beta1": true,
+    "no_beta2_in_pipeline": true,
+    "paper_name_primary_feature": "⟨pers₁⟩",
+    "footnote_required": true,
+    "source": "phase7_nomenclature_lock.json"
+  },
+
+  "citations_confirmed": [
+    "Calles et al. 2025 (arXiv:2412.15405)",
+    "Smith & Grove et al. 2024 (arXiv:2312.08792)",
+    "Spurio Mancini et al. 2024 (arXiv:2410.10616)"
+  ],
+
+  "paper_scenarios": {
+    "Paper_B": {
+      "status": "ACTIVE",
+      "title_working": "Topological field-level constraints on background expansion histories of the dark sector",
+      "venue_primary": "JCAP",
+      "venue_secondary": "PRD",
+      "acceptance_probability": "68-73% (post-Gate 7.0)",
+      "blocking_pre_submission": ["R5-1 HOD fitting DESI BGS mocks"],
+      "non_blocking_open": ["R3-5 β₂ ablation"]
+    },
+    "Paper_A": {
+      "status": "PURSUABLE in parallel",
+      "title_working": "σ_px: a grid-discretization systematic in topological analysis of cosmological density fields",
+      "venue_primary": "PRD",
+      "acceptance_probability": "82-87%",
+      "blocking_pre_submission": []
+    }
+  },
+
+  "frozen_numbers_for_paper": {
+    "main_anomaly": "+3.09σ (Confronto B, σ_px-matched, DESI BGS NGC, N=2000 mocks)",
+    "inter_pipeline_convergence": "+3.08σ (Phase 5, configurazione diversa)",
+    "rsd_kaiser": "+0.034σ (Gate 7.0)",
+    "rsd_fog_hod": "-0.004σ (Task 7.1d)",
+    "t1_sigma_B": "1.68 ± 0.43σ (N=10)",
+    "sigma_px_systematic": "+8.42σ (Phase 6 σ_px test)",
+    "ide_degeneracy": "PASS_CONSERVATIVE ΔD/D_max=0.94% (Gate 5bis)",
+    "dual_signature_ngc": {
+      "b1_mean_persistence_zscore": 11.85,
+      "b1_max_count_zscore": -55.59,
+      "note": "Opposti in segno — pattern fisicamente coerente con phantom crossing"
+    }
+  },
+
+  "gate_verdict": "PASS",
+  "authorized_next_phase": "7.2 Paper Draft"
+}

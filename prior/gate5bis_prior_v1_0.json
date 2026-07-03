@@ -1,0 +1,67 @@
+{
+  "schema_version": "2.0",
+  "prior_version": "v1.0",
+  "gate_id": "GATE_5BIS",
+  "frozen_at": "2026-05-07T20:00:00Z",
+  "frozen_by": "PI — Phase 5bis Sessione 3 (post-review, Concern 2 resolved)",
+  "authority": "CAUCHY_Execution_Design_v2.md §5bis",
+  "note": "Prior congelato alla chiusura di Gate 5bis con esito PASS_CONSERVATIVE. Reviewer NON-BLOCKING. Numeri O5b-2 corretti rispetto al prompt S3.",
+
+  "gate5bis_outcome": {
+    "status": "PASS_CONSERVATIVE",
+    "gate_passed": true,
+    "reviewer_verdict": "NON-BLOCKING",
+    "framing": "CONSERVATIVE",
+    "venue": "PRD / JCAP",
+    "title_working": "Topological field-level constraints on background expansion histories of the dark sector"
+  },
+
+  "frozen_ide_degeneracy_results": {
+    "O5b_1_fraction_degenerate_nwLH_pairs": 0.0012,
+    "O5b_2_n_total_sampled": 142,
+    "O5b_2_n_excluded_near_lcdm": 3,
+    "O5b_2_n_quintessence": 50,
+    "O5b_2_n_phantom": 92,
+    "O5b_2_n_converged_total": 55,
+    "O5b_2_n_converged_quintessence": 48,
+    "O5b_2_n_converged_phantom_near_boundary": 7,
+    "O5b_2_phantom_near_boundary_w0_range": [-1.048, -1.012],
+    "O5b_2_phantom_strong_all_failed": true,
+    "O5b_2_phantom_strong_residual_min_pct": 0.51,
+    "O5b_4_max_delta_D_over_D": 0.009392,
+    "O5b_4_fraction_above_1pct": 0.0,
+    "key_finding": "CPL phantom (w0 < -1.05) signal non-degenerate with IDE quintessence at H(z) level (min residual 0.51% > 0.5% tol). Near-boundary phantom (w0 in [-1.048,-1.012]) technically converges but is near-LCDM trivial reparametrization."
+  },
+
+  "frozen_framing_parameters": {
+    "threshold_delta_D_over_D_aggressive": 0.01,
+    "observed_max_delta_D_over_D": 0.009392,
+    "framing_authorized": "CONSERVATIVE",
+    "sigma_primary_inherited": 3.69,
+    "sigma_conservative_inherited": 3.08
+  },
+
+  "inherited_from_gate5": {
+    "gate5_prior_version": "v1.0",
+    "sigma_primary": 3.69,
+    "sigma_conservative": 3.08,
+    "feature_primary": "b2_mean_persistence",
+    "hod_log_Mmin": 12.5,
+    "n_gal_target": 903000
+  },
+
+  "phase6_parameters": {
+    "dataset": "DESI_DR2",
+    "framing": "CONSERVATIVE",
+    "venue_target": "PRD / JCAP",
+    "sigma_threshold_claim": 2.0,
+    "open_commitments_blocking_submission": [
+      "R5-1", "R5-2", "R5-3", "R5-4", "R5-5", "R4-2_inherited", "C5bis-1"
+    ],
+    "ide_degeneracy_cleared": true,
+    "ide_degeneracy_caveat": "Cleared for w0 < -1.05 (strong phantom). Near-boundary phantom w0 in [-1.048,-1.012] technically IDE-degenerate but near-LCDM."
+  },
+
+  "recalibration_count": 0,
+  "recalibration_max": 2
+}
