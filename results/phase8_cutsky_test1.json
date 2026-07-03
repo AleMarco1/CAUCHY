@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "output_id": "phase8_cutsky_test1",
+  "generated_at": "2026-07-02T13:13:26.955212+00:00",
+  "authority": "gate8_prior_v1_0.json",
+  "n_pilot_requested": 200,
+  "n_mock_valid": 200,
+  "snapnum": 3,
+  "sigma_px": 0.32042249039652254,
+  "hod_params_b3_median": [
+    12.5,
+    0.55,
+    12.25,
+    13.5,
+    1.0,
+    0.0,
+    0.0,
+    1.0,
+    1.0
+  ],
+  "satellite_velocity": "option_a_no_intrahalo_dispersion",
+  "gadget_vel_sqrt_a": true,
+  "density_target_bgs": 217614,
+  "desi_reference": {
+    "pers1": 0.891516913228523,
+    "beta1_max": 27471.0,
+    "sigma_px": 0.32042249039652254,
+    "note": "Recomputed on the native DESI grid (R=5, cell 15.6 Mpc/h -> sigma_px=0.3204), matched to the cut-sky mocks. The canonical 0.45886 (sigma_px=0.216) is NOT used here."
+  },
+  "cutsky_mock_pers1": {
+    "mean": 0.6285643932477906,
+    "std": 0.03956345164961755,
+    "z_desi": 6.646349320314532,
+    "rank_desi": 0.995
+  },
+  "cutsky_mock_beta1_max": {
+    "mean": 35804.5,
+    "std": 331.98357711999387,
+    "z_desi": -25.102145329881473,
+    "rank_desi": 0.0
+  },
+  "median_ngal_selected": 217570.5,
+  "verdict": "SURVIVES",
+  "n_floor_note": "With N=200 the empirical p-floor is ~1/201; z-scores are auxiliary tail extrapolations, ranks are primary."
+}
