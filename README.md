@@ -16,7 +16,7 @@ This repository accompanies the paper:
 > anomaly in DESI BGS**
 > A. Marconi (2026), submitted to JCAP. arXiv:XXXX.XXXXX
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21128857.svg)](https://doi.org/10.5281/zenodo.21128857)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21158278.svg)](https://doi.org/10.5281/zenodo.21158278)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
@@ -255,7 +255,7 @@ and the software archive:
   title   = {{CAUCHY: Cosmic Anomaly via Unified Cosmological
              Hyper-fields analYsis --- pipeline v2.0}},
   year    = {2026},
-  doi     = {10.5281/zenodo.21128857},
+  doi     = {10.5281/zenodo.21158278},
   url     = {https://github.com/AleMarco1/CAUCHY}
 }
 ```
