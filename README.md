@@ -2,13 +2,18 @@
 
 **Cosmic Anomaly via Unified Cosmological Hyper-fields analYsis**
 
-A topological data analysis (TDA) pipeline that searches for phantom dark energy
-signatures in the DESI Bright Galaxy Survey (BGS DR1) galaxy density field, using
-persistent homology compared against the Quijote nwLH mock cosmologies.
+A topological data analysis (TDA) pipeline for persistent homology on **observed**
+galaxy fields. CAUCHY characterizes the discretization and survey-geometry
+systematics that dominate naive PH comparisons between a bounded survey and
+periodic-box mocks, provides a like-for-like cut-sky comparison framework, and
+applies it to the DESI Bright Galaxy Survey (BGS DR1) against the 2000 Quijote
+nwLH mock cosmologies.
 
 This repository accompanies the paper:
 
-> **Cosmology with persistent homology: a topological anomaly in the DESI BGS galaxy field**
+> **Persistent homology on an observed galaxy field: discretization and
+> survey-geometry systematics, a like-for-like framework, and a topological
+> anomaly in DESI BGS**
 > A. Marconi (2026), submitted to JCAP. arXiv:XXXX.XXXXX
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21128857.svg)](https://doi.org/10.5281/zenodo.21128857)
@@ -18,24 +23,47 @@ This repository accompanies the paper:
 
 ## Overview
 
-CAUCHY measures the mean $H_1$ persistence $\langle\mathrm{pers}_1\rangle$ of the
-3D galaxy density field and compares it to 2000 $w_0$CDM mock cosmologies. The main
-result is a topological anomaly of the DESI BGS field relative to the $\Lambda$CDM
-mock distribution, significant at $+9.45\sigma$ (density-calibrated HOD, full sample)
-and $+29.9\sigma$ (density-controlled subset).
+Three-dimensional persistent homology had previously been applied to simulated
+periodic boxes or 2D projected maps, not to an observed spectroscopic galaxy
+field. Doing so, we find the exercise is dominated by two systematics that can
+masquerade as physical anomalies:
 
-The analysis comprises two independent pipelines:
+1. **The σ_px systematic** — the mean H₁ persistence depends on the
+   dimensionless smoothing parameter σ_px = R/Δx (kernel width in *voxel*
+   units), not on the physical scale R alone: +8.42σ between σ_px = 0.216 and
+   0.640 on matched mock fields. Cross-survey comparisons at fixed R are
+   structurally biased.
+2. **The boundary artefact** — embedding a masked survey (14.7% fill) in a
+   zero-padded cube and running an unmasked filtration truncates the
+   persistence diagram, manufacturing an anti-correlated "dual signature"
+   (high mean persistence, suppressed loop count) that mimics a physical
+   signal.
 
-- **Branch A (TDA):** persistent homology on the log-transformed density field via
-  `gudhi` CubicalComplex, extracting $H_0$ and $H_1$ features.
-- **Branch B (CNN+GNN):** an SE(3)-equivariant neural network producing a tension
-  field, used as an independent cross-check (null result at $z=0$, as physically
-  expected).
+The repository implements the **like-for-like framework** that removes both:
+cut-sky mocks carved by the DESI footprint and n(z), in redshift space,
+density- and σ_px-matched, analysed with a masked filtration on both sides.
 
-A key methodological finding is that $\langle\mathrm{pers}_1\rangle$ depends on the
-dimensionless smoothing parameter $\sigma_\mathrm{px} = R/\Delta x$ rather than the
-physical smoothing scale $R$ — motivating a $\sigma_\mathrm{px}$-matched comparison
-framework (Comparison B).
+Applied to DESI BGS NGC, most of the apparent signal dissolves. One feature
+survives every control: an **H₁ generator deficit** — the DESI field contains
+fewer loops than **all 2000** like-for-like ΛCDM/w₀CDM mocks (empirical
+p < 1/2000), robust to observational weighting, to an HOD refit to the measured
+w_p(r_p), and to a density-dependent incompleteness surrogate. No
+w₀ ∈ [−1.30, −0.70] reproduces it (extrapolation would require w₀ ≈ −294),
+formally excluding w₀CDM (w_a = 0) as its origin. The deficit is reported as an
+**open anomaly — explicitly not a dark-energy detection**.
+
+---
+
+## ⚠ Note on superseded results (v1)
+
+Earlier versions of this repository (and the v1 Zenodo archive) implemented the
+analysis of the original submission, whose headline results — a
+⟨pers₁⟩ anomaly of +5.96σ to +29.9σ, the "dual topological signature", and a
+phantom dark-energy interpretation — are **superseded and retracted**. The
++29.9σ figure in particular arose from post-hoc conditioning on a
+cosmology-dependent variable and should not be used. The paper's Appendix D
+documents the full methodological evolution; the v1 archive is retained for
+transparency.
 
 ---
 
@@ -47,26 +75,32 @@ cauchy/
 ├── LICENSE                       MIT license
 ├── environment.yml               Conda environment specification
 ├── requirements.txt              pip dependencies (alternative to conda)
-├── paper/                        LaTeX source of the paper
-│   ├── cauchy_paper_b_jcap.tex
-│   ├── jcappub.sty
-│   ├── JHEP.bst
-│   ├── cauchy.bib
-│   └── figures/                  Publication figures (PNG + PDF)
+├── paper/
+│   └── paper C/
+│       └── cauchy_paper_c_jcap.pdf   Submitted manuscript (Paper C)
 ├── src/                          Analysis pipeline
-│   ├── cauchy_figures.py         Reproduces all 8 publication figures
-│   ├── phase_r51_*.py            HOD marginalization / calibration
-│   ├── phase_b3_cal135*.py       Density-calibrated HOD runs
-│   ├── phase_cal135_action_a.py  Density-controlled subset + partial correlation
-│   ├── phase_oc1_pk_hod.py       Power spectrum vs TDA comparison
-│   ├── phase_h2_diagnostic.py    H2 lattice-artefact diagnostic
-│   ├── phase_halo_completeness.py FoF completeness at log Mmin = 13.5
-│   └── phase_hod_fit_wp.py       wp(rp) projected clustering (TreeCorr)
+│   ├── phase8_cutsky_mocks.py        Like-for-like cut-sky construction (core)
+│   ├── phase8_test2_masked.py        Masked filtration — MAIN RESULT (N=2000)
+│   ├── phase8_field_diagnostic.py    Field-amplitude diagnostics
+│   ├── phase8_weight_check.py        Observational-weighting robustness
+│   ├── phase8_smoothness_check.py    Small-scale structure comparison
+│   ├── phase8_weight_smoothness.py   Weights-vs-smoothness A/B resolution
+│   ├── phase8_hod_fit.py             HOD fit to DESI wp(rp) + n̄ (TreeCorr)
+│   ├── phase8_w0_exclusion.py        w0CDM (wa=0) exclusion analysis
+│   ├── phase8_fiber_surrogate.py     Incompleteness (fiber-assignment) surrogate
+│   └── phase*_*.py                   Phases 0–7: earlier pipeline stages,
+│                                     retained for the documented evolution
+│                                     (paper Appendix D)
 ├── results/                      Frozen numerical records (JSON)
-│   ├── phase6_*.json             Main anomaly results
-│   ├── phase5_*.json             HOD pipeline
-│   ├── phase7_*.json             Robustness tests
-│   └── ...
+│   ├── phase8_test2_masked.json      Main result (β₁ᵐᵃˣ deficit, N=2000)
+│   ├── phase8_w0_exclusion.json      w0 exclusion
+│   ├── phase8_hod_bestfit.json       HOD fit
+│   ├── phase8_test2_hodfit.json      Deficit under the fitted HOD
+│   ├── phase8_fiber_surrogate.json   Incompleteness surrogate
+│   ├── phase8_cutsky_test1.json      Exact-replica diagnostic (Test 1)
+│   └── phase*_*.json                 Phases 0–7 records
+├── gate8_prior_v1_0.json         Pre-registered Phase-8 gate protocol
+├── CHANGELOG.md                  Complete decision log
 └── data/                         (not tracked — see Data section below)
 ```
 
@@ -77,8 +111,8 @@ cauchy/
 ### Option A — conda (recommended)
 
 ```bash
-git clone https://github.com/AleMarco1/cauchy.git
-cd cauchy
+git clone https://github.com/AleMarco1/CAUCHY.git
+cd CAUCHY
 conda env create -f environment.yml
 conda activate cauchy
 ```
@@ -86,8 +120,8 @@ conda activate cauchy
 ### Option B — pip
 
 ```bash
-git clone https://github.com/AleMarco1/cauchy.git
-cd cauchy
+git clone https://github.com/AleMarco1/CAUCHY.git
+cd CAUCHY
 python -m venv venv
 source venv/bin/activate       # on Windows: venv\Scripts\activate
 pip install -r requirements.txt
@@ -98,112 +132,101 @@ pip install -r requirements.txt
 | Package | Purpose |
 |---|---|
 | `gudhi` | Persistent homology (CubicalComplex) |
-| `numpy`, `scipy` | Numerical core |
+| `numpy`, `scipy` | Numerical core; periodic wp(r_p) pair counting |
+| `astropy` | FITS catalogue I/O |
 | `matplotlib` | Figures |
-| `torch` + `e3nn` | Branch B (SE(3)-equivariant network) |
-| `Pylians` | Density field / power spectrum utilities |
-| `TreeCorr` | Projected clustering wp(rp) |
-| `PySR` | Symbolic regression (optional) |
+| `TreeCorr` | DESI projected clustering wp(r_p) (Landy–Szalay) |
+| `torch` + `e3nn` | Branch B (SE(3)-equivariant network; paper Appendix E) |
 
-**Note on hardware:** Branch B (CNN+GNN) benefits from a CUDA-capable GPU. Branch A
-(TDA) and figure reproduction run on CPU. The reference environment used an
-RTX 5060 Ti (16 GB) with CUDA under Windows; the code is platform-independent, but
-`TreeCorr` is used instead of `Corrfunc` for the projected clustering because the
-latter is difficult to build on Windows.
+**Note on hardware/platform:** the Phase-8 pipeline (main results) runs on CPU;
+the full N=2000 masked run takes a few hours on a desktop. `TreeCorr` is used
+for the survey clustering and a self-contained numpy/scipy periodic pair
+counter for the mock clustering, because `Corrfunc` does not build on Windows.
 
 ---
 
 ## Data
 
-The analysis uses two publicly available datasets, **not tracked in this repository**
-due to size. Download them separately and place them under `data/`.
+The analysis uses two publicly available datasets, **not tracked in this
+repository** due to size. Download them separately and place them under `data/`.
 
 ### DESI BGS DR1
 
-The DESI Bright Galaxy Survey Data Release 1 clustering catalogues (NGC and SGC).
+The DESI Bright Galaxy Survey Data Release 1 clustering catalogues (NGC).
 Available through the DESI Data Release portal (https://data.desi.lbl.gov/).
 Required files:
 - `BGS_BRIGHT-21.5_NGC_clustering.dat.fits` (galaxy catalogue, 217,614 galaxies)
 - `BGS_BRIGHT-21.5_NGC_0_clustering.ran.fits` (random catalogue)
+- `BGS_BRIGHT-21.5_NGC_nz.txt` (radial selection n(z))
 
 ### Quijote nwLH
 
 The Quijote *nwLH* (new Latin Hypercube) simulation suite (2000 cosmologies,
-$w_0 \in [-1.30, -0.70]$, $w_a = 0$). Available through the Quijote project
-(https://quijote-simulations.readthedocs.io/). Place the 3D density cubes under
-`data/raw/quijote/3D_cubes/` and the HOD galaxy catalogues under the corresponding
-subdirectory.
+w₀ ∈ [−1.30, −0.70], w_a = 0), **FoF halo catalogues at z = 0.5**
+(`groups_003`). Available through the Quijote project
+(https://quijote-simulations.readthedocs.io/).
 
 Expected layout:
 ```
 data/
-├── raw/
-│   ├── desi_dr1/
-│   │   ├── BGS_BRIGHT-21.5_NGC_clustering.dat.fits
-│   │   └── BGS_BRIGHT-21.5_NGC_0_clustering.ran.fits
-│   └── quijote/
-│       ├── 3D_cubes/
-│       └── latin_hypercube_nwLH_hod/
+└── raw/
+    ├── desi_dr1/
+    │   ├── BGS_BRIGHT-21.5_NGC_clustering.dat.fits
+    │   ├── BGS_BRIGHT-21.5_NGC_0_clustering.ran.fits
+    │   └── BGS_BRIGHT-21.5_NGC_nz.txt
+    └── quijote/
+        └── 3D_cubes/
+            └── latin_hypercube_nwLH_hod/     (FoF halo catalogues + params file)
 ```
 
 ---
 
-## Reproducing the results
+## Reproducing the main results
 
-### Figures
-
-All eight publication figures are reproduced from embedded numerical data
-(no external data required):
-
-```bash
-cd src
-python cauchy_figures.py
-```
-
-Figures are written to `results/figures/` as both PNG and PDF.
-
-### Key analysis steps
-
-The pipeline is organized in numbered phases. Each phase reads the frozen JSON
-records from earlier phases and writes its own, so results are fully traceable.
-The main results can be regenerated as follows (requires the data above):
+The pipeline is organized in numbered phases; each phase reads the frozen JSON
+records of earlier phases and writes its own, so every number is traceable.
 
 ```bash
 cd src
 
-# Density-calibrated HOD (log Mmin = 13.5) — main anomaly result
-python phase_b3_cal135_v2.py
+# 0. Validate the halo-catalogue reader (positions, masses, velocities)
+python phase8_cutsky_mocks.py --check_fof --project_root ..
 
-# Density-controlled subset + unbiased partial correlation
-python phase_cal135_action_a.py
+# 1. MAIN RESULT — like-for-like masked comparison, N=2000
+#    (β₁ᵐᵃˣ deficit: DESI below all 2000 mocks, empirical p < 1/2000)
+python phase8_test2_masked.py --n_pilot 2000 --project_root ..
 
-# Power spectrum vs TDA comparison (isometric, OC-1)
-python phase_oc1_pk_hod.py
-
-# H2 lattice-artefact diagnostic
-python phase_h2_diagnostic.py
+# 2. Exclusion battery
+python phase8_w0_exclusion.py    --project_root ..   # w0CDM (wa=0) exclusion
+python phase8_hod_fit.py         --project_root ..   # HOD fit to wp(rp)+n̄
+python phase8_test2_masked.py --n_pilot 200 \
+       --hod_json ../results/phase8_hod_bestfit.json --project_root ..
+python phase8_fiber_surrogate.py --project_root ..   # incompleteness surrogate
+python phase8_weight_check.py    --project_root ..   # weighting robustness
 ```
 
 ### Numerical traceability
 
-Every quantitative claim in the paper is traceable to a frozen JSON record under
-`results/`, organized by analysis phase (e.g. `phase6_gate_result.json` for the
-main anomaly, `phase7_t1_variability.json` for the Branch B null). The JSON files
-are the canonical source; the figures and paper values are derived from them.
+Every quantitative claim in the paper is traceable to a frozen JSON record
+under `results/`. The JSON files are the canonical source; the figures and
+paper values are derived from them. Gate thresholds were pre-registered
+(`gate8_prior_v1_0.json`) before execution.
 
 ---
 
-## Main results
+## Main results (Paper C)
 
 | Quantity | Value | Source |
 |---|---|---|
-| $\langle\mathrm{pers}_1\rangle$ DESI BGS NGC | $0.459 \pm 0.005$ | `phase6_bgs_tda_features.json` |
-| Anomaly (B3 baseline) | $+5.96\sigma$ | `phase6_scenario2_final.json` |
-| Anomaly (HOD-13.5, full) | $+9.45\sigma$ | `phase_b3_cal135_v2_diagnostics.json` |
-| Anomaly (HOD-13.5, DC subset) | $+29.9\sigma$ | `phase_cal135_action_a.json` |
-| $\sigma_\mathrm{px}$ systematic | $+8.42\sigma$ | `phase6_sigma_px_test.json` |
-| Branch B null | $1.68 \pm 0.43\sigma$ | `phase7_t1_variability.json` |
-| TDA vs P(k) (isometric) | $2.80\sigma$ vs $2.51\sigma$ | `phase_oc1_pk_hod.json` |
+| β₁ᵐᵃˣ DESI BGS NGC (masked) | 28,256 | `phase8_test2_masked.json` |
+| β₁ᵐᵃˣ mocks, like-for-like (N=2000) | 35,437 ± 313 | `phase8_test2_masked.json` |
+| **Deficit significance (empirical)** | **p < 1/2000** (below all mocks) | `phase8_test2_masked.json` |
+| ⟨pers₁⟩ under masked framework | rank 98.0% — not significant | `phase8_test2_masked.json` |
+| σ_px systematic | +8.42σ (σ_px 0.216 → 0.640) | `phase6_sigma_px_test.json` |
+| w₀ needed to reach DESI | ≈ −294 → **w₀CDM (wₐ=0) excluded** | `phase8_w0_exclusion.json` |
+| Deficit under HOD refit to wp(rp) | unchanged (rank 1/200) | `phase8_test2_hodfit.json` |
+| Incompleteness surrogate (≤30% drop) | opposite sign — does not explain | `phase8_fiber_surrogate.json` |
+| Branch B null (Appendix E) | 1.68 ± 0.43σ, sign-alternating | `phase7_t1_variability.json` |
 
 ---
 
@@ -214,8 +237,9 @@ If you use this code or the CAUCHY pipeline, please cite the paper:
 ```bibtex
 @article{Marconi2026CAUCHY,
   author  = {Marconi, Alessandro},
-  title   = {{Cosmology with persistent homology: a topological anomaly
-             in the DESI BGS galaxy field}},
+  title   = {{Persistent homology on an observed galaxy field: discretization
+             and survey-geometry systematics, a like-for-like framework, and a
+             topological anomaly in DESI BGS}},
   journal = {JCAP},
   year    = {2026},
   note    = {arXiv:XXXX.XXXXX},
@@ -229,10 +253,10 @@ and the software archive:
 @software{cauchy_pipeline,
   author  = {Marconi, Alessandro},
   title   = {{CAUCHY: Cosmic Anomaly via Unified Cosmological
-             Hyper-fields analYsis — pipeline v1.0}},
+             Hyper-fields analYsis --- pipeline v2.0}},
   year    = {2026},
   doi     = {10.5281/zenodo.21128857},
-  url     = {https://github.com/AleMarco1/cauchy}
+  url     = {https://github.com/AleMarco1/CAUCHY}
 }
 ```
 
