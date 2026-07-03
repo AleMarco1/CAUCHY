@@ -1,0 +1,33 @@
+# Blocca tutto il contenuto della cartella di default
+/*
+
+# Eccezioni: Forza Git a tracciare solo quello che ti serve
+!/results/
+!/src/
+!/environment.yml
+!/requirements.txt
+!/LICENSE
+!/README.md
+!/CITATION.cff
+!/paper/
+/paper/*
+!/paper/paper C/
+/paper/paper C/*
+!/paper/paper C/cauchy_paper_c_jcap.pdf
+
+# Eccezione cartella scr: prendi la cartella e tutto il suo contenuto
+!/src/
+# ...MA prendi SOLO i file direttamente al primo livello di results, ignorando le sottocartelle
+!/src/*
+/src/*/
+
+# Eccezione cartella results: prendi la cartella...
+!/results/
+# ...MA prendi SOLO i file direttamente al primo livello di results, ignorando le sottocartelle
+!/results/*
+/results/*/
+
+# Escludi file Pickle e dati pesanti
+*.pkl
+*.pth
+*.h5
