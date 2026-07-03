@@ -1,0 +1,14 @@
+{
+  "output_id": "phase8_w0_exclusion",
+  "desi_beta1_max_masked": 28256.0,
+  "partial_corr_beta1_w0": 0.015452438806898984,
+  "perm_z": 0.2375688678308029,
+  "phantom_mean": 35411.362318840576,
+  "phantom_min": 34119.0,
+  "quint_mean": 35414.30303030303,
+  "desi_below_phantom_min": true,
+  "dbeta1_dw0": 24.56163623659867,
+  "w0_needed_for_desi": -293.74260606086267,
+  "verdict": "EXCLUDE_w0CDM_wa0",
+  "caveat": "Excludes w0CDM wa=0 only; CPL wa!=0 not testable (no mocks)."
+}

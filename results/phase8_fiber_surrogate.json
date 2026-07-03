@@ -1,0 +1,30 @@
+{
+  "output_id": "phase8_fiber_surrogate",
+  "generated_at": "2026-07-03T07:01:01.354989+00:00",
+  "desi_beta1_max_masked": 28256.0,
+  "baseline_mock_beta1_max": 35467.15,
+  "by_strength": {
+    "0.0": {
+      "mean": 35467.15,
+      "std": 247.2823011068078,
+      "frac_gap_closed": 0.0
+    },
+    "0.05": {
+      "mean": 35510.6,
+      "std": 256.60153109970304,
+      "frac_gap_closed": -0.006025391234407422
+    },
+    "0.15": {
+      "mean": 35567.2,
+      "std": 310.99805438379906,
+      "frac_gap_closed": -0.013874347364844112
+    },
+    "0.3": {
+      "mean": 35581.65,
+      "std": 386.71882769644833,
+      "frac_gap_closed": -0.015878188638427986
+    }
+  },
+  "verdict": "does_NOT_close_gap",
+  "caveat": "Surrogate decimation model, not DESI altmtl. Full test = future work."
+}

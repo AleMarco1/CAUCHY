@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "output_id": "phase8_test2_masked",
+  "generated_at": "2026-07-03T01:21:16.005223+00:00",
+  "authority": "gate8_prior_v1_0.json (Test 2)",
+  "n_pilot_requested": 2000,
+  "n_mock_valid": 2000,
+  "masked_filtration": true,
+  "satellite_velocity": "option_b_virial_dispersion",
+  "desi_reference_masked": {
+    "pers1": 0.7245888380122361,
+    "beta1_max": 28256.0
+  },
+  "mock_pers1": {
+    "mean": 0.629850869657041,
+    "std": 0.04394209337877952,
+    "z_desi": 2.1559730333863856,
+    "rank_desi": 0.9795
+  },
+  "mock_beta1_max": {
+    "mean": 35436.686,
+    "std": 312.9891651683112,
+    "z_desi": -22.94228298969569,
+    "rank_desi": 0.0
+  },
+  "median_ngal_selected": 217571.0,
+  "verdict": "BETA1_ONLY",
+  "primary_claim_beta1_max_anomalous": true,
+  "n_floor_note": "N=2000; empirical p-floor ~1/2001. Ranks primary."
+}
