@@ -1,0 +1,227 @@
+{
+  "schema_version": "2.0",
+  "script": "phase9_growth_mismatch.py",
+  "phase": "9",
+  "concern_addressed": "referee R1.c (growth mismatch z=0.5 snapshot vs z_eff data)",
+  "timestamp": "2026-07-04T04:17:09.285900+00:00",
+  "mode": "redshift_space",
+  "k_pairs": 30,
+  "snap_hi": {
+    "snapnum": 3,
+    "z": 0.5
+  },
+  "snap_lo": {
+    "snapnum": 4,
+    "z": 0.0
+  },
+  "desi_beta1_max": 28256.0,
+  "z0.5_baseline_mean": 35456.933333333334,
+  "z0.5_baseline_drift_sigma": 0.07224220623500763,
+  "paired_delta_z0_minus_z05_mean": -26.633333333333333,
+  "growth_rate_per_unit_z": -53.266666666666666,
+  "growth_rate_sem": 112.03691851845583,
+  "deficit_at_z05": 7200.933333333334,
+  "z_eff_scan": {
+    "0.20": {
+      "dz_data": 0.3,
+      "growth_offset": -15.979999999999999,
+      "fraction_of_deficit": -0.0022191567759734846
+    },
+    "0.25": {
+      "dz_data": 0.25,
+      "growth_offset": -13.316666666666666,
+      "fraction_of_deficit": -0.0018492973133112372
+    },
+    "0.30": {
+      "dz_data": 0.2,
+      "growth_offset": -10.653333333333334,
+      "fraction_of_deficit": -0.00147943785064899
+    }
+  },
+  "z_eff_reference": 0.25,
+  "fraction_of_deficit_reference": -0.0018492973133112372,
+  "verdict": "GROWTH_SUBDOMINANT",
+  "per_realization": [
+    {
+      "realization": 0,
+      "beta1_z0.5": 35318.0,
+      "beta1_z0.0": 34907.0,
+      "delta_lo_minus_hi": -411.0
+    },
+    {
+      "realization": 1,
+      "beta1_z0.5": 34972.0,
+      "beta1_z0.0": 35628.0,
+      "delta_lo_minus_hi": 656.0
+    },
+    {
+      "realization": 2,
+      "beta1_z0.5": 35526.0,
+      "beta1_z0.0": 35597.0,
+      "delta_lo_minus_hi": 71.0
+    },
+    {
+      "realization": 3,
+      "beta1_z0.5": 35708.0,
+      "beta1_z0.0": 35714.0,
+      "delta_lo_minus_hi": 6.0
+    },
+    {
+      "realization": 4,
+      "beta1_z0.5": 35418.0,
+      "beta1_z0.0": 35530.0,
+      "delta_lo_minus_hi": 112.0
+    },
+    {
+      "realization": 5,
+      "beta1_z0.5": 35482.0,
+      "beta1_z0.0": 35112.0,
+      "delta_lo_minus_hi": -370.0
+    },
+    {
+      "realization": 6,
+      "beta1_z0.5": 35287.0,
+      "beta1_z0.0": 35012.0,
+      "delta_lo_minus_hi": -275.0
+    },
+    {
+      "realization": 7,
+      "beta1_z0.5": 35808.0,
+      "beta1_z0.0": 36041.0,
+      "delta_lo_minus_hi": 233.0
+    },
+    {
+      "realization": 8,
+      "beta1_z0.5": 35539.0,
+      "beta1_z0.0": 35109.0,
+      "delta_lo_minus_hi": -430.0
+    },
+    {
+      "realization": 9,
+      "beta1_z0.5": 35437.0,
+      "beta1_z0.0": 35595.0,
+      "delta_lo_minus_hi": 158.0
+    },
+    {
+      "realization": 10,
+      "beta1_z0.5": 36060.0,
+      "beta1_z0.0": 35289.0,
+      "delta_lo_minus_hi": -771.0
+    },
+    {
+      "realization": 11,
+      "beta1_z0.5": 35311.0,
+      "beta1_z0.0": 35527.0,
+      "delta_lo_minus_hi": 216.0
+    },
+    {
+      "realization": 12,
+      "beta1_z0.5": 35644.0,
+      "beta1_z0.0": 35541.0,
+      "delta_lo_minus_hi": -103.0
+    },
+    {
+      "realization": 13,
+      "beta1_z0.5": 35354.0,
+      "beta1_z0.0": 35935.0,
+      "delta_lo_minus_hi": 581.0
+    },
+    {
+      "realization": 14,
+      "beta1_z0.5": 35756.0,
+      "beta1_z0.0": 35540.0,
+      "delta_lo_minus_hi": -216.0
+    },
+    {
+      "realization": 15,
+      "beta1_z0.5": 35544.0,
+      "beta1_z0.0": 35332.0,
+      "delta_lo_minus_hi": -212.0
+    },
+    {
+      "realization": 16,
+      "beta1_z0.5": 35159.0,
+      "beta1_z0.0": 34750.0,
+      "delta_lo_minus_hi": -409.0
+    },
+    {
+      "realization": 17,
+      "beta1_z0.5": 35734.0,
+      "beta1_z0.0": 35724.0,
+      "delta_lo_minus_hi": -10.0
+    },
+    {
+      "realization": 18,
+      "beta1_z0.5": 35664.0,
+      "beta1_z0.0": 35409.0,
+      "delta_lo_minus_hi": -255.0
+    },
+    {
+      "realization": 19,
+      "beta1_z0.5": 35420.0,
+      "beta1_z0.0": 35564.0,
+      "delta_lo_minus_hi": 144.0
+    },
+    {
+      "realization": 20,
+      "beta1_z0.5": 35087.0,
+      "beta1_z0.0": 35488.0,
+      "delta_lo_minus_hi": 401.0
+    },
+    {
+      "realization": 21,
+      "beta1_z0.5": 35583.0,
+      "beta1_z0.0": 35652.0,
+      "delta_lo_minus_hi": 69.0
+    },
+    {
+      "realization": 22,
+      "beta1_z0.5": 35392.0,
+      "beta1_z0.0": 35440.0,
+      "delta_lo_minus_hi": 48.0
+    },
+    {
+      "realization": 23,
+      "beta1_z0.5": 35314.0,
+      "beta1_z0.0": 35366.0,
+      "delta_lo_minus_hi": 52.0
+    },
+    {
+      "realization": 24,
+      "beta1_z0.5": 35288.0,
+      "beta1_z0.0": 35108.0,
+      "delta_lo_minus_hi": -180.0
+    },
+    {
+      "realization": 25,
+      "beta1_z0.5": 35281.0,
+      "beta1_z0.0": 35446.0,
+      "delta_lo_minus_hi": 165.0
+    },
+    {
+      "realization": 26,
+      "beta1_z0.5": 35674.0,
+      "beta1_z0.0": 35511.0,
+      "delta_lo_minus_hi": -163.0
+    },
+    {
+      "realization": 27,
+      "beta1_z0.5": 34827.0,
+      "beta1_z0.0": 35058.0,
+      "delta_lo_minus_hi": 231.0
+    },
+    {
+      "realization": 28,
+      "beta1_z0.5": 35410.0,
+      "beta1_z0.0": 35388.0,
+      "delta_lo_minus_hi": -22.0
+    },
+    {
+      "realization": 29,
+      "beta1_z0.5": 35711.0,
+      "beta1_z0.0": 35596.0,
+      "delta_lo_minus_hi": -115.0
+    }
+  ],
+  "notes": "Paired same-seed z=0 vs z=0.5 on each nwLH realization isolates growth. Rate scaled linearly to the data offset; first-order estimate quoted with scatter. real_space mode isolates pure density growth from the RSD part."
+}

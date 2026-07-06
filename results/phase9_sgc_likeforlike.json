@@ -1,0 +1,35 @@
+{
+  "schema_version": "2.0",
+  "script": "phase9_sgc_likeforlike.py",
+  "phase": "9b",
+  "concern_addressed": "referee R3.1 (SGC like-for-like result, mandatory)",
+  "timestamp": "2026-07-04T09:27:22.253015+00:00",
+  "sgc_geometry": {
+    "box_size_mpc_h": 1904.4501607158168,
+    "cell_mpc_h": 14.878516880592318,
+    "sigma_px": 0.3360550006514459,
+    "mask_fill_pct": 8.21232795715332,
+    "box_min": [
+      70.83764296585042,
+      -857.7211332764833,
+      -363.6064145586423
+    ]
+  },
+  "sgc_data_galaxies": 82429,
+  "k_mocks": 200,
+  "desi_sgc_beta1_max": 15122.0,
+  "desi_sgc_pers1": 0.8371464325991076,
+  "mock_beta1_mean": 18693.595,
+  "mock_beta1_std": 177.95773586379673,
+  "z": -20.069905827154308,
+  "rank": "0/200",
+  "empirical_p_one_sided": 0.004975124378109453,
+  "fractional_deficit": 0.19105982557127194,
+  "verdict": "SGC_CONFIRMS",
+  "ngc_reference": {
+    "frac_deficit": 0.2,
+    "z_gaussian": -16.1,
+    "rank": "1/2000"
+  },
+  "notes": "SGC embedding box, cell, sigma_px, and density target recomputed from the SGC catalogues; sigma_px matched between DESI-SGC and mocks (dominant systematic). Same populate_with_virial, masked filtration, and build_field as the NGC Test 2. A SGC_CONFIRMS reinforces the anomaly independently of NGC imaging; a SGC_NULL localises it to a hemisphere/imaging systematic."
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": "2.0",
+  "script": "phase9_empirical_histograms.py",
+  "phase": "9",
+  "concern_addressed": "isolated-referee Concern 1 (empirical histograms vs Gaussian)",
+  "timestamp": "2026-07-03T18:44:29.184644+00:00",
+  "comparison": "like-for-like cut-sky mocks, masked filtration, N=2000",
+  "source_arrays": "D:\\projects\\cauchy\\results\\phase9_likeforlike_arrays.npz",
+  "beta1_max": {
+    "n_mocks": 2000,
+    "desi_value": 28256.0,
+    "mock_mean": 35424.784,
+    "mock_std": 444.81419511756707,
+    "z_score_gaussian_ref": -16.116356174526416,
+    "n_mocks_below": 1,
+    "n_mocks_above": 1999,
+    "desi_percentile": 0.05,
+    "side": "deficit",
+    "n_more_extreme": 1,
+    "p_one_sided_empirical": 0.0009995002498750624,
+    "p_empirical_bound_note": null,
+    "convention": "p = (n_more_extreme + 1)/(N + 1)"
+  },
+  "pers1_mean": {
+    "n_mocks": 2000,
+    "desi_value": 0.7245888380122361,
+    "mock_mean": 0.6351651514195048,
+    "mock_std": 0.08042166842451182,
+    "z_score_gaussian_ref": 1.111935232687559,
+    "n_mocks_below": 1928,
+    "n_mocks_above": 72,
+    "desi_percentile": 96.4,
+    "side": "excess",
+    "n_more_extreme": 72,
+    "p_one_sided_empirical": 0.03648175912043978,
+    "p_empirical_bound_note": null,
+    "convention": "p = (n_more_extreme + 1)/(N + 1)"
+  },
+  "gate9_s1": {
+    "criteria": {
+      "beta1max_desi_below_all_mocks": true,
+      "beta1max_p_one_sided_le": 0.0005,
+      "pers1_not_3sigma_excess_rank_pct_lt": 99.87
+    },
+    "status": "FLAG",
+    "flags": [
+      "beta1_max: expected 0 mocks below DESI, got 1",
+      "beta1_max: p=0.001 > 0.0005"
+    ]
+  },
+  "figures": {
+    "beta1_max": "fig_phase9_beta1max_empirical.pdf",
+    "pers1_mean": "fig_phase9_pers1_empirical.pdf"
+  },
+  "notes": "Empirical rank/p-value are the quantities to quote; z_score is a Gaussian-assumption reference only. Means reproduce the frozen phase8_test2_masked.json; empirical spread is the true distribution."
+}

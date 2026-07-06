@@ -1,0 +1,26 @@
+{
+  "desi_full": 28256.0,
+  "regions": {
+    "PHOTSYS_N": {
+      "n_gal": 81135,
+      "desi_beta1": 17885.0,
+      "ratio_to_full": 0.6329629105322764
+    },
+    "PHOTSYS_S": {
+      "n_gal": 136479,
+      "desi_beta1": 18007.0,
+      "ratio_to_full": 0.637280577576444
+    },
+    "DEC_gt_32.4": {
+      "n_gal": 81045,
+      "desi_beta1": 17883.0,
+      "ratio_to_full": 0.6328921291053228
+    },
+    "DEC_le_32.4": {
+      "n_gal": 136569,
+      "desi_beta1": 18019.0,
+      "ratio_to_full": 0.6377052661381654
+    }
+  },
+  "imaging_consistent": true
+}

@@ -1,0 +1,11 @@
+{
+  "fiducial_idx": 1805,
+  "nseed": 5,
+  "fiducial_mean": 35574.6,
+  "stochastic_std": 68.89339590991288,
+  "suite_total_std": 444.81419511756707,
+  "stochastic_fraction_of_total_var": 0.023988213685509487,
+  "r_beta1_Om": 0.45288873687005515,
+  "r_beta1_s8": 0.2883631629759542,
+  "r_beta1_w0": -0.02769440099828384
+}

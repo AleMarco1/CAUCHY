@@ -1,0 +1,37 @@
+{
+  "schema_version": "2.0",
+  "script": "phase9_rsd_satellite_sensitivity.py",
+  "phase": "9",
+  "concern_addressed": "isolated-referee Concern 2 (satellite RSD asymmetry, Munari 2013)",
+  "timestamp": "2026-07-03T19:40:59.602597+00:00",
+  "k_mocks": 30,
+  "eta_vel_scan": [
+    0.8,
+    1.0,
+    1.2
+  ],
+  "desi_beta1_max": 28256.0,
+  "aggregate": {
+    "0.8": {
+      "n": 30,
+      "mean": 35512.1,
+      "std": 281.04071983770706
+    },
+    "1.0": {
+      "n": 30,
+      "mean": 35456.933333333334,
+      "std": 260.5434550205071
+    },
+    "1.2": {
+      "n": 30,
+      "mean": 35388.666666666664,
+      "std": 267.40842239506236
+    }
+  },
+  "baseline_drift_sigma_vs_frozen": 0.07224220623500763,
+  "systematic_span_loops": 123.4333333333343,
+  "desi_deficit_loops": 7196.566666666658,
+  "systematic_fraction_of_deficit": 0.0171516973371563,
+  "verdict": "SUBDOMINANT",
+  "notes": "eta_vel multiplies the satellite virial dispersion (sigma1d_virial). Munari-plausible +/-20%. The span of the mock mean over this range bounds the residual RSD asymmetry; compared to the DESI deficit to judge dominance."
+}
