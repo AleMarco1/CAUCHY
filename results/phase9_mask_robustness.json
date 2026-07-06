@@ -1,0 +1,83 @@
+{
+  "schema_version": "2.0",
+  "script": "phase9_mask_robustness.py",
+  "phase": "9b",
+  "concern_addressed": "referee R3.2 (mask-edge robustness: threshold + erosion)",
+  "timestamp": "2026-07-04T07:59:46.775153+00:00",
+  "mock_k": 300,
+  "thresholds": [
+    0.05,
+    0.2
+  ],
+  "erode_iters": [
+    1,
+    2
+  ],
+  "variants": {
+    "fiducial": {
+      "fill_pct": 14.677286148071289,
+      "desi_beta1": 28256.0,
+      "mock_mean": 35356.01,
+      "mock_std": 858.8480053075374,
+      "z": -8.266899330409018,
+      "n_below": 1,
+      "k": 300,
+      "deficit": 7100.010000000002
+    },
+    "thresh5": {
+      "fill_pct": 13.478517532348633,
+      "desi_beta1": 25434.0,
+      "mock_mean": 35043.46333333333,
+      "mock_std": 1228.9644423895054,
+      "z": -7.819154893244446,
+      "n_below": 1,
+      "k": 300,
+      "deficit": 9609.463333333333
+    },
+    "thresh20": {
+      "fill_pct": 12.438344955444336,
+      "desi_beta1": 23748.0,
+      "mock_mean": 33631.746666666666,
+      "mock_std": 1379.3571217733445,
+      "z": -7.1654733285893455,
+      "n_below": 1,
+      "k": 300,
+      "deficit": 9883.746666666666
+    },
+    "erode1": {
+      "fill_pct": 12.402534484863281,
+      "desi_beta1": 23782.0,
+      "mock_mean": 31756.483333333334,
+      "mock_std": 1136.362419396328,
+      "z": -7.017552848649847,
+      "n_below": 2,
+      "k": 300,
+      "deficit": 7974.483333333334
+    },
+    "erode2": {
+      "fill_pct": 10.19124984741211,
+      "desi_beta1": 20293.0,
+      "mock_mean": 25614.363333333335,
+      "mock_std": 843.352295883594,
+      "z": -6.309775119255536,
+      "n_below": 2,
+      "k": 300,
+      "deficit": 5321.363333333335
+    }
+  },
+  "fiducial_deficit": 7100.010000000002,
+  "max_deficit_swing": 2783.736666666664,
+  "max_swing_fraction": 0.39207503463610094,
+  "verdict": "MASK_ROBUST",
+  "notes": "DESI field and mock cubes are frozen (fiducial build); only the filtration mask varies, identically on both sides. Threshold variants are nested subsets of the fiducial interior; mean-subtraction region is the fiducial interior for both, preserving like-for-like. A full rebuild per mask would additionally re-center each field; declared as a second-order effect.",
+  "verdict_naive_absolute_swing": "MASK_SENSITIVE",
+  "verdict_criterion": "model-free: DESI z < -3.0 and rank <= 3 in every mask variant. Absolute loop-count swing is NOT used (it scales with masked volume; DESI and mocks fall together).",
+  "fractional_deficit_by_variant": {
+    "fiducial": 20.1,
+    "thresh5": 27.4,
+    "thresh20": 29.4,
+    "erode1": 25.1,
+    "erode2": 20.8
+  },
+  "verdict_note": "The anomaly survives every mask variant: DESI stays at rank 1-2/k with z from -6.3 to -8.3, and the fractional deficit is 20-29% throughout - growing slightly under stricter thresholds, so the fiducial mask is conservative rather than inflating the deficit. Eroding the boundary does not remove the deficit, so it is not a boundary-skin artefact."
+}

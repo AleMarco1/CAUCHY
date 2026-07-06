@@ -1,0 +1,65 @@
+{
+  "schema_version": "2.0",
+  "script": "phase9_w0_response_curve.py",
+  "phase": "9",
+  "concern_addressed": "isolated-referee Concern 3 (w0=-294 extrapolation)",
+  "timestamp": "2026-07-03T18:52:57.544557+00:00",
+  "n_labelled_mocks": 200,
+  "w0_range": [
+    -1.29925,
+    -0.70135
+  ],
+  "partial_corr_beta1_w0_given_Om_s8": -0.015084187289069647,
+  "perm_pvalue": 0.8363581820908954,
+  "n_perm": 20000,
+  "binned_response": [
+    {
+      "w0_median": -1.2496,
+      "beta1_max_mean": 34985.205882352944,
+      "sem": 281.6446788011282,
+      "n": 34
+    },
+    {
+      "w0_median": -1.13995,
+      "beta1_max_mean": 35550.93939393939,
+      "sem": 71.41578187184756,
+      "n": 33
+    },
+    {
+      "w0_median": -1.05625,
+      "beta1_max_mean": 35421.48484848485,
+      "sem": 92.59108047816413,
+      "n": 33
+    },
+    {
+      "w0_median": -0.95905,
+      "beta1_max_mean": 35534.36363636364,
+      "sem": 58.814452366425506,
+      "n": 33
+    },
+    {
+      "w0_median": -0.85645,
+      "beta1_max_mean": 35392.36363636364,
+      "sem": 107.57251622304125,
+      "n": 33
+    },
+    {
+      "w0_median": -0.7506999999999999,
+      "beta1_max_mean": 34963.0,
+      "sem": 268.9411866074671,
+      "n": 34
+    }
+  ],
+  "ols_slope_per_unit_w0": -75.98353415726342,
+  "ols_slope_bootstrap_ci95": [
+    -1049.9878091148237,
+    928.7527681971308
+  ],
+  "if_linear_w0_needed": NaN,
+  "extrapolation_factor_beyond_range": NaN,
+  "in_range_w0_dependence_significant": false,
+  "reframed_paper_sentence": "Within the sampled range w0 in [-1.30, -0.70], beta1_max shows no significant dependence on w0 at fixed (Om,s8) (partial r=-0.015, p=0.836); the response slope d(beta1_max)/d(w0) is indistinguishable from zero (OLS -76, 95% CI [-1050, +929]). DESI's deficit is not reproduced by any sampled cosmology, and the flat, sign-ambiguous w0 response admits no finite linear extrapolation to DESI. We therefore report the deficit as an anomaly relative to the w0CDM (wa=0) mock suite, not as a physical exclusion of a particular w0.",
+  "figure": "fig_phase9_w0_response.pdf",
+  "source_arrays": "D:\\projects\\cauchy\\results\\phase9_likeforlike_arrays.npz",
+  "notes": "w0 analysis uses the labelled subset (pilot CSV merged into the npz). The if-linear w0_needed is reported ONLY to state the extrapolation factor; it is not a physical exclusion."
+}
