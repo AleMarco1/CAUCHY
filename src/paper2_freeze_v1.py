@@ -116,7 +116,8 @@ def git_provenance(cwd: Path) -> dict:
     A commit hash alone is misleading: if there are uncommitted changes, it
     does not identify the code that produced the artefacts. Record both.
     """
-    out = {"commit": None, "dirty": None, "dirty_files": []}
+    out = {"commit": None, "dirty": None, "dirty_count": None,
+           "dirty_files": [], "dirty_truncated": False}
     try:
         r = subprocess.run(["git", "rev-parse", "HEAD"], cwd=str(cwd),
                            capture_output=True, text=True, timeout=10)
@@ -128,7 +129,9 @@ def git_provenance(cwd: Path) -> dict:
         if st.returncode == 0:
             files = [ln for ln in st.stdout.splitlines() if ln.strip()]
             out["dirty"] = bool(files)
+            out["dirty_count"] = len(files)          # the TOTAL, never truncated
             out["dirty_files"] = files[:40]
+            out["dirty_truncated"] = len(files) > 40
     except Exception:
         pass
     return out
@@ -353,8 +356,11 @@ def cmd_freeze(args) -> int:
 
     g = doc["git"]
     if g.get("dirty"):
+        n = g.get("dirty_count") or len(g["dirty_files"])
         print(f"\n  !! WARNING: git tree is DIRTY at commit {(g['commit'] or '?')[:12]}")
-        print(f"     {len(g['dirty_files'])} uncommitted path(s); the recorded commit")
+        print(f"     {n} uncommitted path(s)"
+              + (" (list truncated to 40 in the summary)" if g.get("dirty_truncated") else "")
+              + "; the recorded commit")
         print("     does not identify the code that produced these artefacts.")
         print("     Commit or stash, then re-run freeze, before quoting this digest.")
 

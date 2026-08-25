@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "script": "paper1_null_mockmock.py",
+  "protocol": "v2 §6 - raffinamento POST-REGISTRAZIONE (§12)",
+  "timestamp": "2026-07-23T07:47:51.551856+00:00",
+  "region": "NGC",
+  "tag": "R5",
+  "sigma_px": 0.32042249039652254,
+  "n_mocks": 200,
+  "shift": 100,
+  "pairing": "j = (i + 100) mod 200",
+  "ladder_distance_rms": {
+    "mock_to_mock": 6.557427959319707,
+    "mock_to_desi": 52.83398739365039,
+    "mock_to_mean": 4.282486961628417,
+    "ratio_mm_over_desi": 0.124113819206229,
+    "ratio_mean_over_desi": 0.08105553210892215
+  },
+  "desi": {
+    "N_H1": 28256.0,
+    "b1_peak": 8457.0,
+    "peak_nu": 1.3372149644716842,
+    "mean_pers1": 0.7245888380122361,
+    "b1_fwhm": 1.6624018931148035,
+    "b1_integral": 20488.665858457556,
+    "n_pers_top10": 2826.0,
+    "b0_at_mean": 0.0
+  },
+  "mock_baseline_mean": 35423.575,
+  "mock_nullmm_mean": 35422.695,
+  "mock_nullmm_std": 294.4304987052788,
+  "D": 7167.574999999997,
+  "f_null_mm": 0.0001227751366396585,
+  "sigma_null_mm": 30.293797564093403,
+  "eta_mm": 0.012679517506587686,
+  "mean_shift_loops": -0.88,
+  "sem_loops": 2.1420949685462958,
+  "notes": "Null like-for-like: bersaglio a singola realizzazione (scala grezza di un altro mock), stesso tipo del bersaglio DESI del test primario. Sostituisce come controllo di riferimento il null a scala media, che usa un bersaglio piu' liscio e non e' quindi confrontabile col primario. Raffinamento non pre-registrato: nato da un'osservazione fatta in fase di analisi (salto di sigma_null fra pilota e produzione). Da dichiarare come post-registrazione ai sensi del protocollo v2 §12."
+}

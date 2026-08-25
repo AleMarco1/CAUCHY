@@ -1,0 +1,47 @@
+{
+  "script": "paper1_rev_n8b_differential.py",
+  "ngrid": 128,
+  "slope_a": -1.5,
+  "slope_b": -2.3,
+  "n_config": 240,
+  "delta_true_mean": 0.36907907165995907,
+  "delta_true_sd": 0.08450933262924121,
+  "bias_abs_mean": -0.05895999364500654,
+  "bias_abs_sd": 0.19002383810227466,
+  "bias_diff_mean": -0.06382175655636681,
+  "bias_diff_sd": 0.05609473976680308,
+  "cancellazione": 0.7048015642300007,
+  "per_forma": {
+    "slab": {
+      "n": 12,
+      "bias_abs": -0.22858610157307124,
+      "bias_diff": -0.03635316140533509
+    },
+    "shell": {
+      "n": 10,
+      "bias_abs": -0.08423587392961257,
+      "bias_diff": -0.022488054021758908
+    },
+    "tube": {
+      "n": 12,
+      "bias_abs": -0.16092906031555168,
+      "bias_diff": -0.032423030394642616
+    },
+    "wedge": {
+      "n": 12,
+      "bias_abs": -0.2421140489491648,
+      "bias_diff": -0.04149816545963203
+    },
+    "slab_holes": {
+      "n": 12,
+      "bias_abs": -0.2404941026800785,
+      "bias_diff": -0.036365316852746556
+    }
+  },
+  "regime_valido": {
+    "n": 58,
+    "bias_abs_mean": -0.19496273278466414,
+    "bias_diff_mean": -0.034216493613204564,
+    "bias_diff_sd": 0.028497452628205872
+  }
+}

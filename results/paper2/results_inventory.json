@@ -1,0 +1,497 @@
+{
+  ".": {
+    "avg_bytes": 8237670.557971015,
+    "bytes": 1136798537,
+    "ext": [
+      ".bak",
+      ".csv",
+      ".json",
+      ".md",
+      ".npz",
+      ".pkl"
+    ],
+    "first_name": "phase0_data_manifest.json",
+    "guess": "large binaries, shape unread -> inspect",
+    "last_name": "phase_r51_results_v3.json",
+    "n_files": 138,
+    "sample_peek": {
+      "phase0_data_manifest.json": [
+        "dict, 7 keys: schema_version, generated_at, cauchy_version, gate, datasets, overall_pass_rate, overall_gate0_status"
+      ],
+      "phase0_gate_result.json": [
+        "dict, 6 keys: schema_version, metadata, results, gate_evaluation, reviewer_verdict, notes"
+      ]
+    }
+  },
+  "paper1": {
+    "avg_bytes": 276526.79927589593,
+    "bytes": 4506280721,
+    "ext": [
+      ".json",
+      ".jsonl",
+      ".npy",
+      ".npz",
+      ".txt"
+    ],
+    "first_name": "curves_DESI_NGC_R10.npz",
+    "guess": "mixed -> inspect",
+    "last_name": "curves_1999.npz",
+    "n_files": 16296,
+    "sample_peek": {
+      "paper1/curves_DESI_NGC_R10.npz": [
+        "thresholds: (100,) float32",
+        "b0_curve: (100,) float32",
+        "b1_curve: (100,) float32",
+        "h1_birth: (12128,) float32",
+        "h1_death: (12128,) float32"
+      ],
+      "paper1/curves_DESI_NGC_R12.npz": [
+        "thresholds: (100,) float32",
+        "b0_curve: (100,) float32",
+        "b1_curve: (100,) float32",
+        "h1_birth: (9443,) float32",
+        "h1_death: (9443,) float32"
+      ]
+    }
+  },
+  "phase1_persistence_diagrams": {
+    "avg_bytes": 1434793.8945,
+    "bytes": 5739175578,
+    "ext": [
+      ".npz"
+    ],
+    "first_name": "fiducial_field_0000_pd.npz",
+    "guess": "PERSISTENCE DIAGRAMS -> Tier B if like-for-like, EXCLUDE if superseded",
+    "last_name": "nwlh_field_1999_pd.npz",
+    "n_files": 4000,
+    "sample_peek": {
+      "phase1_persistence_diagrams/fiducial/fiducial_field_0000_pd.npz": [
+        "b1_birth: (52631,) float64",
+        "b1_death: (52631,) float64",
+        "b2_birth: (29499,) float64",
+        "b2_death: (29499,) float64"
+      ],
+      "phase1_persistence_diagrams/fiducial/fiducial_field_0001_pd.npz": [
+        "b1_birth: (52541,) float64",
+        "b1_death: (52541,) float64",
+        "b2_birth: (29601,) float64",
+        "b2_death: (29601,) float64"
+      ]
+    }
+  },
+  "phase2_tau_fields": {
+    "avg_bytes": 8334123.67475,
+    "bytes": 33336494699,
+    "ext": [
+      ".npz"
+    ],
+    "first_name": "tau_field_0000.npz",
+    "guess": "BRANCH B?  (GNN / tension field) -> probably EXCLUDE",
+    "last_name": "tau_field_1999.npz",
+    "n_files": 4000,
+    "sample_peek": {
+      "phase2_tau_fields/lhc/tau_field_0000.npz": [
+        "tau_points: (8192, 35) float32",
+        "tau_grid: (128, 128, 128) float32   128^3 grid  <-- analysis grid of M26 / Paper 1",
+        "sample_indices: (8192,) int64",
+        "mu_lcdm: (32,) float32",
+        "pos_pts: (8192, 3) float32"
+      ],
+      "phase2_tau_fields/lhc/tau_field_0001.npz": [
+        "tau_points: (8192, 35) float32",
+        "tau_grid: (128, 128, 128) float32   128^3 grid  <-- analysis grid of M26 / Paper 1",
+        "sample_indices: (8192,) int64",
+        "mu_lcdm: (32,) float32",
+        "pos_pts: (8192, 3) float32"
+      ]
+    }
+  },
+  "phase4_sr_runs": {
+    "avg_bytes": 2566.9565217391305,
+    "bytes": 59040,
+    "ext": [
+      ".json"
+    ],
+    "first_name": "phase4_sr_run_00.json",
+    "guess": "RECORDS -> Tier A (freeze, instant)",
+    "last_name": "phase4_sr_run_202.json",
+    "n_files": 23,
+    "sample_peek": {
+      "phase4_sr_runs/phase4_sr_run_00.json": [
+        "dict, 9 keys: run_idx, seed, status, parsimony_coeff, n_iterations, maxsize, elapsed_s, best_expression, pareto_front"
+      ],
+      "phase4_sr_runs/phase4_sr_run_01.json": [
+        "dict, 9 keys: run_idx, seed, status, parsimony_coeff, n_iterations, maxsize, elapsed_s, best_expression, pareto_front"
+      ]
+    }
+  },
+  "phase5_hod_b3_fields": {
+    "avg_bytes": 1656.0,
+    "bytes": 3312000,
+    "ext": [
+      ".npz"
+    ],
+    "first_name": "b3_0000.npz",
+    "guess": "small .npz = summary records, NOT fields -> Tier A",
+    "last_name": "b3_1999.npz",
+    "n_files": 2000,
+    "sample_peek": {
+      "phase5_hod_b3_fields/b3_0000.npz": [
+        "sim_idx: () int64",
+        "feat: (8,) float32",
+        "hod_params: (9,) float64",
+        "n_gal: () int64",
+        "t_gudhi: () float64",
+        "status: () <U9"
+      ],
+      "phase5_hod_b3_fields/b3_0001.npz": [
+        "sim_idx: () int64",
+        "feat: (8,) float32",
+        "hod_params: (9,) float64",
+        "n_gal: () int64",
+        "t_gudhi: () float64",
+        "status: () <U9"
+      ]
+    }
+  },
+  "phase5_hod_chains": {
+    "avg_bytes": 3528.0,
+    "bytes": 3630312,
+    "ext": [
+      ".npz"
+    ],
+    "first_name": "chain_0000.npz",
+    "guess": "small .npz = summary records, NOT fields -> Tier A",
+    "last_name": "chain_1028.npz",
+    "n_files": 1029,
+    "sample_peek": {
+      "phase5_hod_chains/chain_0000.npz": [
+        "sim_idx: () int64",
+        "feat_marginalized: (8,) float32",
+        "feat_all_k: (10, 8) float32",
+        "theta_samples: (10, 9) float64",
+        "n_gal_list: (10,) int64",
+        "K_requested: () int64",
+        "... 3 more keys"
+      ],
+      "phase5_hod_chains/chain_0001.npz": [
+        "sim_idx: () int64",
+        "feat_marginalized: (8,) float32",
+        "feat_all_k: (10, 8) float32",
+        "theta_samples: (10, 9) float64",
+        "n_gal_list: (10,) int64",
+        "K_requested: () int64",
+        "... 3 more keys"
+      ]
+    }
+  },
+  "phase5_hod_chains_restricted": {
+    "avg_bytes": 3528.0,
+    "bytes": 1411200,
+    "ext": [
+      ".npz"
+    ],
+    "first_name": "chain_0007.npz",
+    "guess": "small .npz = summary records, NOT fields -> Tier A",
+    "last_name": "chain_1976.npz",
+    "n_files": 400,
+    "sample_peek": {
+      "phase5_hod_chains_restricted/chain_0007.npz": [
+        "sim_idx: () int64",
+        "feat_marginalized: (8,) float32",
+        "feat_all_k: (10, 8) float32",
+        "theta_samples: (10, 9) float64",
+        "n_gal_list: (10,) int64",
+        "K_requested: () int64",
+        "... 3 more keys"
+      ],
+      "phase5_hod_chains_restricted/chain_0018.npz": [
+        "sim_idx: () int64",
+        "feat_marginalized: (8,) float32",
+        "feat_all_k: (10, 8) float32",
+        "theta_samples: (10, 9) float64",
+        "n_gal_list: (10,) int64",
+        "K_requested: () int64",
+        "... 3 more keys"
+      ]
+    }
+  },
+  "phase6_mock_chains_z05": {
+    "avg_bytes": 1122.0,
+    "bytes": 2244000,
+    "ext": [
+      ".npz"
+    ],
+    "first_name": "z05_0000.npz",
+    "guess": "small .npz = summary records, NOT fields -> Tier A",
+    "last_name": "z05_1999.npz",
+    "n_files": 2000,
+    "sample_peek": {
+      "phase6_mock_chains_z05/z05_0000.npz": [
+        "sim_idx: () int64",
+        "feat: (8,) float32",
+        "n_gal: () int64",
+        "hod_params: (9,) float64"
+      ],
+      "phase6_mock_chains_z05/z05_0001.npz": [
+        "sim_idx: () int64",
+        "feat: (8,) float32",
+        "n_gal: () int64",
+        "hod_params: (9,) float64"
+      ]
+    }
+  },
+  "phase6_mock_chains_z05_R10": {
+    "avg_bytes": 1122.0,
+    "bytes": 2244000,
+    "ext": [
+      ".npz"
+    ],
+    "first_name": "z05_0000.npz",
+    "guess": "small .npz = summary records, NOT fields -> Tier A",
+    "last_name": "z05_1999.npz",
+    "n_files": 2000,
+    "sample_peek": {
+      "phase6_mock_chains_z05_R10/z05_0000.npz": [
+        "sim_idx: () int64",
+        "feat: (8,) float32",
+        "n_gal: () int64",
+        "hod_params: (9,) float64"
+      ],
+      "phase6_mock_chains_z05_R10/z05_0001.npz": [
+        "sim_idx: () int64",
+        "feat: (8,) float32",
+        "n_gal: () int64",
+        "hod_params: (9,) float64"
+      ]
+    }
+  },
+  "phase8_cutsky_fields": {
+    "avg_bytes": 8388872.0,
+    "bytes": 1677774400,
+    "ext": [
+      ".npz"
+    ],
+    "first_name": "cutsky_0000.npz",
+    "guess": "FIELD CACHE (grid-shaped arrays seen) -> Tier B",
+    "last_name": "cutsky_0199.npz",
+    "n_files": 200,
+    "sample_peek": {
+      "phase8_cutsky_fields/cutsky_0000.npz": [
+        "delta: (128, 128, 128) float32   128^3 grid  <-- analysis grid of M26 / Paper 1"
+      ],
+      "phase8_cutsky_fields/cutsky_0001.npz": [
+        "delta: (128, 128, 128) float32   128^3 grid  <-- analysis grid of M26 / Paper 1"
+      ]
+    }
+  },
+  "phase8_test2_fields": {
+    "avg_bytes": 8388872.0,
+    "bytes": 16777744000,
+    "ext": [
+      ".npz"
+    ],
+    "first_name": "test2_0000.npz",
+    "guess": "FIELD CACHE (grid-shaped arrays seen) -> Tier B",
+    "last_name": "test2_1999.npz",
+    "n_files": 2000,
+    "sample_peek": {
+      "phase8_test2_fields/test2_0000.npz": [
+        "delta: (128, 128, 128) float32   128^3 grid  <-- analysis grid of M26 / Paper 1"
+      ],
+      "phase8_test2_fields/test2_0001.npz": [
+        "delta: (128, 128, 128) float32   128^3 grid  <-- analysis grid of M26 / Paper 1"
+      ]
+    }
+  },
+  "phase_b3_cal135_fields": {
+    "avg_bytes": 1654.7,
+    "bytes": 3309400,
+    "ext": [
+      ".npz"
+    ],
+    "first_name": "cal135_0000.npz",
+    "guess": "small .npz = summary records, NOT fields -> Tier A",
+    "last_name": "cal135_1999.npz",
+    "n_files": 2000,
+    "sample_peek": {
+      "phase_b3_cal135_fields/cal135_0000.npz": [
+        "sim_idx: () int64",
+        "feat: (8,) float32",
+        "n_gal: () int64",
+        "hod_used: () <U4",
+        "t_gudhi: () float64",
+        "status: () <U14"
+      ],
+      "phase_b3_cal135_fields/cal135_0001.npz": [
+        "sim_idx: () int64",
+        "feat: (8,) float32",
+        "n_gal: () int64",
+        "hod_used: () <U4",
+        "t_gudhi: () float64",
+        "status: () <U14"
+      ]
+    }
+  },
+  "phase_b3_cal135_v2_fields": {
+    "avg_bytes": 1616.0,
+    "bytes": 3232000,
+    "ext": [
+      ".npz"
+    ],
+    "first_name": "cal135_0000.npz",
+    "guess": "small .npz = summary records, NOT fields -> Tier A",
+    "last_name": "cal135_1999.npz",
+    "n_files": 2000,
+    "sample_peek": {
+      "phase_b3_cal135_v2_fields/cal135_0000.npz": [
+        "sim_idx: () int64",
+        "feat: (8,) float32",
+        "n_gal: () int64",
+        "hod_used: () <U4",
+        "t_gudhi: () float64",
+        "status: () <U14"
+      ],
+      "phase_b3_cal135_v2_fields/cal135_0001.npz": [
+        "sim_idx: () int64",
+        "feat: (8,) float32",
+        "n_gal: () int64",
+        "hod_used: () <U4",
+        "t_gudhi: () float64",
+        "status: () <U14"
+      ]
+    }
+  },
+  "phase_r51_cache": {
+    "avg_bytes": 1450.0,
+    "bytes": 29000,
+    "ext": [
+      ".npz"
+    ],
+    "first_name": "r51_0173.npz",
+    "guess": "small .npz = summary records, NOT fields -> Tier A",
+    "last_name": "r51_1973.npz",
+    "n_files": 20,
+    "sample_peek": {
+      "phase_r51_cache/r51_0173.npz": [
+        "sim_idx: () int64",
+        "feat_matrix_k: (3, 8) float32",
+        "feat_marg: (8,) float32",
+        "n_gal_k: (3,) int32",
+        "status: () <U9"
+      ],
+      "phase_r51_cache/r51_0302.npz": [
+        "sim_idx: () int64",
+        "feat_matrix_k: (3, 8) float32",
+        "feat_marg: (8,) float32",
+        "n_gal_k: (3,) int32",
+        "status: () <U9"
+      ]
+    }
+  },
+  "phase_r51_cache_mmin_only": {
+    "avg_bytes": 1723.48,
+    "bytes": 344696,
+    "ext": [
+      ".npz"
+    ],
+    "first_name": "r51_0005.npz",
+    "guess": "small .npz = summary records, NOT fields -> Tier A",
+    "last_name": "r51_1989.npz",
+    "n_files": 200,
+    "sample_peek": {
+      "phase_r51_cache_mmin_only/r51_0005.npz": [
+        "sim_idx: () int64",
+        "feat_matrix_k: (10, 8) float32",
+        "feat_marg: (8,) float32",
+        "n_gal_k: (10,) int32",
+        "status: () <U9"
+      ],
+      "phase_r51_cache_mmin_only/r51_0013.npz": [
+        "sim_idx: () int64",
+        "feat_matrix_k: (10, 8) float32",
+        "feat_marg: (8,) float32",
+        "n_gal_k: (10,) int32",
+        "status: () <U21"
+      ]
+    }
+  },
+  "phase_r51_cache_v2": {
+    "avg_bytes": 2064.656,
+    "bytes": 1032328,
+    "ext": [
+      ".npz"
+    ],
+    "first_name": "r51_0005.npz",
+    "guess": "small .npz = summary records, NOT fields -> Tier A",
+    "last_name": "r51_1998.npz",
+    "n_files": 500,
+    "sample_peek": {
+      "phase_r51_cache_v2/r51_0005.npz": [
+        "sim_idx: () int64",
+        "feat_matrix_k: (20, 8) float32",
+        "feat_marg: (8,) float32",
+        "n_gal_k: (20,) int32",
+        "status: () <U9"
+      ],
+      "phase_r51_cache_v2/r51_0009.npz": [
+        "sim_idx: () int64",
+        "feat_matrix_k: (20, 8) float32",
+        "feat_marg: (8,) float32",
+        "n_gal_k: (20,) int32",
+        "status: () <U9"
+      ]
+    }
+  },
+  "phase_r51_cache_v3": {
+    "avg_bytes": 1456.6,
+    "bytes": 29132,
+    "ext": [
+      ".npz"
+    ],
+    "first_name": "r51_0173.npz",
+    "guess": "small .npz = summary records, NOT fields -> Tier A",
+    "last_name": "r51_1973.npz",
+    "n_files": 20,
+    "sample_peek": {
+      "phase_r51_cache_v3/r51_0173.npz": [
+        "sim_idx: () int64",
+        "feat_matrix_k: (3, 8) float32",
+        "feat_marg: (8,) float32",
+        "n_gal_k: (3,) int32",
+        "status: () <U9"
+      ],
+      "phase_r51_cache_v3/r51_0302.npz": [
+        "sim_idx: () int64",
+        "feat_matrix_k: (3, 8) float32",
+        "feat_marg: (8,) float32",
+        "n_gal_k: (3,) int32",
+        "status: () <U9"
+      ]
+    }
+  },
+  "revision": {
+    "avg_bytes": 1136053.4666666666,
+    "bytes": 17040802,
+    "ext": [
+      ".json",
+      ".md",
+      ".npz",
+      ".txt"
+    ],
+    "first_name": "README_revision.md",
+    "guess": "FIELD CACHE (grid-shaped arrays seen) -> Tier B",
+    "last_name": "rev1_x_missing_modes.json",
+    "n_files": 15,
+    "sample_peek": {
+      "revision/README_revision.md": [
+        "'# Revision records \u2014 MNRAS MN-26-2100-P  Frozen numerical records and the scripts that produced them for the referee revision of *A like-for-like fram'"
+      ],
+      "revision/desi_inputs_cache.npz": [
+        "field_d: (128, 128, 128) float32   128^3 grid  <-- analysis grid of M26 / Paper 1",
+        "field_r: (128, 128, 128) float32   128^3 grid  <-- analysis grid of M26 / Paper 1",
+        "alpha: () float64"
+      ]
+    }
+  }
+}

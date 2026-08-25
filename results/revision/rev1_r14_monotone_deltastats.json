@@ -1,0 +1,31 @@
+{
+  "desi_raw_delta": {
+    "min": -1.0,
+    "max": 125.47415161132812,
+    "std": 1.7078178915359359,
+    "mean": -0.031999968440683056
+  },
+  "mock_dir": "D:\\projects\\cauchy\\data\\processed\\paper1_mock_deltas\\NGC",
+  "n_mocks": 100,
+  "mock_max_delta": {
+    "median": 3474.579833984375,
+    "min": 2417.17626953125,
+    "max": 32244.41015625
+  },
+  "mock_std_delta": {
+    "median": 52.7260684967041,
+    "min": 49.675537109375,
+    "max": 102.3445816040039
+  },
+  "std_ratio_mock_over_desi": {
+    "median": 30.87335526698611,
+    "min": 29.087139416661703,
+    "max": 59.92710470550213
+  },
+  "paper_claims_to_check": {
+    "section_4_1_spike": 150,
+    "section_4_1_std_ratio": 31
+  },
+  "timestamp": "2026-08-22T12:18:55.409367+00:00",
+  "script": "src/rev1_r14_monotone.py"
+}

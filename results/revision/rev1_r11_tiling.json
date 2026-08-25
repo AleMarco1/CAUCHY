@@ -1,0 +1,79 @@
+{
+  "tiling_correction": {
+    "assumption": "realisation variance inversely proportional to the independent volume; does not account for modes larger than the periodic box, which are absent rather than duplicated",
+    "variance_inflation_factor": 1.4368975095114722,
+    "sigma_realisation_corrected": 137.33922707522532,
+    "sigma_total_corrected": 322.02071930182905,
+    "sigma_total_growth_factor": 1.028855804413105,
+    "z_corrected": -22.298832247714987
+  },
+  "tiling_geometry": {
+    "box_size_mock": 1000.0,
+    "cube_size": 1997.3629167166155,
+    "cell": 15.604397786848558,
+    "n_voxels_in_survey": 307805,
+    "box_grid_n": 64,
+    "box_bin_width": 15.625,
+    "n_box_cells_total": 262144,
+    "n_box_cells_used": 214215,
+    "frac_box_covered": 0.8171653747558594,
+    "independent_volume_fraction": 0.6959438605610695,
+    "frac_voxels_on_reused_cells": 0.5875668036581602,
+    "mean_multiplicity_of_used_cells": 1.4368975095114722,
+    "max_multiplicity": 5,
+    "cells_by_multiplicity": {
+      "1": 126949,
+      "2": 83189,
+      "3": 1939,
+      "4": 2029,
+      "5": 109
+    },
+    "voxels_by_multiplicity": {
+      "1": 126949,
+      "2": 166378,
+      "3": 5817,
+      "4": 8116,
+      "5": 545
+    }
+  },
+  "ensemble": {
+    "n": 2000,
+    "mean": 35436.686,
+    "std": 312.9891651683112,
+    "min": 31226.0,
+    "desi": 28256.0,
+    "deficit": 7180.6860000000015,
+    "deficit_fraction": 0.2026342418136956,
+    "z": -22.94228298969569,
+    "n_mocks_below_desi": 0,
+    "gap_min_to_desi": 2970.0
+  },
+  "variance_shares_section_5_5": {
+    "cosmology": 0.698,
+    "hod": 0.168,
+    "realisation": 0.134
+  },
+  "sigma_components": {
+    "cosmology": 261.4911620378478,
+    "hod": 128.2873826303393,
+    "realisation": 114.57284646332812
+  },
+  "width_required": {
+    "3sigma": {
+      "sigma_total_required": 2393.5620000000004,
+      "sigma_total_growth_factor": 7.6474276632318965,
+      "sigma_realisation_required": 2375.77435112806,
+      "sigma_realisation_growth_factor": 20.73592848972715,
+      "variance_realisation_growth_factor": 429.9787303310781
+    },
+    "2sigma": {
+      "sigma_total_required": 3590.3430000000008,
+      "sigma_total_growth_factor": 11.471141494847846,
+      "sigma_realisation_required": 3578.509127735035,
+      "sigma_realisation_growth_factor": 31.23348365862958,
+      "variance_realisation_growth_factor": 975.530501453881
+    }
+  },
+  "timestamp": "2026-08-22T20:18:24.158854+00:00",
+  "script": "src/rev1_r11_tiling.py"
+}

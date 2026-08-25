@@ -1,0 +1,69 @@
+{
+  "run_idx": 9,
+  "seed": 942,
+  "status": "OK",
+  "parsimony_coeff": 0.001,
+  "n_iterations": 1000,
+  "maxsize": 20,
+  "elapsed_s": 123.58033514022827,
+  "best_expression": {
+    "formula": "-1.0008153 + 0.0006052266/(b2_high_persist - 0.3132206)",
+    "complexity": 7,
+    "r2_train": 0.005837337557343503,
+    "r2_test": -0.03855866753797321,
+    "rmse_test": 0.17906408720186354,
+    "mae_test": 0.15450488686561584,
+    "aic": -226.85837996250356,
+    "bic": -198.91812813274768
+  },
+  "pareto_front": [
+    {
+      "formula": "-1.00149660000000",
+      "complexity": 1,
+      "loss": 0.02977038,
+      "score": 0.0
+    },
+    {
+      "formula": "-1.0013863 + 0.0003980013/b2_high_persist",
+      "complexity": 5,
+      "loss": 0.029699847,
+      "score": 0.0005930112985085318
+    },
+    {
+      "formula": "-1.0008153 + 0.0006052266/(b2_high_persist - 0.3132206)",
+      "complexity": 7,
+      "loss": 0.029596603,
+      "score": 0.0017411515247840854
+    },
+    {
+      "formula": "b1_peak_pos*(-0.00051564723)/(b2_high_persist + 1.8380923) - 1.0012959",
+      "complexity": 9,
+      "loss": 0.029593505,
+      "score": 5.2339826830987644e-05
+    },
+    {
+      "formula": "-1.0017843 - 0.000991159/((b2_high_persist + 0.16552721)*(b2_high_persist + 1.836633))",
+      "complexity": 11,
+      "loss": 0.029506149,
+      "score": 0.001478114637001449
+    },
+    {
+      "formula": "-1.0013863 - (-1)*0.00081243576/(b2_high_persist + 1.836633) + 0.0006052266/(b2_high_persist - 0.3132206)",
+      "complexity": 13,
+      "loss": 0.02945499,
+      "score": 0.0008676734151704784
+    },
+    {
+      "formula": "-1.0017843 + 0.0006052266/((b2_high_persist - 0.3132206)*(b2_high_persist + 0.16552721)*(b2_high_persist + 1.836633))",
+      "complexity": 15,
+      "loss": 0.029433107,
+      "score": 0.0003716031273224362
+    },
+    {
+      "formula": "-1.0013863 - 0.000991159/((b2_high_persist + 0.16552721)*(b2_high_persist + 1.836633)) + 0.0006052266/(b2_high_persist - 0.3132206)",
+      "complexity": 17,
+      "loss": 0.029333815,
+      "score": 0.001689591544093286
+    }
+  ]
+}

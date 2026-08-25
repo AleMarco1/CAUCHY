@@ -1,0 +1,75 @@
+{
+  "run_idx": 1,
+  "seed": 142,
+  "status": "OK",
+  "parsimony_coeff": 0.001,
+  "n_iterations": 1000,
+  "maxsize": 20,
+  "elapsed_s": 134.44059491157532,
+  "best_expression": {
+    "formula": "-1*1.0020511 + 0.00056252826/(b1_peak_pos - 0.17811248)",
+    "complexity": 7,
+    "r2_train": 0.006110985528237078,
+    "r2_test": -7.736547143423694,
+    "rmse_test": 0.5193532913693701,
+    "mae_test": 0.1760301807522774,
+    "aic": 625.0140970836826,
+    "bic": 652.9543489134385
+  },
+  "pareto_front": [
+    {
+      "formula": "-1.00149270000000",
+      "complexity": 1,
+      "loss": 0.02977038,
+      "score": 0.0
+    },
+    {
+      "formula": "b1_fwhm/(0.00033620198 - b1_fwhm)",
+      "complexity": 5,
+      "loss": 0.029694334,
+      "score": 0.0006394215690351445
+    },
+    {
+      "formula": "-1*1.0020511 + 0.00056252826/(b1_peak_pos - 0.17811248)",
+      "complexity": 7,
+      "loss": 0.02958846,
+      "score": 0.001785916375020836
+    },
+    {
+      "formula": "b2_mean_persistence**3/(((b2_max_count - 1.0757637)/0.00079990336)) - 1*1.0019324",
+      "complexity": 10,
+      "loss": 0.029529812,
+      "score": 0.0006613637065210949
+    },
+    {
+      "formula": "b2_mean_persistence**4/(((b2_max_count - 1.0764793)/0.0005691679)) - 1*1.0015084",
+      "complexity": 11,
+      "loss": 0.02951484,
+      "score": 0.0005071416229496342
+    },
+    {
+      "formula": "b2_mean_persistence**3/(((b2_max_count - 1.0757637)/(0.00079990336*b2_max_count))) - 1*1.0014988",
+      "complexity": 12,
+      "loss": 0.029514695,
+      "score": 4.912794925503884e-06
+    },
+    {
+      "formula": "-1*1.0015084 + b2_mean_persistence**4/(b2_max_count*(((b2_max_count - 1.0764793)/0.0005691679)))",
+      "complexity": 13,
+      "loss": 0.02950089,
+      "score": 0.00046784252843724497
+    },
+    {
+      "formula": "b2_mean_persistence**3/(((b2_max_count - 1.0759723)*(b2_max_count + 0.6080799)/0.0012070221)) - 1*1.0006459",
+      "complexity": 14,
+      "loss": 0.0294486,
+      "score": 0.001774061614929516
+    },
+    {
+      "formula": "b2_mean_persistence**3/(((b2_max_count - 1.0757077)*(770.078863006282*Abs(b1_peak_height + 0.5648112)))) - 1*1.0020511",
+      "complexity": 15,
+      "loss": 0.029423537,
+      "score": 0.0008514384831694781
+    }
+  ]
+}

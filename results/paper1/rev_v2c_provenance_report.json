@@ -1,0 +1,181 @@
+{
+  "script": "paper1_rev_v2c_provenance.py",
+  "npz": {
+    "beta1_max": {
+      "shape": [
+        2000
+      ],
+      "dtype": "float64"
+    },
+    "pers1_mean": {
+      "shape": [
+        2000
+      ],
+      "dtype": "float64"
+    },
+    "index": {
+      "shape": [
+        2000
+      ],
+      "dtype": "int64"
+    },
+    "w0": {
+      "shape": [
+        2000
+      ],
+      "dtype": "float64"
+    },
+    "Om": {
+      "shape": [
+        2000
+      ],
+      "dtype": "float64"
+    },
+    "s8": {
+      "shape": [
+        2000
+      ],
+      "dtype": "float64"
+    },
+    "desi_beta1max": 28256.0,
+    "desi_pers1": 0.7245888380122361,
+    "n_mocks": 2000
+  },
+  "provenienza": {
+    "NGC": {
+      "tag": {
+        "R5": 2000
+      },
+      "gap_ore": 7.046228887637456,
+      "blocchi_disgiunti": true,
+      "ts_mediano_0_199": "2026-07-22 13:43:27",
+      "ts_mediano_200_fine": "2026-07-22 20:46:13"
+    },
+    "SGC": {
+      "tag": {
+        "R5": 2000
+      },
+      "gap_ore": 7.1527226014932,
+      "blocchi_disgiunti": true,
+      "ts_mediano_0_199": "2026-07-24 14:57:27",
+      "ts_mediano_200_fine": "2026-07-24 22:06:36"
+    }
+  },
+  "blocco_0_199": {
+    "identici_blocco": 0,
+    "identici_resto": 1800,
+    "diff_mediana": -95.5,
+    "diff_sd": 913.5592383693847,
+    "patologici_m26": [
+      16,
+      27,
+      32,
+      59,
+      72,
+      80,
+      105,
+      139,
+      149,
+      161,
+      175,
+      186,
+      189,
+      598,
+      1430,
+      1666
+    ],
+    "patologici_m26_nel_blocco": 13,
+    "sigma_con_valori_m26_sul_blocco": 444.81419511756707
+  },
+  "cosmologia_patologici": {
+    "139": {
+      "emisferi": "NGC",
+      "w0": {
+        "valore": -1.26025,
+        "percentile": 0.5499999999999999
+      },
+      "Om": {
+        "valore": 0.1033,
+        "percentile": 0.05
+      },
+      "s8": {
+        "valore": 0.6753,
+        "percentile": 1.7999999999999998
+      }
+    },
+    "598": {
+      "emisferi": "NGC+SGC",
+      "w0": {
+        "valore": NaN,
+        "percentile": 0.0
+      },
+      "Om": {
+        "valore": NaN,
+        "percentile": 0.0
+      },
+      "s8": {
+        "valore": NaN,
+        "percentile": 0.0
+      }
+    },
+    "1022": {
+      "emisferi": "SGC",
+      "w0": {
+        "valore": NaN,
+        "percentile": 0.0
+      },
+      "Om": {
+        "valore": NaN,
+        "percentile": 0.0
+      },
+      "s8": {
+        "valore": NaN,
+        "percentile": 0.0
+      }
+    },
+    "1430": {
+      "emisferi": "NGC+SGC",
+      "w0": {
+        "valore": NaN,
+        "percentile": 0.0
+      },
+      "Om": {
+        "valore": NaN,
+        "percentile": 0.0
+      },
+      "s8": {
+        "valore": NaN,
+        "percentile": 0.0
+      }
+    },
+    "1666": {
+      "emisferi": "NGC+SGC",
+      "w0": {
+        "valore": NaN,
+        "percentile": 0.0
+      },
+      "Om": {
+        "valore": NaN,
+        "percentile": 0.0
+      },
+      "s8": {
+        "valore": NaN,
+        "percentile": 0.0
+      }
+    }
+  },
+  "corr_cosmologia": {
+    "w0": {
+      "pearson": 0.01138850003321978,
+      "spearman": -0.01049876246906173
+    },
+    "Om": {
+      "pearson": 0.15022981547556535,
+      "spearman": 0.13342983574589365
+    },
+    "s8": {
+      "pearson": 0.13668975160272973,
+      "spearman": 0.1450926273156829
+    }
+  }
+}

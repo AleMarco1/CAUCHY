@@ -1,0 +1,41 @@
+{
+  "cosmology": {
+    "Om": 0.3175,
+    "Ob": 0.049,
+    "h": 0.6711,
+    "ns": 0.9624
+  },
+  "R_smooth": 5.0,
+  "L_box": 1000.0,
+  "shell_depth": 788.1951075696932,
+  "k_box": 0.006283185307179587,
+  "k_shell": 0.007971611656602448,
+  "shell_shallower_than_box": true,
+  "fractions": {
+    "k_box": {
+      "k_cut": 0.006283185307179587,
+      "variance_fraction": 0.00012674881734840306
+    },
+    "k_shell": {
+      "k_cut": 0.007971611656602448,
+      "variance_fraction": 0.00030278612747558145
+    },
+    "2x k_box": {
+      "k_cut": 0.012566370614359173,
+      "variance_fraction": 0.001503938902328782
+    },
+    "k=0.02": {
+      "k_cut": 0.02,
+      "variance_fraction": 0.00681020383445312
+    }
+  },
+  "variance_quantiles": {
+    "0.01": 0.022737005696722448,
+    "0.10": 0.0566386978450839,
+    "0.50": 0.13881530194859434,
+    "0.90": 0.2640448135505362
+  },
+  "timestamp": "2026-08-23T14:22:17.232666+00:00",
+  "script": "src/rev1_x_missing_modes.py",
+  "status": "curiosity check, not cited in the manuscript; linear, real-space, unwindowed, and a bound on the variance contribution rather than on a topological count"
+}

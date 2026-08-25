@@ -1,0 +1,18 @@
+{
+  "source": "n2_persistence_NGC.jsonl:n_tot + n10_phases_NGC.jsonl:N_H1 (unione su idx, 100 mock)",
+  "n_mock": 100,
+  "gain_mock_mean": 3752.91,
+  "gain_mock_sd": 250.47869705180057,
+  "gain_desi": 5463.4000000000015,
+  "corr_N_Nphi": 0.6810786759807066,
+  "residual": 1710.4900000000016,
+  "z_residual": 6.828884133193417,
+  "rank": "1/101",
+  "p_one_sided": 0.009900990099009901,
+  "n_draws_per_mock": 1,
+  "sd_draw_assumed": 157.0,
+  "sd_deconvolved": 195.16807545489525,
+  "z_deconvolved": 8.764189512107517,
+  "gates_failed": [],
+  "generated": "2026-07-27T06:31:37.413256+00:00"
+}

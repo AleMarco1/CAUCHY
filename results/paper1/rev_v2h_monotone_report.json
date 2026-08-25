@@ -1,0 +1,141 @@
+{
+  "script": "paper1_rev_v2h_monotone.py",
+  "regione": "NGC",
+  "maschera": {
+    "file": "D:\\projects\\cauchy\\data\\processed\\phase6_fields\\bgs_ngc_mask_128.npy",
+    "n_dentro": 307805,
+    "frazione": 0.1467728614807129
+  },
+  "confronto": [
+    {
+      "n_confrontati": 300000,
+      "spearman": 0.6653565511708751,
+      "pearson": 0.2938851838954373,
+      "alpha": 0.01070009377085332,
+      "beta": -0.0718586051003633,
+      "residuo_affine_relativo": 24.41869147724978,
+      "violazioni_monotonia_frac": 0.5002383341277804,
+      "idx": 0,
+      "zona": "blocco",
+      "verdetto": "DATI DIVERSI",
+      "fuori_maschera_spearman": 1.0
+    },
+    {
+      "n_confrontati": 300000,
+      "spearman": 0.6731070637902511,
+      "pearson": 0.1394463958562692,
+      "alpha": 0.004018400086925149,
+      "beta": -0.029887091221821815,
+      "residuo_affine_relativo": 40.013278565215344,
+      "violazioni_monotonia_frac": 0.4994549981833273,
+      "idx": 16,
+      "zona": "blocco",
+      "verdetto": "DATI DIVERSI",
+      "fuori_maschera_spearman": 1.0
+    },
+    {
+      "n_confrontati": 300000,
+      "spearman": 0.5967061253904532,
+      "pearson": 0.1702087333305338,
+      "alpha": 0.010126410113607072,
+      "beta": -0.06878027582009383,
+      "residuo_affine_relativo": 8.12479209869097,
+      "violazioni_monotonia_frac": 0.5004116680388935,
+      "idx": 27,
+      "zona": "blocco",
+      "verdetto": "DATI DIVERSI",
+      "fuori_maschera_spearman": 1.0
+    },
+    {
+      "n_confrontati": 300000,
+      "spearman": 0.650204594744769,
+      "pearson": 0.18516087785923516,
+      "alpha": 0.010074686926171687,
+      "beta": -0.06932830086427297,
+      "residuo_affine_relativo": 34.23908260354074,
+      "violazioni_monotonia_frac": 0.5010116700389001,
+      "idx": 105,
+      "zona": "blocco",
+      "verdetto": "DATI DIVERSI",
+      "fuori_maschera_spearman": 1.0
+    },
+    {
+      "n_confrontati": 300000,
+      "spearman": 0.5977037206643354,
+      "pearson": 0.15779739753395053,
+      "alpha": 0.007967777552982759,
+      "beta": -0.05523943117290145,
+      "residuo_affine_relativo": 25.695422645150295,
+      "violazioni_monotonia_frac": 0.5003850012833376,
+      "idx": 139,
+      "zona": "blocco",
+      "verdetto": "DATI DIVERSI",
+      "fuori_maschera_spearman": 1.0
+    },
+    {
+      "n_confrontati": 300000,
+      "spearman": 0.6714695089284799,
+      "pearson": 0.2057141597768036,
+      "alpha": 0.011386846599295392,
+      "beta": -0.07396141002491342,
+      "residuo_affine_relativo": 18.10384295116762,
+      "violazioni_monotonia_frac": 0.499778332594442,
+      "idx": 189,
+      "zona": "blocco",
+      "verdetto": "DATI DIVERSI",
+      "fuori_maschera_spearman": 1.0
+    },
+    {
+      "n_confrontati": 300000,
+      "spearman": 0.9995749133766851,
+      "pearson": 0.35268079551790493,
+      "alpha": 0.01431984799378344,
+      "beta": -0.0954662480339592,
+      "residuo_affine_relativo": 17.455564558748375,
+      "violazioni_monotonia_frac": 0.49902166340554466,
+      "idx": 200,
+      "zona": "controllo",
+      "verdetto": "quasi monotoni (verificare)",
+      "fuori_maschera_spearman": 1.0
+    },
+    {
+      "n_confrontati": 300000,
+      "spearman": 0.9996390622213884,
+      "pearson": 0.3768557557157474,
+      "alpha": 0.01484444971975886,
+      "beta": -0.10039620015670643,
+      "residuo_affine_relativo": 23.132885683553717,
+      "violazioni_monotonia_frac": 0.5001083336944456,
+      "idx": 500,
+      "zona": "controllo",
+      "verdetto": "quasi monotoni (verificare)",
+      "fuori_maschera_spearman": 1.0
+    },
+    {
+      "n_confrontati": 300000,
+      "spearman": 0.9996035625808742,
+      "pearson": 0.3258141954752358,
+      "alpha": 0.011472096341060655,
+      "beta": -0.07840934048882775,
+      "residuo_affine_relativo": 52.152631041373006,
+      "violazioni_monotonia_frac": 0.49971166570555237,
+      "idx": 1000,
+      "zona": "controllo",
+      "verdetto": "quasi monotoni (verificare)",
+      "fuori_maschera_spearman": 1.0
+    },
+    {
+      "n_confrontati": 300000,
+      "spearman": 0.9996388314863405,
+      "pearson": 0.36933999275321155,
+      "alpha": 0.014565864123912992,
+      "beta": -0.09594809330806206,
+      "residuo_affine_relativo": 19.101485236362773,
+      "violazioni_monotonia_frac": 0.49932166440554804,
+      "idx": 1805,
+      "zona": "controllo",
+      "verdetto": "quasi monotoni (verificare)",
+      "fuori_maschera_spearman": 1.0
+    }
+  ]
+}

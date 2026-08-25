@@ -1,0 +1,93 @@
+{
+  "pipeline": {
+    "sigma_px": 0.32042249039652254,
+    "ngrid": 128
+  },
+  "kernel": {
+    "sigma_px": 0.32042249039652254,
+    "scipy_truncate": 4.0,
+    "kernel_radius_voxels": 1,
+    "central_voxel_weight_3d": 0.9553352110121212,
+    "six_face_neighbours_total": 0.04398625279452824,
+    "remainder": 0.0006785361933506068
+  },
+  "candidates": [
+    {
+      "dir": "D:\\projects\\cauchy\\data\\processed\\paper1_mock_deltas\\NGC",
+      "exists": true,
+      "n_files": 2000,
+      "first_file": "delta_0000.npy",
+      "arrays": {
+        "<npy>": {
+          "shape": [
+            128,
+            128,
+            128
+          ],
+          "dtype": "float32",
+          "in_mask_min": -1.0,
+          "in_mask_max": 5524.533203125,
+          "in_mask_mean": 6.754913330078125,
+          "in_mask_std": 56.953956604003906,
+          "exterior_unique_first": 0.0,
+          "exterior_is_constant": true,
+          "looks_like": "raw delta"
+        }
+      }
+    },
+    {
+      "dir": "D:\\projects\\cauchy\\results\\phase8_test2_fields",
+      "exists": true,
+      "n_files": 2000,
+      "first_file": "test2_0000.npz",
+      "npz_keys": [
+        "delta"
+      ],
+      "arrays": {
+        "delta": {
+          "shape": [
+            128,
+            128,
+            128
+          ],
+          "dtype": "float32",
+          "in_mask_min": -6.4849700927734375,
+          "in_mask_max": 8.623431205749512,
+          "in_mask_mean": 0.0,
+          "in_mask_std": 2.082231044769287,
+          "exterior_unique_first": 0.0,
+          "exterior_is_constant": true,
+          "looks_like": "nu (transformed/smoothed)"
+        }
+      }
+    },
+    {
+      "dir": "D:\\projects\\cauchy\\results\\phase8_cutsky_fields",
+      "exists": true,
+      "n_files": 200,
+      "first_file": "cutsky_0000.npz",
+      "npz_keys": [
+        "delta"
+      ],
+      "arrays": {
+        "delta": {
+          "shape": [
+            128,
+            128,
+            128
+          ],
+          "dtype": "float32",
+          "in_mask_min": -6.399570941925049,
+          "in_mask_max": 9.191598892211914,
+          "in_mask_mean": 6.345332259627412e-09,
+          "in_mask_std": 2.1575987339019775,
+          "exterior_unique_first": 0.0,
+          "exterior_is_constant": true,
+          "looks_like": "nu (transformed/smoothed)"
+        }
+      }
+    }
+  ],
+  "timestamp": "2026-08-22T10:15:01.777899+00:00",
+  "script": "src/rev1_r14_monotone.py"
+}

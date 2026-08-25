@@ -1,0 +1,199 @@
+{
+  "schema_version": "1.0",
+  "script": "paper1_mask_erosion.py",
+  "protocol": "v2 §9.4 - caveat bloccante n.1",
+  "timestamp": "2026-07-24T13:14:43.618684+00:00",
+  "region": "NGC",
+  "mode": "restrict",
+  "n_mocks": 200,
+  "diagnostics": {
+    "mask_full_voxels": 307805,
+    "median_depth_voxels": 3.0,
+    "max_depth_voxels": 14.7648230602334,
+    "levels": {
+      "0": {
+        "voxels": 307805,
+        "frac_of_full": 1.0,
+        "w_mean": {
+          "R10": 0.9587290359878129,
+          "R12": 0.9482701818759278,
+          "R15": 0.9351162112696576,
+          "R17": 0.9271010628401771
+        }
+      },
+      "2": {
+        "voxels": 209577,
+        "frac_of_full": 0.6808758792092396,
+        "w_mean": {
+          "R10": 0.9998502692830651,
+          "R12": 0.9992519702191939,
+          "R15": 0.9969841802043833,
+          "R17": 0.9944608366379726
+        }
+      },
+      "3": {
+        "voxels": 149755,
+        "frac_of_full": 0.486525560013645,
+        "w_mean": {
+          "R10": 0.9999998687133029,
+          "R12": 0.9999955843384885,
+          "R15": 0.9999092081001316,
+          "R17": 0.99968177082949
+        }
+      }
+    }
+  },
+  "results": {
+    "R10_er0": {
+      "R": "R10",
+      "erosion": 0,
+      "n_mocks": 200,
+      "voxel_frac": 1.0,
+      "desi_N_H1": 12128.0,
+      "mock_mean": 14948.05,
+      "mock_std": 194.22694982983438,
+      "D": 2820.0499999999993,
+      "D_frac": 0.1886567144209445,
+      "z": -14.519354819043878
+    },
+    "R10_er2": {
+      "R": "R10",
+      "erosion": 2,
+      "n_mocks": 200,
+      "voxel_frac": 0.6808758792092396,
+      "desi_N_H1": 7950.0,
+      "mock_mean": 11693.22,
+      "mock_std": 270.68803382915075,
+      "D": 3743.2199999999993,
+      "D_frac": 0.32011883809592223,
+      "z": -13.828538879419378
+    },
+    "R10_er3": {
+      "R": "R10",
+      "erosion": 3,
+      "n_mocks": 200,
+      "voxel_frac": 0.486525560013645,
+      "desi_N_H1": 6010.0,
+      "mock_mean": 7758.65,
+      "mock_std": 168.3909888492497,
+      "D": 1748.6499999999996,
+      "D_frac": 0.22538070411733996,
+      "z": -10.384463040153891
+    },
+    "R12_er0": {
+      "R": "R12",
+      "erosion": 0,
+      "n_mocks": 200,
+      "voxel_frac": 1.0,
+      "desi_N_H1": 9443.0,
+      "mock_mean": 10854.59,
+      "mock_std": 154.27581480963204,
+      "D": 1411.5900000000001,
+      "D_frac": 0.1300454462121554,
+      "z": -9.1497815243551
+    },
+    "R12_er2": {
+      "R": "R12",
+      "erosion": 2,
+      "n_mocks": 200,
+      "voxel_frac": 0.6808758792092396,
+      "desi_N_H1": 5626.0,
+      "mock_mean": 8931.325,
+      "mock_std": 250.88572620431265,
+      "D": 3305.3250000000007,
+      "D_frac": 0.3700822666289717,
+      "z": -13.1746235627142
+    },
+    "R12_er3": {
+      "R": "R12",
+      "erosion": 3,
+      "n_mocks": 200,
+      "voxel_frac": 0.486525560013645,
+      "desi_N_H1": 4322.0,
+      "mock_mean": 5637.235,
+      "mock_std": 142.456869167002,
+      "D": 1315.2349999999997,
+      "D_frac": 0.23331207586698086,
+      "z": -9.232513726369708
+    },
+    "R15_er0": {
+      "R": "R15",
+      "erosion": 0,
+      "n_mocks": 200,
+      "voxel_frac": 1.0,
+      "desi_N_H1": 7152.0,
+      "mock_mean": 7429.77,
+      "mock_std": 148.3173194073467,
+      "D": 277.77000000000044,
+      "D_frac": 0.03738608328387022,
+      "z": -1.8728089282487494
+    },
+    "R15_er2": {
+      "R": "R15",
+      "erosion": 2,
+      "n_mocks": 200,
+      "voxel_frac": 0.6808758792092396,
+      "desi_N_H1": 3502.0,
+      "mock_mean": 6651.31,
+      "mock_std": 262.7588150269594,
+      "D": 3149.3100000000004,
+      "D_frac": 0.4734871777138639,
+      "z": -11.985554127563246
+    },
+    "R15_er3": {
+      "R": "R15",
+      "erosion": 3,
+      "n_mocks": 200,
+      "voxel_frac": 0.486525560013645,
+      "desi_N_H1": 2810.0,
+      "mock_mean": 3916.125,
+      "mock_std": 135.18611542617865,
+      "D": 1106.125,
+      "D_frac": 0.2824539563982253,
+      "z": -8.182238216646027
+    },
+    "R17_er0": {
+      "R": "R17",
+      "erosion": 0,
+      "n_mocks": 200,
+      "voxel_frac": 1.0,
+      "desi_N_H1": 6149.0,
+      "mock_mean": 6026.47,
+      "mock_std": 149.5075302720241,
+      "D": -122.52999999999975,
+      "D_frac": -0.020331968797654306,
+      "z": 0.8195573813376517
+    },
+    "R17_er2": {
+      "R": "R17",
+      "erosion": 2,
+      "n_mocks": 200,
+      "voxel_frac": 0.6808758792092396,
+      "desi_N_H1": 2646.0,
+      "mock_mean": 5685.4,
+      "mock_std": 268.5626546962318,
+      "D": 3039.3999999999996,
+      "D_frac": 0.5345973898054666,
+      "z": -11.31728461441458
+    },
+    "R17_er3": {
+      "R": "R17",
+      "erosion": 3,
+      "n_mocks": 200,
+      "voxel_frac": 0.486525560013645,
+      "desi_N_H1": 2149.0,
+      "mock_mean": 3247.275,
+      "mock_std": 142.380195163774,
+      "D": 1098.275,
+      "D_frac": 0.3382143489541231,
+      "z": -7.713678146997201
+    }
+  },
+  "sign_stability": {
+    "R10": "STABILE",
+    "R12": "STABILE",
+    "R15": "STABILE",
+    "R17": "INSTABILE"
+  },
+  "notes": "Modo 'restrict': nu costruito con maschera piena (smoothing su tutta l'informazione), filtrazione ristretta alla maschera erosa -> esclude dalla topologia i voxel contaminati dal bordo. Modo 'rebuild': maschera erosa usata gia' nella costruzione del campo (controllo secondario, ha una propria contaminazione di bordo). Criterio: se il segno di D resta invariato a R>=20 per tutte le erosioni, l'inversione di segno del deficit e' robusta."
+}

@@ -1,0 +1,53 @@
+{
+  "baseline": {
+    "beta1_max": 28256,
+    "pers1": 0.7245888380122361,
+    "reference_beta1_max": 28256,
+    "reference_pers1": 0.7246,
+    "reproduction_gate_passed": true,
+    "eps0_equals_build_field": true
+  },
+  "monotone_remaps": {
+    "rank_to_gaussian": {
+      "beta1_max": 28256,
+      "pers1": 0.40152676232398776,
+      "d_beta1_max": 0,
+      "pers1_ratio": 0.5541442832951937
+    },
+    "exp_3x": {
+      "beta1_max": 28256,
+      "pers1": 302.44340278215344,
+      "d_beta1_max": 0,
+      "pers1_ratio": 417.40003008029515
+    },
+    "cube": {
+      "beta1_max": 28256,
+      "pers1": 6.853832980863625,
+      "d_beta1_max": 0,
+      "pers1_ratio": 9.458927078790971
+    },
+    "rank_to_gaussian_tiebreak": {
+      "beta1_max": 28259,
+      "pers1": 0.4014839954282374,
+      "d_beta1_max": 3,
+      "pers1_ratio": 0.5540852610007464
+    }
+  },
+  "ties": {
+    "n_values": 307805,
+    "n_distinct": 302713,
+    "n_cells_in_tied_groups": 9364,
+    "n_tied_groups": 4272,
+    "max_multiplicity": 52
+  },
+  "kernel": {
+    "sigma_px": 0.32042249039652254,
+    "scipy_truncate": 4.0,
+    "kernel_radius_voxels": 1,
+    "central_voxel_weight_3d": 0.9553352110121212,
+    "six_face_neighbours_total": 0.04398625279452824,
+    "remainder": 0.0006785361933506068
+  },
+  "timestamp": "2026-08-22T12:18:39.972323+00:00",
+  "script": "src/rev1_r14_monotone.py"
+}

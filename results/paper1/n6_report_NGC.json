@@ -1,0 +1,13 @@
+{
+  "script": "paper1_rev_n6_fkp.py",
+  "n_coppie": 60,
+  "delta_media": -77.96666666666667,
+  "delta_sem": 8.000634391042606,
+  "delta_sd": 61.97264751120467,
+  "unit_mean": 35449.933333333334,
+  "unit_sd": 266.70563133408103,
+  "frazione_deficit": -0.010856599132029056,
+  "m26_tab1_shift": 600.0,
+  "wfkp_mean": 0.3090565805620197,
+  "cancello_superato": true
+}

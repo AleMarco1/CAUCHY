@@ -1,0 +1,48 @@
+{
+  "mock_dir": "data\\processed\\paper1_mock_deltas\\NGC",
+  "frozen": "results\\phase9_ngc_clean_beta1.npz",
+  "result": {
+    "status": "pass",
+    "frozen_key": "beta1_max",
+    "frozen_n": 2000,
+    "checks": [
+      {
+        "file": "delta_0000.npy",
+        "recomputed": 35318,
+        "frozen": 35318,
+        "delta": 0,
+        "match": true
+      },
+      {
+        "file": "delta_0001.npy",
+        "recomputed": 34972,
+        "frozen": 34972,
+        "delta": 0,
+        "match": true
+      },
+      {
+        "file": "delta_0002.npy",
+        "recomputed": 35526,
+        "frozen": 35526,
+        "delta": 0,
+        "match": true
+      },
+      {
+        "file": "delta_0003.npy",
+        "recomputed": 35708,
+        "frozen": 35708,
+        "delta": 0,
+        "match": true
+      },
+      {
+        "file": "delta_0004.npy",
+        "recomputed": 35418,
+        "frozen": 35418,
+        "delta": 0,
+        "match": true
+      }
+    ]
+  },
+  "timestamp": "2026-08-22T12:06:53.972225+00:00",
+  "script": "src/rev1_r14_monotone.py"
+}

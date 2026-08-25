@@ -1,0 +1,25 @@
+{
+  "sources": [
+    "rev1_r11_tiling.json",
+    "rev1_r11_pilot.json"
+  ],
+  "null_gate_passed": true,
+  "n_pilot_mocks": 100,
+  "measured_sigma_ratio": 0.972575989707513,
+  "measured_sigma_ratio_ci95": [
+    0.8486576009278392,
+    1.1182506778429766
+  ],
+  "mean_shift_generators": -12.789999999993597,
+  "expected_total_sigma_ratio_from_geometry": 1.028855804413105,
+  "note_on_pilot_json_field": "geometric_expectation_if_var_scales_as_inverse_volume=1.199 in rev1_r11_pilot.json refers to the realisation term alone; the corresponding expectation for the total scatter is the value of expected_total_sigma_ratio_from_geometry here.",
+  "expectation_inside_measured_ci": true,
+  "unity_inside_measured_ci": true,
+  "ensemble_sigma": 312.9891651683112,
+  "ensemble_sigma_at_ci_upper": 350.0003461069714,
+  "z_at_ci_upper": -20.516225426261013,
+  "sigma_growth_required_for_3sigma": 7.6474276632318965,
+  "margin_between_ci_upper_and_3sigma_requirement": 6.838741808753671,
+  "timestamp": "2026-08-23T04:23:55.580162+00:00",
+  "script": "src/rev1_r11_summary.py"
+}

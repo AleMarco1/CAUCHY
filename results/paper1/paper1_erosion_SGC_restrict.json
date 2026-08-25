@@ -1,0 +1,98 @@
+{
+  "schema_version": "1.0",
+  "script": "paper1_mask_erosion.py",
+  "protocol": "v2 §9.4 - caveat bloccante n.1",
+  "timestamp": "2026-07-26T14:17:51.240646+00:00",
+  "region": "SGC",
+  "mode": "restrict",
+  "n_mocks": 200,
+  "diagnostics": {
+    "mask_full_voxels": 172225,
+    "median_depth_voxels": 2.8284271247461903,
+    "max_depth_voxels": 13.152946437965905,
+    "levels": {
+      "0": {
+        "voxels": 172225,
+        "frac_of_full": 1.0,
+        "w_mean": {
+          "R5": 0.996427119120697
+        }
+      },
+      "1": {
+        "voxels": 141624,
+        "frac_of_full": 0.8223196400058064,
+        "w_mean": {
+          "R5": 0.9999756382478797
+        }
+      },
+      "2": {
+        "voxels": 109389,
+        "frac_of_full": 0.6351516911017564,
+        "w_mean": {
+          "R5": 0.9999999999999999
+        }
+      },
+      "3": {
+        "voxels": 73256,
+        "frac_of_full": 0.42535055886195383,
+        "w_mean": {
+          "R5": 0.9999999999999998
+        }
+      }
+    }
+  },
+  "results": {
+    "R5_er0": {
+      "R": "R5",
+      "erosion": 0,
+      "n_mocks": 200,
+      "voxel_frac": 1.0,
+      "desi_N_H1": 15122.0,
+      "mock_mean": 18693.595,
+      "mock_std": 177.95773586379673,
+      "D": 3571.595000000001,
+      "D_frac": 0.19105982557127194,
+      "z": -20.069905827154308
+    },
+    "R5_er1": {
+      "R": "R5",
+      "erosion": 1,
+      "n_mocks": 200,
+      "voxel_frac": 0.8223196400058064,
+      "desi_N_H1": 12011.0,
+      "mock_mean": 16477.565,
+      "mock_std": 219.93044989028854,
+      "D": 4466.564999999999,
+      "D_frac": 0.271069481443405,
+      "z": -20.308988601751725
+    },
+    "R5_er2": {
+      "R": "R5",
+      "erosion": 2,
+      "n_mocks": 200,
+      "voxel_frac": 0.6351516911017564,
+      "desi_N_H1": 10049.0,
+      "mock_mean": 12560.18,
+      "mock_std": 162.53898674181306,
+      "D": 2511.1800000000003,
+      "D_frac": 0.19993184811045703,
+      "z": -15.44970871504763
+    },
+    "R5_er3": {
+      "R": "R5",
+      "erosion": 3,
+      "n_mocks": 200,
+      "voxel_frac": 0.42535055886195383,
+      "desi_N_H1": 6751.0,
+      "mock_mean": 8160.075,
+      "mock_std": 109.63598689807822,
+      "D": 1409.0749999999998,
+      "D_frac": 0.17267917267917265,
+      "z": -12.85230369942243
+    }
+  },
+  "sign_stability": {
+    "R5": "STABILE"
+  },
+  "notes": "Modo 'restrict': nu costruito con maschera piena (smoothing su tutta l'informazione), filtrazione ristretta alla maschera erosa -> esclude dalla topologia i voxel contaminati dal bordo. Modo 'rebuild': maschera erosa usata gia' nella costruzione del campo (controllo secondario, ha una propria contaminazione di bordo). Criterio: se il segno di D resta invariato a R>=20 per tutte le erosioni, l'inversione di segno del deficit e' robusta."
+}

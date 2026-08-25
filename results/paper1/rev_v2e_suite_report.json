@@ -1,0 +1,129 @@
+{
+  "script": "paper1_rev_v2e_suite.py",
+  "cosmologia": {
+    "w0": {
+      "n_finiti": 200,
+      "contigui": true,
+      "primo": 0,
+      "ultimo": 199,
+      "n_distinti": 200,
+      "min": -1.29925,
+      "max": -0.70135,
+      "mediana": -1.0033,
+      "sd": 0.1741540898458898
+    },
+    "Om": {
+      "n_finiti": 200,
+      "contigui": true,
+      "primo": 0,
+      "ultimo": 199,
+      "n_distinti": 200,
+      "min": 0.1007,
+      "max": 0.4991,
+      "mediana": 0.2804,
+      "sd": 0.1215852521430682
+    },
+    "s8": {
+      "n_finiti": 200,
+      "contigui": true,
+      "primo": 0,
+      "ultimo": 199,
+      "n_distinti": 200,
+      "min": 0.6037,
+      "max": 0.9983,
+      "mediana": 0.7767999999999999,
+      "sd": 0.11262657465086977
+    }
+  },
+  "sorgenti": {
+    "D:\\projects\\cauchy\\src\\paper1_rev_v2e_suite.py": 28,
+    "D:\\projects\\cauchy\\src\\phase9b_majors.py": 16,
+    "D:\\projects\\cauchy\\src\\phase9_w0_response_curve.py": 79,
+    "D:\\projects\\cauchy\\src\\paper1_rev_v2d_exchange.py": 15,
+    "D:\\projects\\cauchy\\src\\paper1_rev_v2c_provenance.py": 8,
+    "D:\\projects\\cauchy\\src\\phase9_extract_features.py": 23
+  },
+  "scambiabilita": {
+    "nostra_catena_NGC": {
+      "n_blocco": 200,
+      "n_resto": 1800,
+      "mediana_blocco": 35448.0,
+      "mediana_resto": 35470.5,
+      "sigma_mad_blocco": 286.88309999999996,
+      "sigma_mad_resto": 262.42019999999997,
+      "mw_z": -1.001175549296265,
+      "mw_p": 0.3167419452162381,
+      "ks_d": 0.06777777777777777,
+      "ks_p": 0.3683312260569383,
+      "verdetto": "compatibile"
+    },
+    "nostra_catena_SGC": {
+      "n_blocco": 200,
+      "n_resto": 1800,
+      "mediana_blocco": 18706.0,
+      "mediana_resto": 18733.5,
+      "sigma_mad_blocco": 171.9816,
+      "sigma_mad_resto": 170.499,
+      "mw_z": -2.044107648937164,
+      "mw_p": 0.04094291368505809,
+      "ks_d": 0.08277777777777778,
+      "ks_p": 0.16177835102797303,
+      "verdetto": "compatibile"
+    },
+    "catena_M26_NGC": {
+      "n_blocco": 200,
+      "n_resto": 1800,
+      "mediana_blocco": 35541.5,
+      "mediana_resto": 35470.5,
+      "sigma_mad_blocco": 350.63489999999996,
+      "sigma_mad_resto": 262.42019999999997,
+      "mw_z": 2.881106208012496,
+      "mw_p": 0.003962820812947188,
+      "ks_d": 0.14555555555555555,
+      "ks_p": 0.0008414194568854828,
+      "verdetto": "BLOCCO ANOMALO"
+    },
+    "M26_mean_pers1": {
+      "n_blocco": 200,
+      "n_resto": 1800,
+      "mediana_blocco": 0.6173241805635827,
+      "mediana_resto": 0.620289996920943,
+      "sigma_mad_blocco": 0.03590118734980919,
+      "sigma_mad_resto": 0.023067429523756507,
+      "mw_z": -0.7698857412885025,
+      "mw_p": 0.4413676727358107,
+      "ks_d": 0.17222222222222217,
+      "ks_p": 3.755642653371791e-05,
+      "verdetto": "BLOCCO ANOMALO"
+    }
+  },
+  "corr_cosmologia": {
+    "w0": {
+      "r": 0.01138850003321978,
+      "ic95": [
+        -0.1275565814755707,
+        0.14989518535543325
+      ],
+      "n": 200,
+      "sigma": 0.1598521262065139
+    },
+    "Om": {
+      "r": 0.15022981547556535,
+      "ic95": [
+        0.011730793459959693,
+        0.2830731363809774
+      ],
+      "n": 200,
+      "sigma": 2.124657085504659
+    },
+    "s8": {
+      "r": 0.13668975160272973,
+      "ic95": [
+        -0.0020934827322744874,
+        0.27030696085674566
+      ],
+      "n": 200,
+      "sigma": 1.9306165267055164
+    }
+  }
+}

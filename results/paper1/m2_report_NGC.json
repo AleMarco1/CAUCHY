@@ -1,0 +1,25 @@
+{
+  "script": "paper1_rev_m2_fiducial.py",
+  "m2a": {
+    "n": 200,
+    "mean": 35501.71,
+    "sd": 171.99581010439567,
+    "sd_err": 8.621370941924472
+  },
+  "confronto": {
+    "residuo_record": 269.6,
+    "residuo_misurato": 171.99581010439567,
+    "scarto_sigma": -11.321191322480905
+  },
+  "significativita": {
+    "desi": 28256.0,
+    "mock_mean": 35501.71,
+    "mock_sd": 171.99581010439567,
+    "n_sotto": 0,
+    "rank": "1/201",
+    "p": 0.004975124378109453,
+    "z_modello": -42.12724714399785,
+    "z_famiglia": -22.94228298969569,
+    "scarto_medie": 65.02399999999761
+  }
+}

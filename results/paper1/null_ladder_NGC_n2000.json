@@ -1,0 +1,7 @@
+{
+  "n_mocks": 2000,
+  "n_voxels": 307805,
+  "created": "2026-07-22T12:31:52.708358+00:00",
+  "files_first": "delta_0000.npy",
+  "files_last": "delta_1999.npy"
+}

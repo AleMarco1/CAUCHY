@@ -1,0 +1,312 @@
+{
+  "schema_version": "1.0",
+  "script": "paper1_fkp_asymmetry.py",
+  "region": "NGC",
+  "timestamp": "2026-07-24T13:58:02.481373+00:00",
+  "field_r_in_mask": {
+    "label": "field_r entro maschera",
+    "n": 307805,
+    "mean": 13.635086597701346,
+    "std": 7.352401668139202,
+    "median": 16.418472290039062,
+    "p01": 0.03991515234112739,
+    "p05": 0.2574662148952484,
+    "p95": 22.18905372619629,
+    "p99": 23.91257537841797,
+    "min": 0.020018765702843666,
+    "max": 28.275699615478516
+  },
+  "low_denominator_geometry": {
+    "1.0": {
+      "threshold_field_r": 0.03991515234112739,
+      "n_voxels": 3079,
+      "median_dist_edge": 1.0,
+      "median_radius": 911.2779133247853,
+      "frac_within_2vox_of_edge": 0.9944787268593699,
+      "frac_all_within_2vox": 0.31912412079076036
+    },
+    "5.0": {
+      "threshold_field_r": 0.2574662148952484,
+      "n_voxels": 15391,
+      "median_dist_edge": 1.0,
+      "median_radius": 900.6609334052918,
+      "frac_within_2vox_of_edge": 0.9809629003963355,
+      "frac_all_within_2vox": 0.31912412079076036
+    },
+    "10.0": {
+      "threshold_field_r": 1.0691809415817264,
+      "n_voxels": 30781,
+      "median_dist_edge": 1.0,
+      "median_radius": 894.0932157169301,
+      "frac_within_2vox_of_edge": 0.957181378122868,
+      "frac_all_within_2vox": 0.31912412079076036
+    }
+  },
+  "extreme_voxels": [
+    {
+      "key": "delta_0000",
+      "n_extreme": 3963,
+      "frac_extreme": 0.01287503451860756,
+      "max_delta": 5524.533203125,
+      "median_field_r_extreme": 0.05343904718756676,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.35276305828917487
+    },
+    {
+      "key": "delta_0001",
+      "n_extreme": 3899,
+      "frac_extreme": 0.01266711067071685,
+      "max_delta": 2774.408447265625,
+      "median_field_r_extreme": 0.052593886852264404,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.35598871505514235
+    },
+    {
+      "key": "delta_0002",
+      "n_extreme": 4036,
+      "frac_extreme": 0.013112197657607901,
+      "max_delta": 2694.900146484375,
+      "median_field_r_extreme": 0.051024654880166054,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.36496531219028744
+    },
+    {
+      "key": "delta_0003",
+      "n_extreme": 4010,
+      "frac_extreme": 0.0130277285944023,
+      "max_delta": 3300.705810546875,
+      "median_field_r_extreme": 0.051859406754374504,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.3630922693266833
+    },
+    {
+      "key": "delta_0004",
+      "n_extreme": 4072,
+      "frac_extreme": 0.013229154822046426,
+      "max_delta": 3734.0830078125,
+      "median_field_r_extreme": 0.052384236827492714,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.3543713163064833
+    },
+    {
+      "key": "delta_0005",
+      "n_extreme": 4035,
+      "frac_extreme": 0.013108948847484609,
+      "max_delta": 3404.38037109375,
+      "median_field_r_extreme": 0.05290133133530617,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.3536555142503098
+    },
+    {
+      "key": "delta_0006",
+      "n_extreme": 4006,
+      "frac_extreme": 0.01301473335390913,
+      "max_delta": 3408.878662109375,
+      "median_field_r_extreme": 0.05238207057118416,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.35771342985521715
+    },
+    {
+      "key": "delta_0007",
+      "n_extreme": 4078,
+      "frac_extreme": 0.013248647682786179,
+      "max_delta": 2550.488525390625,
+      "median_field_r_extreme": 0.05224902927875519,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.3548307994114762
+    },
+    {
+      "key": "delta_0008",
+      "n_extreme": 4006,
+      "frac_extreme": 0.01301473335390913,
+      "max_delta": 7955.90673828125,
+      "median_field_r_extreme": 0.05344422906637192,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.34847728407388917
+    },
+    {
+      "key": "delta_0009",
+      "n_extreme": 3985,
+      "frac_extreme": 0.012946508341319992,
+      "max_delta": 4010.30908203125,
+      "median_field_r_extreme": 0.05292896181344986,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.34956085319949814
+    },
+    {
+      "key": "delta_0010",
+      "n_extreme": 4072,
+      "frac_extreme": 0.013229154822046426,
+      "max_delta": 3571.973388671875,
+      "median_field_r_extreme": 0.05260961689054966,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.3506876227897839
+    },
+    {
+      "key": "delta_0011",
+      "n_extreme": 4079,
+      "frac_extreme": 0.013251896492909471,
+      "max_delta": 2592.201904296875,
+      "median_field_r_extreme": 0.05200253427028656,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.3594018141701397
+    },
+    {
+      "key": "delta_0012",
+      "n_extreme": 4022,
+      "frac_extreme": 0.013066714315881809,
+      "max_delta": 5016.7587890625,
+      "median_field_r_extreme": 0.05161620303988457,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.36225758329189456
+    },
+    {
+      "key": "delta_0013",
+      "n_extreme": 4092,
+      "frac_extreme": 0.013294131024512273,
+      "max_delta": 3638.762451171875,
+      "median_field_r_extreme": 0.052736639976501465,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.35532746823069405
+    },
+    {
+      "key": "delta_0014",
+      "n_extreme": 4061,
+      "frac_extreme": 0.01319341791069021,
+      "max_delta": 3002.298095703125,
+      "median_field_r_extreme": 0.05129414051771164,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.36567347943856193
+    },
+    {
+      "key": "delta_0015",
+      "n_extreme": 4014,
+      "frac_extreme": 0.01304072383489547,
+      "max_delta": 3708.962646484375,
+      "median_field_r_extreme": 0.052790358662605286,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.35151968111609366
+    },
+    {
+      "key": "delta_0016",
+      "n_extreme": 3954,
+      "frac_extreme": 0.012845795227497929,
+      "max_delta": 32244.41015625,
+      "median_field_r_extreme": 0.05396519415080547,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.3426909458775923
+    },
+    {
+      "key": "delta_0017",
+      "n_extreme": 4082,
+      "frac_extreme": 0.01326164292327935,
+      "max_delta": 3089.258056640625,
+      "median_field_r_extreme": 0.05277068540453911,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.35178833904948553
+    },
+    {
+      "key": "delta_0018",
+      "n_extreme": 4148,
+      "frac_extreme": 0.013476064391416643,
+      "max_delta": 4013.71728515625,
+      "median_field_r_extreme": 0.05393819324672222,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.35053037608486015
+    },
+    {
+      "key": "delta_0019",
+      "n_extreme": 4078,
+      "frac_extreme": 0.013248647682786179,
+      "max_delta": 3129.10400390625,
+      "median_field_r_extreme": 0.05317556671798229,
+      "median_dist_edge_extreme": 1.0,
+      "frac_extreme_in_lowest_1pct": 0.3506620892594409
+    }
+  ],
+  "onepoint_by_cut": {
+    "0.0": {
+      "n_voxels": 307805,
+      "desi_var": 2.916641970134737,
+      "desi_max": 125.47415507208935,
+      "mock_var_mean": 3163.998773901982,
+      "mock_max_mean": 5168.302038574218,
+      "var_ratio": 1084.8087651141557
+    },
+    "1.0": {
+      "n_voxels": 304726,
+      "desi_var": 2.6264231815142622,
+      "desi_max": 125.47415507208935,
+      "mock_var_mean": 945.3532154139041,
+      "mock_max_mean": 2112.444403076172,
+      "var_ratio": 359.93941192251486
+    },
+    "5.0": {
+      "n_voxels": 292414,
+      "desi_var": 1.8742162113664336,
+      "desi_max": 61.39928003031802,
+      "mock_var_mean": 48.15155013154328,
+      "mock_max_mean": 368.22218856811526,
+      "var_ratio": 25.69156634091723
+    },
+    "10.0": {
+      "n_voxels": 277024,
+      "desi_var": 1.631006706128189,
+      "desi_max": 49.92690298195366,
+      "mock_var_mean": 5.82227797417251,
+      "mock_max_mean": 108.1849287033081,
+      "var_ratio": 3.569744963215932
+    }
+  },
+  "tda_by_cut": {
+    "R5_cut0": {
+      "R": "R5",
+      "cut_pct": 0.0,
+      "n_voxels": 307805,
+      "n_mocks": 100,
+      "desi_N_H1": 28256.0,
+      "mock_mean": 35433.6,
+      "mock_std": 269.2054526891604,
+      "D": 7177.5999999999985,
+      "D_frac": 0.20256479725458318,
+      "z": -26.66216426265205
+    },
+    "R5_cut1": {
+      "R": "R5",
+      "cut_pct": 1.0,
+      "n_voxels": 304726,
+      "n_mocks": 100,
+      "desi_N_H1": 27804.0,
+      "mock_mean": 35479.63,
+      "mock_std": 281.9812177640865,
+      "D": 7675.629999999997,
+      "D_frac": 0.21633906554267893,
+      "z": -27.220359075197862
+    },
+    "R5_cut5": {
+      "R": "R5",
+      "cut_pct": 5.0,
+      "n_voxels": 292414,
+      "n_mocks": 100,
+      "desi_N_H1": 26415.0,
+      "mock_mean": 35471.88,
+      "mock_std": 358.3134534302207,
+      "D": 9056.879999999997,
+      "D_frac": 0.2553256269473171,
+      "z": -25.27641625871513
+    },
+    "R5_cut10": {
+      "R": "R5",
+      "cut_pct": 10.0,
+      "n_voxels": 277024,
+      "n_mocks": 100,
+      "desi_N_H1": 24991.0,
+      "mock_mean": 34970.87,
+      "mock_std": 421.46192550035244,
+      "D": 9979.870000000003,
+      "D_frac": 0.28537665777259763,
+      "z": -23.679173363411348
+    }
+  },
+  "notes": "L'asimmetria e' nella pipeline originale: voxelize_mock usa np.ones() mentre load_desi_data_field usa WEIGHT*WEIGHT_FKP e load_desi_random_field usa WEIGHT_FKP. build_field e' invece identico sui due lati. Per DESI il peso FKP si cancella fra numeratore e denominatore, per i mock no. Il test primario di remapping controlla gia' l'effetto a livello di distribuzione marginale (imponendo ai mock la PDF di DESI il deficit non si riduce); questo script verifica il residuo spaziale."
+}

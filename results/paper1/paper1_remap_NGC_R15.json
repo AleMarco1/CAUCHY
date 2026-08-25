@@ -1,0 +1,79 @@
+{
+  "schema_version": "3.0",
+  "script": "paper1_remap.py (v3)",
+  "paper": "Paper 1 - one-point vs H1 topology",
+  "protocol": "prereg v2 §4-§8",
+  "timestamp": "2026-07-24T17:21:22.029533+00:00",
+  "region": "NGC",
+  "tag": "R15",
+  "sigma_px": 0.9612674711895677,
+  "n_mocks": 2000,
+  "statistic_primary": "N_H1 = numero di generatori H1 (feats[4])",
+  "desi": {
+    "N_H1": 7152.0,
+    "b1_peak": 765.0,
+    "peak_nu": -1.7361569009646018,
+    "mean_pers1": 0.3054217393523289,
+    "b1_fwhm": 3.5089747135085285,
+    "b1_integral": 2162.3806030945343,
+    "n_pers_top10": 716.0,
+    "b0_at_mean": 133.0
+  },
+  "mirror": {
+    "N_H1": 6842.0,
+    "b1_peak": 609.0,
+    "peak_nu": 0.2872694252476564,
+    "mean_pers1": 0.18271646194869065,
+    "b1_fwhm": 1.5899728298187266,
+    "b1_integral": 1170.1718217517396,
+    "n_pers_top10": 685.0,
+    "b0_at_mean": 107.0
+  },
+  "mock_baseline_mean": 7435.673,
+  "mock_baseline_std": 160.88602558213006,
+  "mock_remap_mean": 9231.0765,
+  "mock_remap_std": 227.54950898050436,
+  "mock_null_mean": 7449.327,
+  "mock_null_std": 167.9926749606072,
+  "D": 283.6729999999998,
+  "D_corrected_forward": 2079.076499999999,
+  "D_corrected_mirror": 593.6729999999998,
+  "f_1p": -6.329130724460914,
+  "f_1p_sem": 0.01315701585998118,
+  "g_1p": -1.0928075636384156,
+  "f_null": -0.04813288539974006,
+  "sigma_null": 69.50620720784734,
+  "eta": 0.7350668608698825,
+  "threshold_used": 0.7350668608698825,
+  "verdict": "PHASE_CONNECTIVITY",
+  "secondary_b1_peak": {
+    "desi": 765.0,
+    "base_mean": 972.975,
+    "remap_mean": 1194.633,
+    "deficit_frac": 0.2137516380174208
+  },
+  "null_ladder": {
+    "n_mocks": 2000,
+    "n_voxels": 307805,
+    "created": "2026-07-22T12:31:52.708358+00:00",
+    "files_first": "delta_0000.npy",
+    "files_last": "delta_1999.npy"
+  },
+  "frozen_reference": {
+    "desi_N_H1": 28256.0,
+    "mock_baseline": 35467.15,
+    "D": 7211.15
+  },
+  "meta": {
+    "box_size": 1997.3629167166155,
+    "cell": 15.604397786848558,
+    "sigma_px_canonical": 0.32042249039652254,
+    "sigma_px_used": 0.9612674711895677,
+    "n_thresh": 100,
+    "ngrid": 128,
+    "mask_fill_pct": 14.677286148071289,
+    "snapnum": 3,
+    "seed": 42
+  },
+  "notes": "Rimappatura sul delta GREZZO (pre-log, pre-smoothing): la persistenza di supralivello e' invariante per trasformazioni monotone, quindi un remap post-smoothing darebbe f_1p=0 per costruzione. Vedi protocollo v2 §3bis. Valori NEGATIVI di f_1p/g_1p indicano che il canale one-point agisce in direzione OPPOSTA al deficit: correggendo per la struttura a un punto il deficit si allarga."
+}

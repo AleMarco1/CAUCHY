@@ -1,0 +1,148 @@
+{
+  "script": "paper1_rev_v2v3.py",
+  "scopo": "V2 dispersione vs M26; V3 rank empirici",
+  "desi": {
+    "NGC": 28256.0,
+    "SGC": 15122.0
+  },
+  "m26_ngc": {
+    "mean": 35425.0,
+    "std": 445.0,
+    "n": 2000
+  },
+  "regioni": {
+    "NGC": {
+      "meta": {
+        "file": "D:\\projects\\cauchy\\results\\paper1\\per_mock_NGC_R5.jsonl",
+        "n_record": 2000,
+        "righe_illeggibili": 0
+      },
+      "colonna_nh1": "base.N_H1",
+      "n_mock": 2000,
+      "n_sotto_desi": 0,
+      "n_pari": 0,
+      "rank": "1/2001",
+      "p_empirica": 0.0004997501249375312,
+      "z_gaussiano_equivalente": -22.94228298969569,
+      "stats": {
+        "n": 2000,
+        "mean": 35436.686,
+        "std": 312.9891651683112,
+        "std_err": 4.950030886881378,
+        "sem": 6.998650495372533,
+        "min": 31226.0,
+        "max": 36119.0,
+        "p01": 34620.67,
+        "p25": 35281.0,
+        "median": 35469.5,
+        "p75": 35633.0,
+        "p99": 35947.02,
+        "sigma_from_iqr": 260.93402520385473,
+        "sigma_from_mad": 264.6441,
+        "skew": -3.559607426085326,
+        "kurt_excess": 40.05147504263376
+      }
+    },
+    "SGC": {
+      "meta": {
+        "file": "D:\\projects\\cauchy\\results\\paper1\\per_mock_SGC_R5.jsonl",
+        "n_record": 2000,
+        "righe_illeggibili": 0
+      },
+      "colonna_nh1": "base.N_H1",
+      "n_mock": 2000,
+      "n_sotto_desi": 0,
+      "n_pari": 0,
+      "rank": "1/2001",
+      "p_empirica": 0.0004997501249375312,
+      "z_gaussiano_equivalente": -18.155695620010267,
+      "stats": {
+        "n": 2000,
+        "mean": 18712.9675,
+        "std": 197.7873817207103,
+        "std_err": 3.1280752099722786,
+        "sem": 4.422660306192076,
+        "min": 16222.0,
+        "max": 19245.0,
+        "p01": 18213.84,
+        "p25": 18609.0,
+        "median": 18731.0,
+        "p75": 18840.0,
+        "p99": 19066.01,
+        "sigma_from_iqr": 171.23795404002965,
+        "sigma_from_mad": 171.9816,
+        "skew": -2.7377260359817486,
+        "kurt_excess": 27.205295533267254
+      }
+    }
+  },
+  "schema": [
+    "base.N_H1",
+    "base.b0_at_mean",
+    "base.b1_fwhm",
+    "base.b1_integral",
+    "base.b1_peak",
+    "base.mean_pers1",
+    "base.n_pers_top10",
+    "base.peak_nu",
+    "null.N_H1",
+    "null.b0_at_mean",
+    "null.b1_fwhm",
+    "null.b1_integral",
+    "null.b1_peak",
+    "null.mean_pers1",
+    "null.n_pers_top10",
+    "null.peak_nu",
+    "remap.N_H1",
+    "remap.b0_at_mean",
+    "remap.b1_fwhm",
+    "remap.b1_integral",
+    "remap.b1_peak",
+    "remap.mean_pers1",
+    "remap.n_pers_top10",
+    "remap.peak_nu",
+    "sigma_px"
+  ],
+  "confronto_m26_ngc": {
+    "m26": {
+      "mean": 35425.0,
+      "std": 445.0,
+      "n": 2000
+    },
+    "nostro_mean": 35436.686,
+    "nostro_std": 312.9891651683112,
+    "nostro_std_err": 4.950030886881378,
+    "rapporto_sigma": 1.421774455868782,
+    "gap_in_errori_campionari": 26.668689114959914,
+    "sigma_extra_richiesta": 316.3270182694542,
+    "frazione_varianza_mancante_pct": 50.53037873361626
+  },
+  "test_densita": {
+    "NGC": {
+      "disponibile": false
+    },
+    "SGC": {
+      "disponibile": false
+    }
+  },
+  "candidati_m26": [
+    {
+      "file": "D:\\projects\\cauchy\\results\\phase9_likeforlike_arrays.npz",
+      "key": "beta1_max",
+      "n": 2000,
+      "mean": 35424.784,
+      "std": 444.81419511756707,
+      "median": 35478.0
+    }
+  ],
+  "confronto_per_indice": {
+    "file": "D:\\projects\\cauchy\\results\\phase9_likeforlike_arrays.npz",
+    "key": "beta1_max",
+    "n_confrontati": 2000,
+    "pearson": 0.7594453428574796,
+    "spearman": 0.9513706298426573,
+    "frazione_identici": 0.9,
+    "std_candidato": 444.81419511756707,
+    "std_nostro": 312.9891651683112
+  }
+}

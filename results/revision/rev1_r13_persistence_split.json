@@ -1,0 +1,31 @@
+{
+  "source": {
+    "npz": "rev1_r13_beta1curve.npz",
+    "json": "rev1_r13_beta1curve.json",
+    "n_mocks": 200
+  },
+  "boundaries_p_over_sigma": {
+    "near_diagonal_upper": 0.05354061792388768,
+    "bulk_upper": 1.847151318374125
+  },
+  "near_diagonal": {
+    "desi": 7704.0,
+    "mock": 5795.92,
+    "desi_minus_mock": 1908.08
+  },
+  "bulk": {
+    "desi": 20031.0,
+    "mock": 29439.155,
+    "mock_minus_desi": 9408.154999999999
+  },
+  "persistent_tail": {
+    "desi": 521.0,
+    "mock": 188.5,
+    "desi_minus_mock": 332.5
+  },
+  "total_deficit_from_split": 7167.574999999997,
+  "total_deficit_main_run": 7167.574999999997,
+  "split_closes": true,
+  "timestamp": "2026-08-22T19:44:22.494938+00:00",
+  "script": "src/rev1_r13_split.py"
+}

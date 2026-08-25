@@ -1,0 +1,2145 @@
+BUNDLE SORGENTI PHASE9 - CAUCHY Paper 1 revisione
+project_root: D:\projects\cauchy
+file inclusi: 5
+
+INDICE DELLE SCRITTURE SU DISCO
+------------------------------------------------------------------------------
+  cauchy_figures.py                     11| [requires phase6_bgs_persistence_raw.npz]
+  cauchy_figures.py                     96| phase6_bgs_beta1_curve.npz if available.
+  cauchy_figures.py                    182| Requires: phase6_bgs_persistence_raw.npz  (local, not in JSON)
+  cauchy_figures.py                    189| raw_path = rpath("phase6_bgs_persistence_raw.npz")
+  cauchy_figures.py                    215| print("  [INFO] fig3: phase6_bgs_persistence_raw.npz not found — "
+  cauchy_figures.py                    269| note = "" if has_raw else " [schematic from summary statistics — raw pairs in phase6_bgs_persistence_raw.npz]"
+  cauchy_figures.py                    273| 'phase6_bgs_persistence_raw.npz for exact diagram.',
+  cauchy_figures.py                    726| print("  - fig3: if phase6_bgs_persistence_raw.npz not in results/, a schematic")
+  cauchy_figures.py                    732| print("To generate phase6_bgs_persistence_raw.npz, add to phase6_bgs_tda.py:")
+  cauchy_figures.py                    733| print("  np.savez('results/phase6_bgs_persistence_raw.npz',")
+  diagnose_phase6_inputs.py             28| z05_file = ROOT / "results" / "phase6_mock_features_z05.npz"
+  diagnose_tau_graph.py                  3| Esegue step-by-step su tau_field_0000.npz e stampa tutto.
+  diagnose_tau_graph.py                 31| tau_file = TAU_DIR / "tau_field_0000.npz"
+  diagnose_tau_graph.py                 37| print(f"Chiavi nel file .npz: {list(tau_data.keys())}")
+  diagnose_v2.py                        13| with open(ROOT / "prior" / "gate3_prior_v1_0.json") as f:
+  diagnose_v2.py                        18| tau_data = np.load(ROOT / "results" / "phase2_tau_fields" / "nwlh" / "tau_field_0000.npz")
+  inventory_cauchy.py                   14| * Per i file .npy legge l'HEADER (shape + dtype) SENZA caricare l'array:
+  inventory_cauchy.py                   16| * Per .npz elenca i nomi degli array contenuti (senza decomprimere i dati).
+  inventory_cauchy.py                   49| MAX_NPY_HEADER = 4096        # limite di sicurezza per l'header .npy
+  inventory_cauchy.py                   62| # zip container: .npz oppure zip generico
+  inventory_cauchy.py                   63| return "npz" if ext == ".npz" else "zip"
+  inventory_cauchy.py                   69| return "gzip"           # potrebbe essere .fits.gz, .npy.gz, ecc.
+  inventory_cauchy.py                   79| Legge shape e dtype da un file .npy leggendo SOLO l'header
+  inventory_cauchy.py                  109| """Elenca i nomi degli array in un .npz senza decomprimere i dati."""
+  inventory_cauchy.py                  113| names = [n[:-4] if n.endswith(".npy") else n for n in z.namelist()]
+  inventory_cauchy.py                  120| """Metadati di un singolo file: nome, size, formato, e (se .npy) shape/dtype."""
+  paper1_fkp_asymmetry.py              183| files = sorted(cache_dir.glob("delta_*.npy"))[:args.n_diag]
+  paper1_fkp_asymmetry.py              249| tda_files = sorted(cache_dir.glob("delta_*.npy"))[:args.k]
+  paper1_mask_erosion.py               179| files = sorted(cache_dir.glob("delta_*.npy"))[:args.k]
+  paper1_mask_erosion.py               182| jsonl = out_dir / f"per_mock_{args.region}_erosion_{args.mode}.jsonl"
+  paper1_mirror_likeforlike.py         114| all_files = sorted(cache_dir.glob("delta_*.npy"))
+  paper1_mirror_likeforlike.py         115| lad_p = out_dir / f"null_ladder_{args.region}_n{len(all_files)}.npy"
+  paper1_mirror_likeforlike.py         139| jsonl = out_dir / f"per_target_{args.region}_mirror_lfl.jsonl"
+  paper1_null_mockmock.py               32| per_mock_<region>_<tag>.jsonl prodotto da paper1_remap.py, senza ricalcolarla.
+  paper1_null_mockmock.py              109| files = sorted(cache_dir.glob("delta_*.npy"))[:args.k]
+  paper1_null_mockmock.py              129| lad_p = out_dir / f"null_ladder_{args.region}_n{len(sorted(cache_dir.glob('delta_*.npy')))}.npy"
+  paper1_null_mockmock.py              136| jsonl_main = out_dir / f"per_mock_{args.region}_{args.tag}.jsonl"
+  paper1_null_mockmock.py              143| jsonl = out_dir / f"per_mock_{args.region}_{args.tag}_nullmm.jsonl"
+  paper1_null_mockmock.py              179| cf = f"nullmm_{fp.stem.split('_')[-1]}.npz"
+  paper1_remap.py                       94| """np.save atomico: nessun .npy troncato in cache."""
+  paper1_remap.py                       95| tmp = path.with_suffix(".npy.tmp")
+  paper1_remap.py                      105| tmp = path.with_suffix(".npz.tmp")
+  paper1_remap.py                      149| for p in list(d.glob("*.tmp")) + list(d.glob("*.npy.tmp")):
+  paper1_remap.py                      211| mask_path = fld_dir / "bgs_ngc_mask_128.npy"
+  paper1_remap.py                      239| mask_path = fld_dir / "bgs_sgc_mask_128.npy"
+  paper1_remap.py                      351| """128^3 float32 + header .npy (128 byte con allineamento standard)."""
+  paper1_remap.py                      356| """Elimina i .npy troncati/corrotti. deep=True apre davvero ogni file."""
+  paper1_remap.py                      361| for p in sorted(cache_dir.glob("delta_*.npy")):
+  paper1_remap.py                      397| out = cache_dir / f"delta_{kk:04d}.npy"
+  paper1_remap.py                      446| files = sorted(cache_dir.glob("delta_*.npy"))
+  paper1_remap.py                      449| lad_p = out_dir / f"null_ladder_{region}_n{len(files)}.npy"
+  paper1_remap.py                      488| jsonl = out_dir / f"per_mock_{region}_{tag}.jsonl"
+  paper1_remap.py                      493| files = sorted(cache_dir.glob("delta_*.npy"))[:k]
+  paper1_remap.py                      520| cf = f"curves_{idx}.npz"
+  paper1_remap.py                      540| atomic_save_npz(out_dir / f"curves_DESI_mirror_{region}_{tag}.npz", mir_arr)
+  paper1_remap.py                      710| atomic_save_npz(out_dir / f"curves_DESI_{args.region}_{args.tag}.npz", desi_arr)
+  paper1_step6_onepoint_betti.py        16| paper1_remap.py v3 (`curves_<REGION>_<TAG>/curves_XXXX.npz`) e i campi delta
+  paper1_step6_onepoint_betti.py       135| dpath = out_dir / f"curves_DESI_{region}_{tag}.npz"
+  paper1_step6_onepoint_betti.py       138| files = sorted(cdir.glob("curves_*.npz"))
+  paper1_step6_onepoint_betti.py       249| files = sorted(cache_dir.glob("delta_*.npy"))[:n_fields]
+  phase0_data_prep.py                   50| data/processed/phase0_fields/fiducial/field_NNNN.npy
+  phase0_data_prep.py                   51| data/processed/phase0_fields/lhc/field_NNNN.npy
+  phase0_data_prep.py                   52| data/processed/phase0_fields/nwlh/field_NNNN.npy
+  phase0_data_prep.py                  108| FIELD_FILENAME: str = "df_m_128_PCS_z=0.npy"
+  phase0_data_prep.py                  472| out_path = out_dir / f"field_{r['index']:04d}.npy"
+  phase1_patch_cache.py                  9| phase1_fiducial_cache.npz contiene solo: ['fvecs_fid', 'betti_curves', 'sensitivity']
+  phase1_patch_cache.py                 35| results/phase1_fiducial_cache.npz  (aggiornato con fvecs_lhc, fvecs_nwlh)
+  phase1_patch_cache.py                 89| CACHE_PATH = Path("results/phase1_fiducial_cache.npz")
+  phase1_patch_cache.py                444| field_dir:    directory con field_NNNN.npy
+  phase1_patch_cache.py                458| p = field_dir / f"field_{i:04d}.npy"
+  phase1_patch_cache.py                525| Aggiorna phase1_fiducial_cache.npz e phase1_tda_baseline.json.
+  phase1_patch_cache.py                549| backup_path = CACHE_PATH.with_suffix(".npz.bak")
+  phase1_tda_baseline.py               453| """Lista i path dei campi in ordine: field_0000.npy ... field_{n-1:04d}.npy"""
+  phase1_tda_baseline.py               454| paths = [dataset_dir / f"field_{i:04d}.npy" for i in range(n_fields)]
+  phase1_tda_baseline.py               783| out_path = pd_output_dir / f"nwlh_field_{i:04d}_pd.npz"
+  phase1_tda_baseline.py              1038| # Presuppone che results/phase1_fiducial_cache.npz esista (prodotto da full)
+  phase1_tda_baseline.py              1041| cache_path = results_dir / "phase1_fiducial_cache.npz"
+  phase1_tda_baseline.py              1154| cache_path = results_dir / "phase1_fiducial_cache.npz"
+  phase1_tda_baseline.py              1173| pd_fid_dir / f"fiducial_field_{i:04d}_pd.npz",
+  phase2_cnn.py                         19| 2. Caricamento feature TDA Phase 1 da phase1_fiducial_cache.npz
+  phase2_cnn.py                        146| PHASE1_CACHE_PATH = Path("results/phase1_fiducial_cache.npz")
+  phase2_cnn.py                        342| Carica le feature TDA di Phase 1 da phase1_fiducial_cache.npz e
+  phase2_cnn.py                        345| Struttura attesa di phase1_fiducial_cache.npz:
+  phase2_cnn.py                        363| f"phase1_fiducial_cache.npz non trovato: {PHASE1_CACHE_PATH}\n"
+  phase2_cnn.py                        886| field_dir:  Path alla directory con field_NNNN.npy
+  phase2_cnn.py                        924| field_path = self.field_dir / f"field_{field_idx:04d}.npy"
+  phase2_cnn.py                       1214| field_path = field_dir / f"field_{i:04d}.npy"
+  phase2_cnn.py                       1281| field_path = field_dir / f"field_{i:04d}.npy"
+  phase2_cnn.py                       1282| out_path = output_dir / f"tau_field_{i:04d}.npz"
+  phase2_cnn.py                       1488| field_path = field_dir_lhc / f"field_{i:04d}.npy"
+  phase2_cnn.py                       1618| field_path = field_dir / f"field_{i:04d}.npy"
+  phase2_cnn.py                       2068| "fvecs_lhc non disponibile in phase1_fiducial_cache.npz. "
+  phase2_cnn.py                       2202| field_path = DATA_DIR / "lhc" / f"field_{i:04d}.npy"
+  phase3_gnn.py                        389| return folder / (npz_path.stem + "_graph.npz")
+  phase3_gnn.py                        435| stessi nomi file (es. 'lhc', 'nwlh'). Senza di essa tau_field_0001.npz
+  phase3_gnn.py                        437| - Formato: tau_field_0001.npz -> <cache_dir>/<cache_subdir>/tau_field_0001_graph.npz
+  phase3_gnn.py                        908| cache_path = repo_root / "results" / "phase1_fiducial_cache.npz"
+  phase3_gnn.py                        929| lhc_files_all = sorted(tau_lhc_dir.glob("tau_field_*.npz"))
+  phase3_gnn.py                        930| nwlh_files_all = sorted(tau_nwlh_dir.glob("tau_field_*.npz"))
+  phase3_gnn_diagnose.py               125| files = sorted(tau_lhc_dir.glob("tau_field_*.npz"))[:args.n_fields]
+  phase3_prerequisites.py              130| lhc_files = sorted(lhc_dir.glob("tau_field_*.npz"))
+  phase3_prerequisites.py              131| nwlh_files = sorted(nwlh_dir.glob("tau_field_*.npz"))
+  phase3_prerequisites.py              485| lhc_files = sorted(tau_lhc_dir.glob("tau_field_*.npz"))
+  phase3_t1_variability.py             156| lhc_files_all = sorted(tau_lhc_dir.glob("tau_field_*.npz"))
+  phase3_t1_variability.py             305| cache_path = repo_root / "results" / "phase1_fiducial_cache.npz"
+  phase4_opening.py                      9| results/graphs_cache/lhc/tau_field_NNNN_graph.npz  — 2000 grafi LHC cachati
+  phase4_opening.py                     10| results/graphs_cache/nwlh/tau_field_NNNN_graph.npz — 2000 grafi nwLH cachati
+  phase4_opening.py                    128| #     LHC:  graphs_cache/lhc/tau_field_NNNN_graph.npz
+  phase4_opening.py                    129| #     nwLH: graphs_cache/nwlh/tau_field_NNNN_graph.npz
+  phase4_opening.py                    138| path = subdir / f"tau_field_{idx:04d}_graph.npz"
+  phase4_opening.py                    186| log.info("Caricamento phase1_fiducial_cache.npz...")
+  phase4_opening.py                    367| fid_cache      = data_root / "results" / "phase1_fiducial_cache.npz"
+  phase4_opening.py                    375| (fid_cache,   "phase1_fiducial_cache.npz"),
+  phase4_opening.py                    382| n_lhc  = len(list(cache_lhc.glob("tau_field_*_graph.npz")))
+  phase4_opening.py                    383| n_nwlh = len(list(cache_nwlh.glob("tau_field_*_graph.npz")))
+  phase4_sr.py                           9| results/phase1_fiducial_cache.npz
+  phase4_sr.py                          12| results/phase4_nwlh_fvecs.npz  — feature TDA Ramo A sui campi nwLH
+  phase4_sr.py                          61| Le feature TDA Ramo A per i campi nwLH NON sono in phase1_fiducial_cache.npz
+  phase4_sr.py                         152| 1. results/phase4_nwlh_fvecs.npz  — cache dedicata Phase 4
+  phase4_sr.py                         156| fid_cache = data_root / "results" / "phase1_fiducial_cache.npz"
+  phase4_sr.py                         166| fvecs_nwlh_cache = data_root / "results" / "phase4_nwlh_fvecs.npz"
+  phase4_sr.py                         181| log.warning("  Tento caricamento da phase1_fiducial_cache.npz con chiave 'fvecs_nwlh'.")
+  phase4_sr.py                         186| "fvecs_nwlh non trovato. Aggiungere al phase1_fiducial_cache.npz "
+  phase4_sr.py                         187| "o salvare in results/phase4_nwlh_fvecs.npz prima del lancio SR."
+  phase4_sr.py                         191| log.info("  fvecs_nwlh: caricando da phase1_fiducial_cache.npz")
+  phase4_sr.py                         197| "  A) Salvare in results/phase4_nwlh_fvecs.npz (chiave: fvecs_nwlh [2000,8])\n"
+  phase4_sr.py                         199| "  C) Aggiungere 'fvecs_nwlh' a results/phase1_fiducial_cache.npz"
+  phase5_analyze_run_a_partial.py       30| B3_FILE    = ROOT / "results" / "phase5_hod_b3_features.npz"
+  phase5_analyze_run_a_partial.py       45| chain_files = sorted(CHAINS_DIR.glob("chain_*.npz"))
+  phase5_hod_b3.py                      41| results/phase5_hod_b3_features.npz
+  phase5_hod_b3.py                      73| TDA_CACHE        = ROOT / "results" / "phase1_fiducial_cache.npz"
+  phase5_hod_b3.py                      76| OUTPUT_FEATURES  = RESULTS_DIR / "phase5_hod_b3_features.npz"
+  phase5_hod_b3.py                     355| cache_file = B3_DIR / f"b3_{sim_idx:04d}.npz"
+  phase5_hod_b3.py                     402| np.savez(B3_DIR / f"b3_{sim_idx:04d}.npz",
+  phase5_hod_mcmc.py                    54| results/phase5_hod_features.npz — feature TDA marginalizzate
+  phase5_hod_mcmc.py                   109| TDA_CACHE = ROOT / "results" / "phase1_fiducial_cache.npz"
+  phase5_hod_mcmc.py                   112| OUTPUT_FEATURES = RESULTS_DIR / "phase5_hod_features.npz"
+  phase5_hod_mcmc.py                   549| chain_file = CHAINS_DIR / f"chain_{sim_idx:04d}.npz"
+  phase5_hod_mcmc.py                   732| chain_file = CHAINS_DIR / f"chain_{sim_idx:04d}.npz"
+  phase5_hod_restricted_prior.py        54| results/phase5_hod_features.npz — feature TDA marginalizzate
+  phase5_hod_restricted_prior.py       109| TDA_CACHE = ROOT / "results" / "phase1_fiducial_cache.npz"
+  phase5_hod_restricted_prior.py       113| OUTPUT_FEATURES = RESULTS_DIR / "phase5_hod_restricted_features.npz"
+  phase5_hod_restricted_prior.py       565| chain_file = CHAINS_DIR / f"chain_{sim_idx:04d}.npz"
+  phase5_hod_restricted_prior.py       760| chain_file = CHAINS_DIR / f"chain_{sim_idx:04d}.npz"
+  phase5_hod_restricted_prior.py       796| chain_files_done = list(CHAINS_DIR.glob("chain_*.npz"))
+  phase5_hod_variance_decomp.py         27| results/phase5_hod_chains/chain_{i:04d}.npz  (K=10, ~1027 campi)
+  phase5_hod_variance_decomp.py         90| chain_files = sorted(CHAINS_DIR.glob("chain_*.npz"))
+  phase5_hod_variance_decomp.py        204| b3_file = ROOT / "results" / "phase5_hod_b3_features.npz"
+  phase5_ramo_b.py                      24| results/phase2_tau_fields/nwlh/{i}/tau_grid.npy      (campo tau 128^3)
+  phase5_ramo_b.py                      30| results/phase5_jstar_nwlh.npz   — j* [2000, 32] + w0, Omm, s8
+  phase5_ramo_b.py                      64| JSTAR_FILE   = ROOT / "results" / "phase5_jstar_nwlh.npz"
+  phase5_ramo_b.py                     348| # Formato: tau_field_XXXX.npz (da Phase 2)
+  phase5_ramo_b.py                     349| tau_file = TAU_DIR / f"tau_field_{i:04d}.npz"
+  phase5_ramo_b.py                     496| b3_file = ROOT / "results" / "phase5_hod_b3_features.npz"
+  phase5_sanity_check.py                68| TDA_CACHE = ROOT / "results" / "phase1_fiducial_cache.npz"
+  phase5_validation_checks.py           16| Input:  results/phase5_hod_b3_features.npz
+  phase5_validation_checks.py           44| FEATURES_FILE = ROOT / "results" / "phase5_hod_b3_features.npz"
+  phase6_assemble_cycle3.py             11| results/phase6_mock_features_z05_R10.npz   (BLOCKING 2 — run completo R=10)
+  phase6_assemble_cycle3.py             34| "mock_r10":         RES_DIR / "phase6_mock_features_z05_R10.npz",
+  phase6_bgs_tda.py                     26| data/processed/phase6_fields/bgs_ngc_delta_128.npy
+  phase6_bgs_tda.py                     27| data/processed/phase6_fields/bgs_ngc_mask_128.npy
+  phase6_bgs_tda.py                     28| data/processed/phase6_fields/bgs_sgc_delta_128.npy
+  phase6_bgs_tda.py                     29| data/processed/phase6_fields/bgs_sgc_mask_128.npy
+  phase6_bgs_tda.py                    178| delta_file = FLD_DIR / f"bgs_{region.lower()}_delta_128.npy"
+  phase6_bgs_tda.py                    179| mask_file  = FLD_DIR / f"bgs_{region.lower()}_mask_128.npy"
+  phase6_bgs_tda.py                    280| Carica results/phase5_hod_b3_features.npz se disponibile.
+  phase6_bgs_tda.py                    282| prior_file = RES_DIR / "phase5_hod_b3_features.npz"
+  phase6_bgs_tda.py                    338| delta_f = FLD_DIR / f"bgs_{region.lower()}_delta_128.npy"
+  phase6_bgs_tda.py                    405| raw_out = RES_DIR / "phase6_bgs_persistence_raw.npz"
+  phase6_bgs_tda.py                    422| print("\n  [WARN] _raw_pairs not found — phase6_bgs_persistence_raw.npz not saved")
+  phase6_bgs_voxelize.py                25| data/processed/phase6_fields/bgs_ngc_delta_128.npy   [128,128,128] float32
+  phase6_bgs_voxelize.py                26| data/processed/phase6_fields/bgs_sgc_delta_128.npy
+  phase6_bgs_voxelize.py                27| data/processed/phase6_fields/bgs_ngc_mask_128.npy    [128,128,128] bool
+  phase6_bgs_voxelize.py                28| data/processed/phase6_fields/bgs_sgc_mask_128.npy
+  phase6_bgs_voxelize.py               212| np.save(OUT_DIR / f"bgs_{region.lower()}_delta_128.npy", delta_s)
+  phase6_bgs_voxelize.py               213| np.save(OUT_DIR / f"bgs_{region.lower()}_mask_128.npy",  mask)
+  phase6_bgs_voxelize.py               214| print(f"  -> bgs_{region.lower()}_delta_128.npy")
+  phase6_bgs_voxelize.py               215| print(f"  -> bgs_{region.lower()}_mask_128.npy")
+  phase6_bgs_voxelize.py               268| with open(RES_DIR / "phase6_voxelize_diagnostics.json", "w") as f:
+  phase6_mock_calibration.py            29| results/phase5_hod_b3_features.npz  (feature z=0 gia calcolate)
+  phase6_mock_calibration.py            33| results/phase6_mock_features_z0.npz    (riuso da Phase 5 B3)
+  phase6_mock_calibration.py            34| results/phase6_mock_features_z05.npz   (nuovo — z=0.5)
+  phase6_mock_calibration.py            41| # Run completo z=0.5 (z=0 gia in results/phase5_hod_b3_features.npz)
+  phase6_mock_calibration.py            74| OUTPUT_Z05  = RES_DIR / "phase6_mock_features_z05.npz"
+  phase6_mock_calibration.py            75| OUTPUT_Z0   = RES_DIR / "phase5_hod_b3_features.npz"  # gia esistente
+  phase6_mock_calibration.py           320| chain_file = CHAINS_DIR / f"z05_{sim_idx:04d}.npz"
+  phase6_mock_calibration.py           394| cfile = CHAINS_DIR / f"z05_{sim_idx:04d}.npz"
+  phase6_mock_calibration_R10.py        29| results/phase5_hod_b3_features.npz  (feature z=0 gia calcolate)
+  phase6_mock_calibration_R10.py        33| results/phase6_mock_features_z0.npz    (riuso da Phase 5 B3)
+  phase6_mock_calibration_R10.py        34| results/phase6_mock_features_z05.npz   (nuovo — z=0.5)
+  phase6_mock_calibration_R10.py        41| # Run completo z=0.5 (z=0 gia in results/phase5_hod_b3_features.npz)
+  phase6_mock_calibration_R10.py        74| OUTPUT_Z05  = RES_DIR / "phase6_mock_features_z05_R10.npz"
+  phase6_mock_calibration_R10.py        75| OUTPUT_Z0   = RES_DIR / "phase5_hod_b3_features.npz"  # gia esistente
+  phase6_mock_calibration_R10.py       320| chain_file = CHAINS_DIR / f"z05_{sim_idx:04d}.npz"
+  phase6_mock_calibration_R10.py       394| cfile = CHAINS_DIR / f"z05_{sim_idx:04d}.npz"
+  phase6_o64bis.py                      12| NON sovrascrive bgs_ngc_delta_128.npy (campo canonico R=5).
+  phase6_o64bis.py                      13| Output: bgs_ngc_delta_128_R148.npy  (solo lettura del voxelizzatore)
+  phase6_o64bis.py                      34| CANONICAL_R5   = FLD_DIR / "bgs_ngc_delta_128.npy"
+  phase6_o64bis.py                      35| CANONICAL_MASK = FLD_DIR / "bgs_ngc_mask_128.npy"
+  phase6_o64bis.py                      38| FIELD_R148     = FLD_DIR / "bgs_ngc_delta_128_R148.npy"
+  phase6_o64bis.py                      80| (CANONICAL_MASK, "maschera survey (bgs_ngc_mask_128.npy)"),
+  phase6_o64bis.py                     108| canonical_backup = FLD_DIR / "bgs_ngc_delta_128_R5_backup.npy"
+  phase6_o64bis.py                     131| # Il voxelizzatore ha scritto su bgs_ngc_delta_128.npy — spostalo
+  phase6_partial_corr.py                10| results/phase5_hod_b3_features.npz      — feature TDA mock z=0 (2000 campi nwLH, HOD B3)
+  phase6_partial_corr.py                11| results/phase6_mock_features_z05.npz    — feature TDA mock z=0.5 (2000 campi nwLH)
+  phase6_partial_corr.py                60| b3_file = ROOT / "results" / "phase5_hod_b3_features.npz"
+  phase6_partial_corr.py               101| z05_file = ROOT / "results" / "phase6_mock_features_z05.npz"
+  phase6_power_spectrum_baseline.py     28| data/processed/phase6_fields/bgs_ngc_delta_128.npy
+  phase6_power_spectrum_baseline.py     29| data/processed/phase6_fields/bgs_ngc_mask_128.npy
+  phase6_power_spectrum_baseline.py     30| results/phase5_hod_b3_features.npz  (mock z=0, feature TDA gia calcolate)
+  phase6_power_spectrum_baseline.py     31| results/phase6_mock_features_z05.npz (mock z=0.5)
+  phase6_power_spectrum_baseline.py     36| results/phase6_pk_features_mocks.npz
+  phase6_power_spectrum_baseline.py    206| delta_desi = np.load(FLD_DIR / "bgs_ngc_delta_128.npy")
+  phase6_power_spectrum_baseline.py    207| mask_desi  = np.load(FLD_DIR / "bgs_ngc_mask_128.npy")
+  phase6_power_spectrum_baseline.py    238| with open(RES_DIR / "phase6_pk_features_desi.json", "w") as f:
+  phase6_power_spectrum_baseline.py    266| chain_files = sorted(B3_CHAINS.glob("b3_*.npz"))
+  phase6_power_spectrum_baseline.py    279| dm_files = sorted(DM_FIELDS_DIR.glob("*.npy")) if DM_FIELDS_DIR.exists() else []
+  phase6_power_spectrum_baseline.py    317| np.savez(RES_DIR / "phase6_pk_features_mocks.npz",
+  phase6_power_spectrum_baseline.py    322| print(f"  Salvato: phase6_pk_features_mocks.npz")
+  phase6_power_spectrum_baseline.py    331| TDA_Z05_FILE = RES_DIR / "phase6_mock_features_z05.npz"
+  phase6_power_spectrum_baseline.py    548| with open(RES_DIR / "phase6_pk_comparison.json", "w") as f:
+  phase6_ramo_b_pilot.py                29| FIELD_DESI_R5 = PROJECT_ROOT / "data" / "processed" / "phase6_fields" / "bgs_ngc_delta_128.npy"
+  phase6_ramo_b_pilot.py                30| MASK_DESI     = PROJECT_ROOT / "data" / "processed" / "phase6_fields" / "bgs_ngc_mask_128.npy"
+  phase6_ramo_b_pilot.py               132| # ── Carica tau mock (file .npz) ─────────────────────────────────────────────────
+  phase6_ramo_b_pilot.py               136| files = sorted(Path(tau_dir).glob("*.npz"))[:n_max]
+  phase6_ramo_b_pilot.py               219| files = sorted(Path(tau_dir).glob("*.npz"))[:200]
+  phase6_ramo_b_pilot.py               231| f0 = next(TAU_LHC_DIR.glob("*.npz"), None)
+  phase6_sigma_px_test.py               90| if (MOCK_RAW_DIR / str(i) / "df_m_128_PCS_z=0.npy").exists())
+  phase6_sigma_px_test.py              112| path = MOCK_RAW_DIR / str(i) / "df_m_128_PCS_z=0.npy"
+  phase6_smoothing_sensitivity.py       15| - Campi raw da latin_hypercube_nwLH/{i}/df_m_128_PCS_z=0.npy
+  phase6_smoothing_sensitivity.py       39| DESI_FIELD_R5 = FLD_DIR / "bgs_ngc_delta_128.npy"
+  phase6_smoothing_sensitivity.py       40| DESI_MASK     = FLD_DIR / "bgs_ngc_mask_128.npy"
+  phase6_smoothing_sensitivity.py      144| (DESI_FIELD_R5, "campo DESI NGC R=5 canonico (bgs_ngc_delta_128.npy)"),
+  phase6_smoothing_sensitivity.py      145| (DESI_MASK,     "maschera survey NGC (bgs_ngc_mask_128.npy)"),
+  phase6_smoothing_sensitivity.py      156| if (MOCK_RAW_DIR / str(i) / "df_m_128_PCS_z=0.npy").exists())
+  phase6_smoothing_sensitivity.py      211| path = MOCK_RAW_DIR / str(i) / "df_m_128_PCS_z=0.npy"
+  phase6_smoothing_sensitivity.py      298| "mock_source":              "latin_hypercube_nwLH/0..199/df_m_128_PCS_z=0.npy",
+  phase7_make_rs_fields.py               4| usando Pylians3. Output: df_m_128_RS_z=0.npy (stessa convenzione dei campi
+  phase7_make_rs_fields.py               5| real-space precomputati df_m_128_PCS_z=0.npy).
+  phase7_make_rs_fields.py              14| 5. Salva come float32 .npy nella stessa cartella dello snapshot
+  phase7_make_rs_fields.py              89| RS_FILENAME   = "df_m_128_RS_z=0.npy"
+  phase7_make_rs_fields.py             102| MAS           = 'PCS'    # match existing real-space fields (df_m_128_PCS_z=0.npy)
+  phase7_pk_comparison_r53.py           16| - TDA: b2_mean_persistence HOD B3 z=0.5 da phase5_hod_b3_features.npz
+  phase7_pk_comparison_r53.py           46| PHASE5_B3_FEATS = r"D:\projects\cauchy\results\phase5_hod_b3_features.npz"
+  phase7_pk_comparison_r53.py           47| CACHE_B2_DM     = r"D:\projects\cauchy\results\phase7_b2_dm_nwlh_cache.npz"
+  phase7_pk_comparison_r53.py          185| path = os.path.join(nwlh_dir, str(i), "df_m_128_PCS_z=0.npy")
+  phase7_pk_comparison_r53.py          302| path = os.path.join(nwlh_dir, str(i), "df_m_128_PCS_z=0.npy")
+  phase7_r53_partial_corr.py            12| CACHE_B2    = r"D:\projects\cauchy\results\phase7_b2_dm_nwlh_cache.npz"
+  phase7_r53_robustness.py              19| phase7_b2_dm_nwlh_cache.npz  -> b2_mean_persistence DM 2000 campi
+  phase7_r53_robustness.py              43| CACHE_B2     = Path(r"D:\projects\cauchy\results\phase7_b2_dm_nwlh_cache.npz")
+  phase7_r53_robustness.py             239| pk_cache_path = Path(r"D:\projects\cauchy\results\phase7_pk_nwlh_cache.npz")
+  phase7_r53_robustness.py             340| path = NWLH_DIR / str(i) / "df_m_128_PCS_z=0.npy"
+  phase7_rsd_hod_confirmation.py        17| 7. Confronta con b1_mean_persistence real-space da phase5_hod_b3_features.npz
+  phase7_rsd_hod_confirmation.py        28| phase5_hod_b3_features.npz -> fvecs_hod_b3[:,5] real-space reference
+  phase7_rsd_hod_confirmation.py        81| PHASE5_B3_FEATS = Path(r"D:\projects\cauchy\results\phase5_hod_b3_features.npz")
+  phase7_rsd_hod_confirmation.py       500| "b2_real_source": "phase5_hod_b3_features.npz -> fvecs_hod_b3[:,5]",
+  phase7_rsd_test.py                    23| - Campi RS: NWLH_DIR/<idx>/df_m_128_RS_z=0.npy
+  phase7_rsd_test.py                    24| - Campi real: NWLH_DIR/<idx>/df_m_128_PCS_z=0.npy  (già scaricati)
+  phase7_rsd_test.py                    43| RS_FILENAME   = "df_m_128_RS_z=0.npy"
+  phase7_rsd_test.py                    44| REAL_FILENAME = "df_m_128_PCS_z=0.npy"
+  phase7_rsd_test.py                   207| "Re-run after downloading df_m_128_RS_z=0.npy fields."
+  phase7_t1_variability.py             295| path = Path(tau_dir) / f"tau_field_{i:04d}.npz"
+  phase7_t1_variability.py             429| tasks    = [(i, TAU_NWLH_DIR / f"tau_field_{i:04d}.npz")
+  phase7_t1_variability.py             431| if (TAU_NWLH_DIR / f"tau_field_{i:04d}.npz").exists()]
+  phase7_t1_variability.py             433| if not (TAU_NWLH_DIR / f"tau_field_{i:04d}.npz").exists()]
+  phase8_cutsky_mocks.py                37| results/phase8_cutsky_fields/cutsky_{i:04d}.npz   (delta field per mock, optional)
+  phase8_cutsky_mocks.py                85| DESI_MASK_FILE  = FLD_DIR / "bgs_ngc_mask_128.npy"
+  phase8_cutsky_mocks.py               128| DESI_FIELD_R5 = FLD_DIR / "bgs_ngc_delta_128.npy"   # canonical R=5 native grid
+  phase8_cutsky_mocks.py               535| # The canonical bgs_ngc_delta_128.npy was voxelized at R=5 on the DESI cell
+  phase8_cutsky_mocks.py               611| np.savez(OUT_FIELDS_DIR / f"cutsky_{i:04d}.npz", delta=delta_s)
+  phase8_fiber_surrogate.py            150| json.dump(out, open(M.RES_DIR / "phase8_fiber_surrogate.json", "w"), indent=2)
+  phase8_test2_masked.py               184| np.savez(out_fields / f"test2_{i:04d}.npz", delta=nu)
+  phase8_w0_exclusion.py                12| 2. results/phase8_test2_fields/*.npz + nwLH params  [recompute beta1_max]
+  phase8_w0_exclusion.py                79| test2_fields/*.npz (current running job) joined with nwLH params."""
+  phase8_w0_exclusion.py                88| files = sorted(fdir.glob("test2_*.npz")) if fdir.exists() else []
+  phase8_w0_exclusion.py               211| json.dump(out, open(res / "phase8_w0_exclusion.json", "w"), indent=2)
+  phase9_altmtl_fiber_test.py          105| else np.load(next(root.rglob("bgs_ngc_mask_128.npy")))
+  phase9_altmtl_fiber_test.py          108| with open(res_dir / "phase8_test2_masked.json") as f:
+  phase9_empirical_histograms.py        11| Consumes results/phase9_likeforlike_arrays.npz produced by
+  phase9_empirical_histograms.py       121| npz_path = res_dir / "phase9_likeforlike_arrays.npz"
+  phase9_extract_features.py             9| masked fields as results/phase8_test2_fields/test2_XXXX.npz (key 'delta'),
+  phase9_extract_features.py            20| results/phase9_likeforlike_arrays.npz.
+  phase9_extract_features.py            49| hits = list(root.rglob("bgs_ngc_mask_128.npy"))
+  phase9_extract_features.py            52| sys.exit("[FATAL] bgs_ngc_mask_128.npy not found under project root. "
+  phase9_extract_features.py            67| out_npz = res_dir / "phase9_likeforlike_arrays.npz"
+  phase9_extract_features.py           110| files = sorted(fields_dir.glob("test2_*.npz"))
+  phase9_extract_features.py           112| sys.exit(f"[FATAL] no test2_*.npz in {fields_dir}")
+  phase9_growth_mismatch.py             81| else np.load(next(root.rglob("bgs_ngc_mask_128.npy")))
+  phase9_growth_mismatch.py             82| with open(res_dir / "phase8_test2_masked.json") as f:
+  phase9_hod_concentrated_grid.py       67| else np.load(next(root.rglob("bgs_ngc_mask_128.npy")))
+  phase9_hod_concentrated_grid.py       69| with open(res_dir / "phase8_test2_masked.json") as f:
+  phase9_hod_concentrated_grid.py       71| with open(res_dir / "phase8_hod_bestfit.json") as f:
+  phase9_mask_robustness.py             82| else np.load(next(root.rglob("bgs_ngc_mask_128.npy")))).astype(bool)
+  phase9_mask_robustness.py             98| files = sorted(fields_dir.glob("test2_*.npz"))[: args.k]
+  phase9_replot_beta1max.py              8| results/phase9_likeforlike_arrays.npz, with formatting fixes:
+  phase9_replot_beta1max.py             35| npz = root / "results" / "phase9_likeforlike_arrays.npz"
+  phase9_rsd_satellite_sensitivity.py    63| else np.load(next(root.rglob("bgs_ngc_mask_128.npy")))
+  phase9_rsd_satellite_sensitivity.py    64| with open(res_dir / "phase8_test2_masked.json") as f:
+  phase9_sgc_likeforlike.py             83| mask_sgc_path = fld_dir / "bgs_sgc_mask_128.npy"
+  phase9_w0_response_curve.py           27| Consumes results/phase9_likeforlike_arrays.npz (from phase9_extract_features.py).
+  phase9_w0_response_curve.py          107| npz_path = res_dir / "phase9_likeforlike_arrays.npz"
+  phase9b_majors.py                    178| json.dump(out, open(res_dir/"phase9b_redshift_split.json","w"), indent=2)
+  phase9b_majors.py                    204| d = np.load(Path(args.project_root)/"results"/"phase9_likeforlike_arrays.npz")
+  phase9b_majors.py                    217| json.dump(out, open(res_dir/"phase9b_scatter_decomp.json","w"), indent=2)
+  phase9b_majors.py                    224| files = sorted(fields_dir.glob("test2_*.npz"))[:args.k]
+  phase9b_majors.py                    241| json.dump(out, open(res_dir/"phase9b_filtration_convention.json","w"), indent=2)
+  phase9b_majors.py                    278| json.dump(out, open(res_dir/"phase9b_imaging_split.json","w"), indent=2)
+  phase9b_majors.py                    299| else np.load(next(root.rglob("bgs_ngc_mask_128.npy")))).astype(bool)
+  phase_b3_cal135.py                    39| results/phase_b3_cal135_features.npz
+  phase_b3_cal135.py                    76| TDA_CACHE        = ROOT / "results" / "phase1_fiducial_cache.npz"
+  phase_b3_cal135.py                    79| OUTPUT_FEATURES  = RESULTS_DIR / "phase_b3_cal135_features.npz"
+  phase_b3_cal135.py                   128| # Riferimento B3 originale — da phase5_hod_b3_features.npz
+  phase_b3_cal135.py                   351| cache_file = CAL135_DIR / f"cal135_{sim_idx:04d}.npz"
+  phase_b3_cal135.py                   407| np.savez(CAL135_DIR / f"cal135_{sim_idx:04d}.npz",
+  phase_b3_cal135_check.py              27| FEAT_FILE   = RESULTS_DIR / "phase_b3_cal135_features.npz"
+  phase_b3_cal135_check.py              60| cache_file = CAL135_DIR / f"cal135_{sim_idx:04d}.npz"
+  phase_b3_cal135_v2.py                 42| results/phase_b3_cal135_features.npz
+  phase_b3_cal135_v2.py                 79| TDA_CACHE        = ROOT / "results" / "phase1_fiducial_cache.npz"
+  phase_b3_cal135_v2.py                 82| OUTPUT_FEATURES  = RESULTS_DIR / "phase_b3_cal135_v2_features.npz"
+  phase_b3_cal135_v2.py                125| # Riferimento B3 originale — da phase5_hod_b3_features.npz
+  phase_b3_cal135_v2.py                348| cache_file = CAL135_DIR / f"cal135_{sim_idx:04d}.npz"
+  phase_b3_cal135_v2.py                393| np.savez(CAL135_DIR / f"cal135_{sim_idx:04d}.npz",
+  phase_cal135_action_a.py              31| FEAT_FILE   = RESULTS_DIR / "phase_b3_cal135_v2_features.npz"
+  phase_cal135_action_a.py              74| cf = CAL135_DIR / f"cal135_{sim_idx:04d}.npz"
+  phase_cal135_action_a.py             317| "features_source": "results/phase_b3_cal135_v2_features.npz",
+  phase_cal135_action_a.py             318| "n_gal_source":    "results/phase_b3_cal135_v2_fields/cal135_XXXX.npz",
+  phase_h2_diagnostic.py                72| TDA_CACHE        = ROOT / "results" / "phase1_fiducial_cache.npz"
+  phase_oc1_pk_hod.py                   14| - TDA ⟨pers₁⟩ su HOD B3 → σ = 3.73σ (già in phase5_hod_b3_features.npz)
+  phase_oc1_pk_hod.py                   27| 5. Confronta con σ_TDA_HOD = 3.73σ (da phase5_hod_b3_features.npz)
+  phase_oc1_pk_hod.py                   30| - HOD B3 parametri: phase5_hod_b3_features.npz -> hod_params_median
+  phase_oc1_pk_hod.py                   31| - TDA reference: phase5_hod_b3_features.npz -> fvecs_hod_b3[:,5], σ=3.73σ
+  phase_oc1_pk_hod.py                   71| TDA_FEATURES_FILE = RESULTS_DIR / "phase5_hod_b3_features.npz"
+  phase_oc1_pk_hod.py                   73| OUTPUT_PK   = RESULTS_DIR / "phase_oc1_pk_hod_cache.npz"
+  phase_oc1_pk_hod.py                  583| "tda_source":    "results/phase5_hod_b3_features.npz -> fvecs_hod_b3[:,5]",
+  phase_r51_hod_restricted.py           55| - Output: results/phase_r51_results.json, results/phase_r51_features.npz
+  phase_r51_hod_restricted.py          102| TDA_CACHE        = ROOT / "results" / "phase1_fiducial_cache.npz"
+  phase_r51_hod_restricted.py          105| OUTPUT_FEATURES  = RESULTS_DIR / "phase_r51_features_v2.npz"
+  phase_r51_hod_restricted.py          442| cache_file = R51_CACHE_DIR / f"r51_{sim_idx:04d}.npz"
+  phase_r51_hod_restricted.py          533| np.savez(R51_CACHE_DIR / f"r51_{sim_idx:04d}.npz",
+  phase_r51_hod_restricted_v3.py        61| - Output: results/phase_r51_results.json, results/phase_r51_features.npz
+  phase_r51_hod_restricted_v3.py       108| TDA_CACHE        = ROOT / "results" / "phase1_fiducial_cache.npz"
+  phase_r51_hod_restricted_v3.py       111| OUTPUT_FEATURES  = RESULTS_DIR / "phase_r51_features_v3.npz"
+  phase_r51_hod_restricted_v3.py       452| cache_file = R51_CACHE_DIR / f"r51_{sim_idx:04d}.npz"
+  phase_r51_hod_restricted_v3.py       543| np.savez(R51_CACHE_DIR / f"r51_{sim_idx:04d}.npz",
+  phase_r51_mmin_only.py                67| TDA_CACHE        = ROOT / "results" / "phase1_fiducial_cache.npz"
+  phase_r51_mmin_only.py                70| OUTPUT_FEATURES  = RESULTS_DIR / "phase_r51_features_mmin_only.npz"
+  phase_r51_mmin_only.py               411| cache_file = R51_CACHE_DIR / f"r51_{sim_idx:04d}.npz"
+  phase_r51_mmin_only.py               509| np.savez(R51_CACHE_DIR / f"r51_{sim_idx:04d}.npz",
+
+PERCORSI DI DATI CITATI
+------------------------------------------------------------------------------
+C:\Users\ale1m\miniconda3\envs\cauchy\Lib\site-packages\torch\lib\shm.dll
+    <- phase6_ramo_b_pilot.py
+D:\\projects\\cauchy
+    <- find_pipeline_code.py, paper1_fkp_asymmetry.py, paper1_mask_erosion.py, paper1_mirror_likeforlike.py, paper1_null_mockmock.py, paper1_remap.py, paper1_step6_onepoint_betti.py, phase9_altmtl_fiber_test.py, phase9_empirical_histograms.py, phase9_extract_features.py, phase9_growth_mismatch.py, phase9_hod_concentrated_grid.py, phase9_mask_reverdict.py, phase9_mask_robustness.py, phase9_replot_beta1max.py, phase9_rsd_satellite_sensitivity.py, phase9_sgc_likeforlike.py, phase9_w0_response_curve.py, phase9b_majors.py
+D:\\projects\\cauchy\\data
+    <- inventory_cauchy.py
+D:\\projects\\cauchy\\results
+    <- inventory_cauchy.py
+D:\projects\cauchy
+    <- find_pipeline_code.py, phase6_assemble_cycle3.py, phase6_ngal_corrected.py, phase6_o64bis.py, phase6_ramo_b_pilot.py, phase6_sigma_px_test.py, phase6_smoothing_sensitivity.py, phase7_make_rs_fields.py, phase7_rsd_test.py
+D:\projects\cauchy\**\latin_hypercube_params.txt
+    <- phase7_t1_variability.py
+D:\projects\cauchy\data
+    <- inventory_cauchy.py
+D:\projects\cauchy\data\raw\quijote\3D_cubes\latin_hypercube\latin_hypercube_params.txt
+    <- phase7_t1_variability.py
+D:\projects\cauchy\data\raw\quijote\3D_cubes\latin_hypercube_nwLH
+    <- phase7_pk_comparison_r53.py, phase7_r53_robustness.py
+D:\projects\cauchy\data\raw\quijote\3D_cubes\latin_hypercube_nwLH\latin_hypercube_nwLH_params.txt
+    <- phase7_r53_partial_corr.py, phase7_r53_robustness.py, phase7_t1_variability.py
+D:\projects\cauchy\data\raw\quijote\3D_cubes\latin_hypercube_nwLH_hod
+    <- phase7_rsd_hod_confirmation.py
+D:\projects\cauchy\data\raw\quijote\latin_hypercube_params.txt
+    <- phase7_t1_variability.py
+D:\projects\cauchy\prior\gate3_prior_v1_0.json
+    <- phase7_t1_variability.py
+D:\projects\cauchy\results
+    <- inventory_cauchy.py
+D:\projects\cauchy\results\checkpoints
+    <- phase7_t1_variability.py
+D:\projects\cauchy\results\phase2_tau_fields\lhc
+    <- phase7_t1_variability.py
+D:\projects\cauchy\results\phase2_tau_fields\nwlh
+    <- phase7_t1_variability.py
+D:\projects\cauchy\results\phase5_hod_b3_features.npz
+    <- phase7_pk_comparison_r53.py, phase7_rsd_hod_confirmation.py
+D:\projects\cauchy\results\phase7_b2_dm_nwlh_cache.npz
+    <- phase7_pk_comparison_r53.py, phase7_r53_partial_corr.py, phase7_r53_robustness.py
+D:\projects\cauchy\results\phase7_pk_comparison_r53.json
+    <- phase7_pk_comparison_r53.py, phase7_r53_partial_corr.py, phase7_r53_robustness.py
+D:\projects\cauchy\results\phase7_pk_nwlh_cache.npz
+    <- phase7_r53_robustness.py
+D:\projects\cauchy\results\phase7_r53_partial_corr.json
+    <- phase7_r53_partial_corr.py
+D:\projects\cauchy\results\phase7_r53_robustness.json
+    <- phase7_r53_robustness.py
+D:\projects\cauchy\results\phase7_rsd_hod_confirmation.json
+    <- phase7_rsd_hod_confirmation.py
+D:\projects\cauchy\results\phase7_t1_graphs_lhc_2000.pkl
+    <- phase7_t1_variability.py
+D:\projects\cauchy\results\phase7_t1_graphs_nwlh.pkl
+    <- phase7_t1_variability.py
+D:\projects\cauchy\results\phase7_t1_variability.json
+    <- phase7_t1_variability.py
+data/latin_hypercube_nwLH_params.txt
+    <- phase1_patch_cache.py
+data/latin_hypercube_params.txt
+    <- phase1_patch_cache.py
+data/processed/phase0_fields
+    <- phase1_patch_cache.py, phase2_cnn.py
+data/quijote_params/latin_hypercube_nwLH_params.txt
+    <- phase1_patch_cache.py
+data/quijote_params/latin_hypercube_params.txt
+    <- phase1_patch_cache.py
+data/raw/desi/BGS_BRIGHT-21.5_NGC_0_clustering.dat.fits
+    <- test.py
+data/raw/desi/BGS_BRIGHT-21.5_NGC_0_clustering.ran.fits
+    <- test.py
+data/raw/quijote/3D_cubes/latin_hypercube/latin_hypercube_params.txt
+    <- phase1_patch_cache.py
+data/raw/quijote/3D_cubes/latin_hypercube_nwLH/latin_hypercube_nwLH_params.txt
+    <- phase1_patch_cache.py, phase8_hod_fit.py
+results/checkpoints
+    <- phase2_cnn.py
+results/checkpoints/phase2_cnn_best.pt
+    <- phase2_cnn.py
+results/checkpoints/phase3_gnn_best.pt
+    <- inspect_checkpoint.py
+results/phase0_gate_result.json
+    <- phase1_patch_cache.py
+results/phase1_fiducial_cache.npz
+    <- phase1_patch_cache.py, phase2_cnn.py
+results/phase1_tda_baseline.json
+    <- phase1_patch_cache.py, phase2_cnn.py
+results/phase2_cnn_diagnostic.json
+    <- phase2_cnn.py
+results/phase2_tau_fields/lhc
+    <- phase2_cnn.py
+results/phase2_tau_fields/nwlh
+    <- phase2_cnn.py
+results/phase5_hod_b3_features.npz -> fvecs_hod_b3[:,5]
+    <- phase_oc1_pk_hod.py
+results/phase6_bgs_persistence_raw.npz
+    <- cauchy_figures.py
+results/phase_b3_cal135_v2_features.npz
+    <- phase_cal135_action_a.py
+results/phase_b3_cal135_v2_fields/cal135_XXXX.npz
+    <- phase_cal135_action_a.py
+
+
+==============================================================================
+FILE: D:\projects\cauchy\src\phase9_w0_response_curve.py
+bytes: 11063
+==============================================================================
+    1| #!/usr/bin/env python3
+    2| # -*- coding: utf-8 -*-
+    3| """
+    4| CAUCHY - Phase 9, Script 2
+    5| src/phase9_w0_response_curve.py
+    6| 
+    7| Isolated-referee Concern 3: the Phase 8 statement "reaching DESI requires
+    8| w0 ~ -294" is a linear extrapolation of a near-zero partial correlation ~200x
+    9| outside the sampled range. Not validated. This script replaces it with what the
+   10| data actually constrain WITHIN the sampled nwLH range.
+   11| 
+   12| It does three things on the labelled mocks (the ~200 with w0/Om/s8 in the npz):
+   13|   1. Partial correlation r(beta1_max, w0 | Om, s8) with a permutation p-value
+   14|      (residual-based; the honest measure of a w0 signal at fixed Om,s8).
+   15|   2. Binned response: mean beta1_max in w0 bins, to show (non)monotonicity.
+   16|   3. OLS slope d(beta1_max)/d(w0) at fixed Om,s8 with a bootstrap 95% CI, and the
+   17|      implied w0 to reach DESI IF the linear response held -- reported explicitly
+   18|      as an unvalidated extrapolation, with the extrapolation factor stated.
+   19| 
+   20| Key output: a reframed, defensible sentence for the paper, e.g.
+   21|   "Within the sampled range w0 in [wmin, wmax], beta1_max shows no significant
+   22|    dependence on w0 at fixed (Om, s8) (partial r = ..., p = ...). DESI's deficit
+   23|    is not reproduced by any sampled cosmology; attributing it to w0 alone would
+   24|    require w0 ~ X, an extrapolation ~Nx beyond the prior and therefore not a
+   25|    physical exclusion but a statement of the effect's magnitude."
+   26| 
+   27| Consumes results/phase9_likeforlike_arrays.npz (from phase9_extract_features.py).
+   28| Deterministic given --seed. No new field computation.
+   29| 
+   30| Run:
+   31|   python src\\phase9_w0_response_curve.py --project_root D:\\projects\\cauchy
+   32| """
+   33| 
+   34| import argparse
+   35| import datetime
+   36| import json
+   37| import sys
+   38| from pathlib import Path
+   39| import numpy as np
+   40| import matplotlib
+   41| matplotlib.use("Agg")
+   42| import matplotlib.pyplot as plt
+   43| 
+   44| N_BOOT = 5000
+   45| N_PERM = 20000
+   46| N_W0_BINS = 6
+   47| 
+   48| 
+   49| def _now_iso():
+   50|     return datetime.datetime.now(datetime.timezone.utc).isoformat()
+   51| 
+   52| 
+   53| def residualize(y, X):
+   54|     """Return residuals of y after OLS regression on [1, X]. X shape (n,k)."""
+   55|     A = np.column_stack([np.ones(len(y)), X])
+   56|     beta, *_ = np.linalg.lstsq(A, y, rcond=None)
+   57|     return y - A @ beta
+   58| 
+   59| 
+   60| def partial_corr(y, x, controls):
+   61|     """Partial correlation r(y, x | controls) via residualization."""
+   62|     ry = residualize(y, controls)
+   63|     rx = residualize(x, controls)
+   64|     denom = np.sqrt(np.sum(ry * ry) * np.sum(rx * rx))
+   65|     if denom == 0:
+   66|         return float("nan")
+   67|     return float(np.sum(ry * rx) / denom)
+   68| 
+   69| 
+   70| def perm_pvalue(y, x, controls, r_obs, n_perm, rng):
+   71|     """Two-sided permutation p-value for the partial correlation, permuting the
+   72|     residualized x against the residualized y."""
+   73|     ry = residualize(y, controls)
+   74|     rx = residualize(x, controls)
+   75|     denom = np.sqrt(np.sum(ry * ry) * np.sum(rx * rx))
+   76|     if denom == 0:
+   77|         return float("nan")
+   78|     count = 0
+   79|     n = len(ry)
+   80|     abs_obs = abs(r_obs)
+   81|     for _ in range(n_perm):
+   82|         perm = rng.permutation(n)
+   83|         r = np.sum(ry * rx[perm]) / denom
+   84|         if abs(r) >= abs_obs:
+   85|             count += 1
+   86|     return (count + 1) / (n_perm + 1)
+   87| 
+   88| 
+   89| def ols_slope_partial(y, w0, controls):
+   90|     """Slope of y on w0 controlling for controls: coefficient on w0 in the
+   91|     multiple regression y ~ 1 + w0 + controls."""
+   92|     A = np.column_stack([np.ones(len(y)), w0, controls])
+   93|     beta, *_ = np.linalg.lstsq(A, y, rcond=None)
+   94|     return float(beta[1])  # coefficient on w0
+   95| 
+   96| 
+   97| def main():
+   98|     ap = argparse.ArgumentParser()
+   99|     ap.add_argument("--project_root", type=str, default="D:\\projects\\cauchy")
+  100|     ap.add_argument("--seed", type=int, default=42)
+  101|     args = ap.parse_args()
+  102|     rng = np.random.default_rng(args.seed)
+  103| 
+  104|     root = Path(args.project_root).resolve()
+  105|     res_dir = root / "results"
+  106|     fig_dir = root / "figures"
+  107|     npz_path = res_dir / "phase9_likeforlike_arrays.npz"
+  108|     if not npz_path.exists():
+  109|         sys.exit(f"[FATAL] {npz_path} not found. Run phase9_extract_features.py first.")
+  110| 
+  111|     d = np.load(npz_path)
+  112|     beta1 = np.asarray(d["beta1_max"], float)
+  113|     w0 = np.asarray(d["w0"], float)
+  114|     Om = np.asarray(d["Om"], float)
+  115|     s8 = np.asarray(d["s8"], float)
+  116|     desi_b = float(d["desi_beta1max"])
+  117| 
+  118|     ok = np.isfinite(w0) & np.isfinite(Om) & np.isfinite(s8) & np.isfinite(beta1)
+  119|     beta1, w0, Om, s8 = beta1[ok], w0[ok], Om[ok], s8[ok]
+  120|     n = len(w0)
+  121|     print("=" * 70)
+  122|     print(f"CAUCHY Phase 9 - Script 2: beta1_max-w0 response (labelled N={n})")
+  123|     print("=" * 70)
+  124|     if n < 30:
+  125|         sys.exit(f"[FATAL] only {n} labelled mocks; need the pilot CSV merged into the npz.")
+  126| 
+  127|     w0min, w0max = float(w0.min()), float(w0.max())
+  128|     print(f"  w0 sampled range: [{w0min:.3f}, {w0max:.3f}]  (span {w0max-w0min:.3f})")
+  129|     print(f"  Om range: [{Om.min():.3f}, {Om.max():.3f}]  s8 range: [{s8.min():.3f}, {s8.max():.3f}]")
+  130| 
+  131|     controls = np.column_stack([Om, s8])
+  132| 
+  133|     # 1. partial correlation + permutation p
+  134|     r_part = partial_corr(beta1, w0, controls)
+  135|     p_perm = perm_pvalue(beta1, w0, controls, r_part, N_PERM, rng)
+  136|     print(f"\n  partial r(beta1_max, w0 | Om, s8) = {r_part:+.4f}  "
+  137|           f"(perm p = {p_perm:.4f}, N_perm={N_PERM})")
+  138| 
+  139|     # 2. binned response
+  140|     edges = np.quantile(w0, np.linspace(0, 1, N_W0_BINS + 1))
+  141|     edges[-1] += 1e-9
+  142|     which = np.clip(np.digitize(w0, edges) - 1, 0, N_W0_BINS - 1)
+  143|     bin_mid, bin_mean, bin_sem, bin_n = [], [], [], []
+  144|     for b in range(N_W0_BINS):
+  145|         sel = which == b
+  146|         if sel.sum() == 0:
+  147|             continue
+  148|         bin_mid.append(float(np.median(w0[sel])))
+  149|         bin_mean.append(float(beta1[sel].mean()))
+  150|         bin_sem.append(float(beta1[sel].std(ddof=1) / np.sqrt(sel.sum())) if sel.sum() > 1 else 0.0)
+  151|         bin_n.append(int(sel.sum()))
+  152|     print("\n  binned beta1_max vs w0 (at native Om,s8 mix):")
+  153|     for m, mu, se, nn in zip(bin_mid, bin_mean, bin_sem, bin_n):
+  154|         print(f"    w0~{m:+.3f}  beta1_max={mu:8.0f} +/- {se:5.0f}  (n={nn})")
+  155| 
+  156|     # 3. OLS slope at fixed Om,s8 + bootstrap CI
+  157|     slope = ols_slope_partial(beta1, w0, controls)
+  158|     boot = np.empty(N_BOOT)
+  159|     for k in range(N_BOOT):
+  160|         idx = rng.integers(0, n, n)
+  161|         boot[k] = ols_slope_partial(beta1[idx], w0[idx], controls[idx])
+  162|     lo, hi = np.percentile(boot, [2.5, 97.5])
+  163|     print(f"\n  OLS slope d(beta1_max)/d(w0) | Om,s8 = {slope:+.1f} "
+  164|           f"[95% CI {lo:+.1f}, {hi:+.1f}] loops per unit w0")
+  165| 
+  166|     # implied w0 to reach DESI IF linear response held (unvalidated extrapolation).
+  167|     # Only meaningful if the slope is DISTINGUISHABLE FROM ZERO (CI does not span 0).
+  168|     # When the CI crosses zero the inversion gap/slope is numerically meaningless
+  169|     # (a near-zero, sign-ambiguous denominator), so the extrapolation is UNDEFINED.
+  170|     gap = desi_b - float(beta1.mean())   # negative: DESI below
+  171|     slope_significant = (lo > 0) or (hi < 0)   # CI excludes zero
+  172|     if slope_significant and abs(slope) > 1e-6:
+  173|         w0_needed = float(np.mean(w0) + gap / slope)
+  174|         extrap_factor = abs(w0_needed - w0max) / (w0max - w0min)
+  175|         print(f"\n  IF-linear w0 to reach DESI = {w0_needed:.1f}  "
+  176|               f"(~{extrap_factor:.0f}x beyond the sampled range -> UNVALIDATED extrapolation)")
+  177|     else:
+  178|         w0_needed, extrap_factor = float("nan"), float("nan")
+  179|         print(f"\n  IF-linear w0 to reach DESI = UNDEFINED "
+  180|               f"(OLS slope CI [{lo:+.0f}, {hi:+.0f}] spans zero: no finite w0 follows "
+  181|               f"from a linear response indistinguishable from flat)")
+  182| 
+  183|     # significance verdict on the in-range w0 dependence
+  184|     w0_significant = np.isfinite(p_perm) and (p_perm < 0.05)
+  185|     if w0_significant:
+  186|         reframed = (f"Within the sampled range w0 in [{w0min:.2f}, {w0max:.2f}], "
+  187|                     f"beta1_max depends on w0 at fixed (Om,s8) (partial r={r_part:+.3f}, "
+  188|                     f"p={p_perm:.3f}); however DESI lies far below every sampled cosmology.")
+  189|     else:
+  190|         reframed = (f"Within the sampled range w0 in [{w0min:.2f}, {w0max:.2f}], beta1_max "
+  191|                     f"shows no significant dependence on w0 at fixed (Om,s8) "
+  192|                     f"(partial r={r_part:+.3f}, p={p_perm:.3f}); the response slope "
+  193|                     f"d(beta1_max)/d(w0) is indistinguishable from zero "
+  194|                     f"(OLS {slope:+.0f}, 95% CI [{lo:+.0f}, {hi:+.0f}]). DESI's deficit is "
+  195|                     f"not reproduced by any sampled cosmology, and the flat, sign-ambiguous "
+  196|                     f"w0 response admits no finite linear extrapolation to DESI. We therefore "
+  197|                     f"report the deficit as an anomaly relative to the w0CDM (wa=0) mock "
+  198|                     f"suite, not as a physical exclusion of a particular w0.")
+  199|     print("\n  [reframed sentence for the paper]")
+  200|     print("  " + reframed)
+  201| 
+  202|     # figure: binned response + DESI line
+  203|     fig, ax = plt.subplots(figsize=(6.2, 4.3))
+  204|     ax.scatter(w0, beta1, s=12, color="0.6", alpha=0.6, label="mocks (labelled)")
+  205|     ax.errorbar(bin_mid, bin_mean, yerr=bin_sem, fmt="o-", color="navy",
+  206|                 capsize=3, label="binned mean")
+  207|     ax.axhline(desi_b, color="crimson", lw=2, label="DESI BGS")
+  208|     ax.set_xlabel("$w_0$"); ax.set_ylabel("$\\beta_1^{\\mathrm{max}}$")
+  209|     ax.set_title("$\\beta_1^{\\mathrm{max}}$ vs $w_0$ (sampled nwLH range)")
+  210|     ax.legend(fontsize=8)
+  211|     fig.tight_layout()
+  212|     fig_dir.mkdir(parents=True, exist_ok=True)
+  213|     for ext in ("pdf", "png"):
+  214|         fig.savefig(fig_dir / f"fig_phase9_w0_response.{ext}", dpi=200)
+  215|     plt.close(fig)
+  216| 
+  217|     out = {
+  218|         "schema_version": "2.0",
+  219|         "script": "phase9_w0_response_curve.py",
+  220|         "phase": "9",
+  221|         "concern_addressed": "isolated-referee Concern 3 (w0=-294 extrapolation)",
+  222|         "timestamp": _now_iso(),
+  223|         "n_labelled_mocks": n,
+  224|         "w0_range": [w0min, w0max],
+  225|         "partial_corr_beta1_w0_given_Om_s8": r_part,
+  226|         "perm_pvalue": p_perm,
+  227|         "n_perm": N_PERM,
+  228|         "binned_response": [
+  229|             {"w0_median": m, "beta1_max_mean": mu, "sem": se, "n": nn}
+  230|             for m, mu, se, nn in zip(bin_mid, bin_mean, bin_sem, bin_n)
+  231|         ],
+  232|         "ols_slope_per_unit_w0": slope,
+  233|         "ols_slope_bootstrap_ci95": [float(lo), float(hi)],
+  234|         "if_linear_w0_needed": w0_needed,
+  235|         "extrapolation_factor_beyond_range": extrap_factor,
+  236|         "in_range_w0_dependence_significant": bool(w0_significant),
+  237|         "reframed_paper_sentence": reframed,
+  238|         "figure": "fig_phase9_w0_response.pdf",
+  239|         "source_arrays": str(npz_path),
+  240|         "notes": ("w0 analysis uses the labelled subset (pilot CSV merged into the npz). "
+  241|                   "The if-linear w0_needed is reported ONLY to state the extrapolation "
+  242|                   "factor; it is not a physical exclusion."),
+  243|     }
+  244|     outp = res_dir / "phase9_w0_response.json"
+  245|     with open(outp, "w", encoding="utf-8") as f:
+  246|         json.dump(out, f, indent=2, ensure_ascii=False)
+  247|     print(f"\n[written] {outp}")
+  248|     print(f"          {fig_dir / 'fig_phase9_w0_response.pdf'}")
+  249|     print("\nReport the partial r line, the binned block, the OLS slope, and the "
+  250|           "reframed sentence.")
+  251| 
+  252| 
+  253| if __name__ == "__main__":
+  254|     main()
+
+
+==============================================================================
+FILE: D:\projects\cauchy\src\phase9_extract_features.py
+bytes: 7050
+==============================================================================
+    1| #!/usr/bin/env python3
+    2| # -*- coding: utf-8 -*-
+    3| """
+    4| CAUCHY - Phase 9, prerequisite for Script 1
+    5| src/phase9_extract_features.py
+    6| 
+    7| Why this exists:
+    8|     The definitive N=2000 like-for-like run (Test 2, masked) saved the 2000
+    9|     masked fields as results/phase8_test2_fields/test2_XXXX.npz (key 'delta'),
+   10|     and froze summary stats + ranks in results/phase8_test2_masked.json, but the
+   11|     per-mock table (phase8_test2_permock.csv) only holds the N=200 pilot. The
+   12|     empirical histogram (Script 1) needs the raw 2000 values.
+   13| 
+   14| What it does:
+   15|     Re-runs Phase 8's OWN compute_tda_features(delta, mask, N_THRESH, masked=True)
+   16|     on each of the 2000 frozen cubes -> identical filtration by construction, so
+   17|     the resulting distribution is consistent with the frozen ranks. Merges w0/Om/s8
+   18|     from the pilot CSV by mock index (available for the 200 pilot indices; NaN
+   19|     otherwise -> Script 3 uses whatever is present). Freezes everything to
+   20|     results/phase9_likeforlike_arrays.npz.
+   21| 
+   22|     beta1_max = feats[4], pers1 = feats[5]  (same indices Phase 8 uses).
+   23| 
+   24| Sanity: prints mock mean/std and compares to phase8_test2_masked.json
+   25|     (beta1_max 35436.7 +/- 313.0 ; pers1 0.62985 +/- 0.04394). A large drift means
+   26|     the mask or the masked=True path differs from the frozen run -> stop and check.
+   27| 
+   28| Run (Windows, env cauchy):
+   29|     python src\\phase9_extract_features.py --project_root D:\\projects\\cauchy
+   30| """
+   31| 
+   32| import argparse
+   33| import csv
+   34| import json
+   35| import sys
+   36| import time
+   37| from pathlib import Path
+   38| import numpy as np
+   39| 
+   40| 
+   41| def find_mask(root, M):
+   42|     """Resolve the DESI mask path. Prefer Phase 8's own constant, else glob."""
+   43|     try:
+   44|         p = Path(M.DESI_MASK_FILE)
+   45|         if p.exists():
+   46|             return p
+   47|     except Exception:
+   48|         pass
+   49|     hits = list(root.rglob("bgs_ngc_mask_128.npy"))
+   50|     if hits:
+   51|         return hits[0]
+   52|     sys.exit("[FATAL] bgs_ngc_mask_128.npy not found under project root. "
+   53|              "Pass the correct --project_root or place the mask there.")
+   54| 
+   55| 
+   56| def main():
+   57|     ap = argparse.ArgumentParser()
+   58|     ap.add_argument("--project_root", type=str, default="D:\\projects\\cauchy")
+   59|     ap.add_argument("--n_expected", type=int, default=2000)
+   60|     args = ap.parse_args()
+   61| 
+   62|     root = Path(args.project_root).resolve()
+   63|     res_dir = root / "results"
+   64|     fields_dir = res_dir / "phase8_test2_fields"
+   65|     masked_json = res_dir / "phase8_test2_masked.json"
+   66|     pilot_csv = res_dir / "phase8_test2_permock.csv"
+   67|     out_npz = res_dir / "phase9_likeforlike_arrays.npz"
+   68| 
+   69|     # --- import Phase 8's own feature extractor (identical filtration) ---------
+   70|     sys.path.insert(0, str(root / "src"))
+   71|     try:
+   72|         import phase8_cutsky_mocks as M
+   73|     except Exception as e:
+   74|         sys.exit(f"[FATAL] cannot import phase8_cutsky_mocks from {root/'src'}: {e}")
+   75| 
+   76|     n_thresh = getattr(M, "N_THRESH", 100)
+   77|     mask_path = find_mask(root, M)
+   78|     mask = np.load(mask_path)
+   79|     print("=" * 70)
+   80|     print("CAUCHY Phase 9 - extract per-mock features from frozen masked cubes")
+   81|     print("=" * 70)
+   82|     print(f"  mask: {mask_path}  fill={100*float(mask.mean()):.1f}%  N_THRESH={n_thresh}")
+   83| 
+   84|     # --- DESI reference (already recomputed masked in Phase 8) -----------------
+   85|     with open(masked_json, "r", encoding="utf-8") as f:
+   86|         mj = json.load(f)
+   87|     desi_beta1max = float(mj["desi_reference_masked"]["beta1_max"])
+   88|     desi_pers1 = float(mj["desi_reference_masked"]["pers1"])
+   89|     ref_b_mean = float(mj["mock_beta1_max"]["mean"])
+   90|     ref_b_std = float(mj["mock_beta1_max"]["std"])
+   91|     ref_p_mean = float(mj["mock_pers1"]["mean"])
+   92|     ref_p_std = float(mj["mock_pers1"]["std"])
+   93|     print(f"  DESI (masked): beta1_max={desi_beta1max:.0f}  pers1={desi_pers1:.5f}")
+   94| 
+   95|     # --- w0/Om/s8 from the pilot CSV, keyed by mock index ----------------------
+   96|     params = {}
+   97|     if pilot_csv.exists():
+   98|         with open(pilot_csv, newline="") as f:
+   99|             for row in csv.DictReader(f):
+  100|                 try:
+  101|                     params[int(row["index"])] = (
+  102|                         float(row["w0"]), float(row["Om"]), float(row["s8"]))
+  103|                 except (ValueError, KeyError):
+  104|                     continue
+  105|         print(f"  pilot CSV: {len(params)} indices with (w0,Om,s8)")
+  106|     else:
+  107|         print("  [warn] pilot CSV not found -> w0/Om/s8 will be NaN.")
+  108| 
+  109|     # --- loop over the frozen cubes -------------------------------------------
+  110|     files = sorted(fields_dir.glob("test2_*.npz"))
+  111|     if not files:
+  112|         sys.exit(f"[FATAL] no test2_*.npz in {fields_dir}")
+  113|     print(f"\n  {len(files)} cubes found. Recomputing masked TDA...")
+  114| 
+  115|     idx_list, b1_list, p1_list, w0_list, om_list, s8_list = [], [], [], [], [], []
+  116|     t0 = time.time()
+  117|     for k, fp in enumerate(files):
+  118|         try:
+  119|             i = int(fp.stem.split("_")[1])
+  120|         except (IndexError, ValueError):
+  121|             i = k
+  122|         delta = np.load(fp)["delta"]
+  123|         feats = M.compute_tda_features(delta, mask, n_thresh, masked=True)
+  124|         b1_list.append(float(feats[4]))
+  125|         p1_list.append(float(feats[5]))
+  126|         idx_list.append(i)
+  127|         w0, om, s8 = params.get(i, (np.nan, np.nan, np.nan))
+  128|         w0_list.append(w0); om_list.append(om); s8_list.append(s8)
+  129|         if (k + 1) % 100 == 0 or k == 0:
+  130|             eta = (time.time() - t0) / (k + 1) * (len(files) - k - 1) / 60
+  131|             print(f"  [{k+1}/{len(files)}] beta1_max~{np.mean(b1_list):.0f} "
+  132|                   f"pers1~{np.mean(p1_list):.4f} ETA={eta:.1f}min")
+  133| 
+  134|     beta1 = np.array(b1_list, float)
+  135|     pers1 = np.array(p1_list, float)
+  136|     index = np.array(idx_list, int)
+  137|     w0 = np.array(w0_list, float)
+  138|     om = np.array(om_list, float)
+  139|     s8 = np.array(s8_list, float)
+  140|     N = beta1.size
+  141| 
+  142|     # --- sanity vs frozen summary ---------------------------------------------
+  143|     b_mean, b_std = float(beta1.mean()), float(beta1.std(ddof=1))
+  144|     p_mean, p_std = float(pers1.mean()), float(pers1.std(ddof=1))
+  145|     print(f"\n  recomputed  beta1_max: mean={b_mean:.1f} std={b_std:.1f}  "
+  146|           f"(frozen {ref_b_mean:.1f} +/- {ref_b_std:.1f})")
+  147|     print(f"  recomputed  pers1    : mean={p_mean:.5f} std={p_std:.5f}  "
+  148|           f"(frozen {ref_p_mean:.5f} +/- {ref_p_std:.5f})")
+  149|     drift_b = abs(b_mean - ref_b_mean) / ref_b_std
+  150|     drift_p = abs(p_mean - ref_p_mean) / ref_p_std
+  151|     if drift_b > 0.5 or drift_p > 0.5:
+  152|         print(f"  [WARN] drift vs frozen > 0.5 sigma (beta1 {drift_b:.2f}, "
+  153|               f"pers1 {drift_p:.2f}). Investigate before using the histogram.")
+  154|     else:
+  155|         print(f"  [ok] consistent with frozen run (drift beta1 {drift_b:.2f}, "
+  156|               f"pers1 {drift_p:.2f} in units of frozen std).")
+  157| 
+  158|     # --- freeze ----------------------------------------------------------------
+  159|     np.savez(
+  160|         out_npz,
+  161|         beta1_max=beta1, pers1_mean=pers1, index=index,
+  162|         w0=w0, Om=om, s8=s8,
+  163|         desi_beta1max=np.array(desi_beta1max),
+  164|         desi_pers1=np.array(desi_pers1),
+  165|         n_mocks=np.array(N),
+  166|     )
+  167|     print(f"\n[SAVED] {out_npz}  (N={N})")
+  168|     print("Report the two 'recomputed' lines and the [ok]/[WARN] status.")
+  169| 
+  170| 
+  171| if __name__ == "__main__":
+  172|     main()
+
+
+==============================================================================
+FILE: D:\projects\cauchy\src\phase9b_majors.py
+bytes: 16025
+==============================================================================
+    1| #!/usr/bin/env python3
+    2| # -*- coding: utf-8 -*-
+    3| """
+    4| CAUCHY - Phase 9b, combined light majors
+    5| src/phase9b_majors.py
+    6| 
+    7| Four second-round major points, run in sequence (one launch, four JSON):
+    8| 
+    9|   A. Redshift split (R1.2): is the deficit present in BOTH halves of the z shell?
+   10|      DESI split at the median z; mocks re-carved and split at the same z_obs cut.
+   11| 
+   12|   B. Scatter decomposition (R2.2): fix ONE fiducial cosmology (nwLH idx 1805,
+   13|      Om=0.329 s8=0.811 w0=-0.98, near Planck) and run 50 HOD/downsampling seeds
+   14|      to measure the STOCHASTIC scatter, vs the cosmological scatter across the
+   15|      suite. Reports r(beta1,Om/s8/w0) too.
+   16| 
+   17|   C. Filtration-convention stability (R2.3): recompute beta1_max under the
+   18|      ALTERNATIVE masked convention (retain sentinel-touching generators as
+   19|      relative cycles) and check the deficit is stable.
+   20| 
+   21|   D. Imaging split (R3.1b): split the NGC DATA by PHOTSYS (N=BASS+MzLS,
+   22|      S=DECaLS) and by Dec at +32.4, and check the deficit against the mock
+   23|      distribution in each angular region.
+   24| 
+   25| Run:
+   26|   python src\\phase9b_majors.py --project_root D:\\projects\\cauchy --k 30 --nseed 50
+   27|   (use --only A|B|C|D to run a single block)
+   28| """
+   29| 
+   30| import argparse
+   31| import datetime
+   32| import json
+   33| import sys
+   34| import time
+   35| from pathlib import Path
+   36| import numpy as np
+   37| 
+   38| 
+   39| def _now_iso():
+   40|     return datetime.datetime.now(datetime.timezone.utc).isoformat()
+   41| 
+   42| 
+   43| # ---------------------------------------------------------------------------
+   44| # Local carve that ALSO returns z_obs (module version discards it)
+   45| # ---------------------------------------------------------------------------
+   46| def carve_with_z(M, pos_gal, vel_gal, mask, nz_z, nz_target, rng):
+   47|     def offsets(axis):
+   48|         lo, hi = M.BOX_MIN[axis], M.BOX_MIN[axis] + M.BOX_SIZE
+   49|         return list(range(int(np.floor(lo / M.BOXSIZE_MOCK)),
+   50|                           int(np.floor(hi / M.BOXSIZE_MOCK)) + 1))
+   51|     ox, oy, oz = offsets(0), offsets(1), offsets(2)
+   52|     cand_P, cand_z = [], []
+   53|     for kx in ox:
+   54|         for ky in oy:
+   55|             for kz in oz:
+   56|                 shift = np.array([kx, ky, kz]) * M.BOXSIZE_MOCK
+   57|                 P = pos_gal + shift[None, :]
+   58|                 inb = np.all((P >= M.BOX_MIN[None, :]) &
+   59|                              (P < (M.BOX_MIN + M.BOX_SIZE)[None, :]), axis=1)
+   60|                 if not inb.any():
+   61|                     continue
+   62|                 P = P[inb]; V = vel_gal[inb]
+   63|                 dC = np.linalg.norm(P, axis=1)
+   64|                 good = (dC > 1e-6) & (dC >= M.D_C_ZMIN - 50) & (dC <= M.D_C_ZMAX + 50)
+   65|                 if not good.any():
+   66|                     continue
+   67|                 P, V, dC = P[good], V[good], dC[good]
+   68|                 rhat = P / dC[:, None]
+   69|                 z_cosmo = M.z_of_dc(dC)
+   70|                 v_los = np.sum(V * rhat, axis=1)
+   71|                 z_obs = z_cosmo + (1.0 + z_cosmo) * v_los / M.C_KMS
+   72|                 dC_rsd = np.interp(np.clip(z_obs, 0.0, 0.6), M._Z_TAB, M._DC_TAB)
+   73|                 P_rsd = rhat * dC_rsd[:, None]
+   74|                 zsel = (z_obs >= M.ZMIN) & (z_obs <= M.ZMAX)
+   75|                 if not zsel.any():
+   76|                     continue
+   77|                 P_rsd, z_obs_s = P_rsd[zsel], z_obs[zsel]
+   78|                 ijk = np.clip(((P_rsd - M.BOX_MIN[None, :]) / M.CELL).astype(np.int32), 0, M.NGRID - 1)
+   79|                 inmask = mask[ijk[:, 0], ijk[:, 1], ijk[:, 2]]
+   80|                 if not inmask.any():
+   81|                     continue
+   82|                 cand_P.append(P_rsd[inmask]); cand_z.append(z_obs_s[inmask])
+   83|     if not cand_P:
+   84|         return np.zeros((0, 3)), np.zeros(0)
+   85|     P_cand = np.vstack(cand_P); z_cand = np.concatenate(cand_z)
+   86|     edges = np.concatenate([[nz_z[0] - 0.5 * (nz_z[1] - nz_z[0])],
+   87|                             0.5 * (nz_z[:-1] + nz_z[1:]),
+   88|                             [nz_z[-1] + 0.5 * (nz_z[-1] - nz_z[-2])]])
+   89|     which = np.clip(np.digitize(z_cand, edges) - 1, 0, len(nz_z) - 1)
+   90|     n_cand_bin = np.bincount(which, minlength=len(nz_z)).astype(float)
+   91|     shape = np.clip(nz_target, 0.0, None).astype(float)
+   92|     if shape.sum() <= 0:
+   93|         return np.zeros((0, 3)), np.zeros(0)
+   94|     desired = shape / shape.sum() * float(M.N_TARGET_BGS)
+   95|     with np.errstate(divide='ignore', invalid='ignore'):
+   96|         p_bin = np.where(n_cand_bin > 0, desired / n_cand_bin, 0.0)
+   97|     p = np.minimum(p_bin, 1.0)[which]
+   98|     keep = rng.random(len(z_cand)) < p
+   99|     return P_cand[keep], z_cand[keep]
+  100| 
+  101| 
+  102| # ---------------------------------------------------------------------------
+  103| # beta1_max with selectable masked convention (standard vs relative-cycle)
+  104| # ---------------------------------------------------------------------------
+  105| def beta1_conv(M, delta_field, mask, n_thresh, convention="standard"):
+  106|     import gudhi
+  107|     field = delta_field.astype(np.float64)
+  108|     field_in = field[mask]
+  109|     thr = np.linspace(np.percentile(field_in, 1), np.percentile(field_in, 99), n_thresh)
+  110|     SENT = 1.0e6
+  111|     field_work = field.copy(); field_work[~mask] = -SENT
+  112|     field_neg = -field_work
+  113|     cutoff = (SENT / 2.0) if convention == "standard" else np.inf
+  114|     cc = gudhi.CubicalComplex(dimensions=list(field_neg.shape),
+  115|                               top_dimensional_cells=field_neg.flatten())
+  116|     cc.compute_persistence()
+  117|     d1 = cc.persistence_intervals_in_dimension(1)
+  118|     if len(d1) == 0:
+  119|         return 0
+  120|     d = np.array(d1)
+  121|     keep = np.isfinite(d[:, 1]) & (d[:, 0] < cutoff) & (d[:, 1] < cutoff)
+  122|     df = d[keep]
+  123|     b1, dth1 = -df[:, 0], -df[:, 1]
+  124|     curve = np.array([np.sum((b1 >= nu) & (dth1 < nu)) for nu in thr])
+  125|     return int(curve.max())
+  126| 
+  127| 
+  128| def voxelize_positions(M, pos, field_r, sum_wr, mask):
+  129|     if len(pos) < 100:
+  130|         return None
+  131|     field_d = M.cic_3d(pos, np.ones(len(pos)), M.NGRID, M.BOX_MIN, M.BOX_SIZE)
+  132|     return M.build_field(field_d, field_r, float(len(pos)) / sum_wr, mask)
+  133| 
+  134| 
+  135| # ===========================================================================
+  136| def block_A_redshift_split(M, T2, mask, field_r, sum_wr, nz_z, nz_target, args, desi_dir, res_dir):
+  137|     print("\n" + "=" * 60 + "\n[A] Redshift split (R1.2)\n" + "=" * 60)
+  138|     from astropy.io import fits
+  139|     # DESI: split data by median z, voxelize each half, deficit ref
+  140|     dat = desi_dir / "BGS_BRIGHT-21.5_NGC_clustering.dat.fits"
+  141|     with fits.open(dat) as h:
+  142|         t = h["LSS"].data
+  143|         mz = (t["Z"] >= M.ZMIN) & (t["Z"] <= M.ZMAX)
+  144|         ra, dec, z = t["RA"][mz], t["DEC"][mz], t["Z"][mz]
+  145|         w = (t["WEIGHT"][mz] * t["WEIGHT_FKP"][mz]).astype(np.float64)
+  146|     zmed = float(np.median(z))
+  147|     dC = M.comoving_distance(z.astype(np.float64))
+  148|     rar, decr = np.radians(ra.astype(np.float64)), np.radians(dec.astype(np.float64))
+  149|     pos = np.column_stack([dC*np.cos(decr)*np.cos(rar), dC*np.cos(decr)*np.sin(rar), dC*np.sin(decr)])
+  150|     print(f"  median z = {zmed:.3f}")
+  151|     out = {"median_z": zmed, "halves": {}}
+  152|     for name, sel in [("low", z <= zmed), ("high", z > zmed)]:
+  153|         fd = M.cic_3d(pos[sel], w[sel], M.NGRID, M.BOX_MIN, M.BOX_SIZE)
+  154|         nu = M.build_field(fd, field_r, float(w[sel].sum())/sum_wr, mask)
+  155|         desi_b = float(M.compute_tda_features(nu, mask, M.N_THRESH, masked=True)[4])
+  156|         # mocks: re-carve, keep only galaxies in this z-half, voxelize
+  157|         mb = []
+  158|         for kk in range(args.k):
+  159|             rng = np.random.default_rng(args.seed + kk)
+  160|             ph, mh, vh = M.read_halo_catalog(kk, args.snapnum)
+  161|             if ph is None or len(ph) < 50: continue
+  162|             pg, vg = T2.populate_with_virial(ph, mh, vh, M.HOD_MEDIAN, rng)
+  163|             if len(pg) < 100: continue
+  164|             ps, zs = carve_with_z(M, pg, vg, mask, nz_z, nz_target, rng)
+  165|             half = ps[zs <= zmed] if name == "low" else ps[zs > zmed]
+  166|             nuh = voxelize_positions(M, half, field_r, sum_wr, mask)
+  167|             if nuh is None: continue
+  168|             mb.append(float(M.compute_tda_features(nuh, mask, M.N_THRESH, masked=True)[4]))
+  169|         mb = np.array(mb); mean, std = float(mb.mean()), float(mb.std(ddof=1))
+  170|         z_s = (desi_b - mean)/std; frac = (mean-desi_b)/mean
+  171|         out["halves"][name] = {"desi": desi_b, "mock_mean": mean, "mock_std": std,
+  172|                                "z": z_s, "frac_deficit": frac, "n_mock": int(mb.size)}
+  173|         print(f"  {name:4s} z: DESI={desi_b:.0f} mock={mean:.0f}+/-{std:.0f} "
+  174|               f"z={z_s:+.1f} frac={100*frac:.1f}% (n={mb.size})")
+  175|     both = all(out["halves"][h]["z"] < -3 for h in out["halves"])
+  176|     out["verdict"] = "DEFICIT_IN_BOTH_HALVES" if both else "REDSHIFT_LOCALISED"
+  177|     print(f"  >>> {out['verdict']}")
+  178|     json.dump(out, open(res_dir/"phase9b_redshift_split.json","w"), indent=2)
+  179|     return out
+  180| 
+  181| 
+  182| def block_B_scatter(M, T2, mask, field_r, sum_wr, nz_z, nz_target, args, res_dir):
+  183|     print("\n" + "=" * 60 + "\n[B] Scatter decomposition, fixed cosmology (R2.2)\n" + "=" * 60)
+  184|     FID = 1805
+  185|     ph, mh, vh = M.read_halo_catalog(FID, args.snapnum)
+  186|     if ph is None:
+  187|         print("  [skip] fiducial halo catalog not available"); return None
+  188|     vals = []
+  189|     t0 = time.time()
+  190|     for s in range(args.nseed):
+  191|         rng = np.random.default_rng(10000 + s)   # vary HOD+downsampling seed only
+  192|         pg, vg = T2.populate_with_virial(ph, mh, vh, M.HOD_MEDIAN, rng)
+  193|         if len(pg) < 100: continue
+  194|         ps = M.carve_cutsky(pg, vg, mask, nz_z, nz_target, rng)
+  195|         nu = M.voxelize_mock(ps, field_r, sum_wr, mask)
+  196|         if nu is None: continue
+  197|         vals.append(float(M.compute_tda_features(nu, mask, M.N_THRESH, masked=True)[4]))
+  198|         if len(vals) % 10 == 0:
+  199|             eta=(time.time()-t0)/len(vals)*(args.nseed-len(vals))/60
+  200|             print(f"  [{len(vals)}/{args.nseed}] mean={np.mean(vals):.0f} std={np.std(vals,ddof=1):.0f} ETA={eta:.1f}min")
+  201|     vals = np.array(vals)
+  202|     stoch = float(vals.std(ddof=1))
+  203|     # cosmological scatter from the frozen suite
+  204|     d = np.load(Path(args.project_root)/"results"/"phase9_likeforlike_arrays.npz")
+  205|     b = np.asarray(d["beta1_max"], float); total = float(b.std(ddof=1))
+  206|     Om, s8, w0 = (np.asarray(d[k], float) for k in ("Om","s8","w0"))
+  207|     ok = np.isfinite(Om)
+  208|     r = lambda x: float(np.corrcoef(b[ok], x[ok])[0,1])
+  209|     out = {"fiducial_idx": FID, "nseed": int(vals.size),
+  210|            "fiducial_mean": float(vals.mean()), "stochastic_std": stoch,
+  211|            "suite_total_std": total,
+  212|            "stochastic_fraction_of_total_var": (stoch**2)/(total**2) if total>0 else None,
+  213|            "r_beta1_Om": r(Om), "r_beta1_s8": r(s8), "r_beta1_w0": r(w0)}
+  214|     print(f"  stochastic std (fixed cosmology, {vals.size} seeds) = {stoch:.0f}")
+  215|     print(f"  suite total std = {total:.0f}  -> stochastic is {100*out['stochastic_fraction_of_total_var']:.0f}% of the variance")
+  216|     print(f"  r(beta1,Om)={out['r_beta1_Om']:+.3f}  r(s8)={out['r_beta1_s8']:+.3f}  r(w0)={out['r_beta1_w0']:+.3f}")
+  217|     json.dump(out, open(res_dir/"phase9b_scatter_decomp.json","w"), indent=2)
+  218|     return out
+  219| 
+  220| 
+  221| def block_C_convention(M, mask, args, res_dir):
+  222|     print("\n" + "=" * 60 + "\n[C] Filtration-convention stability (R2.3)\n" + "=" * 60)
+  223|     fields_dir = Path(args.project_root)/"results"/"phase8_test2_fields"
+  224|     files = sorted(fields_dir.glob("test2_*.npz"))[:args.k]
+  225|     # DESI field
+  226|     field_r, sum_wr = M.load_desi_random_field()
+  227|     field_d, sum_wd = M.load_desi_data_field()
+  228|     nu_desi = M.build_field(field_d, field_r, sum_wd/sum_wr, mask)
+  229|     out = {"conventions": {}}
+  230|     for conv in ("standard", "relative"):
+  231|         desi_b = beta1_conv(M, nu_desi, mask, M.N_THRESH, conv)
+  232|         mb = np.array([beta1_conv(M, np.load(fp)["delta"], mask, M.N_THRESH, conv) for fp in files])
+  233|         mean, std = float(mb.mean()), float(mb.std(ddof=1))
+  234|         z = (desi_b-mean)/std; nb = int((mb <= desi_b).sum())
+  235|         out["conventions"][conv] = {"desi": desi_b, "mock_mean": mean, "mock_std": std,
+  236|                                     "z": z, "rank": f"{nb}/{len(mb)}", "frac": (mean-desi_b)/mean}
+  237|         print(f"  {conv:9s}: DESI={desi_b} mock={mean:.0f}+/-{std:.0f} z={z:+.1f} rank={nb}/{len(mb)} frac={100*(mean-desi_b)/mean:.1f}%")
+  238|     stable = all(out["conventions"][c]["z"] < -3 for c in out["conventions"])
+  239|     out["verdict"] = "CONVENTION_STABLE" if stable else "CONVENTION_SENSITIVE"
+  240|     print(f"  >>> {out['verdict']}")
+  241|     json.dump(out, open(res_dir/"phase9b_filtration_convention.json","w"), indent=2)
+  242|     return out
+  243| 
+  244| 
+  245| def block_D_imaging(M, mask, field_r, sum_wr, args, desi_dir, res_dir):
+  246|     print("\n" + "=" * 60 + "\n[D] Imaging split (R3.1b)\n" + "=" * 60)
+  247|     from astropy.io import fits
+  248|     dat = desi_dir / "BGS_BRIGHT-21.5_NGC_clustering.dat.fits"
+  249|     with fits.open(dat) as h:
+  250|         t = h["LSS"].data
+  251|         mz = (t["Z"] >= M.ZMIN) & (t["Z"] <= M.ZMAX)
+  252|         ra, dec, z = t["RA"][mz], t["DEC"][mz], t["Z"][mz]
+  253|         w = (t["WEIGHT"][mz] * t["WEIGHT_FKP"][mz]).astype(np.float64)
+  254|         photsys = np.array(t["PHOTSYS"][mz]).astype(str)
+  255|     dC = M.comoving_distance(z.astype(np.float64))
+  256|     rar, decr = np.radians(ra.astype(np.float64)), np.radians(dec.astype(np.float64))
+  257|     pos = np.column_stack([dC*np.cos(decr)*np.cos(rar), dC*np.cos(decr)*np.sin(rar), dC*np.sin(decr)])
+  258|     splits = {"PHOTSYS_N": photsys == "N", "PHOTSYS_S": photsys == "S",
+  259|               "DEC_gt_32.4": dec > 32.4, "DEC_le_32.4": dec <= 32.4}
+  260|     # reference DESI full deficit under this mask
+  261|     nu_full = M.build_field(M.cic_3d(pos, w, M.NGRID, M.BOX_MIN, M.BOX_SIZE), field_r, float(w.sum())/sum_wr, mask)
+  262|     desi_full = float(M.compute_tda_features(nu_full, mask, M.N_THRESH, masked=True)[4])
+  263|     out = {"desi_full": desi_full, "regions": {}}
+  264|     for name, sel in splits.items():
+  265|         if sel.sum() < 1000:
+  266|             print(f"  {name}: only {int(sel.sum())} gals, skipped"); continue
+  267|         nu = M.build_field(M.cic_3d(pos[sel], w[sel], M.NGRID, M.BOX_MIN, M.BOX_SIZE), field_r, float(w[sel].sum())/sum_wr, mask)
+  268|         db = float(M.compute_tda_features(nu, mask, M.N_THRESH, masked=True)[4])
+  269|         out["regions"][name] = {"n_gal": int(sel.sum()), "desi_beta1": db,
+  270|                                 "ratio_to_full": db/desi_full}
+  271|         print(f"  {name:12s}: n={int(sel.sum()):6d}  beta1_max={db:.0f}  (ratio to full {db/desi_full:.3f})")
+  272|     n = out["regions"].get("PHOTSYS_N", {}).get("desi_beta1")
+  273|     s = out["regions"].get("PHOTSYS_S", {}).get("desi_beta1")
+  274|     if n and s:
+  275|         out["imaging_consistent"] = abs(n - s) / ((n + s) / 2) < 0.15
+  276|         print(f"  PHOTSYS N vs S: {n:.0f} vs {s:.0f}  -> "
+  277|               f"{'consistent' if out['imaging_consistent'] else 'DIFFERENT (imaging systematic suspected)'}")
+  278|     json.dump(out, open(res_dir/"phase9b_imaging_split.json","w"), indent=2)
+  279|     return out
+  280| 
+  281| 
+  282| def main():
+  283|     ap = argparse.ArgumentParser()
+  284|     ap.add_argument("--project_root", type=str, default="D:\\projects\\cauchy")
+  285|     ap.add_argument("--k", type=int, default=30)
+  286|     ap.add_argument("--nseed", type=int, default=50)
+  287|     ap.add_argument("--snapnum", type=int, default=3)
+  288|     ap.add_argument("--seed", type=int, default=42)
+  289|     ap.add_argument("--only", type=str, default=None, help="A|B|C|D")
+  290|     args = ap.parse_args()
+  291| 
+  292|     root = Path(args.project_root).resolve()
+  293|     res_dir = root / "results"; desi_dir = root / "data" / "raw" / "desi_dr1"
+  294|     sys.path.insert(0, str(root / "src"))
+  295|     import phase8_cutsky_mocks as M
+  296|     import phase8_test2_masked as T2
+  297| 
+  298|     mask = (np.load(M.DESI_MASK_FILE) if Path(M.DESI_MASK_FILE).exists()
+  299|             else np.load(next(root.rglob("bgs_ngc_mask_128.npy")))).astype(bool)
+  300|     field_r, sum_wr = M.load_desi_random_field()
+  301|     nz_z, nz_target = M.load_bgs_nz()
+  302| 
+  303|     print("=" * 70 + f"\nCAUCHY Phase 9b majors (k={args.k}, nseed={args.nseed})\n" + "=" * 70)
+  304|     do = (lambda x: (args.only is None) or (args.only.upper() == x))
+  305|     if do("A"): block_A_redshift_split(M, T2, mask, field_r, sum_wr, nz_z, nz_target, args, desi_dir, res_dir)
+  306|     if do("B"): block_B_scatter(M, T2, mask, field_r, sum_wr, nz_z, nz_target, args, res_dir)
+  307|     if do("C"): block_C_convention(M, mask, args, res_dir)
+  308|     if do("D"): block_D_imaging(M, mask, field_r, sum_wr, args, desi_dir, res_dir)
+  309|     print("\n[done] Report the [A]/[B]/[C]/[D] blocks and their verdicts.")
+  310| 
+  311| 
+  312| if __name__ == "__main__":
+  313|     main()
+
+
+==============================================================================
+FILE: D:\projects\cauchy\src\phase8_cutsky_mocks.py
+bytes: 31481
+==============================================================================
+    1| """
+    2| CAUCHY — Phase 8, Script 1
+    3| src/phase8_cutsky_mocks.py
+    4| 
+    5| TEST 1 (diagnostic, exact-replica): does the DESI topological anomaly survive
+    6| survey geometry?
+    7| 
+    8| Rationale (gate8_prior_v1_0.json):
+    9|   The canonical DESI TDA (phase6_bgs_tda.py) runs gudhi CubicalComplex on the
+   10|   FULL 128^3 embedding cube with ~85% of voxels set to 0.0 (exterior). The mask
+   11|   is used only for thresholds/mean, NOT to exclude the exterior from the
+   12|   filtration. Mocks (phase6_smoothing_sensitivity.compute_b2_full) are periodic
+   13|   boxes with no mask and mode='wrap' smoothing. The two <pers1> statistics are
+   14|   therefore NOT computed on comparable geometries.
+   15| 
+   16|   This script rebuilds the mock reference distribution by applying the SAME
+   17|   construction as DESI: cut-sky carving with the DESI NGC mask + n(z) + FKP,
+   18|   zero-exterior embedding, and the identical UNMASKED compute_tda_features.
+   19| 
+   20|   DESI values are UNCHANGED (0.45886, 29683). Only the mock side is rebuilt.
+   21| 
+   22| Construction (option (a): satellites at halo bulk velocity, no intra-halo disp):
+   23|   1. Read FoF halos from groups_003 (z=0.5), WITH group velocities.
+   24|   2. HOD populate (B3 median), assign per-galaxy velocity = parent halo velocity.
+   25|   3. Tile the periodic 1000 Mpc/h box into the DESI embedding cube.
+   26|   4. Observer at Cartesian origin; per galaxy -> (RA, Dec, z_cosmo).
+   27|   5. RSD: z_obs = z_cosmo + (1+z_cosmo) * v_los / c.
+   28|   6. Carve: keep galaxies whose embedding voxel is in the DESI NGC mask AND
+   29|      z_obs in [0.1, 0.4].
+   30|   7. Radial downsample to match BGS NGC n(z).
+   31|   8. delta_FKP against the DESI random field, exterior = 0.0, smoothing R=5.
+   32|   9. compute_tda_features UNMASKED (identical to phase6_bgs_tda.py).
+   33|  10. Collect <pers1> and beta1_max per mock; empirical rank of DESI.
+   34| 
+   35| Output:
+   36|   results/phase8_cutsky_test1.json
+   37|   results/phase8_cutsky_fields/cutsky_{i:04d}.npz   (delta field per mock, optional)
+   38| 
+   39| Usage:
+   40|   python src/phase8_cutsky_mocks.py --n_pilot 200 --project_root D:\projects\cauchy
+   41| 
+   42| VERIFY BEFORE TREATING AS FINAL (see gate8 declared_limitations):
+   43|   - GADGET_VEL_SQRT_A: whether Quijote group_tab velocities need the sqrt(a) factor.
+   44|   - FoF GroupVel byte offset (validated by --check_fof on one file).
+   45|   - Random-catalogue column names (WEIGHT_FKP).
+   46| """
+   47| 
+   48| import argparse
+   49| import json
+   50| import time
+   51| import sys
+   52| from datetime import datetime, timezone
+   53| from pathlib import Path
+   54| 
+   55| import numpy as np
+   56| from scipy.ndimage import gaussian_filter
+   57| 
+   58| # ---------------------------------------------------------------------------
+   59| # CLI — only parse the real command line when run as the main program. When this
+   60| # module is IMPORTED (e.g. by phase8_weight_check.py / phase8_field_diagnostic.py),
+   61| # parse an empty list so those scripts keep their own argparse.
+   62| # ---------------------------------------------------------------------------
+   63| parser = argparse.ArgumentParser()
+   64| parser.add_argument("--project_root", type=str, default=".")
+   65| parser.add_argument("--n_pilot", type=int, default=200)
+   66| parser.add_argument("--snapnum", type=int, default=3, help="3 = z=0.5")
+   67| parser.add_argument("--seed", type=int, default=42)
+   68| parser.add_argument("--save_fields", action="store_true",
+   69|                     help="Save per-mock delta fields (large; off by default)")
+   70| parser.add_argument("--check_fof", action="store_true",
+   71|                     help="Validate FoF velocity offset on sim 0 and exit")
+   72| args = parser.parse_args() if __name__ == "__main__" else parser.parse_args([])
+   73| 
+   74| ROOT = Path(args.project_root)
+   75| np.random.seed(args.seed)
+   76| 
+   77| # ---------------------------------------------------------------------------
+   78| # Paths
+   79| # ---------------------------------------------------------------------------
+   80| HOD_CATALOG_DIR = ROOT / "data" / "raw" / "quijote" / "3D_cubes" / "latin_hypercube_nwLH_hod"
+   81| DESI_DIR        = ROOT / "data" / "raw" / "desi_dr1"
+   82| RAN_FITS        = DESI_DIR / "BGS_BRIGHT-21.5_NGC_0_clustering.ran.fits"
+   83| NZ_FILE         = DESI_DIR / "BGS_BRIGHT-21.5_NGC_nz.txt"
+   84| FLD_DIR         = ROOT / "data" / "processed" / "phase6_fields"
+   85| DESI_MASK_FILE  = FLD_DIR / "bgs_ngc_mask_128.npy"
+   86| RES_DIR         = ROOT / "results"
+   87| OUT_FIELDS_DIR  = RES_DIR / "phase8_cutsky_fields"
+   88| OUTPUT_JSON     = RES_DIR / "phase8_cutsky_test1.json"
+   89| RES_DIR.mkdir(parents=True, exist_ok=True)
+   90| if args.save_fields:
+   91|     OUT_FIELDS_DIR.mkdir(parents=True, exist_ok=True)
+   92| 
+   93| # ---------------------------------------------------------------------------
+   94| # Frozen geometry (phase6_voxelize_diagnostics.json, region NGC) and constants
+   95| # ---------------------------------------------------------------------------
+   96| BOXSIZE_MOCK = 1000.0          # Mpc/h, Quijote periodic box
+   97| NGRID        = 128
+   98| N_PART_MIN   = 20
+   99| 
+  100| # DESI NGC embedding cube (must match phase6_bgs_voxelize output exactly)
+  101| BOX_MIN  = np.array([-1085.5836039835003, -1059.3513403117618, -194.44091723978792])
+  102| BOX_SIZE = 1997.3629167166155
+  103| CELL     = BOX_SIZE / NGRID     # 15.6044 Mpc/h
+  104| D_C_ZMIN = 292.535950750378
+  105| D_C_ZMAX = 1080.7298534541035
+  106| ZMIN, ZMAX = 0.1, 0.4
+  107| 
+  108| R_SMOOTH = 5.0
+  109| SIGMA_PX = R_SMOOTH / CELL      # 0.3204 (matches DESI canonical sigma_px)
+  110| 
+  111| # Cosmology (Planck 2018 fiducial, h=1 units) — identical to phase6_bgs_voxelize
+  112| OMM = 0.3175
+  113| OML = 1.0 - OMM
+  114| C_OVER_H0 = 2997.92             # Mpc/h
+  115| C_KMS     = 299792.458          # km/s
+  116| 
+  117| # HOD B3 median (gate8 frozen)
+  118| HOD_MEDIAN = np.array([12.5, 0.55, 12.25, 13.5, 1.0, 0.0, 0.0, 1.0, 1.0])
+  119| 
+  120| # Gadget velocity convention: Quijote group velocities. If True, multiply by
+  121| # sqrt(a) to obtain peculiar velocity in km/s. VERIFY against Quijote docs.
+  122| GADGET_VEL_SQRT_A = True
+  123| SCALE_A = 1.0 / (1.0 + 0.5)     # z=0.5
+  124| 
+  125| # DESI reference is RECOMPUTED on the native grid at sigma_px=0.3204 (see main),
+  126| # NOT taken from the canonical 0.459 (which was sigma_px=0.216). This makes the
+  127| # comparison like-for-like: mock and DESI on the same physical grid, same R.
+  128| DESI_FIELD_R5 = FLD_DIR / "bgs_ngc_delta_128.npy"   # canonical R=5 native grid
+  129| PERS1_DESI = None        # filled in main() by recompute_desi_reference()
+  130| BETA1_MAX_DESI = None
+  131| 
+  132| # Density target: nominal BGS NGC count (abstract / all tables). Used to scale
+  133| # the radial downsampling so N_sel ~ N_TARGET_BGS instead of ~1.6x.
+  134| N_TARGET_BGS = 217614
+  135| 
+  136| N_THRESH = 100
+  137| 
+  138| # ---------------------------------------------------------------------------
+  139| # Cosmology helpers (comoving distance + inverse), consistent w/ voxelizer
+  140| # ---------------------------------------------------------------------------
+  141| def comoving_distance(z_arr, n_steps=500):
+  142|     z_arr = np.atleast_1d(np.asarray(z_arr, dtype=np.float64))
+  143|     out = np.zeros(len(z_arr))
+  144|     for i, zi in enumerate(z_arr):
+  145|         zz = np.linspace(0.0, zi, n_steps)
+  146|         EE = np.sqrt(OMM * (1 + zz) ** 3 + OML)
+  147|         out[i] = C_OVER_H0 * np.trapezoid(1.0 / EE, zz)
+  148|     return out
+  149| 
+  150| # Inverse table r -> z over a generous range
+  151| _Z_TAB = np.linspace(0.0, 0.6, 4001)
+  152| _DC_TAB = comoving_distance(_Z_TAB)
+  153| def z_of_dc(dc):
+  154|     return np.interp(dc, _DC_TAB, _Z_TAB)
+  155| 
+  156| # ---------------------------------------------------------------------------
+  157| # FoF reader WITH velocities (extends phase5_hod_b3.FoF_catalog)
+  158| # Layout (from phase5_hod_b3.py header comment, verified SOA nwLH):
+  159| #   header 24 bytes; N = first int32
+  160| #   GroupLen  @ 24            (int32,  N*4)
+  161| #   GroupMass @ 24 + N*8      (float32,N*4)
+  162| #   Pos  x @ 24+N*12, y @ 24+N*16, z @ 24+N*20
+  163| #   Vel vx @ 24+N*24, vy @ 24+N*28, vz @ 24+N*32
+  164| # ---------------------------------------------------------------------------
+  165| class FoF_catalog:
+  166|     def __init__(self, snapdir, snapnum):
+  167|         fname = Path(snapdir) / f"groups_{snapnum:03d}" / f"group_tab_{snapnum:03d}.0"
+  168|         assert fname.exists(), f"Catalogo non trovato: {fname}"
+  169|         raw = fname.read_bytes()
+  170|         N = int(np.frombuffer(raw[:4], dtype=np.int32)[0])
+  171|         self.Ngroups = N
+  172|         if N == 0 or len(raw) < 24 + N * 84:
+  173|             self.GroupLen  = np.array([], dtype=np.int32)
+  174|             self.GroupMass = np.array([], dtype=np.float32)
+  175|             self.GroupPos  = np.zeros((0, 3), dtype=np.float32)
+  176|             self.GroupVel  = np.zeros((0, 3), dtype=np.float32)
+  177|             return
+  178|         def rd_i(off): return np.frombuffer(raw[off:off + N * 4], dtype=np.int32).copy()
+  179|         def rd_f(off): return np.frombuffer(raw[off:off + N * 4], dtype=np.float32).copy()
+  180|         self.GroupLen  = rd_i(24)
+  181|         self.GroupMass = rd_f(24 + N * 8)
+  182|         self.GroupPos  = np.column_stack([rd_f(24 + N * 12),
+  183|                                           rd_f(24 + N * 16),
+  184|                                           rd_f(24 + N * 20)])
+  185|         self.GroupVel  = np.column_stack([rd_f(24 + N * 24),
+  186|                                           rd_f(24 + N * 28),
+  187|                                           rd_f(24 + N * 32)])
+  188| 
+  189| 
+  190| def read_halo_catalog(sim_idx, snapnum):
+  191|     snapdir = HOD_CATALOG_DIR / str(sim_idx)
+  192|     FoF = FoF_catalog(snapdir, snapnum)
+  193|     if FoF.Ngroups == 0:
+  194|         return None, None, None
+  195|     mask   = FoF.GroupLen >= N_PART_MIN
+  196|     pos_h  = (FoF.GroupPos[mask] / 1e3) % BOXSIZE_MOCK      # kpc/h -> Mpc/h
+  197|     mass_h = FoF.GroupMass[mask] * 1e10                     # 1e10 Msun/h -> Msun/h
+  198|     vel_h  = FoF.GroupVel[mask].astype(np.float64)          # km/s (see GADGET_VEL_SQRT_A)
+  199|     if GADGET_VEL_SQRT_A:
+  200|         vel_h = vel_h * np.sqrt(SCALE_A)
+  201|     return pos_h, mass_h, vel_h
+  202| 
+  203| 
+  204| # ---------------------------------------------------------------------------
+  205| # HOD (identical mean occupation to phase5_hod_b3.py) + velocities (option a)
+  206| # ---------------------------------------------------------------------------
+  207| def mean_Ncen(mass_h, log_Mmin, sigma_logM):
+  208|     from scipy.special import erf
+  209|     return 0.5 * (1.0 + erf((np.log10(mass_h) - log_Mmin) / (sigma_logM + 1e-10)))
+  210| 
+  211| def mean_Nsat(mass_h, log_M0, log_M1, alpha, log_Mmin):
+  212|     M0, M1 = 10 ** log_M0, 10 ** log_M1
+  213|     N_sat = np.zeros(len(mass_h))
+  214|     m = mass_h > M0
+  215|     ratio = np.where(m, (mass_h - M0) / (M1 + 1e-30), 0.0)
+  216|     N_sat[m] = ratio[m] ** alpha
+  217|     N_sat *= mean_Ncen(mass_h, log_Mmin, 0.2)
+  218|     return N_sat
+  219| 
+  220| def populate_halos_hod_with_vel(pos_h, mass_h, vel_h, hod_params, rng):
+  221|     """Return (pos_gal [N,3] Mpc/h, vel_gal [N,3] km/s). Option (a): satellites
+  222|     inherit the parent halo bulk velocity, no intra-halo dispersion."""
+  223|     log_Mmin, sigma_logM, log_M0, log_M1, alpha, A_cen, A_sat, eta_vel, eta_conc = hod_params
+  224|     N_h = len(mass_h)
+  225|     if N_h == 0:
+  226|         return np.zeros((0, 3)), np.zeros((0, 3))
+  227| 
+  228|     p_cen = np.clip(mean_Ncen(mass_h, log_Mmin, sigma_logM), 0.0, 1.0)
+  229|     is_central = rng.random(N_h) < p_cen
+  230|     lam_sat = np.clip(mean_Nsat(mass_h, log_M0, log_M1, alpha, log_Mmin), 0.0, 1e4)
+  231|     n_sat = rng.poisson(lam_sat)
+  232| 
+  233|     pos_list, vel_list = [], []
+  234|     if is_central.any():
+  235|         pos_list.append(pos_h[is_central])
+  236|         vel_list.append(vel_h[is_central])
+  237| 
+  238|     rho_crit = 2.775e11 * OMM
+  239|     for i in range(N_h):
+  240|         ns = int(n_sat[i])
+  241|         if ns <= 0:
+  242|             continue
+  243|         r_vir = np.clip((3.0 * mass_h[i] / (4.0 * np.pi * 200.0 * rho_crit)) ** (1.0 / 3.0),
+  244|                         0.01, 5.0) * eta_conc
+  245|         u = rng.random(ns)
+  246|         r = r_vir * u ** (1.0 / 3.0)
+  247|         theta = np.arccos(1.0 - 2.0 * rng.random(ns))
+  248|         phi = 2.0 * np.pi * rng.random(ns)
+  249|         dxyz = np.column_stack([r * np.sin(theta) * np.cos(phi),
+  250|                                 r * np.sin(theta) * np.sin(phi),
+  251|                                 r * np.cos(theta)])
+  252|         pos_list.append((pos_h[i] + dxyz) % BOXSIZE_MOCK)
+  253|         vel_list.append(np.tile(vel_h[i], (ns, 1)))   # option (a): halo bulk vel
+  254| 
+  255|     if not pos_list:
+  256|         return np.zeros((0, 3)), np.zeros((0, 3))
+  257|     return np.vstack(pos_list), np.vstack(vel_list)
+  258| 
+  259| 
+  260| # ---------------------------------------------------------------------------
+  261| # CIC (identical to phase6_bgs_voxelize.cic_3d)
+  262| # ---------------------------------------------------------------------------
+  263| def cic_3d(pos, weights, ngrid, box_min, box_size):
+  264|     cell = box_size / ngrid
+  265|     xyz  = np.clip((pos - box_min[None, :]) / cell, 0.0, ngrid - 1e-6)
+  266|     ijk  = xyz.astype(np.int32)
+  267|     d    = (xyz - ijk).astype(np.float32)
+  268|     w    = weights.astype(np.float32)
+  269|     flat = np.zeros(ngrid ** 3, dtype=np.float32)
+  270|     for di in range(2):
+  271|         wx = (1.0 - d[:, 0]) if di == 0 else d[:, 0]
+  272|         ii = np.clip(ijk[:, 0] + di, 0, ngrid - 1)
+  273|         for dj in range(2):
+  274|             wy = (1.0 - d[:, 1]) if dj == 0 else d[:, 1]
+  275|             jj = np.clip(ijk[:, 1] + dj, 0, ngrid - 1)
+  276|             for dk in range(2):
+  277|                 wz = (1.0 - d[:, 2]) if dk == 0 else d[:, 2]
+  278|                 kk = np.clip(ijk[:, 2] + dk, 0, ngrid - 1)
+  279|                 idx = ii * ngrid ** 2 + jj * ngrid + kk
+  280|                 flat += np.bincount(idx, weights=wx * wy * wz * w,
+  281|                                     minlength=ngrid ** 3).astype(np.float32)
+  282|     return flat.reshape(ngrid, ngrid, ngrid)
+  283| 
+  284| 
+  285| # ---------------------------------------------------------------------------
+  286| # UNMASKED TDA — byte-for-byte the DESI canonical (phase6_bgs_tda.compute_tda_features)
+  287| # The CubicalComplex runs on the FULL -field (exterior zeros included). mask is
+  288| # used only for thresholds and the b0 mean level — identical to DESI.
+  289| # ---------------------------------------------------------------------------
+  290| def compute_tda_features(delta_field, mask, n_thresh=100, masked=False):
+  291|     import gudhi
+  292|     # The log-transform is applied upstream in build_field (on the RAW delta).
+  293|     # compute_tda_features works on the field as-is.
+  294|     #
+  295|     # masked=False (Test 1): CubicalComplex on the FULL -field, exterior zeros
+  296|     #   included in the filtration — identical to the (broken) DESI canonical.
+  297|     # masked=True (Test 2): exterior EXCLUDED from the filtration. Exterior cells
+  298|     #   are set to a high sentinel in -field so they enter the sublevel filtration
+  299|     #   LAST; any H1 loop that would need the exterior to close is cut (its birth
+  300|     #   or death touches the sentinel and is removed). Applied identically to DESI
+  301|     #   and mocks — the only correct like-for-like treatment for a bounded survey.
+  302|     field = delta_field.astype(np.float64)
+  303|     field_in = field[mask]
+  304|     nu_min = float(np.percentile(field_in, 1))
+  305|     nu_max = float(np.percentile(field_in, 99))
+  306|     thresholds = np.linspace(nu_min, nu_max, n_thresh)
+  307| 
+  308|     SENT = 1.0e6
+  309|     if masked:
+  310|         field_work = field.copy()
+  311|         field_work[~mask] = -SENT          # exterior very low in field ...
+  312|         field_neg = -field_work            # ... => +SENT in -field (enters last)
+  313|         cutoff = SENT / 2.0
+  314|     else:
+  315|         field_neg = -field
+  316|         cutoff = np.inf
+  317| 
+  318|     cc = gudhi.CubicalComplex(dimensions=list(field_neg.shape),
+  319|                               top_dimensional_cells=field_neg.flatten())
+  320|     cc.compute_persistence()
+  321|     diag_0 = cc.persistence_intervals_in_dimension(0)
+  322|     diag_1 = cc.persistence_intervals_in_dimension(1)
+  323| 
+  324|     def proc(diag):
+  325|         if len(diag) == 0:
+  326|             return np.array([]), np.array([]), np.array([])
+  327|         d = np.array(diag)
+  328|         keep = np.isfinite(d[:, 1]) & (d[:, 0] < cutoff) & (d[:, 1] < cutoff)
+  329|         df = d[keep]
+  330|         b, dth = -df[:, 0], -df[:, 1]
+  331|         return b, dth, b - dth
+  332| 
+  333|     b0, d0, _   = proc(diag_0)
+  334|     b1, d1, p1  = proc(diag_1)
+  335| 
+  336|     b1_curve = np.zeros(n_thresh)
+  337|     b0_curve = np.zeros(n_thresh)
+  338|     for k, nu in enumerate(thresholds):
+  339|         if len(b0):
+  340|             b0_curve[k] = np.sum((b0 >= nu) & (d0 < nu))
+  341|         if len(b1):
+  342|             b1_curve[k] = np.sum((b1 >= nu) & (d1 < nu))
+  343| 
+  344|     feats = np.zeros(8, dtype=np.float64)
+  345|     if b1_curve.max() > 0:
+  346|         pk = np.argmax(b1_curve)
+  347|         feats[0] = thresholds[pk]
+  348|         feats[1] = b1_curve[pk]
+  349|         half = b1_curve.max() / 2.0
+  350|         above = np.where(b1_curve >= half)[0]
+  351|         feats[2] = (thresholds[above[-1]] - thresholds[above[0]]) if len(above) > 1 else 0.0
+  352|         feats[3] = np.trapezoid(b1_curve, thresholds)
+  353|     if len(p1) > 0:
+  354|         feats[4] = len(p1)
+  355|         feats[5] = float(np.mean(p1))
+  356|         feats[6] = float(np.sum(p1 >= np.percentile(p1, 90)))
+  357|     mean_val = float(field[mask].mean())
+  358|     feats[7] = b0_curve[np.argmin(np.abs(thresholds - mean_val))]
+  359|     # feats[4] = beta1_max (n loops), feats[5] = <pers1>
+  360|     return feats
+  361| 
+  362| 
+  363| # ---------------------------------------------------------------------------
+  364| # Load DESI random field once (denominator of delta_FKP) + n(z) target
+  365| # ---------------------------------------------------------------------------
+  366| def load_desi_random_field():
+  367|     from astropy.io import fits
+  368|     with fits.open(RAN_FITS) as h:
+  369|         r = h['LSS'].data
+  370|         mz = (r['Z'] >= ZMIN) & (r['Z'] <= ZMAX)
+  371|         ra, dec, z = r['RA'][mz].astype(np.float64), r['DEC'][mz].astype(np.float64), r['Z'][mz].astype(np.float64)
+  372|         w = r['WEIGHT_FKP'][mz].astype(np.float64)
+  373|     dC = comoving_distance(z)
+  374|     ra_r, dec_r = np.radians(ra), np.radians(dec)
+  375|     x = dC * np.cos(dec_r) * np.cos(ra_r)
+  376|     y = dC * np.cos(dec_r) * np.sin(ra_r)
+  377|     zc = dC * np.sin(dec_r)
+  378|     pos_r = np.column_stack([x, y, zc])
+  379|     field_r = cic_3d(pos_r, w, NGRID, BOX_MIN, BOX_SIZE)
+  380|     sum_wr = float(w.sum())
+  381|     return field_r, sum_wr
+  382| 
+  383| def load_desi_data_field():
+  384|     """CIC of the DESI BGS NGC data catalogue with w = WEIGHT * WEIGHT_FKP,
+  385|     same coordinates/geometry as the random loader. Returns (field_d, sum_wd)."""
+  386|     from astropy.io import fits
+  387|     dat = DESI_DIR / "BGS_BRIGHT-21.5_NGC_clustering.dat.fits"
+  388|     with fits.open(dat) as h:
+  389|         d = h['LSS'].data
+  390|         mz = (d['Z'] >= ZMIN) & (d['Z'] <= ZMAX)
+  391|         ra, dec, z = d['RA'][mz].astype(np.float64), d['DEC'][mz].astype(np.float64), d['Z'][mz].astype(np.float64)
+  392|         w = (d['WEIGHT'][mz] * d['WEIGHT_FKP'][mz]).astype(np.float64)
+  393|     dC = comoving_distance(z)
+  394|     ra_r, dec_r = np.radians(ra), np.radians(dec)
+  395|     x = dC * np.cos(dec_r) * np.cos(ra_r)
+  396|     y = dC * np.cos(dec_r) * np.sin(ra_r)
+  397|     zc = dC * np.sin(dec_r)
+  398|     pos_d = np.column_stack([x, y, zc])
+  399|     field_d = cic_3d(pos_d, w, NGRID, BOX_MIN, BOX_SIZE)
+  400|     return field_d, float(w.sum())
+  401| 
+  402| 
+  403| def load_bgs_nz():
+  404|     """Return (z_centres, nz) from the BGS n(z) file. Robust to column layout:
+  405|     uses the first column as z and the last numeric column as n(z)."""
+  406|     tab = np.loadtxt(NZ_FILE, comments='#')
+  407|     if tab.ndim == 1:
+  408|         tab = tab.reshape(1, -1)
+  409|     return tab[:, 0], tab[:, -1]
+  410| 
+  411| 
+  412| # ---------------------------------------------------------------------------
+  413| # Cut-sky carving of one mock (tiling + observer + RSD + mask + n(z))
+  414| # ---------------------------------------------------------------------------
+  415| _MASK = None  # loaded in main
+  416| 
+  417| def carve_cutsky(pos_gal, vel_gal, mask, nz_z, nz_target, rng):
+  418|     """Map periodic-box galaxies into the DESI embedding cube, apply RSD, carve
+  419|     by mask + z range, downsample to BGS n(z). Returns selected embedding-frame
+  420|     Cartesian positions [M,3] (redshift-space)."""
+  421|     # Tile offsets covering the embedding cube along each axis
+  422|     def offsets(axis):
+  423|         lo, hi = BOX_MIN[axis], BOX_MIN[axis] + BOX_SIZE
+  424|         k_lo = int(np.floor(lo / BOXSIZE_MOCK))
+  425|         k_hi = int(np.floor(hi / BOXSIZE_MOCK))
+  426|         return list(range(k_lo, k_hi + 1))
+  427|     ox, oy, oz = offsets(0), offsets(1), offsets(2)
+  428| 
+  429|     # Pass 1: collect ALL in-survey candidates (mask + z range), no downsampling.
+  430|     cand_P, cand_z = [], []
+  431|     for kx in ox:
+  432|         for ky in oy:
+  433|             for kz in oz:
+  434|                 shift = np.array([kx, ky, kz]) * BOXSIZE_MOCK
+  435|                 P = pos_gal + shift[None, :]
+  436|                 inb = np.all((P >= BOX_MIN[None, :]) &
+  437|                              (P < (BOX_MIN + BOX_SIZE)[None, :]), axis=1)
+  438|                 if not inb.any():
+  439|                     continue
+  440|                 P = P[inb]
+  441|                 V = vel_gal[inb]
+  442|                 # Real-space distance & LOS
+  443|                 dC = np.linalg.norm(P, axis=1)
+  444|                 good = (dC > 1e-6) & (dC >= D_C_ZMIN - 50) & (dC <= D_C_ZMAX + 50)
+  445|                 if not good.any():
+  446|                     continue
+  447|                 P, V, dC = P[good], V[good], dC[good]
+  448|                 rhat = P / dC[:, None]
+  449|                 z_cosmo = z_of_dc(dC)
+  450|                 v_los = np.sum(V * rhat, axis=1)                 # km/s
+  451|                 z_obs = z_cosmo + (1.0 + z_cosmo) * v_los / C_KMS
+  452|                 dC_rsd = np.interp(np.clip(z_obs, 0.0, 0.6), _Z_TAB, _DC_TAB)
+  453|                 P_rsd = rhat * dC_rsd[:, None]
+  454|                 zsel = (z_obs >= ZMIN) & (z_obs <= ZMAX)
+  455|                 if not zsel.any():
+  456|                     continue
+  457|                 P_rsd, z_obs_s = P_rsd[zsel], z_obs[zsel]
+  458|                 ijk = np.clip(((P_rsd - BOX_MIN[None, :]) / CELL).astype(np.int32),
+  459|                               0, NGRID - 1)
+  460|                 inmask = mask[ijk[:, 0], ijk[:, 1], ijk[:, 2]]
+  461|                 if not inmask.any():
+  462|                     continue
+  463|                 cand_P.append(P_rsd[inmask])
+  464|                 cand_z.append(z_obs_s[inmask])
+  465|     if not cand_P:
+  466|         return np.zeros((0, 3))
+  467|     P_cand = np.vstack(cand_P)
+  468|     z_cand = np.concatenate(cand_z)
+  469| 
+  470|     # Pass 2: global n(z)-shaped downsampling to hit N_TARGET_BGS.
+  471|     # Desired count per z-bin ∝ BGS n(z); acceptance = desired/available, capped 1.
+  472|     edges = np.concatenate([[nz_z[0] - 0.5 * (nz_z[1] - nz_z[0])],
+  473|                             0.5 * (nz_z[:-1] + nz_z[1:]),
+  474|                             [nz_z[-1] + 0.5 * (nz_z[-1] - nz_z[-2])]])
+  475|     which = np.clip(np.digitize(z_cand, edges) - 1, 0, len(nz_z) - 1)
+  476|     n_cand_bin = np.bincount(which, minlength=len(nz_z)).astype(float)
+  477|     shape = np.clip(nz_target, 0.0, None).astype(float)
+  478|     if shape.sum() <= 0:
+  479|         return np.zeros((0, 3))
+  480|     desired = shape / shape.sum() * float(N_TARGET_BGS)
+  481|     with np.errstate(divide='ignore', invalid='ignore'):
+  482|         p_bin = np.where(n_cand_bin > 0, desired / n_cand_bin, 0.0)
+  483|     p_bin = np.minimum(p_bin, 1.0)
+  484|     p = p_bin[which]
+  485|     keep = rng.random(len(z_cand)) < p
+  486|     return P_cand[keep]
+  487| 
+  488| 
+  489| def build_field(field_d, field_r, alpha, mask):
+  490|     """Shared field construction for DESI and cut-sky mocks. Identical byte-for-byte
+  491|     on both sides. Pipeline (as STATED in the paper):
+  492|       raw delta_FKP (>= -1)  ->  nu = log(1 + clip(delta, -1))  ->  smooth  ->  mean-sub.
+  493|     The log on the RAW delta bounds the FKP shot-noise positive tail (delta up to
+  494|     +150 -> log(151)=5.0, matching DESI's raw range) without a spurious negative
+  495|     spike. Exterior/invalid voxels are 0 (= log(1)), preserving the zero exterior."""
+  496|     delta = np.zeros((NGRID, NGRID, NGRID), dtype=np.float64)
+  497|     denom = alpha * field_r
+  498|     valid = denom > 0
+  499|     delta[valid] = (field_d[valid] - denom[valid]) / denom[valid]
+  500|     delta[~mask] = 0.0
+  501|     nu = np.zeros_like(delta)
+  502|     nu[mask] = np.log(1.0 + np.clip(delta[mask], -1.0 + 1e-3, None))
+  503|     nu = gaussian_filter(nu, sigma=SIGMA_PX)
+  504|     nu[~mask] = 0.0
+  505|     nu[mask] -= nu[mask].mean()
+  506|     return nu.astype(np.float32)
+  507| 
+  508| 
+  509| def voxelize_mock(pos_sel, field_r, sum_wr, mask):
+  510|     """Cut-sky mock field via the shared build_field (log-transform included)."""
+  511|     if len(pos_sel) < 100:
+  512|         return None
+  513|     w_d = np.ones(len(pos_sel))
+  514|     field_d = cic_3d(pos_sel, w_d, NGRID, BOX_MIN, BOX_SIZE)
+  515|     alpha = float(w_d.sum()) / sum_wr
+  516|     return build_field(field_d, field_r, alpha, mask)
+  517| 
+  518| 
+  519| # ---------------------------------------------------------------------------
+  520| # FoF offset self-check
+  521| # ---------------------------------------------------------------------------
+  522| def check_fof():
+  523|     pos_h, mass_h, vel_h = read_halo_catalog(0, args.snapnum)
+  524|     print("[CHECK_FOF] sim 0, snapnum", args.snapnum)
+  525|     print(f"  N halos (>=20 part): {len(mass_h)}")
+  526|     print(f"  pos_h  range Mpc/h : [{pos_h.min():.1f}, {pos_h.max():.1f}] (expect ~[0,1000])")
+  527|     print(f"  mass_h range Msun/h: [{mass_h.min():.2e}, {mass_h.max():.2e}]")
+  528|     print(f"  |vel_h| km/s       : mean={np.linalg.norm(vel_h,axis=1).mean():.1f} "
+  529|           f"max={np.linalg.norm(vel_h,axis=1).max():.1f} (expect ~few 100s)")
+  530|     print("  If |vel| is ~0 or ~1e5, the GroupVel offset or sqrt(a) factor is wrong.")
+  531| 
+  532| 
+  533| # ---------------------------------------------------------------------------
+  534| # Recompute the DESI reference on the NATIVE grid at sigma_px=0.3204.
+  535| # The canonical bgs_ngc_delta_128.npy was voxelized at R=5 on the DESI cell
+  536| # (15.6 Mpc/h) -> sigma_px = 5/15.6 = 0.3204. This is ALREADY the mock cut-sky
+  537| # sigma_px. So <pers1>_DESI at matched sigma_px is simply compute_tda_features
+  538| # on the canonical field. (The 0.459 canonical was reported at sigma_px=0.216,
+  539| # i.e. R=5 on a 23.14 Mpc/h reference cell — a different grid. We do NOT use it.)
+  540| # ---------------------------------------------------------------------------
+  541| def recompute_desi_reference(mask, field_r, sum_wr):
+  542|     """Rebuild the DESI NGC field from the FITS catalogues through the SHARED
+  543|     build_field (log-transform included), so the DESI reference is consistent
+  544|     with the cut-sky mocks. This does NOT use the canonical 0.459 (built without
+  545|     log): every paper number moves as a result, by design."""
+  546|     field_d, sum_wd = load_desi_data_field()
+  547|     alpha = sum_wd / sum_wr
+  548|     nu_desi = build_field(field_d, field_r, alpha, mask)
+  549|     feats = compute_tda_features(nu_desi, mask, N_THRESH)
+  550|     return float(feats[5]), float(feats[4]), float(nu_desi[mask].std())
+  551| 
+  552| 
+  553| # ---------------------------------------------------------------------------
+  554| # Main
+  555| # ---------------------------------------------------------------------------
+  556| def main():
+  557|     global PERS1_DESI, BETA1_MAX_DESI
+  558|     print("=" * 70)
+  559|     print("CAUCHY Phase 8 — Script 1: Cut-sky mocks, TEST 1 (diagnostic)")
+  560|     print("=" * 70)
+  561|     print(f"  snapnum={args.snapnum} (z=0.5), n_pilot={args.n_pilot}")
+  562|     print(f"  embedding cell={CELL:.3f} Mpc/h, sigma_px={SIGMA_PX:.4f}")
+  563|     print(f"  density target N_sel ~ {N_TARGET_BGS:,} (BGS NGC nominal)")
+  564| 
+  565|     for p, lbl in [(DESI_MASK_FILE, "mask"), (RAN_FITS, "random FITS"),
+  566|                    (NZ_FILE, "n(z)"), (HOD_CATALOG_DIR, "HOD halo dir")]:
+  567|         if not p.exists():
+  568|             print(f"[ERRORE] Mancante ({lbl}): {p}"); sys.exit(1)
+  569| 
+  570|     if args.check_fof:
+  571|         check_fof(); return
+  572| 
+  573|     mask = np.load(DESI_MASK_FILE)
+  574|     print(f"  mask fill: {100*mask.mean():.1f}%  ({mask.sum():,} voxel)")
+  575| 
+  576|     print("\n[1/3] Costruzione campo random DESI (denominatore FKP)...")
+  577|     field_r, sum_wr = load_desi_random_field()
+  578|     nz_z, nz_target = load_bgs_nz()
+  579|     print(f"  random field pronto; n(z) target su {len(nz_z)} bin")
+  580| 
+  581|     print("\n[0/3] Ricostruzione DESI reference dai FITS con log-transform "
+  582|           "(build_field condiviso)...")
+  583|     PERS1_DESI, BETA1_MAX_DESI, std_desi = recompute_desi_reference(mask, field_r, sum_wr)
+  584|     print(f"  nu_std_in_survey (DESI)      = {std_desi:.4f}  "
+  585|           f"(era 1.65 senza log — deve scendere)")
+  586|     print(f"  <pers1>_DESI (log, sigma_px=0.3204) = {PERS1_DESI:.5f}  "
+  587|           f"[canonico senza-log 0.45886 NON usato]")
+  588|     print(f"  beta1_max_DESI               = {BETA1_MAX_DESI:.0f}")
+  589| 
+  590|     print(f"\n[2/3] Loop su {args.n_pilot} mock cut-sky...")
+  591|     pers1_list, beta1_list, ngal_list = [], [], []
+  592|     t0 = time.time()
+  593|     for i in range(args.n_pilot):
+  594|         rng = np.random.default_rng(args.seed + i)
+  595|         pos_h, mass_h, vel_h = read_halo_catalog(i, args.snapnum)
+  596|         if pos_h is None or len(pos_h) < 50:
+  597|             continue
+  598|         pos_gal, vel_gal = populate_halos_hod_with_vel(pos_h, mass_h, vel_h,
+  599|                                                        HOD_MEDIAN, rng)
+  600|         if len(pos_gal) < 100:
+  601|             continue
+  602|         pos_sel = carve_cutsky(pos_gal, vel_gal, mask, nz_z, nz_target, rng)
+  603|         delta_s = voxelize_mock(pos_sel, field_r, sum_wr, mask)
+  604|         if delta_s is None:
+  605|             continue
+  606|         feats = compute_tda_features(delta_s, mask, N_THRESH)
+  607|         beta1_list.append(float(feats[4]))
+  608|         pers1_list.append(float(feats[5]))
+  609|         ngal_list.append(int(len(pos_sel)))
+  610|         if args.save_fields:
+  611|             np.savez(OUT_FIELDS_DIR / f"cutsky_{i:04d}.npz", delta=delta_s)
+  612|         if (i + 1) % 20 == 0 or i == 0:
+  613|             eta = (time.time() - t0) / (i + 1) * (args.n_pilot - i - 1) / 60
+  614|             print(f"  [{i+1}/{args.n_pilot}] N_sel~{np.median(ngal_list):.0f} "
+  615|                   f"<pers1>={np.mean(pers1_list):.4f} "
+  616|                   f"beta1_max={np.mean(beta1_list):.0f}  ETA={eta:.1f}min")
+  617| 
+  618|     pers1 = np.array(pers1_list)
+  619|     beta1 = np.array(beta1_list)
+  620|     n_ok = len(pers1)
+  621|     if n_ok < 20:
+  622|         print(f"[ERRORE] Solo {n_ok} mock validi — insufficiente."); sys.exit(1)
+  623| 
+  624|     print(f"\n[3/3] Verdetto (N={n_ok} mock validi)...")
+  625|     # <pers1>
+  626|     p_mean, p_std = float(pers1.mean()), float(pers1.std(ddof=1))
+  627|     z_pers1 = (PERS1_DESI - p_mean) / p_std
+  628|     rank_pers1 = float(np.mean(pers1 < PERS1_DESI))            # fraction of mocks below DESI
+  629|     # beta1_max
+  630|     b_mean, b_std = float(beta1.mean()), float(beta1.std(ddof=1))
+  631|     z_beta1 = (BETA1_MAX_DESI - b_mean) / b_std
+  632|     rank_beta1 = float(np.mean(beta1 < BETA1_MAX_DESI))
+  633| 
+  634|     # Frozen gate1 decision
+  635|     dissolved = (abs(z_pers1) < 3.0) and (abs(z_beta1) < 3.0)
+  636|     survives  = (z_pers1 >= 3.0) and (z_beta1 <= -3.0)
+  637|     verdict = "DISSOLVED" if dissolved else ("SURVIVES" if survives else "PARTIAL")
+  638| 
+  639|     print(f"  <pers1>: DESI={PERS1_DESI:.4f}  mock={p_mean:.4f}±{p_std:.4f}  "
+  640|           f"z={z_pers1:+.2f}  rank={rank_pers1*100:.1f}%")
+  641|     print(f"  beta1_max: DESI={BETA1_MAX_DESI:.0f}  mock={b_mean:.0f}±{b_std:.0f}  "
+  642|           f"z={z_beta1:+.2f}  rank={rank_beta1*100:.1f}%")
+  643|     print(f"\n  >>> VERDETTO GATE 1: {verdict}")
+  644|     if verdict == "DISSOLVED":
+  645|         print("      L'anomalia era la geometria. Pivot a paper metodologico.")
+  646|     elif verdict == "SURVIVES":
+  647|         print("      Geometria non spiega. Procedere a Test 2 e N=2000.")
+  648|     else:
+  649|         print("      Esito parziale. Realistico: paper metodologico con residuo.")
+  650| 
+  651|     out = {
+  652|         "schema_version": "1.0",
+  653|         "output_id": "phase8_cutsky_test1",
+  654|         "generated_at": datetime.now(timezone.utc).isoformat(),
+  655|         "authority": "gate8_prior_v1_0.json",
+  656|         "n_pilot_requested": args.n_pilot,
+  657|         "n_mock_valid": n_ok,
+  658|         "snapnum": args.snapnum,
+  659|         "sigma_px": SIGMA_PX,
+  660|         "hod_params_b3_median": HOD_MEDIAN.tolist(),
+  661|         "satellite_velocity": "option_a_no_intrahalo_dispersion",
+  662|         "gadget_vel_sqrt_a": GADGET_VEL_SQRT_A,
+  663|         "density_target_bgs": N_TARGET_BGS,
+  664|         "desi_reference": {
+  665|             "pers1": PERS1_DESI, "beta1_max": BETA1_MAX_DESI,
+  666|             "sigma_px": SIGMA_PX,
+  667|             "note": ("Recomputed on the native DESI grid (R=5, cell 15.6 Mpc/h -> "
+  668|                      "sigma_px=0.3204), matched to the cut-sky mocks. The canonical "
+  669|                      "0.45886 (sigma_px=0.216) is NOT used here.")
+  670|         },
+  671|         "cutsky_mock_pers1": {"mean": p_mean, "std": p_std,
+  672|                               "z_desi": z_pers1, "rank_desi": rank_pers1},
+  673|         "cutsky_mock_beta1_max": {"mean": b_mean, "std": b_std,
+  674|                                   "z_desi": z_beta1, "rank_desi": rank_beta1},
+  675|         "median_ngal_selected": float(np.median(ngal_list)),
+  676|         "verdict": verdict,
+  677|         "n_floor_note": ("With N=%d the empirical p-floor is ~1/%d; z-scores are "
+  678|                          "auxiliary tail extrapolations, ranks are primary."
+  679|                          % (n_ok, n_ok + 1)),
+  680|     }
+  681|     with open(OUTPUT_JSON, "w") as f:
+  682|         json.dump(out, f, indent=2)
+  683|     print(f"\n[SAVED] {OUTPUT_JSON}")
+  684|     print("[COMPLETATO] Test 1 terminato.")
+  685| 
+  686| 
+  687| if __name__ == "__main__":
+  688|     main()
+
+
+==============================================================================
+FILE: D:\projects\cauchy\src\phase9_sgc_likeforlike.py
+bytes: 10090
+==============================================================================
+    1| #!/usr/bin/env python3
+    2| # -*- coding: utf-8 -*-
+    3| """
+    4| CAUCHY - Phase 9b, Script 7
+    5| src/phase9_sgc_likeforlike.py
+    6| 
+    7| Referee R3.1 (mandatory, most informative): the SGC result under the like-for-
+    8| like framework is promised but never delivered. The SGC has its own mask,
+    9| randoms, n(z), and partially different imaging. If it shows a compatible ~20%
+   10| beta1_max deficit, the anomaly gains more support than any surrogate; if it does
+   11| not, the NGC deficit points to a hemisphere/imaging systematic.
+   12| 
+   13| This runs the Test 2 cut-sky masked pipeline on the SGC footprint. It is self-
+   14| consistent: the SGC embedding box, cell size, sigma_px, and mask are recomputed
+   15| from the SGC randoms (Phase 6 logic: min-5 / max+5, cubic), then INJECTED into
+   16| the phase8_cutsky_mocks module globals before its functions are used. This matters
+   17| because sigma_px = R_smooth/cell is the dominant systematic and cell_SGC != cell_NGC.
+   18| 
+   19| Density target: the SGC BGS sample is ~82k galaxies (not the ~217k NGC); we set the
+   20| density target from the SGC data count so the mock downsampling matches the SGC.
+   21| 
+   22| Run pilot then scale:
+   23|   python src\\phase9_sgc_likeforlike.py --project_root D:\\projects\\cauchy --k 3
+   24|   python src\\phase9_sgc_likeforlike.py --project_root D:\\projects\\cauchy --k 200
+   25| """
+   26| 
+   27| import argparse
+   28| import datetime
+   29| import json
+   30| import sys
+   31| import time
+   32| from pathlib import Path
+   33| import numpy as np
+   34| 
+   35| 
+   36| def _now_iso():
+   37|     return datetime.datetime.now(datetime.timezone.utc).isoformat()
+   38| 
+   39| 
+   40| def sgc_positions(fits_path, ra_key="RA", dec_key="DEC", z_key="Z",
+   41|                   wkeys=("WEIGHT_FKP",), zmin=0.1, zmax=0.4, M=None):
+   42|     """Comoving Cartesian positions + weights from an SGC clustering FITS."""
+   43|     from astropy.io import fits
+   44|     with fits.open(fits_path) as h:
+   45|         t = h["LSS"].data
+   46|         mz = (t[z_key] >= zmin) & (t[z_key] <= zmax)
+   47|         ra = t[ra_key][mz].astype(np.float64)
+   48|         dec = t[dec_key][mz].astype(np.float64)
+   49|         z = t[z_key][mz].astype(np.float64)
+   50|         w = np.ones(mz.sum(), dtype=np.float64)
+   51|         for k in wkeys:
+   52|             w *= t[k][mz].astype(np.float64)
+   53|     dC = M.comoving_distance(z)
+   54|     ra_r, dec_r = np.radians(ra), np.radians(dec)
+   55|     x = dC * np.cos(dec_r) * np.cos(ra_r)
+   56|     y = dC * np.cos(dec_r) * np.sin(ra_r)
+   57|     zc = dC * np.sin(dec_r)
+   58|     return np.column_stack([x, y, zc]), w
+   59| 
+   60| 
+   61| def main():
+   62|     ap = argparse.ArgumentParser()
+   63|     ap.add_argument("--project_root", type=str, default="D:\\projects\\cauchy")
+   64|     ap.add_argument("--k", type=int, default=200)
+   65|     ap.add_argument("--snapnum", type=int, default=3)
+   66|     ap.add_argument("--seed", type=int, default=42)
+   67|     args = ap.parse_args()
+   68| 
+   69|     root = Path(args.project_root).resolve()
+   70|     res_dir = root / "results"
+   71|     desi_dir = root / "data" / "raw" / "desi_dr1"
+   72|     fld_dir = root / "data" / "processed" / "phase6_fields"
+   73|     sys.path.insert(0, str(root / "src"))
+   74|     try:
+   75|         import phase8_cutsky_mocks as M
+   76|         import phase8_test2_masked as T2
+   77|     except Exception as e:
+   78|         sys.exit(f"[FATAL] import failed: {e}")
+   79| 
+   80|     ran_sgc = desi_dir / "BGS_BRIGHT-21.5_SGC_0_clustering.ran.fits"
+   81|     dat_sgc = desi_dir / "BGS_BRIGHT-21.5_SGC_clustering.dat.fits"
+   82|     nz_sgc = desi_dir / "BGS_BRIGHT-21.5_SGC_nz.txt"
+   83|     mask_sgc_path = fld_dir / "bgs_sgc_mask_128.npy"
+   84|     for p in (ran_sgc, dat_sgc, nz_sgc):
+   85|         if not p.exists():
+   86|             sys.exit(f"[FATAL] missing {p}")
+   87| 
+   88|     print("=" * 70)
+   89|     print(f"CAUCHY Phase 9b - Script 7: SGC like-for-like (K={args.k})")
+   90|     print("=" * 70)
+   91| 
+   92|     # --- SGC geometry from the SGC randoms (Phase 6 logic: min-5/max+5, cubic) --
+   93|     pos_r, w_r = sgc_positions(ran_sgc, wkeys=("WEIGHT_FKP",), M=M)
+   94|     box_min = pos_r.min(axis=0) - 5.0
+   95|     box_max = pos_r.max(axis=0) + 5.0
+   96|     box_size = float((box_max - box_min).max())
+   97|     ngrid = M.NGRID
+   98|     cell = box_size / ngrid
+   99|     sigma_px = M.R_SMOOTH / cell
+  100|     print(f"  SGC box_size = {box_size:.1f} Mpc/h  cell = {cell:.3f}  "
+  101|           f"sigma_px = {sigma_px:.4f}  (NGC was cell {M.CELL:.3f}, sigma_px {M.SIGMA_PX:.4f})")
+  102| 
+  103|     # --- INJECT SGC globals into the module (before using its functions) --------
+  104|     M.BOX_MIN = box_min
+  105|     M.BOX_SIZE = box_size
+  106|     M.CELL = cell
+  107|     M.SIGMA_PX = sigma_px
+  108|     M.RAN_FITS = ran_sgc
+  109|     M.NZ_FILE = nz_sgc
+  110| 
+  111|     # --- SGC random + data fields (own loaders; module's data loader is NGC-hardcoded)
+  112|     field_r = M.cic_3d(pos_r, w_r, ngrid, box_min, box_size)
+  113|     sum_wr = float(w_r.sum())
+  114|     pos_d, w_d = sgc_positions(dat_sgc, wkeys=("WEIGHT", "WEIGHT_FKP"), M=M)
+  115|     field_d = M.cic_3d(pos_d, w_d, ngrid, box_min, box_size)
+  116|     sum_wd = float(w_d.sum())
+  117|     n_data_sgc = int(len(pos_d))
+  118|     print(f"  SGC data galaxies (z in [{M.ZMIN},{M.ZMAX}]) = {n_data_sgc}")
+  119| 
+  120|     # --- SGC mask: prefer the frozen Phase 6 mask IF its geometry matches --------
+  121|     mask = None
+  122|     if mask_sgc_path.exists():
+  123|         m0 = np.load(mask_sgc_path).astype(bool)
+  124|         # coherence check: fraction of SGC data landing inside the frozen mask
+  125|         ijk = np.clip(((pos_d - box_min[None, :]) / cell).astype(int), 0, ngrid - 1)
+  126|         inside = m0[ijk[:, 0], ijk[:, 1], ijk[:, 2]].mean()
+  127|         print(f"  frozen SGC mask: fill {100*m0.mean():.2f}%; "
+  128|               f"{100*inside:.1f}% of SGC data fall inside it")
+  129|         if inside > 0.90:
+  130|             mask = m0
+  131|             print("  -> using frozen SGC mask (geometry consistent).")
+  132|         else:
+  133|             print("  -> frozen SGC mask INCONSISTENT with recomputed box; rebuilding.")
+  134|     if mask is None:
+  135|         ref = field_r[field_r > 0].mean()
+  136|         mask = field_r > 0.01 * ref
+  137|         print(f"  rebuilt SGC mask from randoms (1% threshold): fill {100*mask.mean():.2f}%")
+  138| 
+  139|     M.DESI_MASK_FILE = mask_sgc_path  # for any downstream reference
+  140| 
+  141|     # --- density target from SGC data (not the NGC 217k) ------------------------
+  142|     M.N_TARGET_BGS = n_data_sgc
+  143|     nz_z, nz_target = M.load_bgs_nz()
+  144|     print(f"  n(z) target bins: {len(nz_z)};  density target N_sel ~ {n_data_sgc}")
+  145| 
+  146|     # --- DESI-SGC reference (masked filtration), same build_field ---------------
+  147|     nu_desi = M.build_field(field_d, field_r, sum_wd / sum_wr, mask)
+  148|     feats = M.compute_tda_features(nu_desi, mask, M.N_THRESH, masked=True)
+  149|     desi_pers1, desi_b = float(feats[5]), float(feats[4])
+  150|     print(f"  DESI-SGC (masked): beta1_max = {desi_b:.0f}   <pers1> = {desi_pers1:.5f}")
+  151| 
+  152|     # --- K cut-sky masked mocks on the SGC footprint ----------------------------
+  153|     hod = M.HOD_MEDIAN
+  154|     b1_list = []
+  155|     t0 = time.time()
+  156|     for kk in range(args.k):
+  157|         rng = np.random.default_rng(args.seed + kk)
+  158|         pos_h, mass_h, vel_h = M.read_halo_catalog(kk, args.snapnum)
+  159|         if pos_h is None or len(pos_h) < 50:
+  160|             continue
+  161|         pos_gal, vel_gal = T2.populate_with_virial(pos_h, mass_h, vel_h, hod, rng)
+  162|         if len(pos_gal) < 100:
+  163|             continue
+  164|         pos_sel = M.carve_cutsky(pos_gal, vel_gal, mask, nz_z, nz_target, rng)
+  165|         if pos_sel is None or len(pos_sel) < 100:
+  166|             continue
+  167|         nu = M.voxelize_mock(pos_sel, field_r, sum_wr, mask)
+  168|         if nu is None:
+  169|             continue
+  170|         b1_list.append(float(M.compute_tda_features(nu, mask, M.N_THRESH, masked=True)[4]))
+  171|         if len(b1_list) % 20 == 0 or len(b1_list) == 1:
+  172|             eta = (time.time() - t0) / len(b1_list) * (args.k - len(b1_list)) / 60
+  173|             print(f"  [{len(b1_list)}/{args.k}] mock beta1_max~{np.mean(b1_list):.0f}  ETA={eta:.1f}min")
+  174| 
+  175|     b1 = np.array(b1_list)
+  176|     n_ok = b1.size
+  177|     if n_ok < 10:
+  178|         sys.exit(f"[FATAL] only {n_ok} valid SGC mocks.")
+  179| 
+  180|     mean, std = float(b1.mean()), float(b1.std(ddof=1))
+  181|     z = (desi_b - mean) / std
+  182|     n_below = int((b1 <= desi_b).sum())
+  183|     rank = (n_below + 1) / (n_ok + 1)
+  184|     frac_deficit = (mean - desi_b) / mean
+  185| 
+  186|     print(f"\n  SGC result (N={n_ok} mocks):")
+  187|     print(f"    DESI-SGC beta1_max = {desi_b:.0f}")
+  188|     print(f"    mock beta1_max     = {mean:.0f} +/- {std:.0f}")
+  189|     print(f"    z = {z:+.2f}   rank = {n_below}/{n_ok}   frac deficit = {100*frac_deficit:.1f}%")
+  190| 
+  191|     # verdict: does the SGC show a compatible deficit?
+  192|     confirms = (z < -3.0) and (frac_deficit > 0.10)
+  193|     verdict = "SGC_CONFIRMS" if confirms else "SGC_NULL"
+  194|     print(f"\n  >>> VERDICT: {verdict} "
+  195|           f"({'compatible deficit -> anomaly reinforced' if confirms else 'no/weak deficit -> hemisphere/imaging systematic suspected'})")
+  196|     print(f"      (NGC reference: ~20% deficit, z ~ -16, rank 1/2000)")
+  197| 
+  198|     out = {
+  199|         "schema_version": "2.0",
+  200|         "script": "phase9_sgc_likeforlike.py",
+  201|         "phase": "9b",
+  202|         "concern_addressed": "referee R3.1 (SGC like-for-like result, mandatory)",
+  203|         "timestamp": _now_iso(),
+  204|         "sgc_geometry": {"box_size_mpc_h": box_size, "cell_mpc_h": cell,
+  205|                          "sigma_px": sigma_px, "mask_fill_pct": 100 * float(mask.mean()),
+  206|                          "box_min": box_min.tolist()},
+  207|         "sgc_data_galaxies": n_data_sgc,
+  208|         "k_mocks": n_ok,
+  209|         "desi_sgc_beta1_max": desi_b,
+  210|         "desi_sgc_pers1": desi_pers1,
+  211|         "mock_beta1_mean": mean,
+  212|         "mock_beta1_std": std,
+  213|         "z": z,
+  214|         "rank": f"{n_below}/{n_ok}",
+  215|         "empirical_p_one_sided": rank,
+  216|         "fractional_deficit": frac_deficit,
+  217|         "verdict": verdict,
+  218|         "ngc_reference": {"frac_deficit": 0.20, "z_gaussian": -16.1, "rank": "1/2000"},
+  219|         "notes": ("SGC embedding box, cell, sigma_px, and density target recomputed from "
+  220|                   "the SGC catalogues; sigma_px matched between DESI-SGC and mocks (dominant "
+  221|                   "systematic). Same populate_with_virial, masked filtration, and build_field "
+  222|                   "as the NGC Test 2. A SGC_CONFIRMS reinforces the anomaly independently of "
+  223|                   "NGC imaging; a SGC_NULL localises it to a hemisphere/imaging systematic."),
+  224|     }
+  225|     outp = res_dir / "phase9_sgc_likeforlike.json"
+  226|     with open(outp, "w", encoding="utf-8") as f:
+  227|         json.dump(out, f, indent=2, ensure_ascii=False)
+  228|     print(f"\n[written] {outp}")
+  229|     print("Report the SGC result block and the VERDICT.")
+  230| 
+  231| 
+  232| if __name__ == "__main__":
+  233|     main()

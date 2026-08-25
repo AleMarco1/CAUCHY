@@ -1,0 +1,21 @@
+{
+  "script": "paper1_rev_n7_nfw.py",
+  "bound_analitico": {
+    "r2_unif": 0.6812955544192121,
+    "r2_nfw": 0.36350541764914157,
+    "R_eff_unif": 5.022658511001891,
+    "R_eff_nfw": 5.012102200928241,
+    "dR_rel": 0.0021112620147301087,
+    "alpha": -1.2434074326622615,
+    "dN_stimato": 93.02696773296515,
+    "frazione_deficit": 0.0129536959873237
+  },
+  "n_coppie": 40,
+  "delta_media": -56.475,
+  "delta_sem": 23.530857740967306,
+  "delta_sd": 148.8222115177222,
+  "uniform_mean": 35454.65,
+  "uniform_sd": 278.983185781362,
+  "frazione_deficit": -0.007863955998050547,
+  "cancello_superato": true
+}
