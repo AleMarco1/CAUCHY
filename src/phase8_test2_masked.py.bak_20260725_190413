@@ -101,11 +101,7 @@ def recompute_desi_reference_masked(mask, field_r, sum_wr):
 
 def load_nwlh_params():
     """Load per-simulation (Om, s8, w0) from the nwLH params file. The Quijote
-    nwLH latin hypercube params file has SEVEN columns, verified against
-    phase9_likeforlike_arrays.npz on indices 0-199 (max|diff| = 0.0):
-        0=Om  1=Ob  2=h  3=ns  4=s8  5=Mnu  6=w0
-    (il docstring precedente ne dichiarava sei: era errato; gli indici usati
-    sotto, tab[:,0] tab[:,4] tab[:,6], erano invece corretti). Returns a
+    nwLH latin hypercube params are columns (Om, Ob, h, ns, s8, w0). Returns a
     dict index -> (Om, s8, w0). Robust: tries a few candidate paths; prints the
     inferred w0 range so the column mapping can be sanity-checked (should span
     ~[-1.30, -0.70])."""
@@ -134,8 +130,6 @@ def main():
     ap.add_argument("--snapnum", type=int, default=3)
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--save_fields", action="store_true")
-    ap.add_argument("--force", action="store_true",
-                    help="consenti di sovrascrivere tabella e campi esistenti")
     ap.add_argument("--hod_json", type=str, default=None,
                     help="JSON with best-fit HOD (phase8_hod_bestfit.json) to override B3 median")
     args = ap.parse_args()
@@ -148,28 +142,9 @@ def main():
         hod_tag = f"fitted(logMmin={hod_params[0]},logM1={hod_params[3]},a={hod_params[4]})"
         print(f"  HOD override: {hod_tag}")
 
-    # --- tag del run: il JSON si diramava gia', la tabella e i campi no.
-    # Era il bug che ha contaminato gli indici 0-199 di phase8_test2_fields/
-    # e phase8_test2_permock.csv con i cubi di un run a HOD diverso.
-    run_tag = "hodfit" if args.hod_json else None
-    sfx = f"_{run_tag}" if run_tag else ""
-
-    out_fields = M.RES_DIR / f"phase8_test2_fields{sfx}"
+    out_fields = M.RES_DIR / "phase8_test2_fields"
     if args.save_fields:
-        if out_fields.exists() and any(out_fields.iterdir()) and not args.force:
-            sys.exit(f"[FATAL] {out_fields} esiste e non e' vuota. "
-                     f"Usa --force per sovrascrivere, o cambia tag.")
         out_fields.mkdir(parents=True, exist_ok=True)
-
-    # --- RES_DIR e' costruita all'import di phase8_cutsky_mocks con
-    # ROOT = Path("."): main() legge args.project_root ma non lo propaga mai.
-    # Lo script funziona solo se lanciato dalla radice del progetto; oggi
-    # fallisce in silenzio scrivendo altrove.
-    _root = Path(args.project_root).resolve()
-    if _root not in M.RES_DIR.resolve().parents and M.RES_DIR.resolve() != _root:
-        sys.exit(f"[FATAL] RES_DIR = {M.RES_DIR.resolve()} non sta sotto "
-                 f"{_root}.\n         Lancia lo script dalla radice del "
-                 f"progetto: cd {_root}")
 
     mask = np.load(M.DESI_MASK_FILE)
     print("=" * 70)
@@ -215,9 +190,7 @@ def main():
 
     # Per-mock table (index, w0, Om, s8, pers1, beta1_max) for the w0 analysis.
     params = load_nwlh_params()   # dict index -> (Om, s8, w0) or None
-    tbl = M.RES_DIR / f"phase8_test2_permock{sfx}.csv"
-    if tbl.exists() and not args.force:
-        sys.exit(f"[FATAL] {tbl} esiste gia'. Usa --force per sovrascrivere.")
+    tbl = M.RES_DIR / "phase8_test2_permock.csv"
     with open(tbl, "w") as f:
         f.write("index,w0,Om,s8,pers1,beta1_max\n")
         for k, idx in enumerate(index_list):

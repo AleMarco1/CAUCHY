@@ -1,0 +1,428 @@
+{
+  "_self_sha256": "865aa2ef16f299d8653e770d1fb587448f1c455e8c498c2b0db10cd20743f1bc",
+  "amplitude_statistic_retired": {
+    "empirical_rank_pct": 98.0,
+    "pers1_DESI_NGC": 0.7246,
+    "pers1_mock_mean": 0.6299,
+    "pers1_mock_sd": 0.0439,
+    "src": "M26R1 §5.1",
+    "status": "retired as primary; amplitude statistic",
+    "z": 2.16
+  },
+  "box_cox_family": {
+    "T_eps": "[(1+delta)^eps - 1]/eps",
+    "deficit_at_eps0": 0.203,
+    "deficit_at_eps1": 0.176,
+    "mock_mean_eps0": 35446,
+    "mock_mean_eps1": 35262,
+    "n_mocks": 50,
+    "paper2_use": "PREDICTION 4.2b: this excursion must COMPRESS on ensemble v2.",
+    "pers1_drop_frac": 0.44,
+    "spearman_rho_min": 0.9965,
+    "src": "M26R1 §4.1"
+  },
+  "cosmology_response": {
+    "dbeta_dw0": -76,
+    "dbeta_dw0_CI95": [
+      -1050,
+      929
+    ],
+    "deficit_for_comparison": 7181,
+    "largest_excursion_generators": 1501,
+    "partial_r_n": 200,
+    "partial_r_w0_given_Om_s8": -0.015,
+    "partial_r_w0_perm_p": 0.84,
+    "r_Ob": -0.128,
+    "r_Om": 0.154,
+    "r_h": 0.21,
+    "r_ns": 0.376,
+    "r_sigma8": 0.182,
+    "shortfall_factor": 4.8,
+    "src": "M26R1 §5.5; P1 §6.1"
+  },
+  "declaration": "Ensemble v1 is the frozen mock ensemble produced by voxelize_mock with UNIT weights, as used for every number in M26 (MN-26-2100-P, incl. R1) and Paper 1 (MN-26-2388-P). It is IMMUTABLE. Paper 2 may create an ensemble v2 (FKP-weighted mock voxelisation); no number may be reported without an explicit v1 or v2 label. The unqualified phrase 'fiducial ensemble' is retired.",
+  "erosion_ladder_canonical": {
+    "NGC": {
+      "excursion_pp": 6.8,
+      "k0": {
+        "deficit": 0.202,
+        "retained": 1.0,
+        "wbar": 0.998
+      },
+      "k1": {
+        "deficit": 0.254,
+        "retained": 0.846,
+        "wbar": 0.99999
+      },
+      "k2": {
+        "deficit": 0.206,
+        "retained": 0.681,
+        "wbar": 1.0
+      },
+      "k3": {
+        "deficit": 0.186,
+        "retained": 0.487,
+        "wbar": 1.0
+      }
+    },
+    "SGC": {
+      "excursion_pp": 9.8,
+      "k0": {
+        "deficit": 0.191
+      },
+      "k1": {
+        "deficit": 0.271
+      },
+      "k2": {
+        "deficit": 0.2
+      },
+      "k3": {
+        "deficit": 0.173
+      }
+    },
+    "paper2_use": "COMPONENT C: k=1 maximum attributed to FKP layer removal (+~1840 loops) vs FKP weighting measured at -78. Factor ~24 unexplained.",
+    "rank_at_every_level": "1/2001",
+    "src": "P1 §8.1, Tables 9-10"
+  },
+  "frozen_on": "2026-08-25",
+  "geometry": {
+    "NGC": {
+      "L_box_hMpc": 1997.36,
+      "dx_hMpc": 15.604,
+      "grid": 128,
+      "in_mask_volume_hMpc3": 1170000000.0,
+      "mask_fraction": 0.147,
+      "mask_voxels": 307805,
+      "mean_separation_hMpc": 17.5,
+      "median_depth_voxels": 3.0,
+      "n_gal": 217614,
+      "n_rand": 13248857,
+      "occupancy_gal_per_voxel": 0.71,
+      "sigma_px": 0.3204,
+      "src": "M26R1 §2.1; P1 §2.1"
+    },
+    "SGC": {
+      "L_box_hMpc": 1904.5,
+      "dx_hMpc": 14.88,
+      "grid": 128,
+      "mask_fraction": 0.082,
+      "mask_voxels": 172225,
+      "median_depth_voxels": 2.8,
+      "n_gal": 82429,
+      "sigma_px": 0.3361,
+      "src": "P1 §2.1; M26R1 §5.4 quotes sigma_px=0.336"
+    }
+  },
+  "mask_criterion": {
+    "absolute_bias_excursion": 0.158,
+    "absolute_bias_range": [
+      -0.08,
+      -0.24
+    ],
+    "differential_bias": -0.034,
+    "differential_bias_sd": 0.028,
+    "fiducial_margin_frac": 0.037,
+    "n_configs_in_regime": 58,
+    "n_synthetic_configs": 240,
+    "practical_limit_NGC": 0.333,
+    "practical_rule": "sigma_px <~ d_med/9",
+    "shape_excursion": 0.019,
+    "src": "P1 §8.2",
+    "status": "condition on DIFFERENTIAL comparisons only; threshold fixed a posteriori",
+    "wbar_threshold": 0.99
+  },
+  "monotone_invariance_checks": {
+    "M26R1_exp3nu": 28256,
+    "M26R1_nu_cubed": 28256,
+    "M26R1_rank_normal_quantiles": 28256,
+    "P1_SGC_gaussian_and_exponential": 15122,
+    "src": "M26R1 §4.1; P1 §2.3",
+    "tie_breaking_shift_frac": 0.00011,
+    "tie_breaking_shift_generators": 3,
+    "tied_groups": 4272
+  },
+  "one_point": {
+    "NGC": {
+      "beta1pk_deficit_secondary": 0.369,
+      "corrected_deficit_forward": 0.2049,
+      "corrected_deficit_mirror": 0.232,
+      "f_1p": -0.0142,
+      "f_1p_err": 0.0001,
+      "g_1p": -0.144,
+      "null_single_real": [
+        -0.9,
+        2.1
+      ],
+      "response_frac": 0.0029,
+      "response_to_DESI_PDF": 102.0,
+      "sensitivity_asymmetry": 12.7
+    },
+    "SGC": {
+      "beta1pk_deficit_secondary": 0.372,
+      "corrected_deficit_forward": 0.1982,
+      "f_1p": -0.0408,
+      "f_1p_err": 0.0003,
+      "null_single_real": [
+        8.8,
+        0.7
+      ],
+      "response_frac": 0.0078,
+      "response_to_DESI_PDF": 146.3
+    },
+    "raw_field_gaussian_remap_shift_frac": -0.016,
+    "src": "P1 §3, Table 2"
+  },
+  "paired_corrections": {
+    "FKP_weighted_mock_voxelisation": {
+      "delta": -78.0,
+      "frac_of_D": -0.0109,
+      "mean_in_mask_wFKP": 0.309,
+      "n_pairs": 60,
+      "sem": 8.0,
+      "sigma": -9.7
+    },
+    "NFW_vs_uniform_satellites": {
+      "delta": -56,
+      "frac_of_D": -0.008,
+      "n_pairs": 40,
+      "sem": 24
+    },
+    "growth_dz": {
+      "dN_dz": -53,
+      "err": 112,
+      "expected_shift": 13,
+      "frac_of_D": 0.002
+    },
+    "satellite_sigma_v_pm20pct": {
+      "frac_of_D": 0.017,
+      "span": 123
+    },
+    "src": "P1 §7, Table 8; M26R1 §5.3",
+    "unit_weights_on_data": {
+      "delta": 309,
+      "from": 28256,
+      "to": 28565
+    }
+  },
+  "persistence_split_M26R1": {
+    "bin_edges_sigma": [
+      0.05,
+      1.85
+    ],
+    "bins_deficient_gt3sigma": [
+      30,
+      35
+    ],
+    "bulk_deficit": -9408,
+    "deficit_weighted_mean_persistence": 0.43,
+    "fractional_deficit_p10_p90": [
+      0.26,
+      0.59
+    ],
+    "mock_mean_persistence": 0.3,
+    "near_diagonal_excess": 1908,
+    "paper2_use": "GATE 5.3: near-diagonal term must move first on v2.",
+    "sparse_tail_excess": 332.5,
+    "src": "M26R1 §5.2"
+  },
+  "primary": {
+    "NGC": {
+      "N_H1_DESI": 28256,
+      "beta1_peak_height_DESI": 8457,
+      "deficit_abs": 7180.7,
+      "deficit_frac": 0.2026,
+      "empirical_rank": "1/2001",
+      "exact_to_unit": true,
+      "lowest_mock": 31226,
+      "lowest_mock_index": 1666,
+      "margin_below_min": 2970,
+      "mock_mean": 35436.7,
+      "mock_sd": 313.0,
+      "n_mocks": 2000,
+      "p_one_sided": 0.0005,
+      "src": "M26R1 §5.2, Fig.4; P1 Table 2",
+      "z_family": -22.9,
+      "z_fixed_cosmology": -42.1
+    },
+    "SGC_n200": {
+      "N_H1_DESI": 15122,
+      "deficit_frac": 0.191,
+      "mock_mean": 18694.0,
+      "mock_sd": 178.0,
+      "n_mocks": 200,
+      "note": "SAME v1 ensemble, different subset size. Do not average with SGC_n2000.",
+      "src": "M26R1 §5.4",
+      "z_family": -20.0
+    },
+    "SGC_n2000": {
+      "N_H1_DESI": 15122,
+      "deficit_abs": 3591.0,
+      "deficit_frac": 0.1919,
+      "empirical_rank": "1/2001",
+      "margin_below_min": 1100,
+      "mock_mean": 18713.0,
+      "mock_sd": 197.8,
+      "n_mocks": 2000,
+      "src": "P1 §2.2, Table 2",
+      "z_family": -18.2
+    }
+  },
+  "provenance": {
+    "M26R1": "MN-26-2100-P.R1, submitted 2026-08-23",
+    "P1": "MN-26-2388-P, preprint 2026-07-31"
+  },
+  "resolution_test": {
+    "g128": {
+      "DESI": 28256,
+      "cell_hMpc": 15.6,
+      "central_mass": 0.685,
+      "deficit": 0.2029,
+      "mock_mean": 35447.1,
+      "mock_sd": 276.7,
+      "occupancy": 0.71,
+      "rank": "1/51",
+      "sigma_px": 0.3204,
+      "z": -26.0
+    },
+    "g256": {
+      "DESI": 95722,
+      "cell_hMpc": 7.8,
+      "central_mass": 0.18,
+      "deficit": 0.1415,
+      "mock_mean": 111493.4,
+      "mock_sd": 2013.4,
+      "occupancy": 0.088,
+      "rank": "1/51",
+      "sigma_px": 0.6408,
+      "z": -7.8
+    },
+    "kernel_FWHM_hMpc": 11.77,
+    "n_mocks": 50,
+    "src": "P1 §8.3, Table 11"
+  },
+  "schema": "cauchy.paper2.v1_reference",
+  "schema_version": "1.0",
+  "small_scale_diagnostics": {
+    "delta_variance_ratio_mock_over_DESI": 1085,
+    "in_mask_excess_kurtosis_nu": {
+      "DESI": 0.2,
+      "mocks": 3.9
+    },
+    "max_delta_DESI": 125,
+    "max_delta_mock": 32244,
+    "max_voxel_multiplicity": {
+      "DESI": 52,
+      "mocks": [
+        3,
+        4
+      ]
+    },
+    "multiply_occupied_voxel_frac": {
+      "DESI": 0.0165,
+      "mocks": [
+        0.0021,
+        0.0027
+      ]
+    },
+    "nu99_minus_nu1_sigma": {
+      "DESI": 3.22,
+      "mocks": 5.6
+    },
+    "paper2_use": "PREDICTIONS 4.2b (weights-dependent) and GATE 4.2d (weights-INdependent: multiplicity rows must not move).",
+    "pathological_voxel_frac": 0.013,
+    "pathological_voxels_per_mock": 4000,
+    "pathological_within_2vox_of_boundary": 0.994,
+    "small_scale_power_frac_f_half": {
+      "DESI": 0.575,
+      "mocks": 0.68,
+      "mocks_sd": 0.007
+    },
+    "src": "P1 Table 12, §7.2"
+  },
+  "systematic_band": {
+    "deficit_frac_range": [
+      0.17,
+      0.29
+    ],
+    "high_end_source": "10th-percentile denominator cut (28.5%)",
+    "low_end_source": "3-voxel erosion SGC (17.3%)",
+    "paired_corrections_sum_frac_of_D": -0.019,
+    "rank_in_every_variant": "1/2001",
+    "residual_beyond_2pt_after_systematics": 0.233,
+    "src": "P1 §7.4"
+  },
+  "tiling": {
+    "L_sim_box_hMpc": 1000.0,
+    "distinct_box_cells": 214215,
+    "in_survey_voxels": 307805,
+    "independent_volume_frac": 0.696,
+    "max_multiplicity": 5,
+    "mean_multiplicity": 1.44,
+    "multi_used_voxel_frac": 0.59,
+    "paper2_use": "CONFOUNDER 1.5/3.2a: embedding cube scales with alpha_iso while sim box does not.",
+    "replica_randomised": {
+      "CI95": [
+        0.85,
+        1.12
+      ],
+      "inflation_bound": 0.12,
+      "mock_mean_shift": -13,
+      "n_mocks": 100,
+      "scatter_ratio": 0.97
+    },
+    "sigma_realisation_restored": [
+      114.6,
+      137.3
+    ],
+    "sigma_total_restored": [
+      313.0,
+      322.0
+    ],
+    "src": "M26R1 §5.6"
+  },
+  "two_point_decomposition_NGC": {
+    "DESI_original": 28256,
+    "DESI_phase_rand": 33719.4,
+    "DESI_phase_sem": 22.2,
+    "D_original": 7202.9,
+    "D_phase": 5492.4,
+    "D_phase_sem": 40.6,
+    "baseline_mean": 35458.9,
+    "baseline_sem": 25.8,
+    "idempotence_DESI": [
+      -20,
+      65
+    ],
+    "idempotence_mock": [
+      150,
+      200
+    ],
+    "matched_subset_n": 100,
+    "mock_phase_rand": 39211.8,
+    "mock_phase_sem": 34.0,
+    "n_draws_data": 50,
+    "n_draws_mock": 1,
+    "note": "6.8 sigma is the quoted significance: mock-to-mock dispersion of Delta_N, NOT the procedural SEM.",
+    "rank": "1/101",
+    "residual_beyond_2pt": 1710.5,
+    "residual_sem": 40.6,
+    "sigma_Delta_deconvolved": 195.2,
+    "sigma_Delta_mock_to_mock": 250.5,
+    "significance_deconvolved": 8.8,
+    "significance_sigma": 6.8,
+    "spectral_fraction": 0.763,
+    "src": "P1 §4, Table 3"
+  },
+  "variance_decomposition": {
+    "note": "sigma_fixed is experiment M2 of the Paper-5 canovaccio; already executed.",
+    "share_HOD": 0.168,
+    "share_cosmology": 0.698,
+    "share_realisation": 0.134,
+    "sigma_HOD_downsampling": 128.3,
+    "sigma_cosmology": 261.5,
+    "sigma_fixed_cosmology": 172.0,
+    "sigma_realisation": 114.6,
+    "sigma_total": 313.0,
+    "src": "M26R1 §5.5"
+  }
+}
