@@ -53,3 +53,5 @@ venv/
 # (nessuna, per ora: maschere e scale nulle vanno su Zenodo.
 #  Se un giorno servisse, si aggiunge qui con '!')
 # ============================================================
+
+results/paper2/remote_audit.json
