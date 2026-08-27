@@ -68,3 +68,6 @@ papers/m26/
 papers/paper1/MNRAS/
 papers/paper2/MNRAS/
 paper/
+
+PURGE.md
+purge_paths.txt
