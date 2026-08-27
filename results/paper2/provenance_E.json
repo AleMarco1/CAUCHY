@@ -1,0 +1,246 @@
+{
+  "E": [
+    {
+      "file": "results/paper1/n2_persistence_NGC.jsonl",
+      "field": "n_tot",
+      "n": 1800,
+      "mean": 35438.14277777778,
+      "sd": 316.2779878451747,
+      "min": 31226,
+      "match": "baseline v1, N=2000",
+      "cap": "NGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/n6_fkp_NGC.jsonl",
+      "field": "unit",
+      "n": 60,
+      "mean": 35449.933333333334,
+      "sd": 266.70563133408103,
+      "min": 34781.0,
+      "match": "baseline v1, N=2000",
+      "cap": "NGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/n6_fkp_NGC.jsonl",
+      "field": "fkp",
+      "n": 60,
+      "mean": 35371.96666666667,
+      "sd": 262.5123704376012,
+      "min": 34685.0,
+      "match": "baseline v1, N=2000",
+      "cap": "NGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/n6_fkp_NGC.jsonl",
+      "field": "jsonl",
+      "n": 60,
+      "mean": 35449.933333333334,
+      "sd": 266.70563133408103,
+      "min": 34781.0,
+      "match": "baseline v1, N=2000",
+      "cap": "NGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/n7_nfw_NGC.jsonl",
+      "field": "uniform",
+      "n": 40,
+      "mean": 35454.65,
+      "sd": 278.983185781362,
+      "min": 34781.0,
+      "match": "baseline v1, N=2000",
+      "cap": "NGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/n7_nfw_NGC.jsonl",
+      "field": "nfw",
+      "n": 40,
+      "mean": 35398.175,
+      "sd": 286.8279111959393,
+      "min": 34519.0,
+      "match": "baseline v1, N=2000",
+      "cap": "NGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/n7_nfw_NGC.jsonl",
+      "field": "jsonl",
+      "n": 40,
+      "mean": 35454.65,
+      "sd": 278.983185781362,
+      "min": 34781.0,
+      "match": "baseline v1, N=2000",
+      "cap": "NGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/n9_res256_NGC.jsonl",
+      "field": "n128",
+      "n": 50,
+      "mean": 35447.06,
+      "sd": 276.6870633412559,
+      "min": 34781.0,
+      "match": "baseline v1, N=2000",
+      "cap": "NGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/per_mock_NGC_erosion_restrict.jsonl",
+      "field": "cells.R5_er0.N_H1",
+      "n": 400,
+      "mean": 35423.575,
+      "sd": 281.69845477666166,
+      "min": 34119.0,
+      "match": "baseline v1, N=2000",
+      "cap": "NGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/per_mock_NGC_R5.jsonl",
+      "field": "base.N_H1",
+      "n": 2000,
+      "mean": 35436.686,
+      "sd": 312.98916516831116,
+      "min": 31226.0,
+      "match": "baseline v1, N=2000",
+      "cap": "NGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/per_mock_NGC_R5.jsonl",
+      "field": "remap.N_H1",
+      "n": 2000,
+      "mean": 35538.6935,
+      "sd": 317.0636043798802,
+      "min": 30704.0,
+      "match": "baseline v1, N=2000",
+      "cap": "NGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/per_mock_NGC_R5.jsonl",
+      "field": "null.N_H1",
+      "n": 2000,
+      "mean": 35432.142,
+      "sd": 342.91356008598643,
+      "min": 30013.0,
+      "match": "baseline v1, N=2000",
+      "cap": "NGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/per_mock_NGC_R5_nullmm.jsonl",
+      "field": "nullmm.N_H1",
+      "n": 200,
+      "mean": 35422.695,
+      "sd": 294.4304987052788,
+      "min": 33909.0,
+      "match": "baseline v1, N=2000",
+      "cap": "NGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/per_mock_NGC_R5_nullmm.jsonl",
+      "field": "base.N_H1",
+      "n": 200,
+      "mean": 35423.575,
+      "sd": 282.0521252923111,
+      "min": 34119.0,
+      "match": "baseline v1, N=2000",
+      "cap": "NGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/per_mock_SGC_erosion_restrict.jsonl",
+      "field": "cells.R5_er0.N_H1",
+      "n": 400,
+      "mean": 18693.595,
+      "sd": 177.73459127964753,
+      "min": 18182.0,
+      "match": "SGC baseline, N=2000",
+      "cap": "SGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/per_mock_SGC_erosion_restrict.jsonl",
+      "field": "cells.R5_er0.N_H1",
+      "n": 400,
+      "mean": 18693.595,
+      "sd": 177.73459127964753,
+      "min": 18182.0,
+      "match": "SGC baseline, N=200",
+      "cap": "SGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/per_mock_SGC_R5.jsonl",
+      "field": "base.N_H1",
+      "n": 2000,
+      "mean": 18712.9675,
+      "sd": 197.7873817207103,
+      "min": 16222.0,
+      "match": "SGC baseline, N=2000",
+      "cap": "SGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/per_mock_SGC_R5.jsonl",
+      "field": "base.N_H1",
+      "n": 2000,
+      "mean": 18712.9675,
+      "sd": 197.7873817207103,
+      "min": 16222.0,
+      "match": "SGC baseline, N=200",
+      "cap": "SGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/per_mock_SGC_R5.jsonl",
+      "field": "remap.N_H1",
+      "n": 2000,
+      "mean": 18859.3145,
+      "sd": 204.215534624673,
+      "min": 15794.0,
+      "match": "SGC baseline, N=2000",
+      "cap": "SGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/per_mock_SGC_R5.jsonl",
+      "field": "remap.N_H1",
+      "n": 2000,
+      "mean": 18859.3145,
+      "sd": 204.215534624673,
+      "min": 15794.0,
+      "match": "SGC baseline, N=200",
+      "cap": "SGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/per_mock_SGC_R5.jsonl",
+      "field": "null.N_H1",
+      "n": 2000,
+      "mean": 18721.719,
+      "sd": 211.48401779778052,
+      "min": 15354.0,
+      "match": "SGC baseline, N=2000",
+      "cap": "SGC",
+      "n_below_desi": 0
+    },
+    {
+      "file": "results/paper1/per_mock_SGC_R5.jsonl",
+      "field": "null.N_H1",
+      "n": 2000,
+      "mean": 18721.719,
+      "sd": 211.48401779778052,
+      "min": 15354.0,
+      "match": "SGC baseline, N=200",
+      "cap": "SGC",
+      "n_below_desi": 0
+    }
+  ]
+}

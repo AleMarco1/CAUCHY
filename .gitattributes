@@ -1,46 +1,40 @@
-# ==============================================================================
-# CAUCHY — .gitattributes
-#
-# PERCHÉ ESISTE QUESTO FILE
-#
-# I file sotto results/ sono sottoposti a hash SHA-256 nei manifest di
-# integrità dell'ensemble v1 (results/paper2/ensemble_v1_manifest_*.jsonl).
-# Su Windows, con core.autocrlf=true, git converte LF -> CRLF a ogni checkout:
-# un file di 48 byte torna dal repository come 50 byte, con uno SHA-256
-# diverso. Il risultato sarebbe che
-#
-#     python src/paper2_freeze_v1.py verify ...
-#
-# segnalerebbe DRIFT su ogni file di testo dopo ogni clone o checkout, senza
-# che un solo dato sia cambiato. Un controllo di integrità che scatta a vuoto
-# smette di essere un controllo, perché si impara a ignorarlo.
-#
-# `-text` disattiva qualunque conversione di fine riga: i file entrano ed
-# escono dal repository byte per byte identici.
-# ==============================================================================
+# ============================================================
+# CAUCHY - .gitattributes
+# I file di risultato portano hash di integrita' calcolati sui
+# BYTE: una conversione di fine riga da parte di git li corrompe
+# senza che nulla se ne accorga. Gia' successo con quelli del
+# Paper 1: da li' viene la regola 'results/** -text'.
+# ============================================================
 
-# --- results/ : esattezza byte-per-byte, non negoziabile ----------------------
-results/** -text
+# Nessuna normalizzazione su NULLA dentro results/ e MANIFESTS/.
+results/**      -text
+MANIFESTS/**    -text
 
-# --- binari: nessuna conversione, nessun diff testuale -----------------------
-*.npz binary
-*.npy binary
-*.pkl binary
-*.pth binary
-*.h5  binary
-*.pdf binary
+# I formati append-only, ovunque si trovino.
+*.jsonl         -text
+*.json          -text
 
-# --- codice e documentazione: normalizzati a LF nel repository ---------------
-#     Qui la conversione è innocua (nessun hash dipende da questi file) ed è
-#     preferibile: mantiene i diff puliti fra macchine diverse.
-*.py   text eol=lf
-*.md   text eol=lf
-*.yml  text eol=lf
-*.yaml text eol=lf
-*.cff  text eol=lf
-*.txt  text eol=lf
-.gitignore     text eol=lf
-.gitattributes text eol=lf
+# Anche i manifest e i digest sono byte-sensibili.
+*.sha256        -text
+*.manifest      -text
 
-# --- linguaggio per i diff ---------------------------------------------------
-*.py diff=python
+# Binari, se mai qualcuno li forzasse in git con -f.
+*.npy   binary
+*.npz   binary
+*.pkl   binary
+*.fits  binary
+*.pdf   binary
+*.png   binary
+*.zip   binary
+*.docx  binary
+
+# Sorgenti e documenti: normalizzazione normale.
+*.py    text
+*.md    text
+*.txt   text
+*.tex   text
+*.bib   text
+*.yml   text
+*.cff   text
+*.ps1   text eol=crlf
+*.sh    text eol=lf

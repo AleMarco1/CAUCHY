@@ -153,6 +153,236 @@ _DC_TAB = comoving_distance(_Z_TAB)
 def z_of_dc(dc):
     return np.interp(dc, _DC_TAB, _Z_TAB)
 
+# =============================================================================
+# G2 — set_geometry(): da inserire in src/phase8_cutsky_mocks.py
+#
+# POSIZIONE: subito dopo z_of_dc() (riga 154), prima della classe FoF_catalog.
+#
+# PERCHE'. Nove costanti di modulo dipendono dalla geometria fiduciale, e cinque
+# di esse sono derivate all'import:
+#
+#     OMM (112) -> OML (113) -> _DC_TAB (152) -> D_C_ZMIN/ZMAX (104-105)
+#     BOX_SIZE (102) -> CELL (103) -> SIGMA_PX (109)
+#
+# phase9_sgc_likeforlike.py ne riscrive quattro a mano (BOX_MIN, BOX_SIZE, CELL,
+# SIGMA_PX) e funziona perche' cambiava geometria a COSMOLOGIA FISSA. Il Paper 2
+# cambia cosmologia, quindi tocca anche OMM, OML, _DC_TAB, D_C_ZMIN, D_C_ZMAX.
+#
+# Dimenticarne una non produce un errore: produce un risultato plausibile e
+# sbagliato. In particolare, lasciando D_C_ZMIN/ZMAX ai valori fiduciali il
+# pre-filtro di carve_cutsky (riga 444, margine +/-50 Mpc/h) taglia il campione
+# fuori posto non appena lo spostamento di D_C supera quel margine — cosa che
+# accade all'angolo Om=0.25, w0=-1.2 (+55.3 Mpc/h), che e' anche il punto con il
+# residuo anisotropo massimo. L'artefatto avrebbe la stessa dipendenza dalla
+# fiducia del segnale AP, e sarebbe indistinguibile da esso.
+#
+# Da qui in avanti nessun globale geometrico va toccato a mano.
+# =============================================================================
+
+
+# Riferimento alla comoving_distance ANALITICA, catturato una volta. Iniettando
+# una dc_tab, set_geometry() sostituisce comoving_distance con un interpolatore
+# sulla tabella: senza questo, load_desi_random_field() e load_desi_data_field()
+# continuerebbero a convertire le posizioni DESI con la cosmologia VECCHIA
+# mentre carve_cutsky() usa gia' la tabella nuova — i mock carvati con una
+# mappatura e i dati con un'altra, senza alcun errore visibile.
+_COMOVING_DISTANCE_ANALYTIC = comoving_distance
+
+
+def set_geometry(*, omm=None, dc_tab=None, z_tab=None,
+                 box_min=None, box_size=None, verbose=True):
+    """Reimposta ATOMICAMENTE ogni globale che dipende dalla geometria fiduciale.
+
+    Due modi di specificare la mappatura radiale, mutuamente esclusivi:
+
+      omm=<float>
+          ricalcola la tabella da un LCDM piatto con quel Omega_m. Le soglie
+          D_C_ZMIN/ZMAX sono ottenute da comoving_distance() diretta, non per
+          interpolazione: e' la stessa via che ha prodotto le costanti congelate
+          (292.535950750378 e 1080.7298534541035), quindi al fiduciale questa
+          funzione e' un no-op ESATTO. Interpolare darebbe uno scarto di
+          3.7e-06 Mpc/h, piccolo ma sufficiente a rompere il test di
+          equivalenza bit-esatta.
+
+      dc_tab=<array>
+          inietta una mappatura radiale arbitraria z -> D_C. Il codice non ha un
+          parametro w0 (OML = 1 - OMM, LCDM piatto), ma tutto passa per
+          l'interpolazione _Z_TAB -> _DC_TAB: sostituendo la tabella si ottiene
+          qualunque fiduciale, incluso w0 != -1, e anche trasformazioni che non
+          corrispondono ad alcuna cosmologia — alpha_iso puro, F_AP puro. E'
+          questo che rende la parametrizzazione (alpha_iso, F_AP) del Paper 2
+          innestabile senza toccare comoving_distance().
+
+    box_min / box_size: se None restano invariati. Su geometrie non fiduciali
+    vanno ricalcolati dal catalogo random riconvertito, come fa
+    phase9_sgc_likeforlike.py per la SGC.
+
+    Restituisce un dict con lo stato applicato, da scrivere nel record congelato.
+
+    Solleva ValueError se la mappatura non e' strettamente crescente: np.interp
+    lo richiede, e la monotonia e' anche l'ipotesi della Proposizione 2 (il
+    cancello 2.4 della checklist). Verificarla qui la rende impossibile da
+    saltare.
+    """
+    global OMM, OML, _Z_TAB, _DC_TAB, D_C_ZMIN, D_C_ZMAX
+    global BOX_MIN, BOX_SIZE, CELL, SIGMA_PX
+    global comoving_distance
+
+    if omm is not None and dc_tab is not None:
+        raise ValueError("set_geometry: specificare 'omm' oppure 'dc_tab', non entrambi")
+
+    # --- 0. snapshot: o riesce del tutto, o non e' successo niente ---------
+    # ATOMICITA'. Senza questo, un'eccezione sollevata a meta' (tipicamente il
+    # controllo di monotonia al punto 2, che arriva DOPO l'assegnazione della
+    # tabella) lascerebbe il modulo con _DC_TAB e comoving_distance gia'
+    # sostituiti da valori respinti. Il chiamante vedrebbe un ValueError e
+    # penserebbe che non sia cambiato nulla, mentre ogni run successivo
+    # userebbe la mappatura scartata. E' esattamente il difetto che questa
+    # funzione esiste per rendere impossibile.
+    _snap = (OMM, OML,
+             np.array(_Z_TAB, dtype=np.float64, copy=True),
+             np.array(_DC_TAB, dtype=np.float64, copy=True),
+             D_C_ZMIN, D_C_ZMAX,
+             np.array(BOX_MIN, dtype=np.float64, copy=True),
+             BOX_SIZE, CELL, SIGMA_PX, comoving_distance)
+    try:
+        return _set_geometry_unchecked(omm, dc_tab, z_tab, box_min, box_size, verbose)
+    except Exception:
+        (OMM, OML, _Z_TAB, _DC_TAB, D_C_ZMIN, D_C_ZMAX,
+         BOX_MIN, BOX_SIZE, CELL, SIGMA_PX, comoving_distance) = _snap
+        raise
+
+
+def _set_geometry_unchecked(omm, dc_tab, z_tab, box_min, box_size, verbose):
+    """Corpo di set_geometry(). Non chiamare direttamente: non ripristina lo
+    stato in caso di errore. Passare sempre da set_geometry()."""
+    global OMM, OML, _Z_TAB, _DC_TAB, D_C_ZMIN, D_C_ZMAX
+    global BOX_MIN, BOX_SIZE, CELL, SIGMA_PX
+    global comoving_distance
+
+    # --- 1. mappatura radiale --------------------------------------------
+    if omm is not None:
+        # torna (o resta) sulla forma analitica: legge OMM/OML alla chiamata,
+        # quindi si aggiorna da sola
+        comoving_distance = _COMOVING_DISTANCE_ANALYTIC
+        OMM = float(omm)
+        OML = 1.0 - OMM
+        _Z_TAB = np.asarray(z_tab, dtype=np.float64) if z_tab is not None \
+            else np.linspace(0.0, 0.6, 4001)
+        _DC_TAB = comoving_distance(_Z_TAB)
+        # via esatta: le costanti congelate vengono da qui, non dalla tabella
+        D_C_ZMIN = float(comoving_distance([ZMIN])[0])
+        D_C_ZMAX = float(comoving_distance([ZMAX])[0])
+
+    elif dc_tab is not None:
+        _DC_TAB = np.asarray(dc_tab, dtype=np.float64)
+        if z_tab is not None:
+            _Z_TAB = np.asarray(z_tab, dtype=np.float64)
+        if _DC_TAB.shape != _Z_TAB.shape:
+            raise ValueError(f"set_geometry: dc_tab {_DC_TAB.shape} e z_tab "
+                             f"{_Z_TAB.shape} hanno forme diverse")
+        # nessuna comoving_distance() da chiamare: qui l'interpolazione e' l'unica via
+        D_C_ZMIN = float(np.interp(ZMIN, _Z_TAB, _DC_TAB))
+        D_C_ZMAX = float(np.interp(ZMAX, _Z_TAB, _DC_TAB))
+        # Redirige comoving_distance sulla tabella, altrimenti i loader DESI
+        # convertirebbero con la cosmologia vecchia mentre carve_cutsky usa la
+        # tabella nuova.
+        _tz, _tdc = np.array(_Z_TAB, dtype=np.float64), np.array(_DC_TAB, dtype=np.float64)
+
+        def _dc_from_tab(z_arr, n_steps=None):
+            za = np.atleast_1d(np.asarray(z_arr, dtype=np.float64))
+            out = np.interp(za, _tz, _tdc)
+            return out
+
+        comoving_distance = _dc_from_tab
+        # OMM/OML restano quelli correnti e NON descrivono piu' la mappatura:
+        # segnalarlo, perche' verrebbero scritti nel record.
+        if verbose:
+            print("  set_geometry: dc_tab iniettata; OMM/OML non descrivono piu' "
+                  "la mappatura e non vanno riportati come cosmologia.")
+
+    # --- 2. monotonia (cancello 2.4) --------------------------------------
+    d = np.diff(_DC_TAB)
+    if not np.all(d > 0):
+        bad = int(np.argmin(d))
+        raise ValueError(
+            f"set_geometry: mappatura radiale non strettamente crescente "
+            f"(primo difetto a z={_Z_TAB[bad]:.4f}, dD_C={d[bad]:.3e}). "
+            f"np.interp lo richiede, e la monotonia e' l'ipotesi della Prop. 2.")
+
+    # --- 3. cubo di embedding ---------------------------------------------
+    if box_min is not None:
+        BOX_MIN = np.asarray(box_min, dtype=np.float64)
+    if box_size is not None:
+        BOX_SIZE = float(box_size)
+
+    # --- 4. quantita' derivate: SEMPRE, mai a mano ------------------------
+    CELL = BOX_SIZE / NGRID
+    SIGMA_PX = R_SMOOTH / CELL
+
+    # --- 5. asserzioni: le relazioni non possono piu' divergere -----------
+    assert abs(CELL - BOX_SIZE / NGRID) < 1e-12, "CELL incoerente con BOX_SIZE"
+    assert abs(SIGMA_PX - R_SMOOTH / CELL) < 1e-15, "SIGMA_PX incoerente con CELL"
+    assert BOX_MIN.shape == (3,), f"BOX_MIN ha forma {BOX_MIN.shape}, attesa (3,)"
+    assert D_C_ZMIN < D_C_ZMAX, "finestra radiale invertita"
+    # il pre-filtro di carve_cutsky usa un margine di 50 Mpc/h attorno a queste
+    # soglie: se sono coerenti con la mappatura, il margine resta innocuo.
+    assert D_C_ZMAX - D_C_ZMIN > 100.0, \
+        f"finestra radiale ({D_C_ZMAX - D_C_ZMIN:.1f} Mpc/h) piu' stretta del " \
+        f"doppio margine del pre-filtro: carve_cutsky taglierebbe tutto"
+
+    state = {
+        "OMM": OMM, "OML": OML,
+        "BOX_MIN": BOX_MIN.tolist(), "BOX_SIZE": BOX_SIZE,
+        "CELL": CELL, "SIGMA_PX": SIGMA_PX,
+        "D_C_ZMIN": D_C_ZMIN, "D_C_ZMAX": D_C_ZMAX,
+        "z_tab_n": int(_Z_TAB.size),
+        "dc_tab_endpoints": [float(_DC_TAB[0]), float(_DC_TAB[-1])],
+        "mode": "omm" if omm is not None else ("dc_tab" if dc_tab is not None else "box-only"),
+        "comoving_distance": ("analytic" if comoving_distance is _COMOVING_DISTANCE_ANALYTIC
+                              else "table-interpolated"),
+    }
+    if verbose:
+        print(f"  set_geometry [{state['mode']}]: box={BOX_SIZE:.4f} cell={CELL:.6f} "
+              f"sigma_px={SIGMA_PX:.6f} D_C=[{D_C_ZMIN:.3f}, {D_C_ZMAX:.3f}]")
+    return state
+
+
+def make_dc_tab_ap(alpha_iso=1.0, F_ap=1.0, z_pivot=None, z_tab=None):
+    """Costruisce una tabella D_C(z) per la parametrizzazione (alpha_iso, F_AP).
+
+    Non e' una cosmologia: e' una deformazione controllata della mappatura
+    radiale fiduciale, che e' cio' che il Paper 2 vuole campionare.
+
+      alpha_iso   dilatazione isotropa: D_C -> alpha_iso * D_C.
+                  Sotto la Proposizione 2, con il cubo ricalcolato e sigma_px in
+                  unita' di griglia, questa direzione NON deve muovere N_H1.
+                  E' il test di chiusura.
+
+      F_ap        curvatura: cambia il rapporto fra la derivata locale dD_C/dz e
+                  il valore locale D_C, cioe' la distorsione anisotropa. E' la
+                  sola direzione che porti contenuto fisico.
+
+    Il pivot fissa il punto in cui la deformazione e' nulla; di default il centro
+    della finestra, cosi' che F_ap non introduca dilatazione netta.
+    """
+    z = np.asarray(z_tab, dtype=np.float64) if z_tab is not None \
+        else np.linspace(0.0, 0.6, 4001)
+    dc0 = comoving_distance(z)
+    zp = 0.5 * (ZMIN + ZMAX) if z_pivot is None else float(z_pivot)
+    dcp = float(np.interp(zp, z, dc0))
+    # deformazione a legge di potenza attorno al pivot: preserva la monotonia
+    # per qualunque F_ap > 0 e lascia il pivot fermo.
+    ratio = np.zeros_like(dc0)
+    pos = dc0 > 0
+    ratio[pos] = dc0[pos] / dcp
+    dc = np.zeros_like(dc0)                      # out= esplicito: senza, np.power
+    np.power(ratio, F_ap, out=dc, where=pos)     # lascia memoria non inizializzata
+    dc *= alpha_iso * dcp
+    dc[~pos] = 0.0
+    return z, dc
+
+
 # ---------------------------------------------------------------------------
 # FoF reader WITH velocities (extends phase5_hod_b3.FoF_catalog)
 # Layout (from phase5_hod_b3.py header comment, verified SOA nwLH):

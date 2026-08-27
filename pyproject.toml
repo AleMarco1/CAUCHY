@@ -1,0 +1,130 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "cauchy"
+version = "0.1.0.dev0"
+description = "Cosmic Anomaly via Unified Cosmological Hyper-fields analYsis — topological field-level inference of dynamical dark energy"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+
+# Le dipendenze scientifiche pesanti sono in environment.yml (conda).
+# Qui solo le dipendenze Python pure necessarie per l'installazione
+# del pacchetto in modalità editable (pip install -e .).
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.12",
+    "pydantic>=2.6",
+    "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+# Stack completo — usare environment.yml invece di questo
+full = [
+    "torch>=2.2",
+    "gudhi>=3.9",
+    "pysr>=0.18",
+    "astropy>=6.0",
+    "h5py>=3.10",
+]
+# Solo linting/type-checking
+dev = [
+    "ruff>=0.3",
+    "mypy>=1.9",
+    "pytest>=8.0",
+    "pytest-cov>=4.1",
+]
+
+# ── Struttura del pacchetto ───────────────────────────────────────────────
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.setuptools.package-dir]
+"" = "."
+
+# ── Ruff — linting e formatting ──────────────────────────────────────────
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src"]
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "UP",   # pyupgrade
+    "N",    # pep8-naming
+    "ANN",  # flake8-annotations (type hints negli script scientifici)
+    "NPY",  # numpy-specific rules
+]
+ignore = [
+    "ANN101",  # self non necessita di annotation
+    "ANN102",  # cls non necessita di annotation
+    "E501",    # line length gestita da formatter
+    "B008",    # funzioni come default args (comune in scipy/numpy)
+]
+
+[tool.ruff.lint.per-file-ignores]
+# I notebook hanno pattern diversi
+"notebooks/*.py" = ["ANN", "E402"]
+# Gli script di Phase possono avere top-level side effects
+"src/phase*.py" = ["B006"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
+# ── MyPy — type checking ─────────────────────────────────────────────────
+
+[tool.mypy]
+python_version = "3.11"
+strict = false              # strict è troppo per codice scientifico iniziale
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true  # molte dipendenze scientifiche non hanno stub
+
+# ── Pytest ───────────────────────────────────────────────────────────────
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+# Seed riproducibile per test che usano random
+# (sovrascrivibile con CAUCHY_GLOBAL_SEED)
+filterwarnings = [
+    "error::ResourceWarning",
+]
+
+# ── Coverage ─────────────────────────────────────────────────────────────
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*", "notebooks/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+]
+
+# ── Metadata per il paper ────────────────────────────────────────────────
+# Usato da scripts/build_paper_metadata.py per generare il supplementary
+
+[tool.cauchy]
+global_seed = 42
+methodology_version = "2.0"
+execution_design_version = "2.0"
+quijote_fiducial_cosmology = { Om = 0.3175, s8 = 0.834, w0 = -1.0, h = 0.6711 }
+dataset_lhc_size = 2000
+dataset_nwlh_size = 2000
+dataset_nwlh_w0_range = [-1.30, -0.70]
+n_fiducials_used = 2000

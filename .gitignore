@@ -1,112 +1,55 @@
-# ==============================================================================
-# CAUCHY — .gitignore
-#
-# Strategia a whitelist: la riga `/*` blocca tutto, le eccezioni riaprono solo
-# ciò che serve. Regola d'oro di git: NON si può ri-includere un file se una
-# sua directory genitore è esclusa. Ogni negazione va quindi messa sulla
-# DIRECTORY, non sui file che contiene.
-#
-# Principio di selezione: si tracciano codice e record numerici; si escludono
-# le cache di campi e diagrammi, che sono rigenerabili dai cataloghi pubblici
-# (DESI DR1, Quijote) e comunque protette bit-per-bit dai manifest di
-# integrità in results/paper2/.
-#
-# Rev. 25 ago 2026 — recuperati i record congelati di paper1/, revision/,
-# phase4_sr_runs/ e paper2/, che la regola /results/*/ nascondeva.
-# ==============================================================================
+# ============================================================
+# CAUCHY - .gitignore
+# Principio: git tiene testo piccolo e diffabile. Tutto il resto
+# e' livello B (Zenodo), C (rigenerabile) o D (dato di terzi).
+# ============================================================
 
-# ------------------------------------------------------------------ 1. blocca
-/*
+# --- D: dato di terzi. Si cita col proprio DOI, non si rideposita.
+data/raw/
 
-# --------------------------------------------- 2. file singoli di primo livello
-!/.gitignore
-!/.gitattributes
-!/environment.yml
-!/requirements.txt
-!/LICENSE
-!/README.md
-!/CITATION.cff
-!/REPRODUCIBILITY.md
+# --- C: rigenerabile da noi.
+data/processed/
+results/**/curves_*/
+results/phase1_persistence_diagrams/
+results/phase2_tau_fields/
+results/phase_r51_cache*/
+results/phase5_hod_b3_fields/
+results/phase6_mock_chains*/
 
-# ------------------------------------------------- 3. src/ : solo primo livello
-!/src/
-!/src/*
-/src/*/
-
-# --------------------------------------------------------- 4. prior/ : tutto
-!/prior/
-!/prior/*
-
-# ------------------------------------------------- 5. paper/ : solo il README
-!/paper/
-/paper/*
-!/paper/README.md
-
-# ==============================================================================
-# 6. results/
-#
-# Primo livello tracciato; sottocartelle escluse per default, con quattro
-# eccezioni motivate qui sotto. Senza queste eccezioni restavano fuori dal
-# repository 111 file di record congelati (35 MB), fra cui l'intero corredo
-# numerico del Paper 1 e i record della revisione di M26 — entrambi promessi
-# esplicitamente dalle Data Availability dei rispettivi manoscritti.
-# ==============================================================================
-!/results/
-!/results/*
-/results/*/
-
-# --- 6a. paper1/ : record del Paper 1 (MN-26-2388-P), 75 file, 17.4 MB -------
-#     Dentro ci sono anche 16 200 file curves_*.npz (4.49 GB) in nove
-#     sottocartelle, più due cache di campo da 8.4 MB: tutti rigenerabili,
-#     tutti coperti da ensemble_v1_manifest_diagrams.jsonl.
-#     Restano tracciati i risultati piccoli al primo livello: le curve di Betti
-#     del campo osservato (curves_DESI_*), le null ladder e la tabella w_FKP.
-!/results/paper1/
-/results/paper1/*/
-/results/paper1/n1_desi_nu_NGC.npy
-/results/paper1/n4_random_field.npy
-
-# --- 6b. paper2/ : manifest di integrità dell'ensemble v1 --------------------
-#     ensemble_v1_manifest_<tier>.jsonl + ensemble_v1_freeze_<tier>.json.
-#     Sono l'indice di riproducibilità citato in REPRODUCIBILITY.md: vanno
-#     versionati. Le sottocartelle sono escluse in anticipo, perché è lì che
-#     finiranno i campi dell'ensemble v2.
-!/results/paper2/
-/results/paper2/*/
-
-# --- 6c. revision/ : record della revisione di M26 (MN-26-2100-P.R1) ---------
-#     rev1_r11_* (tiling, §5.6), rev1_r13_* (decomposizione, §5.2),
-#     rev1_r14_* (invarianza monotona e Box–Cox, §4.1), env_versions.txt.
-#     La Data Availability di R1 dichiara che l'archivio "adds the records
-#     produced for the referee revision": questa riga la rende vera.
-#     desi_inputs_cache.npz (16.8 MB: field_d, field_r, alpha) è incluso di
-#     proposito — è il lato dati da cui dipende N_H1 = 28 256, non cambierà
-#     mai più, e rende l'archivio autosufficiente. Per escluderlo:
-#         /results/revision/*.npz
-!/results/revision/
-
-# --- 6d. phase4_sr_runs/ : run di regressione simbolica, 23 file, 60 KB ------
-!/results/phase4_sr_runs/
-
-# ==============================================================================
-# 7. Binari pesanti, ovunque
-#    *.pkl esclude i grafi del Branch B (phase7_t1_graphs_*, 1.05 GB), che non
-#    entrano in nessuna statistica di N_H1 (M26 App. E li riporta come nullo).
-# ==============================================================================
+# --- B: binari congelati. Vanno su Zenodo, non in git.
+*.npy
+*.npz
 *.pkl
-*.pth
 *.h5
+*.hdf5
+*.fits
+*.fits.gz
 
-# ==============================================================================
-# 8. Igiene
-#    I file .bak non hanno provenienza in una directory di record congelati.
-#    Questa riga previene i prossimi; i due già tracciati vanno rimossi a mano
-#    con `git rm --cached results/<nome>.bak` se si decide che sono residui.
-# ==============================================================================
+# --- PDF di terzi: diritti altrui, 131 MiB.
+literature/
+
+# --- artefatti rigenerabili dello stesso repo.
+results/paper2/inventory.json
+inventory_report.json
+inventory.csv
+
+# --- copie di sicurezza e temporanei
 *.bak
+*.bak_*
+*.tmp
+*~
 
-# ------------------------------------------------------------- 9. ambiente
+# --- ambiente
 __pycache__/
-*.py[cod]
-.ipynb_checkpoints/
+*.pyc
 .venv/
+venv/
+.ipynb_checkpoints/
+.mypy_cache/
+
+# ============================================================
+# ECCEZIONI: i file del livello B che DEVONO restare in git
+# perche' sono piccoli e sono ingressi di cancello.
+# (nessuna, per ora: maschere e scale nulle vanno su Zenodo.
+#  Se un giorno servisse, si aggiunge qui con '!')
+# ============================================================
