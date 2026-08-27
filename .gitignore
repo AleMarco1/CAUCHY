@@ -61,3 +61,10 @@ folders.txt
 pipeline_code_bundle.md
 pipeline_code_report.json
 test.py
+
+# confidenziale: manoscritti in revisione, referee, prompt
+prompts/
+papers/m26/
+papers/paper1/MNRAS/
+papers/paper2/MNRAS/
+paper/
