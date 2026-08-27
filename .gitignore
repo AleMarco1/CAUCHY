@@ -55,3 +55,9 @@ venv/
 # ============================================================
 
 results/paper2/remote_audit.json
+
+# artefatti e scarti
+folders.txt
+pipeline_code_bundle.md
+pipeline_code_report.json
+test.py
