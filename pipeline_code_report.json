@@ -1,0 +1,3709 @@
+{
+  "generated_at": "2026-07-22T10:25:48.543675+00:00",
+  "root": "D:\\projects\\cauchy",
+  "n_python_files_seen": 84,
+  "n_relevant": 78,
+  "ranked_python": [
+    {
+      "path": "D:\\projects\\cauchy\\src\\find_pipeline_code.py",
+      "rel": "src/find_pipeline_code.py",
+      "size_bytes": 13268,
+      "size_h": "13.0KB",
+      "score": 442,
+      "keyword_hits": {
+        "betti": 8,
+        "persistence": 4,
+        "smooth": 4,
+        "gudhi": 3,
+        "b1_max": 3,
+        "beta1max": 2,
+        "b1max": 2,
+        "log1p": 2,
+        "gaussian_filter": 2,
+        "sigma_px": 2,
+        "smoothing": 2,
+        "filtration": 2,
+        "superlevel": 2,
+        "sublevel": 2,
+        "mask": 2,
+        "carve": 2,
+        "fvec": 2,
+        "cubicalcomplex": 1,
+        "cubical_complex": 1,
+        "persistence_intervals": 1,
+        "beta1_max": 1,
+        "persistence_diagram": 1,
+        "ripser": 1,
+        "top_dimensional_cells": 1,
+        "np.log(1": 1,
+        "log_transform": 1,
+        "standardize": 1,
+        "standardis": 1,
+        "nu_field": 1,
+        "voxel": 1,
+        "cut_sky": 1,
+        "cutsky": 1,
+        "delta_128": 1,
+        "field_prep": 1,
+        "phase1": 1,
+        "phase6": 1,
+        "feature_vector": 1
+      },
+      "n_defs": 11,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 10,
+          "code": "* la filtrazione / omologia persistente (GUDHI, cubical complex, Betti)"
+        },
+        {
+          "line": 19,
+          "code": "beta1 / b1_max / betti  -> serve a chiudere lo slot [C2]"
+        },
+        {
+          "line": 57,
+          "code": "\"gudhi\": 12,"
+        },
+        {
+          "line": 58,
+          "code": "\"cubicalcomplex\": 12,"
+        },
+        {
+          "line": 59,
+          "code": "\"cubical_complex\": 12,"
+        },
+        {
+          "line": 60,
+          "code": "\"persistence\": 10,"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase8_cutsky_mocks.py",
+      "rel": "src/phase8_cutsky_mocks.py",
+      "size_bytes": 31481,
+      "size_h": "30.7KB",
+      "score": 329,
+      "keyword_hits": {
+        "mask": 56,
+        "sigma_px": 19,
+        "beta1_max": 16,
+        "cutsky": 13,
+        "voxel": 12,
+        "phase6": 9,
+        "smooth": 6,
+        "cubicalcomplex": 4,
+        "filtration": 4,
+        "carve": 4,
+        "gudhi": 3,
+        "persistence": 3,
+        "smoothing": 3,
+        "persistence_intervals": 2,
+        "gaussian_filter": 2,
+        "delta_128": 2,
+        "top_dimensional_cells": 1,
+        "np.log(1": 1,
+        "sublevel": 1
+      },
+      "n_defs": 23,
+      "defs_interesting": [
+        {
+          "name": "FoF_catalog",
+          "line": 165
+        },
+        {
+          "name": "read_halo_catalog",
+          "line": 188
+        },
+        {
+          "name": "compute_tda_features",
+          "line": 290
+        },
+        {
+          "name": "load_desi_random_field",
+          "line": 366
+        },
+        {
+          "name": "load_desi_data_field",
+          "line": 382
+        },
+        {
+          "name": "carve_cutsky",
+          "line": 416
+        },
+        {
+          "name": "build_field",
+          "line": 487
+        }
+      ],
+      "context": [
+        {
+          "line": 9,
+          "code": "The canonical DESI TDA (phase6_bgs_tda.py) runs gudhi CubicalComplex on the"
+        },
+        {
+          "line": 12,
+          "code": "filtration. Mocks (phase6_smoothing_sensitivity.compute_b2_full) are periodic"
+        },
+        {
+          "line": 56,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 109,
+          "code": "SIGMA_PX = R_SMOOTH / CELL      # 0.3204 (matches DESI canonical sigma_px)"
+        },
+        {
+          "line": 125,
+          "code": "# DESI reference is RECOMPUTED on the native grid at sigma_px=0.3204 (see main),"
+        },
+        {
+          "line": 126,
+          "code": "# NOT taken from the canonical 0.459 (which was sigma_px=0.216). This makes the"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase1_tda_baseline.py",
+      "rel": "src/phase1_tda_baseline.py",
+      "size_bytes": 49647,
+      "size_h": "48.5KB",
+      "score": 296,
+      "keyword_hits": {
+        "fvec": 50,
+        "betti": 45,
+        "persistence": 21,
+        "gudhi": 14,
+        "phase1": 10,
+        "smooth": 7,
+        "mask": 7,
+        "smoothing": 6,
+        "superlevel": 6,
+        "cubicalcomplex": 4,
+        "persistence_diagram": 3,
+        "top_dimensional_cells": 2,
+        "filtration": 2,
+        "voxel": 2,
+        "persistence_intervals": 1,
+        "gaussian_filter": 1
+      },
+      "n_defs": 24,
+      "defs_interesting": [
+        {
+          "name": "field_to_nu",
+          "line": 94
+        },
+        {
+          "name": "compute_persistence_diagram",
+          "line": 105
+        },
+        {
+          "name": "betti_curve_from_diagram",
+          "line": 160
+        },
+        {
+          "name": "compute_betti_curves_from_field",
+          "line": 187
+        },
+        {
+          "name": "compute_field_thresholds",
+          "line": 203
+        },
+        {
+          "name": "extract_features",
+          "line": 222
+        },
+        {
+          "name": "features_to_vector",
+          "line": 302
+        },
+        {
+          "name": "_process_field_sanity",
+          "line": 317
+        },
+        {
+          "name": "_process_field_full",
+          "line": 339
+        },
+        {
+          "name": "_process_field_sensitivity",
+          "line": 371
+        },
+        {
+          "name": "list_field_paths",
+          "line": 450
+        },
+        {
+          "name": "numerical_derivative",
+          "line": 675
+        }
+      ],
+      "context": [
+        {
+          "line": 6,
+          "code": "Genera le Betti curves da filtrazione di supralivello su campi di densità 128³,"
+        },
+        {
+          "line": 32,
+          "code": "import gudhi"
+        },
+        {
+          "line": 45,
+          "code": "N_THRESH = 50          # soglie di filtrazione per Betti curve"
+        },
+        {
+          "line": 76,
+          "code": "GATE1B_R_MIN_HARD     = 0.10   # b1_peak_pos e b2_mean_persistence"
+        },
+        {
+          "line": 107,
+          "code": "def compute_persistence_diagram(field: np.ndarray):"
+        },
+        {
+          "line": 110,
+          "code": "filtrazione di supralivello su gudhi CubicalComplex."
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase1_patch_cache.py",
+      "rel": "src/phase1_patch_cache.py",
+      "size_bytes": 28652,
+      "size_h": "28.0KB",
+      "score": 277,
+      "keyword_hits": {
+        "fvec": 57,
+        "persistence": 18,
+        "phase1": 15,
+        "gudhi": 14,
+        "betti": 8,
+        "cubicalcomplex": 3,
+        "superlevel": 3,
+        "persistence_diagram": 2,
+        "sigma_px": 2,
+        "smoothing": 2,
+        "smooth": 2,
+        "filtration": 2,
+        "mask": 2,
+        "persistence_intervals": 1,
+        "top_dimensional_cells": 1,
+        "sublevel": 1
+      },
+      "n_defs": 15,
+      "defs_interesting": [
+        {
+          "name": "field_to_nu",
+          "line": 109
+        },
+        {
+          "name": "compute_field_thresholds",
+          "line": 113
+        },
+        {
+          "name": "compute_persistence_diagram",
+          "line": 124
+        },
+        {
+          "name": "betti_curve_from_diagram",
+          "line": 156
+        },
+        {
+          "name": "extract_features",
+          "line": 170
+        },
+        {
+          "name": "extract_betti_features",
+          "line": 225
+        },
+        {
+          "name": "load_quijote_lhc_cosmologies",
+          "line": 256
+        },
+        {
+          "name": "load_quijote_nwlh_cosmologies",
+          "line": 326
+        },
+        {
+          "name": "make_synthetic_cosmologies_lhc",
+          "line": 399
+        },
+        {
+          "name": "make_synthetic_cosmologies_nwlh",
+          "line": 417
+        }
+      ],
+      "context": [
+        {
+          "line": 9,
+          "code": "phase1_fiducial_cache.npz contiene solo: ['fvecs_fid', 'betti_curves', 'sensitivity']"
+        },
+        {
+          "line": 18,
+          "code": "filtration_variable = \"log(delta+1)\""
+        },
+        {
+          "line": 19,
+          "code": "filtration_type = \"superlevel_via_negation\""
+        },
+        {
+          "line": 20,
+          "code": "smoothing_sigma_px = 0.64   (corrispondente a R=5 Mpc/h su griglia 128³)"
+        },
+        {
+          "line": 21,
+          "code": "implementation = gudhi.CubicalComplex"
+        },
+        {
+          "line": 60,
+          "code": "# ── Dipendenza gudhi ─────────────────────────────────────────────────────────"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase2_cnn.py",
+      "rel": "src/phase2_cnn.py",
+      "size_bytes": 92048,
+      "size_h": "89.9KB",
+      "score": 273,
+      "keyword_hits": {
+        "fvec": 56,
+        "gudhi": 39,
+        "phase1": 27,
+        "mask": 16,
+        "voxel": 10,
+        "smooth": 8,
+        "persistence": 7,
+        "superlevel": 5,
+        "persistence_intervals": 4,
+        "betti": 3,
+        "gaussian_filter": 3,
+        "cubicalcomplex": 2,
+        "persistence_diagram": 1,
+        "top_dimensional_cells": 1,
+        "filtration": 1
+      },
+      "n_defs": 33,
+      "defs_interesting": [
+        {
+          "name": "load_phase1_features",
+          "line": 339
+        },
+        {
+          "name": "CosmoFieldDataset",
+          "line": 877
+        },
+        {
+          "name": "build_tau_fields",
+          "line": 1236
+        }
+      ],
+      "context": [
+        {
+          "line": 13,
+          "code": "R1-4  — unit test _test_gudhi_convention() (obbligatorio)"
+        },
+        {
+          "line": 18,
+          "code": "1. Unit test gudhi convention (R1-4)"
+        },
+        {
+          "line": 49,
+          "code": "python phase2_cnn.py --mode test_only   # solo unit test gudhi (R1-4)"
+        },
+        {
+          "line": 96,
+          "code": "import gudhi"
+        },
+        {
+          "line": 97,
+          "code": "HAS_GUDHI = True"
+        },
+        {
+          "line": 99,
+          "code": "HAS_GUDHI = False"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase5_hod_mcmc.py",
+      "rel": "src/phase5_hod_mcmc.py",
+      "size_bytes": 30066,
+      "size_h": "29.4KB",
+      "score": 270,
+      "keyword_hits": {
+        "gudhi": 35,
+        "mask": 12,
+        "fvec": 6,
+        "persistence": 5,
+        "smooth": 5,
+        "superlevel": 4,
+        "cubicalcomplex": 3,
+        "persistence_intervals": 2,
+        "betti": 2,
+        "gaussian_filter": 2,
+        "smoothing": 2,
+        "filtration": 2,
+        "sublevel": 2,
+        "top_dimensional_cells": 1,
+        "phase1": 1
+      },
+      "n_defs": 11,
+      "defs_interesting": [
+        {
+          "name": "FoF_catalog",
+          "line": 158
+        },
+        {
+          "name": "read_halo_catalog",
+          "line": 209
+        },
+        {
+          "name": "field_from_galaxies",
+          "line": 360
+        },
+        {
+          "name": "compute_tda_features",
+          "line": 402
+        }
+      ],
+      "context": [
+        {
+          "line": 77,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 405,
+          "code": "Estrae 8 feature TDA dal campo di densità via superlevel filtration."
+        },
+        {
+          "line": 410,
+          "code": "b2_max_count, b2_mean_persistence, b2_high_persist, b0_at_mean"
+        },
+        {
+          "line": 421,
+          "code": "import gudhi"
+        },
+        {
+          "line": 423,
+          "code": "raise ImportError(\"gudhi non trovato. Installare: conda install -c conda-forge gudhi\")"
+        },
+        {
+          "line": 426,
+          "code": "field_s = gaussian_filter(delta_field.astype(np.float64), sigma=sigma_smooth)"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase5_hod_restricted_prior.py",
+      "rel": "src/phase5_hod_restricted_prior.py",
+      "size_bytes": 34694,
+      "size_h": "33.9KB",
+      "score": 270,
+      "keyword_hits": {
+        "gudhi": 34,
+        "mask": 12,
+        "persistence": 9,
+        "fvec": 6,
+        "smooth": 5,
+        "superlevel": 4,
+        "cubicalcomplex": 3,
+        "persistence_intervals": 2,
+        "betti": 2,
+        "gaussian_filter": 2,
+        "smoothing": 2,
+        "filtration": 2,
+        "sublevel": 2,
+        "top_dimensional_cells": 1,
+        "phase1": 1
+      },
+      "n_defs": 11,
+      "defs_interesting": [
+        {
+          "name": "FoF_catalog",
+          "line": 174
+        },
+        {
+          "name": "read_halo_catalog",
+          "line": 225
+        },
+        {
+          "name": "field_from_galaxies",
+          "line": 376
+        },
+        {
+          "name": "compute_tda_features",
+          "line": 418
+        }
+      ],
+      "context": [
+        {
+          "line": 77,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 421,
+          "code": "Estrae 8 feature TDA dal campo di densità via superlevel filtration."
+        },
+        {
+          "line": 426,
+          "code": "b2_max_count, b2_mean_persistence, b2_high_persist, b0_at_mean"
+        },
+        {
+          "line": 437,
+          "code": "import gudhi"
+        },
+        {
+          "line": 439,
+          "code": "raise ImportError(\"gudhi non trovato. Installare: conda install -c conda-forge gudhi\")"
+        },
+        {
+          "line": 442,
+          "code": "field_s = gaussian_filter(delta_field.astype(np.float64), sigma=sigma_smooth)"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase7_rsd_test.py",
+      "rel": "src/phase7_rsd_test.py",
+      "size_bytes": 13252,
+      "size_h": "12.9KB",
+      "score": 261,
+      "keyword_hits": {
+        "persistence": 14,
+        "phase1": 9,
+        "sigma_px": 8,
+        "gudhi": 6,
+        "cubicalcomplex": 6,
+        "filtration": 4,
+        "superlevel": 4,
+        "smooth": 3,
+        "log1p": 2,
+        "gaussian_filter": 2,
+        "smoothing": 2,
+        "persistence_intervals": 1,
+        "top_dimensional_cells": 1,
+        "fvec": 1
+      },
+      "n_defs": 1,
+      "defs_interesting": [
+        {
+          "name": "compute_b2_mean_persistence",
+          "line": 88
+        }
+      ],
+      "context": [
+        {
+          "line": 3,
+          "code": "Test biforcante RSD: misura b2_mean_persistence su campi nwLH in redshift space"
+        },
+        {
+          "line": 5,
+          "code": "parametri TDA (n_thresh=100, sigma_px=0.640, convenzione v3)."
+        },
+        {
+          "line": 16,
+          "code": "- smoothing_sigma_px = 0.640"
+        },
+        {
+          "line": 18,
+          "code": "- filtration: superlevel via negation (gudhi CubicalComplex)"
+        },
+        {
+          "line": 20,
+          "code": "- feature: b2_mean_persistence = mean(birth_s - death_s) per H2"
+        },
+        {
+          "line": 35,
+          "code": "from scipy.ndimage import gaussian_filter"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase6_smoothing_sensitivity.py",
+      "rel": "src/phase6_smoothing_sensitivity.py",
+      "size_bytes": 14517,
+      "size_h": "14.2KB",
+      "score": 251,
+      "keyword_hits": {
+        "mask": 13,
+        "smoothing": 12,
+        "smooth": 12,
+        "phase6": 7,
+        "persistence": 6,
+        "gaussian_filter": 5,
+        "sigma_px": 5,
+        "voxel": 5,
+        "cubicalcomplex": 4,
+        "gudhi": 3,
+        "persistence_intervals": 2,
+        "top_dimensional_cells": 2,
+        "delta_128": 2
+      },
+      "n_defs": 4,
+      "defs_interesting": [
+        {
+          "name": "compute_b2_masked",
+          "line": 65
+        }
+      ],
+      "context": [
+        {
+          "line": 9,
+          "code": "campo_R10 = gaussian_filter(campo_R5, sigma=σ_extra, mode='wrap')"
+        },
+        {
+          "line": 24,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 25,
+          "code": "import gudhi"
+        },
+        {
+          "line": 70,
+          "code": "- CubicalComplex su -field (intero cubo)"
+        },
+        {
+          "line": 78,
+          "code": "cc = gudhi.CubicalComplex("
+        },
+        {
+          "line": 82,
+          "code": "cc.compute_persistence()"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase7_pk_comparison_r53.py",
+      "rel": "src/phase7_pk_comparison_r53.py",
+      "size_bytes": 24511,
+      "size_h": "23.9KB",
+      "score": 244,
+      "keyword_hits": {
+        "persistence": 30,
+        "sigma_px": 9,
+        "mask": 7,
+        "phase1": 7,
+        "phase6": 6,
+        "superlevel": 5,
+        "fvec": 5,
+        "smooth": 4,
+        "gudhi": 3,
+        "voxel": 3,
+        "cubicalcomplex": 2,
+        "filtration": 2,
+        "top_dimensional_cells": 1,
+        "log1p": 1,
+        "gaussian_filter": 1,
+        "smoothing": 1
+      },
+      "n_defs": 14,
+      "defs_interesting": [
+        {
+          "name": "preprocess_field",
+          "line": 105
+        },
+        {
+          "name": "compute_b2_mean_persistence",
+          "line": 118
+        },
+        {
+          "name": "compute_pk_numpy",
+          "line": 240
+        }
+      ],
+      "context": [
+        {
+          "line": 10,
+          "code": "- TDA: b2_mean_persistence calcolato on-the-fly se cache assente,"
+        },
+        {
+          "line": 16,
+          "code": "- TDA: b2_mean_persistence HOD B3 z=0.5 da phase5_hod_b3_features.npz"
+        },
+        {
+          "line": 25,
+          "code": "phase0_preprocessing_lock.json -> smoothing sigma_px=0.64, R=5 Mpc/h, wrap"
+        },
+        {
+          "line": 26,
+          "code": "phase1_tda_baseline.json -> n_thresh=50, common_thresholds, superlevel_via_negation"
+        },
+        {
+          "line": 61,
+          "code": "SIGMA_PX    = 0.640       # phase0_preprocessing_lock: sigma_pixels=0.64"
+        },
+        {
+          "line": 102,
+          "code": "# TDA — b2_mean_persistence su campo DM 128^3"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase_h2_diagnostic.py",
+      "rel": "src/phase_h2_diagnostic.py",
+      "size_bytes": 29849,
+      "size_h": "29.1KB",
+      "score": 236,
+      "keyword_hits": {
+        "smooth": 30,
+        "persistence": 11,
+        "mask": 11,
+        "gudhi": 8,
+        "persistence_intervals": 7,
+        "cubicalcomplex": 5,
+        "gaussian_filter": 3,
+        "phase1": 3,
+        "top_dimensional_cells": 2,
+        "sigma_px": 2,
+        "smoothing": 1,
+        "superlevel": 1,
+        "fvec": 1
+      },
+      "n_defs": 15,
+      "defs_interesting": [
+        {
+          "name": "FoF_catalog",
+          "line": 88
+        },
+        {
+          "name": "read_halo_catalog",
+          "line": 106
+        },
+        {
+          "name": "field_from_galaxies",
+          "line": 165
+        }
+      ],
+      "context": [
+        {
+          "line": 17,
+          "code": "- gudhi CubicalComplex.persistence_intervals_in_dimension(2) → diag_2"
+        },
+        {
+          "line": 44,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 200,
+          "code": "Nota: gudhi CubicalComplex supporta H₂ solo se la griglia è 3D — verificato."
+        },
+        {
+          "line": 202,
+          "code": "import gudhi"
+        },
+        {
+          "line": 204,
+          "code": "field_s   = gaussian_filter(delta_field.astype(np.float64), sigma=sigma_smooth)"
+        },
+        {
+          "line": 207,
+          "code": "cc = gudhi.CubicalComplex("
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase6_bgs_tda.py",
+      "rel": "src/phase6_bgs_tda.py",
+      "size_bytes": 16369,
+      "size_h": "16.0KB",
+      "score": 229,
+      "keyword_hits": {
+        "mask": 26,
+        "persistence": 17,
+        "phase6": 14,
+        "voxel": 8,
+        "gudhi": 5,
+        "superlevel": 5,
+        "delta_128": 4,
+        "fvec": 3,
+        "cubicalcomplex": 2,
+        "persistence_intervals": 2,
+        "betti": 2,
+        "top_dimensional_cells": 1,
+        "gaussian_filter": 1,
+        "sublevel": 1
+      },
+      "n_defs": 4,
+      "defs_interesting": [
+        {
+          "name": "compute_tda_features",
+          "line": 73
+        }
+      ],
+      "context": [
+        {
+          "line": 8,
+          "code": "Convenzione gudhi (fix v3, Phase 5):"
+        },
+        {
+          "line": 9,
+          "code": "birth_s = -diag[:,0]   (soglia alta, superlevel)"
+        },
+        {
+          "line": 10,
+          "code": "death_s = -diag[:,1]   (soglia bassa, superlevel)"
+        },
+        {
+          "line": 19,
+          "code": "[5] b2_mean_persistence persistenza media (positiva con fix v3)"
+        },
+        {
+          "line": 47,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 78,
+          "code": "birth_s = -diag[:,0]  (soglia alta superlevel)"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase5_hod_b3.py",
+      "rel": "src/phase5_hod_b3.py",
+      "size_bytes": 17576,
+      "size_h": "17.2KB",
+      "score": 208,
+      "keyword_hits": {
+        "gudhi": 28,
+        "mask": 9,
+        "fvec": 7,
+        "persistence": 3,
+        "superlevel": 3,
+        "cubicalcomplex": 2,
+        "persistence_intervals": 2,
+        "gaussian_filter": 2,
+        "smooth": 2,
+        "betti": 1,
+        "top_dimensional_cells": 1,
+        "filtration": 1,
+        "phase1": 1
+      },
+      "n_defs": 11,
+      "defs_interesting": [
+        {
+          "name": "FoF_catalog",
+          "line": 117
+        },
+        {
+          "name": "read_halo_catalog",
+          "line": 145
+        },
+        {
+          "name": "field_from_galaxies",
+          "line": 213
+        },
+        {
+          "name": "compute_tda_features",
+          "line": 240
+        }
+      ],
+      "context": [
+        {
+          "line": 13,
+          "code": "4. gudhi completo → 8 feature TDA"
+        },
+        {
+          "line": 53,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 245,
+          "code": "Superlevel filtration su campo 128³ completo via gudhi CubicalComplex."
+        },
+        {
+          "line": 248,
+          "code": "import gudhi"
+        },
+        {
+          "line": 250,
+          "code": "raise ImportError(\"gudhi non trovato: conda install -c conda-forge gudhi\")"
+        },
+        {
+          "line": 252,
+          "code": "field_s   = gaussian_filter(delta_field.astype(np.float64), sigma=sigma_smooth)"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase6_mock_calibration.py",
+      "rel": "src/phase6_mock_calibration.py",
+      "size_bytes": 21296,
+      "size_h": "20.8KB",
+      "score": 183,
+      "keyword_hits": {
+        "phase6": 13,
+        "smooth": 10,
+        "persistence": 7,
+        "mask": 7,
+        "fvec": 5,
+        "voxel": 3,
+        "gudhi": 2,
+        "persistence_intervals": 2,
+        "gaussian_filter": 2,
+        "sigma_px": 2,
+        "cubicalcomplex": 1,
+        "top_dimensional_cells": 1,
+        "smoothing": 1
+      },
+      "n_defs": 13,
+      "defs_interesting": [
+        {
+          "name": "FoF_catalog",
+          "line": 143
+        },
+        {
+          "name": "read_halo_catalog",
+          "line": 166
+        },
+        {
+          "name": "field_from_galaxies",
+          "line": 223
+        },
+        {
+          "name": "compute_tda_features",
+          "line": 258
+        }
+      ],
+      "context": [
+        {
+          "line": 55,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 229,
+          "code": "sigma_px  = R_smooth / cell_size"
+        },
+        {
+          "line": 250,
+          "code": "field = gaussian_filter(field.astype(np.float64), sigma=sigma_px).astype(np.float32)"
+        },
+        {
+          "line": 259,
+          "code": "import gudhi"
+        },
+        {
+          "line": 263,
+          "code": "cc = gudhi.CubicalComplex(dimensions=list(field_neg.shape),"
+        },
+        {
+          "line": 265,
+          "code": "cc.compute_persistence()"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase6_mock_calibration_R10.py",
+      "rel": "src/phase6_mock_calibration_R10.py",
+      "size_bytes": 21309,
+      "size_h": "20.8KB",
+      "score": 180,
+      "keyword_hits": {
+        "phase6": 13,
+        "smooth": 10,
+        "persistence": 7,
+        "mask": 7,
+        "fvec": 5,
+        "gudhi": 2,
+        "persistence_intervals": 2,
+        "gaussian_filter": 2,
+        "sigma_px": 2,
+        "voxel": 2,
+        "cubicalcomplex": 1,
+        "top_dimensional_cells": 1,
+        "smoothing": 1
+      },
+      "n_defs": 13,
+      "defs_interesting": [
+        {
+          "name": "FoF_catalog",
+          "line": 143
+        },
+        {
+          "name": "read_halo_catalog",
+          "line": 166
+        },
+        {
+          "name": "field_from_galaxies",
+          "line": 223
+        },
+        {
+          "name": "compute_tda_features",
+          "line": 258
+        }
+      ],
+      "context": [
+        {
+          "line": 55,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 229,
+          "code": "sigma_px  = R_smooth / cell_size"
+        },
+        {
+          "line": 250,
+          "code": "field = gaussian_filter(field.astype(np.float64), sigma=sigma_px).astype(np.float32)"
+        },
+        {
+          "line": 259,
+          "code": "import gudhi"
+        },
+        {
+          "line": 263,
+          "code": "cc = gudhi.CubicalComplex(dimensions=list(field_neg.shape),"
+        },
+        {
+          "line": 265,
+          "code": "cc.compute_persistence()"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase6_sigma_px_test.py",
+      "rel": "src/phase6_sigma_px_test.py",
+      "size_bytes": 9908,
+      "size_h": "9.7KB",
+      "score": 179,
+      "keyword_hits": {
+        "sigma_px": 25,
+        "persistence": 7,
+        "smooth": 5,
+        "smoothing": 3,
+        "phase6": 3,
+        "gudhi": 2,
+        "gaussian_filter": 2,
+        "cubicalcomplex": 1,
+        "persistence_intervals": 1,
+        "top_dimensional_cells": 1,
+        "filtration": 1,
+        "superlevel": 1
+      },
+      "n_defs": 3,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 4,
+          "code": "Verifica se b2_mean_persistence dipende da σ_px (adimensionale) a parità"
+        },
+        {
+          "line": 22,
+          "code": "Output: results/phase6_sigma_px_test.json"
+        },
+        {
+          "line": 27,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 28,
+          "code": "import gudhi"
+        },
+        {
+          "line": 37,
+          "code": "OUTPUT_PATH  = PROJECT_ROOT / \"results\" / \"phase6_sigma_px_test.json\""
+        },
+        {
+          "line": 45,
+          "code": "{\"label\": \"sigma_px_0216\", \"R_mpc_h\": 0.216 * CELL_MOCK, \"sigma_px\": 0.216,"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase3_prerequisites.py",
+      "rel": "src/phase3_prerequisites.py",
+      "size_bytes": 28260,
+      "size_h": "27.6KB",
+      "score": 174,
+      "keyword_hits": {
+        "persistence": 53,
+        "persistence_diagram": 16,
+        "gudhi": 8,
+        "cubicalcomplex": 8,
+        "superlevel": 7,
+        "top_dimensional_cells": 2,
+        "sublevel": 1
+      },
+      "n_defs": 13,
+      "defs_interesting": [
+        {
+          "name": "load_tau_norm_field",
+          "line": 99
+        },
+        {
+          "name": "compute_persistence_diagram_1d",
+          "line": 151
+        },
+        {
+          "name": "compute_persistence_diagram_3d",
+          "line": 192
+        },
+        {
+          "name": "get_persistences_for_field",
+          "line": 221
+        },
+        {
+          "name": "compute_persistence_threshold_p90",
+          "line": 458
+        }
+      ],
+      "context": [
+        {
+          "line": 149,
+          "code": "# TDA utility: persistence diagram via gudhi CubicalComplex"
+        },
+        {
+          "line": 152,
+          "code": "def compute_persistence_diagram_1d(tau_norm: np.ndarray, dim: int) -> np.ndarray:"
+        },
+        {
+          "line": 157,
+          "code": "Strategia: usiamo gudhi CubicalComplex sulla distribuzione ordinata dei valori"
+        },
+        {
+          "line": 158,
+          "code": "di |tau| — equivalente a filtrazione di superlevel sulla distribuzione empirica."
+        },
+        {
+          "line": 162,
+          "code": "usiamo il CubicalComplex 1D sulla CDF empirica come proxy della struttura"
+        },
+        {
+          "line": 171,
+          "code": "import gudhi"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase_r51_hod_restricted.py",
+      "rel": "src/phase_r51_hod_restricted.py",
+      "size_bytes": 33246,
+      "size_h": "32.5KB",
+      "score": 174,
+      "keyword_hits": {
+        "gudhi": 15,
+        "mask": 9,
+        "persistence": 8,
+        "fvec": 6,
+        "smooth": 3,
+        "persistence_intervals": 2,
+        "gaussian_filter": 2,
+        "superlevel": 2,
+        "cubicalcomplex": 1,
+        "top_dimensional_cells": 1,
+        "phase1": 1
+      },
+      "n_defs": 14,
+      "defs_interesting": [
+        {
+          "name": "FoF_catalog",
+          "line": 158
+        },
+        {
+          "name": "read_halo_catalog",
+          "line": 182
+        },
+        {
+          "name": "field_from_galaxies",
+          "line": 256
+        },
+        {
+          "name": "compute_tda_features",
+          "line": 287
+        }
+      ],
+      "context": [
+        {
+          "line": 60,
+          "code": "Tempo stimato: ~26h (500 sim × 20 K × 9.5s/gudhi / 3600)"
+        },
+        {
+          "line": 71,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 289,
+          "code": "import gudhi"
+        },
+        {
+          "line": 291,
+          "code": "raise ImportError(\"gudhi non trovato: conda install -c conda-forge gudhi\")"
+        },
+        {
+          "line": 293,
+          "code": "field_s   = gaussian_filter(delta_field.astype(np.float64), sigma=sigma_smooth)"
+        },
+        {
+          "line": 298,
+          "code": "cc = gudhi.CubicalComplex("
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase_r51_hod_restricted_v3.py",
+      "rel": "src/phase_r51_hod_restricted_v3.py",
+      "size_bytes": 33445,
+      "size_h": "32.7KB",
+      "score": 174,
+      "keyword_hits": {
+        "gudhi": 15,
+        "mask": 9,
+        "persistence": 8,
+        "fvec": 6,
+        "smooth": 3,
+        "persistence_intervals": 2,
+        "gaussian_filter": 2,
+        "superlevel": 2,
+        "cubicalcomplex": 1,
+        "top_dimensional_cells": 1,
+        "phase1": 1
+      },
+      "n_defs": 14,
+      "defs_interesting": [
+        {
+          "name": "FoF_catalog",
+          "line": 168
+        },
+        {
+          "name": "read_halo_catalog",
+          "line": 192
+        },
+        {
+          "name": "field_from_galaxies",
+          "line": 266
+        },
+        {
+          "name": "compute_tda_features",
+          "line": 297
+        }
+      ],
+      "context": [
+        {
+          "line": 66,
+          "code": "Tempo stimato: ~26h (500 sim × 20 K × 9.5s/gudhi / 3600)"
+        },
+        {
+          "line": 77,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 299,
+          "code": "import gudhi"
+        },
+        {
+          "line": 301,
+          "code": "raise ImportError(\"gudhi non trovato: conda install -c conda-forge gudhi\")"
+        },
+        {
+          "line": 303,
+          "code": "field_s   = gaussian_filter(delta_field.astype(np.float64), sigma=sigma_smooth)"
+        },
+        {
+          "line": 308,
+          "code": "cc = gudhi.CubicalComplex("
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase_r51_mmin_only.py",
+      "rel": "src/phase_r51_mmin_only.py",
+      "size_bytes": 31463,
+      "size_h": "30.7KB",
+      "score": 174,
+      "keyword_hits": {
+        "gudhi": 14,
+        "mask": 9,
+        "persistence": 8,
+        "fvec": 6,
+        "smooth": 3,
+        "persistence_intervals": 2,
+        "gaussian_filter": 2,
+        "superlevel": 2,
+        "cubicalcomplex": 1,
+        "top_dimensional_cells": 1,
+        "phase1": 1
+      },
+      "n_defs": 14,
+      "defs_interesting": [
+        {
+          "name": "FoF_catalog",
+          "line": 127
+        },
+        {
+          "name": "read_halo_catalog",
+          "line": 151
+        },
+        {
+          "name": "field_from_galaxies",
+          "line": 225
+        },
+        {
+          "name": "compute_tda_features",
+          "line": 256
+        }
+      ],
+      "context": [
+        {
+          "line": 36,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 258,
+          "code": "import gudhi"
+        },
+        {
+          "line": 260,
+          "code": "raise ImportError(\"gudhi non trovato: conda install -c conda-forge gudhi\")"
+        },
+        {
+          "line": 262,
+          "code": "field_s   = gaussian_filter(delta_field.astype(np.float64), sigma=sigma_smooth)"
+        },
+        {
+          "line": 267,
+          "code": "cc = gudhi.CubicalComplex("
+        },
+        {
+          "line": 271,
+          "code": "cc.compute_persistence()"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase6_o64bis.py",
+      "rel": "src/phase6_o64bis.py",
+      "size_bytes": 10144,
+      "size_h": "9.9KB",
+      "score": 173,
+      "keyword_hits": {
+        "sigma_px": 17,
+        "voxel": 15,
+        "mask": 13,
+        "persistence": 6,
+        "delta_128": 6,
+        "phase6": 6,
+        "smooth": 3,
+        "gudhi": 2,
+        "cubicalcomplex": 1,
+        "persistence_intervals": 1,
+        "top_dimensional_cells": 1,
+        "gaussian_filter": 1,
+        "smoothing": 1
+      },
+      "n_defs": 3,
+      "defs_interesting": [
+        {
+          "name": "compute_b2_masked",
+          "line": 50
+        }
+      ],
+      "context": [
+        {
+          "line": 8,
+          "code": "b2_mean_persistence dipende da σ_px, non da R fisico."
+        },
+        {
+          "line": 23,
+          "code": "import gudhi"
+        },
+        {
+          "line": 24,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 48,
+          "code": "MOCK_Z05_MEAN_SIGMA_PX_0640 = 0.1502   # da test σ_px (mock con σ_px=0.640, R=5)"
+        },
+        {
+          "line": 49,
+          "code": "MOCK_Z05_STD_SIGMA_PX_0640  = 0.0182"
+        },
+        {
+          "line": 55,
+          "code": "cc = gudhi.CubicalComplex("
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase_b3_cal135.py",
+      "rel": "src/phase_b3_cal135.py",
+      "size_bytes": 22869,
+      "size_h": "22.3KB",
+      "score": 167,
+      "keyword_hits": {
+        "gudhi": 13,
+        "mask": 13,
+        "smooth": 8,
+        "fvec": 7,
+        "persistence": 6,
+        "persistence_intervals": 2,
+        "gaussian_filter": 2,
+        "cubicalcomplex": 1,
+        "top_dimensional_cells": 1,
+        "smoothing": 1,
+        "phase1": 1,
+        "phase6": 1
+      },
+      "n_defs": 11,
+      "defs_interesting": [
+        {
+          "name": "FoF_catalog",
+          "line": 149
+        },
+        {
+          "name": "read_halo_catalog",
+          "line": 167
+        },
+        {
+          "name": "field_from_galaxies",
+          "line": 227
+        },
+        {
+          "name": "compute_tda_features",
+          "line": 254
+        }
+      ],
+      "context": [
+        {
+          "line": 45,
+          "code": "Tempo stimato: ~5h (2000 sim × ~9s gudhi, n_gal più basso → più veloce)"
+        },
+        {
+          "line": 55,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 258,
+          "code": "import gudhi"
+        },
+        {
+          "line": 259,
+          "code": "field_s   = gaussian_filter(delta_field.astype(np.float64), sigma=sigma_smooth)"
+        },
+        {
+          "line": 262,
+          "code": "cc = gudhi.CubicalComplex("
+        },
+        {
+          "line": 266,
+          "code": "cc.compute_persistence()"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase_b3_cal135_v2.py",
+      "rel": "src/phase_b3_cal135_v2.py",
+      "size_bytes": 22540,
+      "size_h": "22.0KB",
+      "score": 167,
+      "keyword_hits": {
+        "gudhi": 13,
+        "mask": 13,
+        "smooth": 8,
+        "fvec": 7,
+        "persistence": 6,
+        "persistence_intervals": 2,
+        "gaussian_filter": 2,
+        "cubicalcomplex": 1,
+        "top_dimensional_cells": 1,
+        "smoothing": 1,
+        "phase1": 1,
+        "phase6": 1
+      },
+      "n_defs": 11,
+      "defs_interesting": [
+        {
+          "name": "FoF_catalog",
+          "line": 146
+        },
+        {
+          "name": "read_halo_catalog",
+          "line": 164
+        },
+        {
+          "name": "field_from_galaxies",
+          "line": 224
+        },
+        {
+          "name": "compute_tda_features",
+          "line": 251
+        }
+      ],
+      "context": [
+        {
+          "line": 48,
+          "code": "Tempo stimato: ~5h (2000 sim × ~9s gudhi, n_gal più basso → più veloce)"
+        },
+        {
+          "line": 58,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 255,
+          "code": "import gudhi"
+        },
+        {
+          "line": 256,
+          "code": "field_s   = gaussian_filter(delta_field.astype(np.float64), sigma=sigma_smooth)"
+        },
+        {
+          "line": 259,
+          "code": "cc = gudhi.CubicalComplex("
+        },
+        {
+          "line": 263,
+          "code": "cc.compute_persistence()"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase9b_majors.py",
+      "rel": "src/phase9b_majors.py",
+      "size_bytes": 16025,
+      "size_h": "15.6KB",
+      "score": 166,
+      "keyword_hits": {
+        "mask": 47,
+        "carve": 6,
+        "voxel": 5,
+        "beta1_max": 4,
+        "filtration": 3,
+        "gudhi": 2,
+        "persistence": 2,
+        "cutsky": 2,
+        "cubicalcomplex": 1,
+        "persistence_intervals": 1,
+        "top_dimensional_cells": 1
+      },
+      "n_defs": 10,
+      "defs_interesting": [
+        {
+          "name": "carve_with_z",
+          "line": 46
+        }
+      ],
+      "context": [
+        {
+          "line": 17,
+          "code": "C. Filtration-convention stability (R2.3): recompute beta1_max under the"
+        },
+        {
+          "line": 106,
+          "code": "import gudhi"
+        },
+        {
+          "line": 114,
+          "code": "cc = gudhi.CubicalComplex(dimensions=list(field_neg.shape),"
+        },
+        {
+          "line": 116,
+          "code": "cc.compute_persistence()"
+        },
+        {
+          "line": 117,
+          "code": "d1 = cc.persistence_intervals_in_dimension(1)"
+        },
+        {
+          "line": 222,
+          "code": "print(\"\\n\" + \"=\" * 60 + \"\\n[C] Filtration-convention stability (R2.3)\\n\" + \"=\" * 60)"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase7_rsd_hod_confirmation.py",
+      "rel": "src/phase7_rsd_hod_confirmation.py",
+      "size_bytes": 22814,
+      "size_h": "22.3KB",
+      "score": 155,
+      "keyword_hits": {
+        "persistence": 15,
+        "mask": 15,
+        "gudhi": 3,
+        "smooth": 3,
+        "fvec": 3,
+        "persistence_intervals": 2,
+        "gaussian_filter": 2,
+        "cubicalcomplex": 1,
+        "top_dimensional_cells": 1
+      },
+      "n_defs": 15,
+      "defs_interesting": [
+        {
+          "name": "FoF_catalog_pos_mass",
+          "line": 89
+        },
+        {
+          "name": "read_halo_catalog_pos_mass",
+          "line": 108
+        },
+        {
+          "name": "field_from_galaxies",
+          "line": 270
+        },
+        {
+          "name": "compute_tda_features",
+          "line": 296
+        }
+      ],
+      "context": [
+        {
+          "line": 16,
+          "code": "6. feats[5] = b1_mean_persistence RS"
+        },
+        {
+          "line": 17,
+          "code": "7. Confronta con b1_mean_persistence real-space da phase5_hod_b3_features.npz"
+        },
+        {
+          "line": 20,
+          "code": "La feature chiamata \"b2_mean_persistence\" nella nomenclatura CAUCHY"
+        },
+        {
+          "line": 21,
+          "code": "corrisponde a feats[5] = beta_1 mean persistence nel codice Phase 5."
+        },
+        {
+          "line": 44,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 48,
+          "code": "import gudhi"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase5_ramo_b.py",
+      "rel": "src/phase5_ramo_b.py",
+      "size_bytes": 23625,
+      "size_h": "23.1KB",
+      "score": 143,
+      "keyword_hits": {
+        "persistence": 10,
+        "gudhi": 5,
+        "mask": 5,
+        "fvec": 3,
+        "persistence_intervals": 2,
+        "superlevel": 2,
+        "cubicalcomplex": 1,
+        "top_dimensional_cells": 1
+      },
+      "n_defs": 6,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 18,
+          "code": "n_node_feat: 9 (birth, death, persistence, dim_beta1, dim_beta2,"
+        },
+        {
+          "line": 84,
+          "code": "P90        = prior3[\"frozen_graph_construction\"][\"persistence_threshold_p90\"]"
+        },
+        {
+          "line": 85,
+          "code": "K_NN       = prior3[\"frozen_gnn_architecture\"][\"k_nn_persistence_space\"]"
+        },
+        {
+          "line": 137,
+          "code": "import gudhi"
+        },
+        {
+          "line": 140,
+          "code": "print(\"Installare: pip install torch torch_geometric gudhi\")"
+        },
+        {
+          "line": 220,
+          "code": "import gudhi"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase3_gnn.py",
+      "rel": "src/phase3_gnn.py",
+      "size_bytes": 50629,
+      "size_h": "49.4KB",
+      "score": 140,
+      "keyword_hits": {
+        "persistence": 33,
+        "phase1": 8,
+        "mask": 5,
+        "gudhi": 3,
+        "cubicalcomplex": 2,
+        "top_dimensional_cells": 2,
+        "superlevel": 2
+      },
+      "n_defs": 22,
+      "defs_interesting": [
+        {
+          "name": "extract_topological_graph",
+          "line": 146
+        },
+        {
+          "name": "pool_features",
+          "line": 720
+        }
+      ],
+      "context": [
+        {
+          "line": 138,
+          "code": "p90 = prereq[\"persistence_threshold_p90\"]"
+        },
+        {
+          "line": 149,
+          "code": "persistence_threshold: float,"
+        },
+        {
+          "line": 156,
+          "code": "Nodi: feature β₁ e β₂ con persistenza > persistence_threshold."
+        },
+        {
+          "line": 158,
+          "code": "[birth, death, persistence, dim_is_beta1, dim_is_beta2,"
+        },
+        {
+          "line": 173,
+          "code": "import gudhi"
+        },
+        {
+          "line": 185,
+          "code": "cc = gudhi.CubicalComplex("
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\cauchy_figures.py",
+      "rel": "src/cauchy_figures.py",
+      "size_bytes": 31676,
+      "size_h": "30.9KB",
+      "score": 115,
+      "keyword_hits": {
+        "persistence": 34,
+        "phase6": 21,
+        "betti": 15,
+        "persistence_diagram": 6,
+        "phase1": 2,
+        "filtration": 1,
+        "superlevel": 1
+      },
+      "n_defs": 10,
+      "defs_interesting": [
+        {
+          "name": "fig2_betti_curve",
+          "line": 82
+        },
+        {
+          "name": "fig3_persistence_diagram",
+          "line": 176
+        },
+        {
+          "name": "fig4_feature_zscore",
+          "line": 285
+        }
+      ],
+      "context": [
+        {
+          "line": 9,
+          "code": "fig2_betti_curve.pdf       — β₁ Betti curve DESI vs mock (§4.1/§4.2)"
+        },
+        {
+          "line": 10,
+          "code": "fig3_persistence_diagram.pdf — Persistence diagram H₁ DESI vs mock (§4.2)"
+        },
+        {
+          "line": 11,
+          "code": "[requires phase6_bgs_persistence_raw.npz]"
+        },
+        {
+          "line": 81,
+          "code": "# ─── Figure 2: β₁ Betti Curve ─────────────────────────────────────────────────"
+        },
+        {
+          "line": 83,
+          "code": "def fig2_betti_curve():"
+        },
+        {
+          "line": 85,
+          "code": "β₁(ν) Betti curve: DESI NGC (reconstructed from diagnostics) vs fiducial"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase7_t1_variability.py",
+      "rel": "src/phase7_t1_variability.py",
+      "size_bytes": 29753,
+      "size_h": "29.1KB",
+      "score": 115,
+      "keyword_hits": {
+        "mask": 9,
+        "gudhi": 5,
+        "persistence": 3,
+        "persistence_intervals": 2,
+        "cubicalcomplex": 1,
+        "top_dimensional_cells": 1
+      },
+      "n_defs": 19,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 58,
+          "code": "import gudhi"
+        },
+        {
+          "line": 60,
+          "code": "print(\"ERRORE: gudhi non trovato.\"); sys.exit(1)"
+        },
+        {
+          "line": 155,
+          "code": "cc = gudhi.CubicalComplex("
+        },
+        {
+          "line": 159,
+          "code": "cc.compute_persistence()"
+        },
+        {
+          "line": 160,
+          "code": "diag_1 = np.array(cc.persistence_intervals_in_dimension(1))"
+        },
+        {
+          "line": 161,
+          "code": "diag_2 = np.array(cc.persistence_intervals_in_dimension(2))"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase9_sgc_likeforlike.py",
+      "rel": "src/phase9_sgc_likeforlike.py",
+      "size_bytes": 10090,
+      "size_h": "9.9KB",
+      "score": 109,
+      "keyword_hits": {
+        "mask": 35,
+        "sigma_px": 13,
+        "beta1_max": 6,
+        "cutsky": 3,
+        "smooth": 2,
+        "filtration": 2,
+        "voxel": 1,
+        "carve": 1,
+        "phase6": 1
+      },
+      "n_defs": 3,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 14,
+          "code": "consistent: the SGC embedding box, cell size, sigma_px, and mask are recomputed"
+        },
+        {
+          "line": 17,
+          "code": "because sigma_px = R_smooth/cell is the dominant systematic and cell_SGC != cell_NGC."
+        },
+        {
+          "line": 99,
+          "code": "sigma_px = M.R_SMOOTH / cell"
+        },
+        {
+          "line": 101,
+          "code": "f\"sigma_px = {sigma_px:.4f}  (NGC was cell {M.CELL:.3f}, sigma_px {M.SIGMA_PX:.4f})\")"
+        },
+        {
+          "line": 107,
+          "code": "M.SIGMA_PX = sigma_px"
+        },
+        {
+          "line": 146,
+          "code": "# --- DESI-SGC reference (masked filtration), same build_field ---------------"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\diagnose_tau_graph.py",
+      "rel": "src/diagnose_tau_graph.py",
+      "size_bytes": 4926,
+      "size_h": "4.8KB",
+      "score": 106,
+      "keyword_hits": {
+        "persistence": 4,
+        "gudhi": 3,
+        "persistence_intervals": 2,
+        "cubicalcomplex": 1,
+        "top_dimensional_cells": 1
+      },
+      "n_defs": 1,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 23,
+          "code": "P90     = prior3[\"frozen_graph_construction\"][\"persistence_threshold_p90\"]"
+        },
+        {
+          "line": 82,
+          "code": "print(\"TDA con gudhi — test su ENTRAMBE le normalizzazioni\")"
+        },
+        {
+          "line": 85,
+          "code": "import gudhi"
+        },
+        {
+          "line": 90,
+          "code": "cc = gudhi.CubicalComplex("
+        },
+        {
+          "line": 94,
+          "code": "cc.compute_persistence()"
+        },
+        {
+          "line": 96,
+          "code": "diag_1 = np.array(cc.persistence_intervals_in_dimension(1))"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase8_field_diagnostic.py",
+      "rel": "src/phase8_field_diagnostic.py",
+      "size_bytes": 4567,
+      "size_h": "4.5KB",
+      "score": 102,
+      "keyword_hits": {
+        "mask": 17,
+        "voxel": 5,
+        "beta1_max": 3,
+        "cutsky": 3,
+        "standardize": 2,
+        "persistence": 1,
+        "sigma_px": 1,
+        "filtration": 1,
+        "carve": 1
+      },
+      "n_defs": 2,
+      "defs_interesting": [
+        {
+          "name": "field_stats",
+          "line": 32
+        }
+      ],
+      "context": [
+        {
+          "line": 6,
+          "code": "matched sigma_px and matched density. Suspected cause: delta_FKP amplitude"
+        },
+        {
+          "line": 12,
+          "code": "- nu_min / nu_max            (1st / 99th percentile -> filtration range)"
+        },
+        {
+          "line": 98,
+          "code": "print(\"     BOTH sides before extracting persistence.\")"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase6_assemble_cycle3.py",
+      "rel": "src/phase6_assemble_cycle3.py",
+      "size_bytes": 12401,
+      "size_h": "12.1KB",
+      "score": 97,
+      "keyword_hits": {
+        "sigma_px": 30,
+        "phase6": 21,
+        "smoothing": 6,
+        "smooth": 6,
+        "persistence": 3,
+        "fvec": 1
+      },
+      "n_defs": 1,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 10,
+          "code": "results/phase6_sigma_px_test.json          (BLOCKING 1 — test σ_px)"
+        },
+        {
+          "line": 33,
+          "code": "\"sigma_px_test\":    RES_DIR / \"phase6_sigma_px_test.json\","
+        },
+        {
+          "line": 56,
+          "code": "if key == \"sigma_px_test\":"
+        },
+        {
+          "line": 57,
+          "code": "print(f\"  python src\\\\phase6_sigma_px_test.py\")"
+        },
+        {
+          "line": 71,
+          "code": "sigma_px  = load_json(REQUIRED[\"sigma_px_test\"])"
+        },
+        {
+          "line": 91,
+          "code": "b1_verdict   = sigma_px[\"verdict_blocking1\"]"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\diagnose_v2.py",
+      "rel": "src/diagnose_v2.py",
+      "size_bytes": 1966,
+      "size_h": "1.9KB",
+      "score": 94,
+      "keyword_hits": {
+        "persistence": 4,
+        "gudhi": 2,
+        "persistence_intervals": 2,
+        "cubicalcomplex": 1,
+        "top_dimensional_cells": 1
+      },
+      "n_defs": 1,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 5,
+          "code": "import argparse, numpy as np, json, gudhi"
+        },
+        {
+          "line": 15,
+          "code": "P90 = prior3[\"frozen_graph_construction\"][\"persistence_threshold_p90\"]"
+        },
+        {
+          "line": 23,
+          "code": "cc = gudhi.CubicalComplex(dimensions=list(tau_norm.shape), top_dimensional_cells=(-tau_norm).flatten())"
+        },
+        {
+          "line": 24,
+          "code": "cc.compute_persistence()"
+        },
+        {
+          "line": 25,
+          "code": "diag_1 = np.array(cc.persistence_intervals_in_dimension(1))"
+        },
+        {
+          "line": 26,
+          "code": "diag_2 = np.array(cc.persistence_intervals_in_dimension(2))"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase6_bgs_voxelize.py",
+      "rel": "src/phase6_bgs_voxelize.py",
+      "size_bytes": 10817,
+      "size_h": "10.6KB",
+      "score": 93,
+      "keyword_hits": {
+        "mask": 25,
+        "smooth": 23,
+        "phase6": 12,
+        "voxel": 10,
+        "smoothing": 4,
+        "delta_128": 4,
+        "gaussian_filter": 2,
+        "sigma_px": 1
+      },
+      "n_defs": 4,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 42,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 197,
+          "code": "delta_s = gaussian_filter(delta.astype(np.float64),"
+        },
+        {
+          "line": 257,
+          "code": "\"sigma_smooth_note\": \"sigma_px = R_smooth / cell_size, calcolato per regione\","
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase9_extract_features.py",
+      "rel": "src/phase9_extract_features.py",
+      "size_bytes": 7050,
+      "size_h": "6.9KB",
+      "score": 93,
+      "keyword_hits": {
+        "mask": 32,
+        "beta1_max": 9,
+        "beta1max": 4,
+        "filtration": 2,
+        "cutsky": 2
+      },
+      "n_defs": 2,
+      "defs_interesting": [
+        {
+          "name": "find_mask",
+          "line": 39
+        }
+      ],
+      "context": [
+        {
+          "line": 16,
+          "code": "on each of the 2000 frozen cubes -> identical filtration by construction, so"
+        },
+        {
+          "line": 69,
+          "code": "# --- import Phase 8's own feature extractor (identical filtration) ---------"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase8_test2_masked.py",
+      "rel": "src/phase8_test2_masked.py",
+      "size_bytes": 11301,
+      "size_h": "11.0KB",
+      "score": 90,
+      "keyword_hits": {
+        "mask": 30,
+        "beta1_max": 12,
+        "filtration": 3,
+        "cutsky": 3,
+        "sigma_px": 1,
+        "voxel": 1,
+        "carve": 1
+      },
+      "n_defs": 5,
+      "defs_interesting": [
+        {
+          "name": "recompute_desi_reference_masked",
+          "line": 93
+        }
+      ],
+      "context": [
+        {
+          "line": 8,
+          "code": "- Exterior EXCLUDED from the filtration on BOTH sides (compute_tda_features"
+        },
+        {
+          "line": 16,
+          "code": "Everything else (log build_field, cut-sky carving, n(z), density target, sigma_px)"
+        },
+        {
+          "line": 153,
+          "code": "print(f\"  n_pilot={args.n_pilot}, exterior EXCLUDED from filtration, virial sat vel\")"
+        },
+        {
+          "line": 234,
+          "code": "\"masked_filtration\": True,"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase9_empirical_histograms.py",
+      "rel": "src/phase9_empirical_histograms.py",
+      "size_bytes": 8346,
+      "size_h": "8.2KB",
+      "score": 87,
+      "keyword_hits": {
+        "beta1max": 9,
+        "beta1_max": 9,
+        "mask": 3,
+        "persistence": 1,
+        "filtration": 1
+      },
+      "n_defs": 4,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 151,
+          "code": "\"$\\\\langle \\\\mathrm{pers}_1 \\\\rangle$ (mean $H_1$ persistence)\","
+        },
+        {
+          "line": 173,
+          "code": "\"comparison\": \"like-for-like cut-sky mocks, masked filtration, N={}\".format(N),"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase3_gnn_diagnose.py",
+      "rel": "src/phase3_gnn_diagnose.py",
+      "size_bytes": 9507,
+      "size_h": "9.3KB",
+      "score": 83,
+      "keyword_hits": {
+        "persistence": 7,
+        "mask": 5,
+        "gudhi": 2,
+        "cubicalcomplex": 1,
+        "top_dimensional_cells": 1
+      },
+      "n_defs": 5,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 115,
+          "code": "import gudhi"
+        },
+        {
+          "line": 126,
+          "code": "persistence_threshold = 0.35589513778686577"
+        },
+        {
+          "line": 138,
+          "code": "cc = gudhi.CubicalComplex(dimensions=list(tau_grid.shape), top_dimensional_cells=-tau_grid.ravel())"
+        },
+        {
+          "line": 139,
+          "code": "cc.compute_persistence()"
+        },
+        {
+          "line": 140,
+          "code": "pairs = cc.persistence()"
+        },
+        {
+          "line": 148,
+          "code": "persistence = abs(b_val - d_val)"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase8_fiber_surrogate.py",
+      "rel": "src/phase8_fiber_surrogate.py",
+      "size_bytes": 7007,
+      "size_h": "6.8KB",
+      "score": 82,
+      "keyword_hits": {
+        "mask": 16,
+        "beta1_max": 10,
+        "smooth": 3,
+        "gaussian_filter": 2,
+        "cutsky": 2,
+        "voxel": 1,
+        "carve": 1
+      },
+      "n_defs": 3,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 48,
+          "code": "from scipy.ndimage import gaussian_filter"
+        },
+        {
+          "line": 50,
+          "code": "cnt = gaussian_filter(cnt, sigma=smooth_vox)"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase8_smoothness_check.py",
+      "rel": "src/phase8_smoothness_check.py",
+      "size_bytes": 5920,
+      "size_h": "5.8KB",
+      "score": 76,
+      "keyword_hits": {
+        "mask": 19,
+        "smooth": 13,
+        "voxel": 4,
+        "beta1_max": 3,
+        "cutsky": 3,
+        "carve": 1
+      },
+      "n_defs": 5,
+      "defs_interesting": [],
+      "context": []
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase8_weight_smoothness.py",
+      "rel": "src/phase8_weight_smoothness.py",
+      "size_bytes": 6042,
+      "size_h": "5.9KB",
+      "score": 72,
+      "keyword_hits": {
+        "mask": 20,
+        "beta1_max": 11,
+        "smooth": 6,
+        "voxel": 3,
+        "cutsky": 2,
+        "carve": 1
+      },
+      "n_defs": 4,
+      "defs_interesting": [],
+      "context": []
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase5_analyze_run_a_partial.py",
+      "rel": "src/phase5_analyze_run_a_partial.py",
+      "size_bytes": 8361,
+      "size_h": "8.2KB",
+      "score": 66,
+      "keyword_hits": {
+        "fvec": 8,
+        "persistence": 6,
+        "gudhi": 2
+      },
+      "n_defs": 0,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 65,
+          "code": "t    = float(data.get('t_gudhi_mean_s', 0.0))"
+        },
+        {
+          "line": 84,
+          "code": "print(f\"t_gudhi medio: {np.mean([x for x in t_list if x>0]):.1f}s\")"
+        },
+        {
+          "line": 88,
+          "code": "'b2_max_count', 'b2_mean_persistence', 'b2_high_persist', 'b0_at_mean'"
+        },
+        {
+          "line": 130,
+          "code": "# Permutation test su b2_mean_persistence (feature principale)"
+        },
+        {
+          "line": 131,
+          "code": "print(f\"\\nPermutation test N={args.n_perm} su b2_mean_persistence...\")"
+        },
+        {
+          "line": 183,
+          "code": "print(f\"  {'b2_mean_persistence':25} {sigma_b2:>15.2f}σ {sigma_b3:>15.2f}σ\")"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase9_hod_concentrated_grid.py",
+      "rel": "src/phase9_hod_concentrated_grid.py",
+      "size_bytes": 7956,
+      "size_h": "7.8KB",
+      "score": 66,
+      "keyword_hits": {
+        "mask": 13,
+        "beta1_max": 6,
+        "carve": 5,
+        "cutsky": 3,
+        "voxel": 1
+      },
+      "n_defs": 3,
+      "defs_interesting": [
+        {
+          "name": "beta1_for_logM1",
+          "line": 83
+        }
+      ],
+      "context": []
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase0_data_prep.py",
+      "rel": "src/phase0_data_prep.py",
+      "size_bytes": 27477,
+      "size_h": "26.8KB",
+      "score": 64,
+      "keyword_hits": {
+        "smooth": 17,
+        "smoothing": 15,
+        "voxel": 4,
+        "mask": 3,
+        "gaussian_filter": 2
+      },
+      "n_defs": 11,
+      "defs_interesting": [
+        {
+          "name": "discover_field_paths",
+          "line": 179
+        },
+        {
+          "name": "_worker_check_and_prep",
+          "line": 245
+        },
+        {
+          "name": "_worker_preprocess_and_save",
+          "line": 292
+        },
+        {
+          "name": "write_preprocessing_lock",
+          "line": 571
+        }
+      ],
+      "context": [
+        {
+          "line": 318,
+          "code": "field_smoothed = scipy.ndimage.gaussian_filter("
+        },
+        {
+          "line": 593,
+          "code": "\"implementation\": \"scipy.ndimage.gaussian_filter\","
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase8_weight_check.py",
+      "rel": "src/phase8_weight_check.py",
+      "size_bytes": 7212,
+      "size_h": "7.0KB",
+      "score": 64,
+      "keyword_hits": {
+        "mask": 12,
+        "beta1_max": 9,
+        "voxel": 5,
+        "cutsky": 3,
+        "carve": 1
+      },
+      "n_defs": 4,
+      "defs_interesting": [],
+      "context": []
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase4_sr.py",
+      "rel": "src/phase4_sr.py",
+      "size_bytes": 30439,
+      "size_h": "29.7KB",
+      "score": 63,
+      "keyword_hits": {
+        "fvec": 46,
+        "phase1": 14,
+        "persistence": 3,
+        "gudhi": 1
+      },
+      "n_defs": 13,
+      "defs_interesting": [
+        {
+          "name": "preprocess_features",
+          "line": 223
+        }
+      ],
+      "context": [
+        {
+          "line": 21,
+          "code": "5: b2_mean_persistence β₂ persistenza media"
+        },
+        {
+          "line": 63,
+          "code": "o, se mancante, le estrae dai file τ(x) via gudhi (lento — ~30 min)."
+        },
+        {
+          "line": 94,
+          "code": "\"b2_mean_persistence\","
+        },
+        {
+          "line": 136,
+          "code": "assert prior[\"frozen_graph_construction\"][\"persistence_threshold_p90\"] == \\"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase9_growth_mismatch.py",
+      "rel": "src/phase9_growth_mismatch.py",
+      "size_bytes": 9593,
+      "size_h": "9.4KB",
+      "score": 62,
+      "keyword_hits": {
+        "mask": 14,
+        "beta1_max": 9,
+        "cutsky": 2,
+        "filtration": 1,
+        "voxel": 1,
+        "carve": 1
+      },
+      "n_defs": 3,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 13,
+          "code": "(same HOD, mask, n(z), FKP, filtration) at snapnum=4 (z=0) and snapnum=3 (z=0.5),"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase6_partial_corr.py",
+      "rel": "src/phase6_partial_corr.py",
+      "size_bytes": 17918,
+      "size_h": "17.5KB",
+      "score": 60,
+      "keyword_hits": {
+        "fvec": 19,
+        "persistence": 13,
+        "phase6": 9,
+        "voxel": 5
+      },
+      "n_defs": 4,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 21,
+          "code": "- partial correlation b2_mean_persistence ~ n_gal su mock: stima quanto"
+        },
+        {
+          "line": 49,
+          "code": "\"b2_max_count\", \"b2_mean_persistence\", \"b2_high_persist\", \"b0_at_mean\""
+        },
+        {
+          "line": 51,
+          "code": "B2_IDX = 5  # b2_mean_persistence — feature primaria"
+        },
+        {
+          "line": 160,
+          "code": "feats[\"_persistence_mean\"] = float(diag.get(\"persistence_mean\", 0))"
+        },
+        {
+          "line": 196,
+          "code": "val = d.get(\"b2_mean_persistence\")"
+        },
+        {
+          "line": 199,
+          "code": "print(f\"  {label} b2_mean_persistence = {val:.4f}  (n_valid_voxels={ngal:.0f})\")"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase6_power_spectrum_baseline.py",
+      "rel": "src/phase6_power_spectrum_baseline.py",
+      "size_bytes": 22546,
+      "size_h": "22.0KB",
+      "score": 59,
+      "keyword_hits": {
+        "mask": 17,
+        "phase6": 17,
+        "persistence": 4,
+        "delta_128": 2,
+        "voxel": 1
+      },
+      "n_defs": 4,
+      "defs_interesting": [
+        {
+          "name": "extract_pk_features",
+          "line": 144
+        }
+      ],
+      "context": [
+        {
+          "line": 408,
+          "code": "print(f\"  z-score DESI vs mock TDA (b2_mean_persistence): +5.97σ\")"
+        },
+        {
+          "line": 482,
+          "code": "tda_sigma_b2 = val[\"feature_sigmas\"][\"b2_mean_persistence\"][\"sigma\"]"
+        },
+        {
+          "line": 485,
+          "code": "print(f\"\\n  sigma TDA (b2_mean_persistence):  {tda_sigma_b2:.2f}σ\")"
+        },
+        {
+          "line": 496,
+          "code": "print(f\"    b2_mean_persistence: +{gain_b2:.0f}%\")"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase9_altmtl_fiber_test.py",
+      "rel": "src/phase9_altmtl_fiber_test.py",
+      "size_bytes": 11039,
+      "size_h": "10.8KB",
+      "score": 57,
+      "keyword_hits": {
+        "mask": 13,
+        "beta1_max": 9,
+        "voxel": 2,
+        "cutsky": 2,
+        "carve": 1
+      },
+      "n_defs": 6,
+      "defs_interesting": [],
+      "context": []
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase9_rsd_satellite_sensitivity.py",
+      "rel": "src/phase9_rsd_satellite_sensitivity.py",
+      "size_bytes": 7181,
+      "size_h": "7.0KB",
+      "score": 54,
+      "keyword_hits": {
+        "mask": 13,
+        "beta1_max": 7,
+        "cutsky": 2,
+        "voxel": 1,
+        "carve": 1
+      },
+      "n_defs": 3,
+      "defs_interesting": [],
+      "context": []
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase5_validation_checks.py",
+      "rel": "src/phase5_validation_checks.py",
+      "size_bytes": 15708,
+      "size_h": "15.3KB",
+      "score": 51,
+      "keyword_hits": {
+        "fvec": 10,
+        "mask": 6,
+        "persistence": 4
+      },
+      "n_defs": 4,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 73,
+          "code": "'b2_max_count', 'b2_mean_persistence', 'b2_high_persist', 'b0_at_mean'"
+        },
+        {
+          "line": 243,
+          "code": "# T3 usa feature SINGOLA (b2_mean_persistence, idx=5) per evitare"
+        },
+        {
+          "line": 247,
+          "code": "best_feat_idx_t3 = 5  # b2_mean_persistence — feature piu sensibile (sigma=3.49)"
+        },
+        {
+          "line": 277,
+          "code": "\"method\": \"single_feature_b2_mean_persistence\","
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase4_opening.py",
+      "rel": "src/phase4_opening.py",
+      "size_bytes": 18691,
+      "size_h": "18.3KB",
+      "score": 50,
+      "keyword_hits": {
+        "fvec": 10,
+        "mask": 4,
+        "phase1": 3,
+        "persistence": 2
+      },
+      "n_defs": 11,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 76,
+          "code": "assert prior[\"frozen_graph_construction\"][\"persistence_threshold_p90\"] == \\"
+        },
+        {
+          "line": 361,
+          "code": "p90   = prior[\"frozen_graph_construction\"][\"persistence_threshold_p90\"]"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase5_sanity_check.py",
+      "rel": "src/phase5_sanity_check.py",
+      "size_bytes": 20433,
+      "size_h": "20.0KB",
+      "score": 48,
+      "keyword_hits": {
+        "fvec": 19,
+        "persistence": 3,
+        "phase1": 2
+      },
+      "n_defs": 3,
+      "defs_interesting": [
+        {
+          "name": "log_prob_test",
+          "line": 226
+        }
+      ],
+      "context": [
+        {
+          "line": 123,
+          "code": "g3_p90 = p3[\"frozen_graph_construction\"][\"persistence_threshold_p90\"]"
+        },
+        {
+          "line": 164,
+          "code": "\"gate3_persistence_p90\": g3_p90,"
+        },
+        {
+          "line": 324,
+          "code": "\"b2_max_count\", \"b2_mean_persistence\", \"b2_high_persist\", \"b0_at_mean\""
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase6_ngal_corrected.py",
+      "rel": "src/phase6_ngal_corrected.py",
+      "size_bytes": 20218,
+      "size_h": "19.7KB",
+      "score": 48,
+      "keyword_hits": {
+        "phase6": 8,
+        "voxel": 7,
+        "persistence": 6
+      },
+      "n_defs": 6,
+      "defs_interesting": [
+        {
+          "name": "extract_mock_features",
+          "line": 61
+        }
+      ],
+      "context": [
+        {
+          "line": 41,
+          "code": "PRIMARY_FEATURE    = \"b2_mean_persistence\""
+        },
+        {
+          "line": 65,
+          "code": "Estrae (b2_mean_persistence, n_gal) per ogni mock."
+        },
+        {
+          "line": 216,
+          "code": "feat_desi_ngc = float(desi_data[\"NGC\"].get(PRIMARY_FEATURE, desi_data[\"NGC\"].get(\"b2_mean_persistence\")))"
+        },
+        {
+          "line": 224,
+          "code": "print(f\"[INFO] b2_mean_persistence trovato sotto chiave '{k}'\")"
+        },
+        {
+          "line": 230,
+          "code": "print(f\"[OK] b2_mean_persistence DESI NGC = {feat_desi_ngc:.4f}\")"
+        },
+        {
+          "line": 402,
+          "code": "f\"The DESI BGS NGC b2_mean_persistence measurement ({feat_desi_ngc:.3f} ± 0.005) \""
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase9_mask_robustness.py",
+      "rel": "src/phase9_mask_robustness.py",
+      "size_bytes": 7628,
+      "size_h": "7.4KB",
+      "score": 46,
+      "keyword_hits": {
+        "mask": 30,
+        "voxel": 4,
+        "filtration": 3,
+        "cutsky": 1
+      },
+      "n_defs": 4,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 16,
+          "code": "FILTRATION (compute_tda_features(field, variant_mask, masked=True)) on those"
+        },
+        {
+          "line": 18,
+          "code": "identically (same frozen field, same variant filtration), so the comparison"
+        },
+        {
+          "line": 164,
+          "code": "\"filtration mask varies, identically on both sides. Threshold variants \""
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase5_hod_variance_decomp.py",
+      "rel": "src/phase5_hod_variance_decomp.py",
+      "size_bytes": 19233,
+      "size_h": "18.8KB",
+      "score": 44,
+      "keyword_hits": {
+        "persistence": 17,
+        "mask": 2,
+        "fvec": 2
+      },
+      "n_defs": 1,
+      "defs_interesting": [],
+      "context": [
+        {
+          "line": 7,
+          "code": "Domanda scientifica: \"il segnale b2_mean_persistence ~ w0 è assorbibile"
+        },
+        {
+          "line": 14,
+          "code": "Se sigma2_INTRA << sigma2_INTER per b2_mean_persistence, il segnale"
+        },
+        {
+          "line": 21,
+          "code": "- r(b2_mean_persistence_marginalized, w0) con permutation test N=1000"
+        },
+        {
+          "line": 24,
+          "code": "- Partial correlation b2_mean_persistence ~ w0 | Omm, s8 (Concern 5)"
+        },
+        {
+          "line": 65,
+          "code": "\"b2_max_count\", \"b2_mean_persistence\", \"b2_high_persist\", \"b0_at_mean\""
+        },
+        {
+          "line": 67,
+          "code": "B2_MEAN_PERS_IDX = 5  # indice di b2_mean_persistence"
+        }
+      ]
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase8_w0_exclusion.py",
+      "rel": "src/phase8_w0_exclusion.py",
+      "size_bytes": 9759,
+      "size_h": "9.5KB",
+      "score": 43,
+      "keyword_hits": {
+        "beta1_max": 21,
+        "mask": 12,
+        "cutsky": 1
+      },
+      "n_defs": 5,
+      "defs_interesting": [],
+      "context": []
+    },
+    {
+      "path": "D:\\projects\\cauchy\\src\\phase9_replot_beta1max.py",
+      "rel": "src/phase9_replot_beta1max.py",
+      "size_bytes": 3638,
+      "size_h": "3.6KB",
+      "score": 40,
+      "keyword_hits": {
+        "beta1max": 6,
+        "beta1_max": 1
+      },
+      "n_defs": 1,
+      "defs_interesting": [],
+      "context": []
+    }
+  ],
+  "candidate_result_jsons": [
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase9_mask_robustness.json",
+      "rel": "results/phase9_mask_robustness.json",
+      "size_h": "3.0KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "script",
+        "phase",
+        "concern_addressed",
+        "timestamp",
+        "mock_k",
+        "thresholds",
+        "erode_iters",
+        "variants",
+        "fiducial_deficit",
+        "max_deficit_swing",
+        "max_swing_fraction",
+        "verdict",
+        "notes",
+        "verdict_naive_absolute_swing",
+        "verdict_criterion",
+        "fractional_deficit_by_variant",
+        "verdict_note"
+      ],
+      "candidate_numbers": {
+        "variants.fiducial.desi_beta1": 28256.0,
+        "variants.fiducial.deficit": 7100.010000000002,
+        "variants.thresh5.desi_beta1": 25434.0,
+        "variants.thresh5.deficit": 9609.463333333333,
+        "variants.thresh20.desi_beta1": 23748.0,
+        "variants.thresh20.deficit": 9883.746666666666,
+        "variants.erode1.desi_beta1": 23782.0,
+        "variants.erode1.deficit": 7974.483333333334,
+        "variants.erode2.desi_beta1": 20293.0,
+        "variants.erode2.deficit": 5321.363333333335,
+        "fiducial_deficit": 7100.010000000002,
+        "max_deficit_swing": 2783.736666666664,
+        "max_swing_fraction": 0.39207503463610094
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase1_gate_result.json",
+      "rel": "results/phase1_gate_result.json",
+      "size_h": "10.0KB",
+      "matched_terms": [
+        "beta1",
+        "betti",
+        "b1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "metadata",
+        "results",
+        "gate_evaluation",
+        "reviewer_verdict",
+        "review0_impegni_phase1",
+        "notes"
+      ],
+      "candidate_numbers": {
+        "results.smoothing_sensitivity.delta_b1_normalized": 44.245,
+        "results.fiducial_betti_curves_summary.b1_peak_nu": -0.0972,
+        "results.fiducial_betti_curves_summary.b1_peak_height_mean": 10549.96,
+        "results.fiducial_betti_curves_summary.b1_peak_height_std": 122.1,
+        "results.fiducial_betti_curves_summary.b1_snr_at_peak": 86.4,
+        "results.gate1b.correlations.b1_peak_pos": 0.024266,
+        "results.gate1b.correlations.b1_peak_height": 0.012352,
+        "results.gate1b.correlations.b1_fwhm": 0.024873,
+        "results.gate1b.correlations.b1_integral": 0.009978,
+        "results.gate1b.correlations.b2_max_count": 0.012354,
+        "results.gate1b.max_correlation": 0.024873,
+        "results.gate1b.max_correlation_significance_sigma": 1.11
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase4_gate_result.json",
+      "rel": "results/phase4_gate_result.json",
+      "size_h": "13.7KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "metadata",
+        "prerequisites_apertura",
+        "sr_configuration",
+        "feature_correlations_w0_train",
+        "sr_results",
+        "gate_evaluation",
+        "physical_interpretation",
+        "reviewer_verdict",
+        "impegni_aperti_phase5",
+        "notes"
+      ],
+      "candidate_numbers": {
+        "prerequisites_apertura.R3_3_mmd_w0.max_abs_r_jstar_w0": 0.04028135538101196,
+        "prerequisites_apertura.R3_3_mmd_w0.max_abs_r_component_index": 17,
+        "sr_configuration.maxsize": 20,
+        "feature_correlations_w0_train.b1_peak_pos": 0.0066,
+        "feature_correlations_w0_train.b1_peak_height": 0.0069,
+        "feature_correlations_w0_train.b1_fwhm": 0.0133,
+        "feature_correlations_w0_train.b1_integral": 0.0082,
+        "feature_correlations_w0_train.b2_max_count": 0.0075,
+        "feature_correlations_w0_train.max_abs_r": 0.0133,
+        "sr_results.r2_max_all_runs": 0.006191038723583064,
+        "sr_results.r2_max_run_idx": 18
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase1_tda_baseline.json",
+      "rel": "results/phase1_tda_baseline.json",
+      "size_h": "229.0KB",
+      "matched_terms": [
+        "betti"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "generated_at",
+        "cauchy_version",
+        "gate",
+        "mode",
+        "tda_parameters",
+        "smoothing_sensitivity",
+        "fiducial_betti_curves",
+        "gate1a",
+        "gate1b",
+        "overall_gate1_status",
+        "lhc_cosmologies",
+        "nwlh_cosmologies",
+        "fvecs_lhc_stats",
+        "fvecs_nwlh_stats",
+        "patch_note"
+      ],
+      "candidate_numbers": {
+        "smoothing_sensitivity.delta_b1_normalized": 44.24549009271101,
+        "gate1b.correlations.b1_peak_pos": 0.024266420862562137,
+        "gate1b.correlations.b1_peak_height": 0.012352267223988118,
+        "gate1b.correlations.b1_fwhm": 0.024873311737286706,
+        "gate1b.correlations.b1_integral": 0.009977762274739897,
+        "gate1b.correlations.b2_max_count": 0.012353795820755461,
+        "gate1b.max_correlation": 0.024873311737286706
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase3_gate_result.json",
+      "rel": "results/phase3_gate_result.json",
+      "size_h": "12.9KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "metadata",
+        "results",
+        "gate_evaluation",
+        "reviewer_verdict",
+        "impegni_aperti_phase4",
+        "notes"
+      ],
+      "candidate_numbers": {
+        "results.prerequisites_apertura.R2_3_ks_test.beta1_ks_stat": 0.7613207528027757,
+        "results.prerequisites_apertura.R2_3_ks_test.beta1_ks_pval": 0.0,
+        "results.prerequisites_apertura.R2_3_ks_test.n_tau_beta1_persistences": 396767,
+        "results.prerequisites_apertura.R2_3_ks_test.n_grf_beta1_persistences": 19279536,
+        "results.pretraining_node_check.max_nodes": 1639,
+        "results.t1_variability_empirical.R_max": 0.9816701649998031,
+        "results.t1_variability_empirical.R_delta_max_min": 0.2489629899935195
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase6_bgs_tda_features.json",
+      "rel": "results/phase6_bgs_tda_features.json",
+      "size_h": "7.6KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "timestamp",
+        "n_thresh",
+        "n_bootstrap",
+        "tda_convention",
+        "regions"
+      ],
+      "candidate_numbers": {
+        "regions.NGC.tda_diagnostics.n_loops_beta1": 29683,
+        "regions.NGC.tda_diagnostics.b1_curve_max": 11132.0,
+        "regions.NGC.tda_diagnostics.nu_max": 5.38539710998536,
+        "regions.SGC.tda_diagnostics.n_loops_beta1": 15999,
+        "regions.SGC.tda_diagnostics.b1_curve_max": 6374.0,
+        "regions.SGC.tda_diagnostics.nu_max": 6.3614987564086976
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase9_growth_mismatch.json",
+      "rel": "results/phase9_growth_mismatch.json",
+      "size_h": "5.5KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "script",
+        "phase",
+        "concern_addressed",
+        "timestamp",
+        "mode",
+        "k_pairs",
+        "snap_hi",
+        "snap_lo",
+        "desi_beta1_max",
+        "z0.5_baseline_mean",
+        "z0.5_baseline_drift_sigma",
+        "paired_delta_z0_minus_z05_mean",
+        "growth_rate_per_unit_z",
+        "growth_rate_sem",
+        "deficit_at_z05",
+        "z_eff_scan",
+        "z_eff_reference",
+        "fraction_of_deficit_reference",
+        "verdict",
+        "per_realization",
+        "notes"
+      ],
+      "candidate_numbers": {
+        "desi_beta1_max": 28256.0,
+        "deficit_at_z05": 7200.933333333334,
+        "z_eff_scan.0.20.fraction_of_deficit": -0.0022191567759734846,
+        "z_eff_scan.0.25.fraction_of_deficit": -0.0018492973133112372,
+        "z_eff_scan.0.30.fraction_of_deficit": -0.00147943785064899,
+        "fraction_of_deficit_reference": -0.0018492973133112372
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase7_rsd_hod_confirmation.json",
+      "rel": "results/phase7_rsd_hod_confirmation.json",
+      "size_h": "14.8KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "task",
+        "timestamp",
+        "method",
+        "description",
+        "traceability",
+        "tda_params",
+        "results",
+        "interpretation",
+        "b2_rs_per_sim",
+        "b2_real_per_sim",
+        "errors",
+        "elapsed_min",
+        "test_mode"
+      ],
+      "candidate_numbers": {
+        "results.b1_realspace_hod_mean": 0.236744225025177,
+        "results.b1_realspace_hod_std": 0.017849408090114594,
+        "results.b1_redshiftspace_hod_mean": 0.2366773469746113,
+        "results.b1_redshiftspace_hod_std": 0.017866206599955647,
+        "results.delta_mean_b1": -6.687805056571072e-05
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase9_sgc_likeforlike.json",
+      "rel": "results/phase9_sgc_likeforlike.json",
+      "size_h": "1.3KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "script",
+        "phase",
+        "concern_addressed",
+        "timestamp",
+        "sgc_geometry",
+        "sgc_data_galaxies",
+        "k_mocks",
+        "desi_sgc_beta1_max",
+        "desi_sgc_pers1",
+        "mock_beta1_mean",
+        "mock_beta1_std",
+        "z",
+        "rank",
+        "empirical_p_one_sided",
+        "fractional_deficit",
+        "verdict",
+        "ngc_reference",
+        "notes"
+      ],
+      "candidate_numbers": {
+        "desi_sgc_beta1_max": 15122.0,
+        "mock_beta1_mean": 18693.595,
+        "mock_beta1_std": 177.95773586379673,
+        "fractional_deficit": 0.19105982557127194,
+        "ngc_reference.frac_deficit": 0.2
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase3_prerequisites.json",
+      "rel": "results/phase3_prerequisites.json",
+      "size_h": "2.9KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "generated_at",
+        "gate",
+        "script_version",
+        "config",
+        "gate2_prior_verified",
+        "R2_3_ks_test",
+        "R2_4_spatial_variance",
+        "overall_prerequisites",
+        "persistence_threshold_p90",
+        "timing"
+      ],
+      "candidate_numbers": {
+        "R2_3_ks_test.beta1_ks_stat": 0.7613207528027757,
+        "R2_3_ks_test.beta1_ks_pval": 0.0,
+        "R2_3_ks_test.n_tau_beta1_persistences": 396767,
+        "R2_3_ks_test.n_grf_beta1_persistences": 19279536
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase9_fiber_surrogate.json",
+      "rel": "results/phase9_fiber_surrogate.json",
+      "size_h": "24.0KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "script",
+        "phase",
+        "concern_addressed",
+        "timestamp",
+        "k_mocks",
+        "fiber_arcsec",
+        "f_targets",
+        "n_random_reps",
+        "desi_beta1_max",
+        "baseline_mean",
+        "baseline_drift_sigma_vs_frozen",
+        "aggregate",
+        "per_mock",
+        "verdict",
+        "verdict_note",
+        "notes"
+      ],
+      "candidate_numbers": {
+        "desi_beta1_max": 28256.0,
+        "aggregate.0.05.fiber_beta1_mean": 35511.0,
+        "aggregate.0.10.fiber_beta1_mean": 35542.26666666667,
+        "aggregate.0.20.fiber_beta1_mean": 35548.2
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase9b_imaging_split.json",
+      "rel": "results/phase9b_imaging_split.json",
+      "size_h": "581B",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "desi_full",
+        "regions",
+        "imaging_consistent"
+      ],
+      "candidate_numbers": {
+        "regions.PHOTSYS_N.desi_beta1": 17885.0,
+        "regions.PHOTSYS_S.desi_beta1": 18007.0,
+        "regions.DEC_gt_32.4.desi_beta1": 17883.0,
+        "regions.DEC_le_32.4.desi_beta1": 18019.0
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase8_w0_exclusion.json",
+      "rel": "results/phase8_w0_exclusion.json",
+      "size_h": "493B",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "output_id",
+        "desi_beta1_max_masked",
+        "partial_corr_beta1_w0",
+        "perm_z",
+        "phantom_mean",
+        "phantom_min",
+        "quint_mean",
+        "desi_below_phantom_min",
+        "dbeta1_dw0",
+        "w0_needed_for_desi",
+        "verdict",
+        "caveat"
+      ],
+      "candidate_numbers": {
+        "desi_beta1_max_masked": 28256.0,
+        "partial_corr_beta1_w0": 0.015452438806898984,
+        "dbeta1_dw0": 24.56163623659867
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase9_rsd_satellite.json",
+      "rel": "results/phase9_rsd_satellite.json",
+      "size_h": "1.1KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "script",
+        "phase",
+        "concern_addressed",
+        "timestamp",
+        "k_mocks",
+        "eta_vel_scan",
+        "desi_beta1_max",
+        "aggregate",
+        "baseline_drift_sigma_vs_frozen",
+        "systematic_span_loops",
+        "desi_deficit_loops",
+        "systematic_fraction_of_deficit",
+        "verdict",
+        "notes"
+      ],
+      "candidate_numbers": {
+        "desi_beta1_max": 28256.0,
+        "desi_deficit_loops": 7196.566666666658,
+        "systematic_fraction_of_deficit": 0.0171516973371563
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase9b_scatter_decomp.json",
+      "rel": "results/phase9b_scatter_decomp.json",
+      "size_h": "329B",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "fiducial_idx",
+        "nseed",
+        "fiducial_mean",
+        "stochastic_std",
+        "suite_total_std",
+        "stochastic_fraction_of_total_var",
+        "r_beta1_Om",
+        "r_beta1_s8",
+        "r_beta1_w0"
+      ],
+      "candidate_numbers": {
+        "r_beta1_Om": 0.45288873687005515,
+        "r_beta1_s8": 0.2883631629759542,
+        "r_beta1_w0": -0.02769440099828384
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase2_cnn_diagnostic.json",
+      "rel": "results/phase2_cnn_diagnostic.json",
+      "size_h": "4.2KB",
+      "matched_terms": [
+        "beta1",
+        "betti"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "generated_at",
+        "cauchy_version",
+        "gate",
+        "architecture",
+        "training",
+        "tau_construction",
+        "gate2_t1_test",
+        "fisher_robustness",
+        "c_noise_condition_numbers",
+        "review1_impegni",
+        "overall_gate2_status"
+      ],
+      "candidate_numbers": {
+        "fisher_robustness.max_variation_pct": 26.034709301956998,
+        "review1_impegni.R1_4_details.test_B_beta1_features": 1
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase2_gate_result.json",
+      "rel": "results/phase2_gate_result.json",
+      "size_h": "9.4KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "metadata",
+        "results",
+        "gate_evaluation",
+        "reviewer_verdict",
+        "impegni_aperti_phase3",
+        "notes"
+      ],
+      "candidate_numbers": {
+        "results.gate2_t1_test.T1_variability_observed.delta_max_min": 0.121,
+        "results.fisher_robustness.max_variation_pct": 26.034709301956998
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase8_fiber_surrogate.json",
+      "rel": "results/phase8_fiber_surrogate.json",
+      "size_h": "821B",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "output_id",
+        "generated_at",
+        "desi_beta1_max_masked",
+        "baseline_mock_beta1_max",
+        "by_strength",
+        "verdict",
+        "caveat"
+      ],
+      "candidate_numbers": {
+        "desi_beta1_max_masked": 28256.0,
+        "baseline_mock_beta1_max": 35467.15
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase8_test2_hodfit.json",
+      "rel": "results/phase8_test2_hodfit.json",
+      "size_h": "935B",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "output_id",
+        "generated_at",
+        "authority",
+        "n_pilot_requested",
+        "n_mock_valid",
+        "masked_filtration",
+        "satellite_velocity",
+        "hod",
+        "desi_reference_masked",
+        "mock_pers1",
+        "mock_beta1_max",
+        "median_ngal_selected",
+        "verdict",
+        "primary_claim_beta1_max_anomalous",
+        "n_floor_note"
+      ],
+      "candidate_numbers": {
+        "desi_reference_masked.beta1_max": 28256.0,
+        "primary_claim_beta1_max_anomalous": true
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase8_test2_masked.json",
+      "rel": "results/phase8_test2_masked.json",
+      "size_h": "885B",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "output_id",
+        "generated_at",
+        "authority",
+        "n_pilot_requested",
+        "n_mock_valid",
+        "masked_filtration",
+        "satellite_velocity",
+        "desi_reference_masked",
+        "mock_pers1",
+        "mock_beta1_max",
+        "median_ngal_selected",
+        "verdict",
+        "primary_claim_beta1_max_anomalous",
+        "n_floor_note"
+      ],
+      "candidate_numbers": {
+        "desi_reference_masked.beta1_max": 28256.0,
+        "primary_claim_beta1_max_anomalous": true
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase9_empirical_histograms.json",
+      "rel": "results/phase9_empirical_histograms.json",
+      "size_h": "2.0KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "script",
+        "phase",
+        "concern_addressed",
+        "timestamp",
+        "comparison",
+        "source_arrays",
+        "beta1_max",
+        "pers1_mean",
+        "gate9_s1",
+        "figures",
+        "notes"
+      ],
+      "candidate_numbers": {
+        "gate9_s1.criteria.beta1max_desi_below_all_mocks": true,
+        "gate9_s1.criteria.beta1max_p_one_sided_le": 0.0005
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase3_gnn_correlations.json",
+      "rel": "results/phase3_gnn_correlations.json",
+      "size_h": "19.0KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "generated_at",
+        "gate",
+        "script_version",
+        "config",
+        "gate2_prior_verified",
+        "pretraining_node_check",
+        "training",
+        "split_info",
+        "corr_GNN_Omm",
+        "corr_GNN_s8",
+        "corr_GNN_w0_nwlh",
+        "variance_added_vs_ramoA_pct",
+        "gate3_status",
+        "gate3_criteria",
+        "t1_variability_empirical"
+      ],
+      "candidate_numbers": {
+        "pretraining_node_check.max_nodes": 1639
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase6_ngal_corrected.json",
+      "rel": "results/phase6_ngal_corrected.json",
+      "size_h": "4.7KB",
+      "matched_terms": [
+        "b1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "output_id",
+        "generated_at",
+        "authority",
+        "feature_primary",
+        "feat_desi_ngc",
+        "feat_desi_ngc_err_jackknife",
+        "n_gal_desi_ngc",
+        "data_audit",
+        "partial_corr_n_gal",
+        "analysis_z05_raw",
+        "preparatory_comparison",
+        "sigma_desi_assessment",
+        "gate6_impact"
+      ],
+      "candidate_numbers": {
+        "analysis_z05_raw.mock_max": 0.3395664393901825
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase8_cutsky_test1.json",
+      "rel": "results/phase8_cutsky_test1.json",
+      "size_h": "1.3KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "output_id",
+        "generated_at",
+        "authority",
+        "n_pilot_requested",
+        "n_mock_valid",
+        "snapnum",
+        "sigma_px",
+        "hod_params_b3_median",
+        "satellite_velocity",
+        "gadget_vel_sqrt_a",
+        "density_target_bgs",
+        "desi_reference",
+        "cutsky_mock_pers1",
+        "cutsky_mock_beta1_max",
+        "median_ngal_selected",
+        "verdict",
+        "n_floor_note"
+      ],
+      "candidate_numbers": {
+        "desi_reference.beta1_max": 27471.0
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase9_hod_concentrated.json",
+      "rel": "results/phase9_hod_concentrated.json",
+      "size_h": "2.0KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "script",
+        "phase",
+        "concern_addressed",
+        "timestamp",
+        "k_mocks",
+        "log_M1_scan",
+        "fitted_hod_vector",
+        "desi_beta1_max",
+        "aggregate",
+        "baseline_drift_sigma_vs_fitted",
+        "smallest_gap_to_desi",
+        "best_log_M1",
+        "trend_gap_low_minus_high_M1",
+        "verdict",
+        "notes"
+      ],
+      "candidate_numbers": {
+        "desi_beta1_max": 28256.0
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase9_w0_response.json",
+      "rel": "results/phase9_w0_response.json",
+      "size_h": "2.4KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "script",
+        "phase",
+        "concern_addressed",
+        "timestamp",
+        "n_labelled_mocks",
+        "w0_range",
+        "partial_corr_beta1_w0_given_Om_s8",
+        "perm_pvalue",
+        "n_perm",
+        "binned_response",
+        "ols_slope_per_unit_w0",
+        "ols_slope_bootstrap_ci95",
+        "if_linear_w0_needed",
+        "extrapolation_factor_beyond_range",
+        "in_range_w0_dependence_significant",
+        "reframed_paper_sentence",
+        "figure",
+        "source_arrays",
+        "notes"
+      ],
+      "candidate_numbers": {
+        "partial_corr_beta1_w0_given_Om_s8": -0.015084187289069647
+      }
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase0_preprocessing_lock.json",
+      "rel": "results/phase0_preprocessing_lock.json",
+      "size_h": "1.7KB",
+      "matched_terms": [
+        "beta_1"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "locked_at",
+        "cauchy_version",
+        "gate",
+        "preprocessing_steps",
+        "output_dtype",
+        "output_dtype_rationale",
+        "global_seed",
+        "script_path",
+        "script_hash_sha256",
+        "python_version",
+        "numpy_version",
+        "scipy_version",
+        "platform"
+      ],
+      "candidate_numbers": {}
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase1_review.json",
+      "rel": "results/phase1_review.json",
+      "size_h": "11.5KB",
+      "matched_terms": [
+        "betti"
+      ],
+      "top_level_keys": [],
+      "candidate_numbers": {}
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase2_review.json",
+      "rel": "results/phase2_review.json",
+      "size_h": "10.5KB",
+      "matched_terms": [
+        "betti"
+      ],
+      "top_level_keys": [],
+      "candidate_numbers": {}
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase7_nomenclature_lock.json",
+      "rel": "results/phase7_nomenclature_lock.json",
+      "size_h": "7.1KB",
+      "matched_terms": [
+        "betti"
+      ],
+      "top_level_keys": [
+        "schema_version",
+        "document",
+        "timestamp",
+        "status",
+        "purpose",
+        "critical_clarification",
+        "feature_nomenclature",
+        "beta2_status",
+        "physical_interpretation_of_detection",
+        "sigma_px_matched_feature_used",
+        "main_result",
+        "traceability"
+      ],
+      "candidate_numbers": {}
+    },
+    {
+      "path": "D:\\projects\\cauchy\\results\\phase8_hod_bestfit.json",
+      "rel": "results/phase8_hod_bestfit.json",
+      "size_h": "1.2KB",
+      "matched_terms": [
+        "beta1"
+      ],
+      "top_level_keys": [
+        "output_id",
+        "generated_at",
+        "rp_mid",
+        "wp_desi",
+        "nbar_desi_box",
+        "best_fit",
+        "chi2",
+        "chi2_wp",
+        "chi2_nbar",
+        "nbar_bestfit_box",
+        "note"
+      ],
+      "candidate_numbers": {}
+    }
+  ]
+}
