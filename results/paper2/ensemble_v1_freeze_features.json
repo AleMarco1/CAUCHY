@@ -3,6 +3,9 @@
   "base": "D:/projects/cauchy",
   "definition": "Ensemble v1 is the frozen mock ensemble produced by voxelize_mock with UNIT weights, as used for every number in M26 (MN-26-2100-P, incl. R1) and Paper 1 (MN-26-2388-P). It is IMMUTABLE. Paper 2 may create an ensemble v2 (FKP-weighted mock voxelisation); no number may be reported without an explicit v1 or v2 label. The unqualified phrase 'fiducial ensemble' is retired.",
   "ensemble": "v1",
+  "exclude_dirs": [
+    "results/paper2"
+  ],
   "exclude_pat": [
     "phase8_",
     "phase1_persistence",
@@ -10,15 +13,14 @@
     "paper1/",
     "revision/"
   ],
-  "frozen_at_utc": "2026-08-25T12:51:54+00:00",
+  "frozen_at_utc": "2026-08-28T07:30:27+00:00",
   "git": {
-    "commit": "363c1d4998aba78dbc542eaf6359417f6291ed0d",
-    "dirty": true,
-    "dirty_count": 1,
-    "dirty_files": [
-      " M results/paper2/ensemble_v1_freeze_records.json"
-    ],
-    "dirty_truncated": false
+    "commit": "fea1037f8a0a2369c8054009d43471e0fc42525b",
+    "dirty": false,
+    "dirty_count": 0,
+    "dirty_files": [],
+    "dirty_truncated": false,
+    "excluded_from_dirty": "results/paper2/"
   },
   "host": "ALESSANDRO-DL",
   "include_ext": [

@@ -71,12 +71,9 @@ GIB = 1024 ** 3
 DOCUMENTED_TOTAL_BYTES = DOCUMENTED_TOTAL_GIB * GIB
 DOCUMENTED_TOTAL_TOL = 0.0005 * GIB
 
-KNOWN_REFERENCE_SHAS = {
-    "865aa2ef16f299d8653e770d1fb587448f1c455e8c498c2b0db10cd20743f1bc":
-        "item01_closed (25 ago) e reference_sha256 dei cinque freeze",
-    "332939bc2c7889f6cea369cb98535333c712fb1f7c0c89858061dedbb95d1d9d":
-        "consegna 27 ago e prereg §2.1",
-}
+# Due grandezze, non due versioni. Vedi il blocco reference in verify().
+REFERENCE_SELF_SHA = "865aa2ef16f299d8653e770d1fb587448f1c455e8c498c2b0db10cd20743f1bc"
+REFERENCE_FILE_SHA = "332939bc2c7889f6cea369cb98535333c712fb1f7c0c89858061dedbb95d1d9d"
 
 HEX64 = frozenset("0123456789abcdef")
 CHUNK = 1 << 20
@@ -568,16 +565,32 @@ def verify(base: Path, manifest_dir: Path, only_tiers=None, jobs: int = 1,
     ref_info = {}
     ref = base / "src" / "paper2_v1_reference.json"
     if ref.is_file():
-        sha, size = sha256_file(ref)
+        # DUE grandezze distinte sullo stesso file, e confonderle costa ore:
+        #  - sha256 dei BYTE del file (332939bc…), citato da consegna e prereg §2.1;
+        #  - _self_sha256, il digest del CONTENUTO riserializzato in forma canonica
+        #    (865aa2ef…), che e' cio' che load_reference verifica come cancello e cio'
+        #    che i manifest registrano in reference_sha256.
+        # Il confronto giusto e' fra manifest e _self_sha256. Il digest del file si
+        # riporta a parte, senza confrontarlo con niente.
+        file_sha, size = sha256_file(ref)
+        obj = json.loads(ref.read_text(encoding="utf-8"))
+        recorded = obj.pop("_self_sha256", None)
+        blob = json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False)
+        self_sha = sha256_bytes(blob.encode())
         declared = {t: h.get("reference_sha256") for t, h in heads.items()}
         agree = {v for v in declared.values() if v}
-        ref_info = {"sha256": sha, "size": size,
-                    "matches": KNOWN_REFERENCE_SHAS.get(sha, "nessun valore documentato"),
+        ref_info = {"file_sha256": file_sha, "self_sha256_recomputed": self_sha,
+                    "self_sha256_recorded": recorded, "size": size,
                     "declared_by_manifests": declared}
+        add("reference: cancello del self-digest", recorded == self_sha,
+            f"registrato={str(recorded)[:12]}… ricalcolato={self_sha[:12]}… "
+            f"(byte del file: {file_sha[:12]}…, altra grandezza)")
         add("reference: i manifest concordano fra loro", len(agree) <= 1,
             f"{sorted(x[:12] + '…' for x in agree)}")
-        add("reference: manifest vs file vivo", bool(agree) and agree == {sha},
-            f"manifest={[x[:12] + '…' for x in sorted(agree)]} disco={sha[:12]}…")
+        add("reference: manifest vs self-digest del reference vivo",
+            bool(agree) and agree == {self_sha},
+            f"manifest={[x[:12] + '…' for x in sorted(agree)]} "
+            f"self-digest={self_sha[:12]}…")
     am = base / "src" / "paper2_v1_amendments.jsonl"
     if am.is_file():
         lines = [l for l in am.read_text(encoding="utf-8").splitlines() if l.strip()]
@@ -768,9 +781,15 @@ def cmd_selftest(args) -> int:
         for i in range(4):
             _w(base / f"results/fieldsroot/f{i}.npz", bytes([i]) * (200 + i))
         _w(base / "results/fieldsroot/phase8_skip.npz", b"x" * 10)
-        _w(base / "src/paper2_v1_reference.json", b'{"r":1}\n')
+        def _mkref(payload):
+            o = dict(payload)
+            o["_self_sha256"] = sha256_bytes(json.dumps(
+                payload, indent=2, sort_keys=True, ensure_ascii=False).encode())
+            _w(base / "src/paper2_v1_reference.json",
+               json.dumps(o, indent=2).encode())
+            return o["_self_sha256"]
+        ref_sha = _mkref({"r": 1})          # e' il SELF-digest, come nei manifest veri
         _w(base / "src/paper2_v1_amendments.jsonl", b'{"a":1}\n' * 12)
-        ref_sha, _ = sha256_file(base / "src/paper2_v1_reference.json")
         mdir = base / "results/paper2"
 
         _freeze(base, mdir, "records", [base / "results/paper1"], [".jsonl"], [], ref_sha)
@@ -816,11 +835,26 @@ def cmd_selftest(args) -> int:
                and not r["aggregate"]["records"]["reproduced_by"])
         bf.write_text("".join(lines))
 
-        _w(base / "src/paper2_v1_reference.json", b'{"r":2}\n')
-        expect("6. reference vivo != reference_sha256 dei manifest",
-               any(c["check"] == "reference: manifest vs file vivo" and not c["ok"]
+        # 6. il reference cambiato deve rompere il confronto col self-digest, e il
+        #    digest dei BYTE non deve mai essere confuso con quello del contenuto.
+        import json as _j, hashlib as _h
+        def _self(o):
+            o = dict(o); o.pop("_self_sha256", None)
+            return _h.sha256(_j.dumps(o, indent=2, sort_keys=True,
+                                      ensure_ascii=False).encode()).hexdigest()
+        _mkref({"r": 1})
+        r6 = run()
+        gate_ok = any(c["check"] == "reference: cancello del self-digest" and c["ok"]
+                      for c in r6["checks"])
+        expect("6. self-digest ricalcolato coincide col registrato", gate_ok)
+        expect("6b. digest dei byte tenuto distinto dal self-digest",
+               r6["reference"]["file_sha256"] != r6["reference"]["self_sha256_recomputed"])
+        bad = {"r": 2, "_self_sha256": ref_sha}     # contenuto cambiato, digest vecchio
+        _w(base / "src/paper2_v1_reference.json", _j.dumps(bad, indent=2).encode())
+        expect("6c. contenuto alterato -> cancello del self-digest rotto",
+               any(c["check"] == "reference: cancello del self-digest" and not c["ok"]
                    for c in run()["checks"]))
-        _w(base / "src/paper2_v1_reference.json", b'{"r":1}\n')
+        _mkref({"r": 1})
 
         (mdir / "provenance_audit.json").write_text('{"A":1}')
         (mdir / "inventory.json").write_text(
