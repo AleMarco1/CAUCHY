@@ -455,7 +455,21 @@ def get_null_ladder(cache_dir: Path, out_dir: Path, mask, k, region, force=False
         if meta.get("n_mocks") == len(files) and Q.size == int(mask.sum()):
             print(f"  scala nulla congelata riusata ({meta['n_mocks']} mock)")
             return Q, (np.arange(Q.size, dtype=np.float64) + 0.5) / Q.size, meta
-        print("  scala nulla su disco incoerente - ricalcolo")
+        # Il nome contiene n{len(files)}, ma la condizione di riuso richiede ANCHE
+        # Q.size == mask.sum(), che nel nome non c'e'. Con la stessa cache e una
+        # maschera di conteggio diverso il percorso resta identico e questo ramo
+        # sovrascriveva. I quattro file (.npy in 'diagrams', .json in 'records') sono
+        # artefatti congelati di ensemble v1, e "created" nel meta cambia anche a Q
+        # identico: il danno al tier sarebbe garantito, non probabile.
+        sys.exit(
+            "[FATAL] scala nulla incoerente ma gia' presente: %s\n"
+            "  n_mocks  disco=%s  cache=%d\n"
+            "  n_voxels disco=%s  maschera=%d\n"
+            "  Ricalcolarla sovrascriverebbe %s e %s, entrambi congelati in\n"
+            "  ensemble v1. Se il ricalcolo e' voluto, decidere prima che cosa fare\n"
+            "  del congelamento, poi rilanciare con --force_null_ladder."
+            % (lad_p.name, meta.get("n_mocks"), len(files),
+               meta.get("n_voxels"), int(mask.sum()), lad_p.name, meta_p.name))
 
     print(f"  costruzione scala nulla da {len(files)} mock ...")
     acc = None
@@ -476,12 +490,14 @@ def get_null_ladder(cache_dir: Path, out_dir: Path, mask, k, region, force=False
 
 # ---------------------------------------------------------------------------
 def stage_experiment(M, G, cache_dir, out_dir, k, sigma_px, desi_delta, tag, region,
-                     save_diag=True):
+                     save_diag=True, curves_dir=None, force_null_ladder=False):
     print("\n" + "=" * 70)
     print(f"STAGE experiment  (sigma_px={sigma_px:.4f}, tag={tag})")
     print("=" * 70)
     mask = G["mask"]
     out_dir.mkdir(parents=True, exist_ok=True)
+    curves_dir = curves_dir or out_dir
+    curves_dir.mkdir(parents=True, exist_ok=True)
     curve_dir = out_dir / f"curves_{region}_{tag}"
     curve_dir.mkdir(parents=True, exist_ok=True)
     cleanup_tmp(curve_dir)
@@ -501,7 +517,8 @@ def stage_experiment(M, G, cache_dir, out_dir, k, sigma_px, desi_delta, tag, reg
     print(f"  gia' completi: {len(files)-len(todo)}   da fare: {len(todo)}")
 
     Q_desi, p_desi = quantile_ladder(desi_delta[mask])
-    Q_null, p_null, lad_meta = get_null_ladder(cache_dir, out_dir, mask, k, region)
+    Q_null, p_null, lad_meta = get_null_ladder(cache_dir, out_dir, mask, k, region,
+                                               force=force_null_ladder)
 
     t0 = time.time()
     for j, fp in enumerate(todo):
@@ -537,7 +554,7 @@ def stage_experiment(M, G, cache_dir, out_dir, k, sigma_px, desi_delta, tag, reg
     print("  mirror: DESI -> PDF media mock ...")
     mir_s, mir_arr = tda_full(build_nu(remap_delta(desi_delta, mask, Q_null, p_null),
                                        mask, sigma_px), mask, M.N_THRESH, save_diag)
-    atomic_save_npz(out_dir / f"curves_DESI_mirror_{region}_{tag}.npz", mir_arr)
+    atomic_save_npz(curves_dir / f"curves_DESI_mirror_{region}_{tag}.npz", mir_arr)
     print(f"    N_H1(DESI remappato) = {mir_s['N_H1']:.0f}")
     return read_jsonl(jsonl), mir_s, lad_meta
 
@@ -642,6 +659,14 @@ def main():
                                         "report", "verify", "all"], default="all")
     ap.add_argument("--sigma_scale", type=float, default=1.0)
     ap.add_argument("--tag", default="R5")
+    ap.add_argument("--curves_dir", default=None,
+                    help="dove scrivere curves_DESI_* e curves_DESI_mirror_*; "
+                         "default: out_dir. Serve ai gate del Paper 2 per non scrivere "
+                         "dentro il tier congelato 'diagrams' (results/paper1/*.npz).")
+    ap.add_argument("--force_null_ladder", action="store_true",
+                    help="autorizza il RICALCOLO della scala nulla, che sovrascrive "
+                         "artefatti congelati di ensemble v1. Senza questo flag "
+                         "un'incoerenza e' un errore fatale, non un ricalcolo.")
     ap.add_argument("--no_diagrams", action="store_true",
                     help="non salvare i diagrammi H1 (solo curve): ~5x meno disco")
     args = ap.parse_args()
@@ -658,6 +683,13 @@ def main():
     cache_dir = root / "data" / "processed" / "paper1_mock_deltas" / args.region
     out_dir = root / "results" / "paper1"
     out_dir.mkdir(parents=True, exist_ok=True)
+    # out_dir NON e' solo output: ci stanno per_mock_*.jsonl (la ripresa) e la scala
+    # nulla riusata fra tag. Dirottarlo in blocco romperebbe entrambe. Si dirottano
+    # quindi solo le curve DESI, che sono le uniche scritture di un run selfcheck.
+    curves_dir = Path(args.curves_dir).resolve() if args.curves_dir else out_dir
+    curves_dir.mkdir(parents=True, exist_ok=True)
+    if curves_dir != out_dir:
+        print(f"  curve DESI dirottate in: {curves_dir}")
 
     print("=" * 70)
     print(f"CAUCHY Paper 1 - remapping v3  |  {args.region}  K={args.k}  tag={args.tag}")
@@ -707,7 +739,7 @@ def main():
               f"{np.allclose(feats_mine, feats_mod, rtol=0, atol=0)}  (max|diff|={dmax_f:.3e})")
         if dmax_f > 1e-9:
             sys.exit("[FATAL] la replica di compute_tda_features NON coincide col modulo.")
-        atomic_save_npz(out_dir / f"curves_DESI_{args.region}_{args.tag}.npz", desi_arr)
+        atomic_save_npz(curves_dir / f"curves_DESI_{args.region}_{args.tag}.npz", desi_arr)
         ref = FROZEN[args.region]["desi_N_H1"]
         rel = abs(desi_r["N_H1"] - ref) / ref
         print(f"  N_H1(DESI {args.region}) = {desi_r['N_H1']:.0f}   congelato = {ref:.0f}   "
@@ -723,7 +755,9 @@ def main():
     if args.stage in ("experiment", "all", "report"):
         rec, mirror, lad_meta = stage_experiment(M, G, cache_dir, out_dir, args.k,
                                                  sigma_px, desi_delta, args.tag,
-                                                 args.region, not args.no_diagrams)
+                                                 args.region, not args.no_diagrams,
+                                                 curves_dir=curves_dir,
+                                                 force_null_ladder=args.force_null_ladder)
         stage_report(rec, mirror, args.region, args.tag, desi_r, out_dir,
                      sigma_px, meta, lad_meta)
 

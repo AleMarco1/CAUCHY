@@ -389,9 +389,15 @@ def cmd_desi(args, root):
     if not ok_p:
         raise SystemExit("[FATAL] i file protetti sono gia' alterati PRIMA del run. Stop.")
 
+    # --curves_dir: senza, paper1_remap.py scrive curves_DESI_{region}_{tag}.npz in
+    # results/paper1, cioe' DENTRO il tier congelato 'diagrams' (radice results/paper1,
+    # estensioni .npy/.npz). Non e' una modifica ma un'AGGIUNTA, quindi check_snapshot
+    # la manca per costruzione: confronta digest di percorsi noti, non l'insieme.
+    # Rilevata il 28 ago 2026 da paper2_freeze_verify.py (direzione disco -> manifest).
     cmd = [sys.executable, str(root / "src" / "paper1_remap.py"),
            "--stage", "selfcheck", "--region", region, "--tag", args.tag,
-           "--project_root", str(root)]
+           "--project_root", str(root),
+           "--curves_dir", str(root / "results" / "paper2")]
     print("\n[2.1-D1] %s" % " ".join(cmd))
     pr = subprocess.run(cmd, capture_output=True, text=True)
     out = pr.stdout + pr.stderr
