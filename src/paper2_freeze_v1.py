@@ -110,7 +110,7 @@ def sha256_file(path: Path) -> tuple[str, int]:
     return h.hexdigest(), n
 
 
-def git_provenance(cwd: Path) -> dict:
+def git_provenance(cwd: Path, exclude_dir: Path | None = None) -> dict:
     """Commit hash AND whether the tree is dirty.
 
     A commit hash alone is misleading: if there are uncommitted changes, it
@@ -128,6 +128,18 @@ def git_provenance(cwd: Path) -> dict:
                             capture_output=True, text=True, timeout=30)
         if st.returncode == 0:
             files = [ln for ln in st.stdout.splitlines() if ln.strip()]
+            # La directory di output e' esclusa dal conteggio: i manifest non sono ne'
+            # codice ne' artefatti, sono il registro che questo run sta scrivendo, e
+            # durante un ricongelamento a piu' tier quelli gia' fatti risultano
+            # legittimamente modificati. Contarli renderebbe dirty=False irraggiungibile
+            # per costruzione, che e' il contrario di cio' che il campo deve dire.
+            if exclude_dir is not None:
+                try:
+                    pref = exclude_dir.resolve().relative_to(cwd.resolve()).as_posix() + "/"
+                    files = [ln for ln in files if pref not in ln.replace("\\", "/")]
+                    out["excluded_from_dirty"] = pref
+                except ValueError:
+                    pass
             out["dirty"] = bool(files)
             out["dirty_count"] = len(files)          # the TOTAL, never truncated
             out["dirty_files"] = files[:40]
@@ -245,6 +257,13 @@ def cmd_freeze(args) -> int:
     out = Path(args.out).resolve()
     jsonl, summary = manifest_paths(out, args.label)
 
+    # Lo stato git va misurato PRIMA di scrivere: il manifest e' un file tracciato, e
+    # appenderlo sporca l'albero. Misurandolo alla fine il freeze osserva la propria
+    # scrittura e non puo' mai registrare dirty=False, qualunque sia lo stato di
+    # partenza. Cio' che deve identificare e' il codice che ha prodotto gli artefatti,
+    # cioe' l'albero com'era all'inizio del run.
+    git_at_start = git_provenance(base, exclude_dir=out)
+
     ref = load_reference(Path(args.ref))
     print("\n=== GATE ===")
     print_gate(ref)
@@ -339,6 +358,8 @@ def cmd_freeze(args) -> int:
         "tier": args.label,
         "include_ext": sorted(resolve_include(args)),
         "exclude_pat": list(args.exclude or []),
+        "exclude_dirs": [out.relative_to(base).as_posix()
+                         if out.is_relative_to(base) else out.as_posix()],
         "definition": ref["declaration"],
         "frozen_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "base": base.as_posix(),
@@ -347,7 +368,7 @@ def cmd_freeze(args) -> int:
         "total_bytes": total_bytes,
         "aggregate_sha256": agg,
         "reference_sha256": ref["_self_sha256"],
-        "git": git_provenance(base),
+        "git": git_at_start,
         "python": sys.version.split()[0],
         "host": os.environ.get("COMPUTERNAME") or os.uname().nodename
                 if hasattr(os, "uname") else os.environ.get("COMPUTERNAME"),

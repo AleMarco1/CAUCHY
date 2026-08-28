@@ -71,3 +71,6 @@ paper/
 
 PURGE.md
 purge_paths.txt
+
+backup/
+logs/
