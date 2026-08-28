@@ -74,3 +74,7 @@ purge_paths.txt
 
 backup/
 logs/
+
+deposit/
+
+papers/
