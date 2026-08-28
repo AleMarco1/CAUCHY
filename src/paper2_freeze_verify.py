@@ -542,9 +542,16 @@ def verify(base: Path, manifest_dir: Path, only_tiers=None, jobs: int = 1,
     add("unione: nessun percorso in due tier", not multi,
         f"{len(multi)} percorsi condivisi" + (f", es. {list(multi)[:3]}" if multi else ""))
 
-    self_ref = sorted(p for p in membership if "results/paper2/" in p.lower())
+    # L'invariante e' che un manifest non hashi se' stesso: se la directory dei manifest
+    # cade dentro l'insieme congelato, ogni run cambia il proprio input e maschera la
+    # deriva che il manifest esiste per rilevare (paper2_freeze_v1.py, docstring 185-188).
+    # Il criterio e' la posizione della manifest dir, NON il nome results/paper2: per il
+    # tier paper2_products quella cartella e' la radice, e i suoi file ci stanno di diritto.
+    md_rel = rel_to(manifest_dir.resolve().as_posix(), base.resolve().as_posix())
+    md_pref = md_rel.rstrip("/") + "/"
+    self_ref = sorted(p for p in membership if p.lower().startswith(md_pref.lower()))
     add("nessun manifest congelato dentro il proprio tier", not self_ref,
-        f"{len(self_ref)} file sotto results/paper2 sono dentro un tier congelato"
+        f"manifest dir '{md_rel}': {len(self_ref)} suoi file dentro un tier congelato"
         + (f": {self_ref[:6]}" if self_ref else ""))
 
     tot_files_body = sum(v["files"] for v in per_tier.values())
@@ -865,8 +872,8 @@ def cmd_selftest(args) -> int:
                and {"provenance_audit.json", "inventory.json"}
                <= {i["file"] for i in r["ignored_json"]})
 
-        _freeze(base, mdir, "features", [base / "results/paper2"], [".json", ".jsonl"],
-                [], ref_sha)
+        # 8. un tier la cui radice E' la manifest dir: si hasherebbe da solo
+        _freeze(base, mdir, "features", [mdir], [".json", ".jsonl"], [], ref_sha)
         r = run()
         expect("8. tier che contiene i propri manifest -> autoreferenzialita' rilevata",
                bool(r["self_referential"])
@@ -874,6 +881,18 @@ def cmd_selftest(args) -> int:
                        for c in r["checks"]))
         for f in list(mdir.glob("*features*")):
             f.unlink()
+
+        # 8b. un tier la cui RADICE sta sotto results/paper2 ma i cui manifest stanno
+        #     altrove non e' autoreferenziale: e' il caso di paper2_products.
+        prod = base / "results/paper2/prodotti"
+        _w(prod / "risultato.jsonl", b'{"p":1}\n')
+        alt = base / "manifests"
+        _freeze(base, alt, "superseded", [prod], [".jsonl"], [], ref_sha)
+        r8b = verify(base=base, manifest_dir=alt, jobs=1, documented={})
+        expect("8b. radice sotto results/paper2, manifest altrove -> nessun allarme",
+               not r8b["self_referential"] and r8b["status"] == "CLEAN",
+               f"({[c['check'] for c in r8b['checks'] if not c['ok']]})")
+        shutil.rmtree(alt); shutil.rmtree(prod)
 
         # 12. corpo accodato: last-wins, non conteggio di righe
         bf2 = mdir / "ensemble_v1_manifest_records.jsonl"

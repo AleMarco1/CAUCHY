@@ -1,0 +1,43 @@
+{
+  "aggregate_sha256": "3062b7de04db4654a18bc0c6171a501d597f5d76353c76ce3dd1e474cb6aab7b",
+  "base": "D:/projects/cauchy",
+  "definition": "Ensemble v1 is the frozen mock ensemble produced by voxelize_mock with UNIT weights, as used for every number in M26 (MN-26-2100-P, incl. R1) and Paper 1 (MN-26-2388-P). It is IMMUTABLE. Paper 2 may create an ensemble v2 (FKP-weighted mock voxelisation); no number may be reported without an explicit v1 or v2 label. The unqualified phrase 'fiducial ensemble' is retired.",
+  "ensemble": "v1",
+  "exclude_dirs": [
+    "manifests"
+  ],
+  "exclude_pat": [
+    "ensemble_v1_",
+    "inventory.json",
+    "results_inventory.json"
+  ],
+  "frozen_at_utc": "2026-08-28T12:19:46+00:00",
+  "git": {
+    "commit": "78d9153d2a39396d872e95c44e17a5e67accf80d",
+    "dirty": false,
+    "dirty_count": 0,
+    "dirty_files": [],
+    "dirty_truncated": false,
+    "excluded_from_dirty": "manifests/"
+  },
+  "host": "ALESSANDRO-DL",
+  "include_ext": [
+    ".csv",
+    ".json",
+    ".jsonl",
+    ".md",
+    ".npy",
+    ".npz",
+    ".txt"
+  ],
+  "n_files": 28,
+  "python": "3.11.15",
+  "reference_sha256": "865aa2ef16f299d8653e770d1fb587448f1c455e8c498c2b0db10cd20743f1bc",
+  "roots": [
+    "D:/projects/cauchy/results/paper2"
+  ],
+  "schema": "cauchy.paper2.v1_manifest",
+  "schema_version": "1.0",
+  "tier": "paper2_products",
+  "total_bytes": 815823
+}
