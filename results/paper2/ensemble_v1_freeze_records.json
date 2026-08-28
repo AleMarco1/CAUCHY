@@ -3,26 +3,18 @@
   "base": "D:/projects/cauchy",
   "definition": "Ensemble v1 is the frozen mock ensemble produced by voxelize_mock with UNIT weights, as used for every number in M26 (MN-26-2100-P, incl. R1) and Paper 1 (MN-26-2388-P). It is IMMUTABLE. Paper 2 may create an ensemble v2 (FKP-weighted mock voxelisation); no number may be reported without an explicit v1 or v2 label. The unqualified phrase 'fiducial ensemble' is retired.",
   "ensemble": "v1",
+  "exclude_dirs": [
+    "results/paper2"
+  ],
   "exclude_pat": [],
-  "frozen_at_utc": "2026-08-25T14:43:06+00:00",
+  "frozen_at_utc": "2026-08-28T07:59:01+00:00",
   "git": {
-    "commit": "312218b1903d987ce7e32e500127c03435ee44a6",
-    "dirty": true,
-    "dirty_count": 11,
-    "dirty_files": [
-      " M results/paper2/ensemble_v1_freeze_diagrams.json",
-      " M results/paper2/ensemble_v1_freeze_features.json",
-      " M results/paper2/ensemble_v1_freeze_fields.json",
-      " D results/paper2/ensemble_v1_freeze_records.json",
-      " M results/paper2/ensemble_v1_freeze_superseded.json",
-      " M results/paper2/ensemble_v1_manifest_records.jsonl",
-      "?? results/paper2/probe05.json",
-      "?? results/paper2/provenance_C.json",
-      "?? results/paper2/provenance_audit.json",
-      "?? src/paper2_item05_probe.py",
-      "?? src/paper2_provenance_audit.py"
-    ],
-    "dirty_truncated": false
+    "commit": "7c759d3a8d9e70889f52a508a5e09cca52a55e3e",
+    "dirty": false,
+    "dirty_count": 0,
+    "dirty_files": [],
+    "dirty_truncated": false,
+    "excluded_from_dirty": "results/paper2/"
   },
   "host": "ALESSANDRO-DL",
   "include_ext": [
