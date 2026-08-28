@@ -86,6 +86,14 @@ CONTENT_WARN = [r"referee", r"reviewer", r"peer[_\- ]?review", r"confidential"]
 BLOCK_RE = [re.compile(t, re.I) for t in CONTENT_BLOCK]
 WARN_RE = [re.compile(t, re.I) for t in CONTENT_WARN]
 WARN_LINE_THRESHOLD = 6
+
+# Gli strumenti che CERCANO questi termini li contengono per forza: la lista bloccante
+# vive in questo file, e paper2_scrub_quotes.py spiega nella docstring perche' le
+# citazioni vanno parafrasate. Uno scanner che incrimina se stesso produce rumore e
+# nasconde il segnale. L'esenzione e' per NOME e per contenuto-di-schemi soltanto: se
+# uno di questi file contenesse una vera citazione, la scansione delle citazioni lunghe
+# di paper2_scrub_quotes.py la vedrebbe comunque.
+SELF_EXEMPT = {"src/paper2_deposit.py", "src/paper2_scrub_quotes.py"}
 SCANNABLE_EXT = {".md", ".txt", ".tex", ".py", ".json", ".jsonl", ".csv", ".yml",
                  ".yaml", ".bib", ".cff", ".rst", ".html", ".ps1", ".sh"}
 SCAN_MAX_BYTES = 8 << 20
@@ -233,6 +241,8 @@ def gate_confidential(items, base: Path = None, strict: bool = False,
     ack = ack or {}
     blocking, watch, acked = [], [], []
     for z, r in items:
+        if r in SELF_EXEMPT:
+            continue
         by_name = flagged(r)
         c = flagged_content(base / r) if base else {"block": [], "warn": [], "warn_lines": 0}
         dense = c["warn_lines"] >= WARN_LINE_THRESHOLD
@@ -542,6 +552,18 @@ def cmd_selftest(args) -> int:
         except SystemExit:
             caught = True
         expect("4h. riconoscimento senza motivazione -> rifiutato", caught)
+
+        # 4i. gli scanner non incriminano se stessi, ma nulla d'altro e' esente
+        (base / "src").mkdir(exist_ok=True)
+        for name in ("paper2_deposit.py", "paper2_scrub_quotes.py", "altro.py"):
+            (base / "src" / name).write_text(
+                "# referee reviewer peer review\n" * 9, encoding="utf-8")
+        bx, wx, _ = gate_confidential(
+            [("z", f"src/{n}") for n in ("paper2_deposit.py",
+                                         "paper2_scrub_quotes.py", "altro.py")], base)
+        expect("4i. i due scanner sono esenti, un terzo file no",
+               [h["path"] for h in bx] == ["src/altro.py"],
+               f"({[h['path'] for h in bx]})")
 
         # MANIFEST.sha256 leggibile da sha256sum -c
         out = tmp / "dep"
