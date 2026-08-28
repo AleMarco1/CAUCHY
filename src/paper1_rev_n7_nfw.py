@@ -6,8 +6,8 @@ src/paper1_rev_n7_nfw.py
 
 N7 - PROFILO RADIALE DEI SATELLITI: UNIFORME CONTRO NFW
 
-Referee 2 §5. L'editore chiede che il canale sia "tested or quantitatively
-bounded". Qui si fa entrambe le cose.
+Referee 2 §5. L'editore chiede che il canale sia verificato oppure
+quantitativamente limitato. Qui si fa entrambe le cose.
 
 IL PROBLEMA
 -----------

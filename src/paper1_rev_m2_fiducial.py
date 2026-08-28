@@ -19,10 +19,10 @@ DUE SCOPI, IL SECONDO PIU' IMPORTANTE DEL PRIMO
    (indice nwLH 1805), mai verificato indipendentemente; e il 246 discende da
    quello per sottrazione. Sono le due riserve del §3.1.
 
-2. SIGNIFICATIVITA' RISPETTO A UN MODELLO. Referee 2 §1 chiude cosi':
-     "la dispersione al denominatore mescola 2000 cosmologie diverse: la z non
-      e' 'significativita' rispetto al modello', e' distanza dalla famiglia, e
-      va chiamata cosi'."
+2. SIGNIFICATIVITA' RISPETTO A UN MODELLO. Referee 2 §1 obietta che la
+   dispersione al denominatore mescola 2000 cosmologie diverse: la z non e'
+   significativita' rispetto al modello ma distanza dalla famiglia, e va
+   chiamata cosi'.
    Un ensemble FIDUCIALE e' a cosmologia fissa: il rank e la z di DESI contro
    quell'ensemble SONO significativita' rispetto a un modello. E' il numero che
    il referee dice mancare, e oggi non esiste.

@@ -6,13 +6,14 @@ src/paper1_rev_n2_persistence.py
 
 N2 - IL DEFICIT IN FUNZIONE DI UN TAGLIO IN PERSISTENZA
 
-Referee 1 §3 (l'editore lo elenca fra i test decisivi calcolabili dai dati in
-mano): "Il manoscritto localizza il deficit in SOGLIA DI NASCITA ma mai in
-PERSISTENZA: e' indispensabile mostrare il deficit in funzione di un taglio
-p > eps. Se il 20% mancante vive nelle coppie a bassa persistenza,
-l'interpretazione corretta e' 'deficit di fluttuazioni transienti a scala di
-voxel' - compatibile con effetti di campionamento - non 'connettivita' del web
-cosmico'. Questo singolo grafico cambierebbe il peso di tutto il paper."
+Referee 1 §3, che l'editore elenca fra i test decisivi calcolabili con i dati
+gia' in mano. Il rilievo: il manoscritto localizza il deficit in soglia di
+nascita ma mai in persistenza, ed e' indispensabile mostrarlo in funzione di
+un taglio p > eps. Se il 20% mancante vive nelle coppie a bassa persistenza,
+l'interpretazione corretta e' un deficit di fluttuazioni transienti a scala di
+voxel - compatibile con effetti di campionamento - e non la connettivita' del
+web cosmico. Il referee ritiene che questo singolo grafico cambierebbe il peso
+dell'intero lavoro.
 
 PERCHE' N1 HA ALZATO LA POSTA
 -----------------------------

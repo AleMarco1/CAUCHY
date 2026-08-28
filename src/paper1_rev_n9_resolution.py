@@ -6,14 +6,13 @@ src/paper1_rev_n9_resolution.py
 
 N9 - SEMANTICA DELLA SCALA E CONVERGENZA IN RISOLUZIONE
 
-Referee 1 §5:
-  "Tutte le conclusioni vivono su una griglia 128^3 con cella 15.6 h^-1Mpc e
-  smoothing sub-pixel: la scala effettiva della statistica e' la cella, non i
-  '5 h^-1Mpc' del titolo di R. Le espressioni 'at the 5 h^-1Mpc scale'
-  (Sez. 7.1) sono fuorvianti. Serve o un test di convergenza in risoluzione
-  (dati e mock a 256^3, sigma_px rimatchato per costruzione, come la vostra
-  stessa M26 prescrive) o una riformulazione esplicita: la statistica e'
-  definita sulla griglia, e la scala fisica citata e' nominale."
+Referee 1 §5 rileva che tutte le conclusioni vivono su una griglia 128^3 con
+cella 15.6 h^-1Mpc e smoothing sub-pixel: la scala effettiva della statistica
+e' la cella, non i 5 h^-1Mpc del titolo di R, e le formulazioni "at the
+5 h^-1Mpc scale" di Sez. 7.1 sono fuorvianti. Chiede in alternativa un test di
+convergenza in risoluzione (dati e mock a 256^3, sigma_px rimatchato per
+costruzione, come prescrive M26 stessa) oppure una riformulazione esplicita:
+la statistica e' definita sulla griglia, e la scala fisica citata e' nominale.
 
 E' un'alternativa, ma la riformulazione va fatta comunque: la parte A mostra con
 numeri che il kernel e' sub-pixel e che il limite di risoluzione E' la cella.

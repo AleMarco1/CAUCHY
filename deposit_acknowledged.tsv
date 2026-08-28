@@ -1,0 +1,33 @@
+# deposit_acknowledged.tsv
+#
+# File esaminati che il cancello 2 di paper2_deposit.py segnala, e che sono stati
+# deliberatamente inclusi nel deposito. Formato: percorso<TAB>motivazione.
+#
+# Tutti i percorsi qui sotto stanno nel tier congelato `records` (aggregate
+# 5364cf2ef1cac16c66e2f80dcd897bee8d14324100f15d0c9b471085f4b876f0): rimuoverli
+# cambierebbe i 224 file del tier e l'aggregate, quindi o si depositano cosi' o non si
+# deposita il tier. Sono i cicli di review INTERNI del framework CAUCHY, dove
+# "Reviewer" e' una seconda istanza del modello e "reviewer_verdict" e' un campo di
+# quei record: non sono materiale di revisione fra pari, e non contengono testo di
+# terzi. Costituiscono l'audit trail che documenta perche' le decisioni di ciascuna
+# fase sono state prese.
+#
+results/phase0_review.json	ciclo di review interno CAUCHY, non revisione fra pari
+results/phase1_gate_result.json	record di gate interno; "reviewer" e' il ciclo interno
+results/phase1_review.json	ciclo di review interno CAUCHY, non revisione fra pari
+results/phase2_gate_result.json	record di gate interno; "reviewer" e' il ciclo interno
+results/phase2_review.json	ciclo di review interno CAUCHY, non revisione fra pari
+results/phase3_gate_result.json	record di gate interno; "reviewer" e' il ciclo interno
+results/phase3_review.json	ciclo di review interno CAUCHY, non revisione fra pari
+results/phase4_review.json	ciclo di review interno CAUCHY, non revisione fra pari
+results/phase5_gate_result.json	record di gate interno; "reviewer_verdict" e' un campo
+results/phase5_review.json	ciclo di review interno CAUCHY, non revisione fra pari
+results/phase5_review_concern1.json	ciclo di review interno CAUCHY, non revisione fra pari
+results/phase5_review_concern1_prior_update.json	ciclo di review interno CAUCHY
+results/phase5_review_concern1_resolution_response.json	ciclo di review interno CAUCHY
+results/phase5bis_gate_result.json	record di gate interno; "reviewer_verdict" e' un campo
+results/phase5bis_review.json	ciclo di review interno CAUCHY, non revisione fra pari
+results/phase6_review.json	ciclo di review interno CAUCHY, non revisione fra pari
+results/phase6_review_response.json	ciclo di review interno CAUCHY, non revisione fra pari
+results/phase7p1_gate_result.json	record di gate interno; "reviewer_verdict" e' un campo
+src/paper1_rev_par_bundle.py	quattro punti, quattro riferimenti strutturali ai rilievi; citazioni gia' parafrasate, zero residue

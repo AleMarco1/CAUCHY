@@ -1,4 +1,4 @@
-# ============================================================
+﻿# ============================================================
 # CAUCHY - .gitattributes
 # I file di risultato portano hash di integrita' calcolati sui
 # BYTE: una conversione di fine riga da parte di git li corrompe
@@ -8,7 +8,7 @@
 
 # Nessuna normalizzazione su NULLA dentro results/ e MANIFESTS/.
 results/**      -text
-MANIFESTS/**    -text
+manifests/**    -text
 
 # I formati append-only, ovunque si trovino.
 *.jsonl         -text

@@ -6,18 +6,16 @@ src/paper1_rev_n6_fkp.py
 
 N6 - VOXELIZZAZIONE DEI MOCK PESATA FKP
 
-Referee 2 §3, il piu' pungente del rapporto:
-
-  "La Sezione 6.2 caratterizza bene l'asimmetria (dati con pesi
-  completeness+FKP, mock a peso unitario) e dimostra che non trasporta cicli.
-  Ma la correzione alla sorgente e' 'deferred to a companion paper'. Non e'
-  accettabile per un lavoro la cui affermazione centrale e' un confronto
-  dati-mock di precisione: M26 ha gia' mostrato (Tabella 1) che pesare i mock
-  in stile FKP sposta la media di ~600 generatori *allontanandola* dai dati;
-  quel bound va importato esplicitamente nella banda sistematica di Sez. 6.3, e
-  va spiegato perche' la voxelizzazione FKP-pesata dei mock - una modifica di
-  poche righe alla pipeline - non possa essere eseguita almeno su un
-  sottoinsieme N = 200 qui, invece che in un terzo articolo."
+Referee 2 §3, il rilievo piu' duro del rapporto, in sintesi. La Sez. 6.2
+caratterizza bene l'asimmetria di pesatura (dati con completeness+FKP, mock a
+peso unitario) e dimostra che non trasporta cicli, ma rimanda la correzione
+alla sorgente a un articolo compagno. Per un lavoro la cui affermazione
+centrale e' un confronto dati-mock di precisione questo non basta: M26
+Tabella 1 mostra gia' che pesare i mock in stile FKP sposta la media di ~600
+generatori ALLONTANANDOLA dai dati, e quel limite va importato esplicitamente
+nella banda sistematica di Sez. 6.3. Il referee chiede inoltre perche' la
+voxelizzazione FKP-pesata dei mock - una modifica di poche righe alla
+pipeline - non possa essere eseguita almeno su un sottoinsieme N = 200 qui.
 
 L'ASIMMETRIA, VERIFICATA NEL CODICE
 -----------------------------------

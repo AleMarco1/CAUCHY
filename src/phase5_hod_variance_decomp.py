@@ -3,7 +3,8 @@ CAUCHY Phase 5 — HOD Variance Decomposition
 src/phase5_hod_variance_decomp.py
 
 Obiettivo:
-  Risposta al Concern 1 BLOCKING del Reviewer Phase 5.
+  Risposta al Concern 1 BLOCCANTE della revisione interna di Fase 5
+    (ciclo di review del framework CAUCHY, non revisione esterna).
   Domanda scientifica: "il segnale b2_mean_persistence ~ w0 è assorbibile
   dai parametri HOD liberi?"
 
@@ -30,7 +31,7 @@ Input:
 
 Output:
   results/phase5_hod_variance_decomp.json  — risultati numerici completi
-  results/phase5_hod_variance_decomp_summary.md — testo per risposta Reviewer
+  results/phase5_hod_variance_decomp_summary.md — testo per la risposta
 
 Uso:
   python src/phase5_hod_variance_decomp.py [--project_root .] [--n_perm 1000] [--seed 42]

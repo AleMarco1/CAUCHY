@@ -22,12 +22,12 @@ interrompi questo e rilancialo dopo: e' idempotente.
 
 N4 - COSA CHIEDE IL REFEREE
 ---------------------------
-R2 §6: "Il taglio dei 'clean voxels' (P10 della densita' dei random), i livelli
-di erosione, e soprattutto la soglia w_bar >= 0.99 sono tutti fissati a
-posteriori sugli stessi dati [...] la scelta P10 va accompagnata da una verifica
-di stabilita' (P5, P15) per le conclusioni di Tabella 3."
-R3 minore 3: "Sez. 4.2: dichiarare la stabilita' dei momenti di Tabella 3
-rispetto alla scelta P10 (P5/P15)."
+R2 §6 rileva che il taglio dei "clean voxels" (P10 della densita' dei random),
+i livelli di erosione e soprattutto la soglia w_bar >= 0.99 sono tutti fissati
+a posteriori sugli stessi dati, e chiede che la scelta P10 sia accompagnata da
+una verifica di stabilita' (P5, P15) per le conclusioni di Tabella 3.
+R3 minore 3 chiede la stessa dichiarazione di stabilita' dei momenti di
+Tabella 3 in Sez. 4.2.
 
 Tabella 3 contiene MOMENTI, non N_H1: niente gudhi.
 
@@ -40,8 +40,8 @@ rispondere a R2.6. Lo script lo misura invece di assumerlo.
 
 N5 - COSA CHIEDE IL REFEREE
 ---------------------------
-R3.6(iv): "L'esperimento specchio usa 50 mock contro i 2000 del forward:
-quotare l'incertezza di g1p in modo omogeneo."
+R3.6(iv) rileva che l'esperimento specchio usa 50 mock contro i 2000 del
+forward, e chiede che l'incertezza di g1p sia quotata in modo omogeneo.
 Con n = 50 l'errore standard sulla media e' sigma/sqrt(50) = 0.141*sigma,
 contro 0.022*sigma a n = 2000: un fattore 6.3. Se i due numeri sono quotati
 entrambi come "+/- sigma" o entrambi come "+/- SEM" senza dire quale, il

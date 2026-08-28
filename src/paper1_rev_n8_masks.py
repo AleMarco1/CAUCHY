@@ -6,19 +6,17 @@ src/paper1_rev_n8_masks.py
 
 N8 - TRASFERIBILITA' DEL CRITERIO w_bar >= 0.99
 
-Referee 1 §6:
-  "Il collasso e' dimostrato su due footprint che sono entrambi cunei sottili
-  della stessa survey, con profondita' mediana quasi identica (3.0 e 2.8
-  voxel). Chiamarlo 'survey-independent' e 'transferable' e' prematuro. Un test
-  su maschere sintetiche (campi gaussiani con maschere di profondita'
-  controllata, variando forma e topologia della maschera) e' computazionalmente
-  banale e stabilirebbe - o confuterebbe - la trasferibilita'."
+Referee 1 §6 osserva che il collasso e' dimostrato su due footprint che sono
+entrambi cunei sottili della stessa survey, con profondita' mediana quasi
+identica (3.0 e 2.8 voxel): chiamarlo survey-independent e trasferibile e'
+prematuro. Suggerisce come computazionalmente banale e dirimente un test su
+maschere sintetiche - campi gaussiani con profondita' controllata, variando
+forma e topologia della maschera.
 
-Referee 2 §6:
-  "...soprattutto la soglia w_bar >= 0.99 [e'] fissata a posteriori sugli stessi
-  dati, e la soglia di validita' ratifica per costruzione esattamente e soltanto
-  la configurazione fiduciale in cui l'anomalia era stata trovata
-  (sigma_px = 0.3204 contro un limite di 0.33: margine del 3%)."
+Referee 2 §6 aggiunge che la soglia w_bar >= 0.99 e' fissata a posteriori sugli
+stessi dati, e che la soglia di validita' ratifica per costruzione esattamente
+e soltanto la configurazione fiduciale in cui l'anomalia era stata trovata
+(sigma_px = 0.3204 contro un limite di 0.33: margine del 3%).
 
 DEFINIZIONE
 -----------

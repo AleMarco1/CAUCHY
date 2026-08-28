@@ -25,14 +25,14 @@ Questo script:
 QUATTRO PUNTI
 -------------
 A. R3.3 - "Statistically independent channels" (Sez. 4.2).
-   Il referee indica lui stesso il test: "la correlazione mock-per-mock fra
-   momenti e N_H1". N1b l'ha gia' misurata su 1800 mock:
+   Il referee indica lui stesso il test: la correlazione mock-per-mock fra
+   momenti e N_H1. N1b l'ha gia' misurata su 1800 mock:
        sigma dentro maschera  r = -0.792
        curtosi                r = +0.779
    I canali NON sono indipendenti. Qui si completa con l'asimmetria, le
    correlazioni fra i tre canali (base/null/remap) e fra le otto feature,
-   per sostituire la frase con quella che il referee propone in subordine:
-   "coesistono e il primo non spiega il secondo".
+   per sostituire la frase con la formulazione che il referee propone in
+   subordine: i canali coesistono e il primo non spiega il secondo.
 
 B. R3.6(iii) - coerenza di Fig. 1. Il referee osserva che il picco dei mock
    rimappati e' a ~13000 mentre il testo dice "at nu = 0 the matched mocks
