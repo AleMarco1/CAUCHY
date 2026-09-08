@@ -78,3 +78,17 @@ logs/
 deposit/
 
 papers/
+
+# copie di sicurezza dei patcher: utili durante il lavoro, rumore nel repo.
+# Il file corretto e' quello senza suffisso; queste sono lo stato PRIMA.
+*.pre*
+*.rev[0-9]*
+*.tmp
+
+# artefatti di deposito: ricostruibili dal manifest con
+# src/paper2_tarball_features.py, e verificabili contro l'aggregate depositato
+results/paper2/ensemble_v1_features.tar.gz
+
+# artefatto di deposito: RICOSTRUIBILE in modo deterministico dal manifest
+# con src/paper2_tarball_features.py, e verificabile contro l'aggregate
+results/paper2/ensemble_v1_features.tar.gz
