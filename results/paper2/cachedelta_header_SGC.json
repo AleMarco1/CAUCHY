@@ -1,0 +1,12 @@
+{
+ "aggregate_recipe": "sha256 over the concatenation, in ascending order of `rel`, of f'{rel}\\t{sha256}\\t{bytes}\\n' encoded utf-8",
+ "aggregate_sha256": "92cb5e8dd26c8f8d03ee25194cf1ccea7b1d134b05d2410af274e4f002895f5f",
+ "body": "results/paper2/cachedelta_manifest_SGC.jsonl",
+ "etichetta": "SGC",
+ "is_freeze_tier": false,
+ "n_files": 2000,
+ "note": "Manifest of an input cache that the freeze does not cover. Same shape as the freeze manifests, deliberately NOT a tier. The aggregate uses the recipe declared here and is not asserted to equal the one of paper2_freeze_verify.",
+ "root": "data/processed/paper1_mock_deltas/SGC",
+ "scanned_at": "2026-09-07T13:03:50+00:00",
+ "total_bytes": 16777472000
+}
