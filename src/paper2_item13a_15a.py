@@ -14,6 +14,14 @@ paper2_item13a_15a.py — item 1.3a (convenzione di F_AP) e 1.5a (tiling per pun
 
   tiling   1.5a — molteplicita' di tiling per geometria, via `x mod L_box`.
 
+           CORREZIONE DEL 29 AGO 2026, e chiude un filo aperto.  La frazione
+           indipendente usciva 0.7111-0.7125 contro lo 0.696 del reference, e il
+           2% non era attribuito.  Non era fisica: `ceil(l_box/dx)` dava 65 bin
+           larghi dx, che coprono 1014.3 h^-1 Mpc invece di 1000.  I bin devono
+           tassellare il periodo, altrimenti si contano celle che non esistono.
+           Ora `round(l_box/dx)` bin larghi l_box/nb, come rev1_r11_tiling.py, e
+           il fiduciale NGC deve riprodurre 214 215 celle distinte all'unita'.
+
            ATTESA DA VERIFICARE, e contraddice il canovaccio.  Il canovaccio dice
            che il tiling dipende da alpha_iso e non da F_AP, quindi che il blocco
            B (alpha_iso = 1) e' immune.  Ma il lato del cubo e' fissato da
@@ -52,11 +60,55 @@ C_OVER_H0 = 2997.92458
 NGRID = 128
 L_BOX_DEFAULT = 1000.0          # scatola periodica Quijote, h^-1 Mpc
 
-# M26 R1 §5.6, fiduciale NGC — cancello morbido del blocco tiling
-FROZEN_TILING_NGC = {"independent_fraction": 0.70, "mult_mean": 1.44, "mult_max": 5}
+# M26 R1 §5.6 / reference `tiling`, fiduciale NGC — cancello DURO del blocco tiling.
+# Valori pieni, non arrotondati: col binning corretto (vedi tiling_stats) il
+# fiduciale deve riprodurre 214 215 celle distinte ESATTAMENTE, all'unita'. Lo
+# 0.70 e l'1.44 che stavano qui erano gli arrotondamenti del manoscritto e non
+# potevano decidere nulla: il 2% di scarto che hanno lasciato passare era la
+# binnatura sbagliata.
+FROZEN_TILING_NGC = {
+    "distinct_box_cells": 214215,
+    "in_survey_voxels": 307805,
+    "independent_fraction": 214215 / 307805,      # 0.69594384...
+    "mult_mean": 307805 / 214215,                 # 1.43685...
+    "mult_max": 5,
+}
 
-LINE_A = [("A1", 0.9725), ("A3", 1.0406)]
-LINE_B = [("B1", 0.971070), ("B2", 0.985396), ("B4", 1.014889), ("B5", 1.030071)]
+# A1m e A3m: emendamenti 27 e 28. Specchi ESATTI di A1 e A3 attorno a 1, cioe'
+# 1 + 0.0275 e 1 - 0.0406. Servono perche' A1 e A3 stanno a distanze DIVERSE da
+# 1 (0.0275 contro 0.0406, rapporto 1.4764) e con due punti asimmetrici pari e
+# dispari NON si separano: una risposta puramente pari e quadratica darebbe
+# A3/A1 = 1.4764^2 = 2.18, che si legge come un 37% di dispari inesistente.
+# Con due coppie simmetriche la decomposizione e' pulita, e le due ampiezze
+# distinguono un dispari LINEARE (rapporto atteso 1.476) da un GRADINO (1.000).
+# A3m = 0.9594 e' sotto il range fisico isotropo [0.9725, 1.0406]: sul blocco A
+# il segnale e' zero PER TEOREMA a qualunque alpha, quindi il test nullo resta
+# valido. Dichiarato, non nascosto.
+# I nomi non sono A2 e A4: sulla linea B il 3 e' saltato perche' B3 e' il
+# fiduciale, quindi A2 e' riservato per la stessa convenzione.
+# Qui c'e' SOLO alpha_iso: c, L e il box li deriva deform(), e il record 28
+# vieta di scriverli in un secondo posto.
+# A0 e A0m: emendamento 30. TERZA ampiezza, |alpha - 1| = 0.018627, che e' la
+# continuazione GEOMETRICA verso il basso: 0.0275^2/0.0406, cosi' le tre
+# ampiezze sono equispaziate in log a rapporto 1.476364.
+# Serve perche' il residuo ad alpha = 1 e' ZERO ESATTO (alpha = 1 E' il
+# fiduciale) e il record 29 lo misura in DISCESA fra 0.0275 e 0.0406: c'e'
+# quindi un MASSIMO in (0, 0.0406), e due ampiezze non dicono dove. La terza
+# si'. La potenza stimata sulle due note predice |pari| = 32.4/75.4/15.1 a
+# questa ampiezza contro 18.0/32.5/5.5 a 0.0275; ma non puo' divergere per
+# a -> 0, quindi quella predizione deve fallire e la domanda e' se lo fa gia' qui.
+# Verso il basso NON per la leva (0.7792 contro 0.7802: non discrimina) ma
+# perche' 0.0600 metterebbe entrambi gli alpha fuori range, e perche' il
+# vincolo residuo(0)=0 morde a piccola ampiezza.
+# Entrambi DENTRO [0.9725, 1.0406]: nessuna dichiarazione di fuori-range.
+LINE_A = [("A0", 0.981373), ("A1", 0.9725), ("A1m", 1.0275),
+          ("A3", 1.0406), ("A3m", 0.9594), ("A0m", 1.018627)]
+# B6: emendamento 15, record 15. Terza unita' del campionamento equispaziato in
+# residuo minimax (B2/B4 = 1, B1/B5 = 2). Valore DERIVATO da
+# paper2_append_amend15.py, non digitato: 0.853136 voxel NGC, e supera di
+# 0.005028 il F_max di C1 (1.040504), che la linea B non bracketava.
+LINE_B = [("B1", 0.971070), ("B2", 0.985396), ("B4", 1.014889), ("B5", 1.030071),
+          ("B6", 1.045531810025433)]
 CORNERS = [("C1", 0.2500, -1.2), ("C2", 0.2500, -0.8),
            ("C3", 0.3500, -1.2), ("C4", 0.3500, -0.8)]
 
@@ -231,8 +283,16 @@ def tiling_stats(mask, box_min, dx, l_box):
     per_axis = [int(np.unique(rep[:, k]).size) for k in range(3)]
     n_rep = int(np.unique(rep, axis=0).shape[0])
 
-    n_cell = int(np.ceil(l_box / dx))
-    cell = np.floor((x - rep * l_box) / dx).astype(np.int64)
+    # I bin devono TASSELLARE la scatola periodica. Con `ceil(l_box/dx)` uscivano
+    # 65 bin larghi dx = 15.6044, cioe' 1014.3 h^-1 Mpc: 14.3 in piu' del periodo,
+    # ultimo bin parziale, griglia disallineata. Piu' celle disponibili significa
+    # meno collisioni, quindi frazione indipendente gonfiata: e' l'intero scarto
+    # fra lo 0.7111-0.7125 misurato qui e lo 0.696 di M26 §5.6, che usa
+    # nb = round(L/dx) bin larghi L/nb (rev1_r11_tiling.py:87-89). Non era una
+    # discrepanza fisica: erano due binnature, e questa era quella sbagliata.
+    n_cell = int(round(l_box / dx))               # 64, non 65
+    bw = l_box / n_cell                           # 15.6250, non 15.6044
+    cell = np.floor((x - rep * l_box) / bw).astype(np.int64)
     np.clip(cell, 0, n_cell - 1, out=cell)
     flat = (cell[:, 0] * n_cell + cell[:, 1]) * n_cell + cell[:, 2]
     _, counts = np.unique(flat, return_counts=True)
@@ -243,6 +303,8 @@ def tiling_stats(mask, box_min, dx, l_box):
         "replicas_per_axis": per_axis,
         "n_replicas_total": n_rep,
         "box_cells_per_axis": n_cell,
+        "box_cell_width_hMpc": float(bw),         # dichiarata, non dedotta da dx
+        "distinct_box_cells": int(counts.size),
         "independent_fraction": float(counts.size) / n,
         "mult_mean": float(n) / counts.size,
         "mult_max": int(counts.max()),
@@ -251,8 +313,44 @@ def tiling_stats(mask, box_min, dx, l_box):
     }
 
 
+def load_boxes(path, region, gauge="regauged"):
+    """Box per punto dal registro del 3.1, gauge dell'emendamento 13.
+
+    Non si riderivano qui: il gauge e' implementato in paper2_runner_fase3.py e
+    una seconda implementazione sarebbe la classe di difetto del 445/313. Il
+    fiduciale sta nel record del cancello D3, che ha gauge "fid".
+    """
+    out = {}
+    with open(path, encoding="utf-8") as fh:
+        for l in fh:
+            if not l.strip():
+                continue
+            r = json.loads(l)
+            if r.get("region") != region:
+                continue
+            if r.get("gate") == "d3" or r.get("gauge") == "fid":
+                nm = "FID"
+            elif r.get("gauge") == gauge:
+                nm = r.get("point")
+            else:
+                continue
+            if nm and "box_min" in r:
+                out[nm] = {"box_min": np.asarray(r["box_min"], float),
+                           "box_size": float(r["box_size"]),
+                           "cell": float(r["cell"]),
+                           "sigma_px": float(r["sigma_px"]),
+                           "R_SMOOTH": float(r["R_SMOOTH"]),
+                           "dc_c": float(r.get("c", 1.0))}
+    return out
+
+
 def cmd_tiling(a):
     G, M, setg, z_tab, dc_fid = attach(a.src, a.geom_module, a.const_module)
+    boxes = load_boxes(a.boxes, a.region) if a.boxes else None
+    if boxes is not None:
+        costante = len({round(v["box_size"], 6) for v in boxes.values()}) == 1
+        print("  [gauge] box letti da %s: %d punti, lato %s"
+              % (a.boxes, len(boxes), "COSTANTE" if costante else "variabile"))
     plan = [("FID", dict(kind="fid"))]
     plan += [(n, dict(kind="ap", alpha_iso=al, F_ap=1.0)) for n, al in LINE_A]
     plan += [(n, dict(kind="ap", alpha_iso=1.0, F_ap=F)) for n, F in LINE_B]
@@ -266,15 +364,46 @@ def cmd_tiling(a):
     rows = []
     try:
         for name, spec in plan:
-            call_set(setg, z_tab=z_tab, dc_tab=deform(z_tab, dc_fid, spec))
-            ds = G.data_side(a.region)
-            mask = find_mask(ds)
-            if mask is None:
-                raise SystemExit("maschera non trovata")
-            st = tiling_stats(mask, ds["box_min"], float(ds["cell_size_mpc_h"]), a.l_box)
-            st.update({"schema": "paper2_item15a_v1", "region": a.region, "point": name,
-                       "utc": _now(), "box_size_mpc_h": float(ds["box_size_mpc_h"]),
-                       "cell_size_mpc_h": float(ds["cell_size_mpc_h"])})
+            dc_pt = deform(z_tab, dc_fid, spec)
+            if boxes is None:
+                # Percorso storico: il cubo si deriva qui, con padding additivo.
+                # E' il gauge a cubo VARIABILE, superato dall'emendamento 13.
+                call_set(setg, z_tab=z_tab, dc_tab=dc_pt)
+                ds = G.data_side(a.region)
+                mask = find_mask(ds)
+                if mask is None:
+                    raise SystemExit("maschera non trovata")
+                bmin = ds["box_min"]
+                cell = float(ds["cell_size_mpc_h"])
+                bsize = float(ds["box_size_mpc_h"])
+            else:
+                if name not in boxes:
+                    print("  %-5s box assente nel registro, salto" % name)
+                    continue
+                b = boxes[name]
+                # La tabella va riscalata di c, come al passo 3 del gauge: senza,
+                # le posizioni non stanno nel cubo che si sta imponendo.
+                call_set(setg, z_tab=z_tab, dc_tab=dc_pt * b["dc_c"])
+                M.R_SMOOTH = b["R_SMOOTH"]
+                call_set(setg, box_min=b["box_min"], box_size=b["box_size"])
+                e = abs(float(M.SIGMA_PX) - b["sigma_px"]) / b["sigma_px"]
+                if e > 1e-9:
+                    raise SystemExit(
+                        "[FATAL] %s: sigma_px %r contro %r nel registro (rel %.2e). "
+                        "Il box letto non e' quello che il 3.1 ha usato."
+                        % (name, float(M.SIGMA_PX), b["sigma_px"], e))
+                pos_r, w_r = G.positions(a.region, "ran")
+                field_r = M.cic_3d(pos_r, w_r, M.NGRID, M.BOX_MIN, M.BOX_SIZE)
+                out_m = G.build_mask(field_r, "v1_fullcube")
+                mask = out_m[0] if isinstance(out_m, tuple) else out_m
+                del pos_r, w_r, field_r
+                bmin, cell, bsize = b["box_min"], b["cell"], b["box_size"]
+            st = tiling_stats(mask, bmin, cell, a.l_box)
+            st.update({"schema": "paper2_item15a_v1", "region": a.region,
+                       "point": name, "utc": _now(),
+                       "gauge": "amend13" if boxes is not None else "cubo_variabile",
+                       "box_size_mpc_h": float(bsize),
+                       "cell_size_mpc_h": float(cell)})
             st.update(spec)
             rows.append(st)
             if a.out:
@@ -285,8 +414,28 @@ def cmd_tiling(a):
                      st["mult_mean"], st["mult_max"]))
             if name == "FID" and a.region == "NGC":
                 f = FROZEN_TILING_NGC
-                print("        cancello M26 §5.6: indip %.2f  mult media %.2f  max %d"
-                      % (f["independent_fraction"], f["mult_mean"], f["mult_max"]))
+                got_c, got_v = st["distinct_box_cells"], st["n_voxel"]
+                exact = (got_c == f["distinct_box_cells"]
+                         and got_v == f["in_survey_voxels"]
+                         and st["mult_max"] == f["mult_max"])
+                print("        cancello M26 §5.6: celle distinte %d atteso %d | "
+                      "voxel %d atteso %d | mult max %d atteso %d"
+                      % (got_c, f["distinct_box_cells"], got_v,
+                         f["in_survey_voxels"], st["mult_max"], f["mult_max"]))
+                print("        indip %.8f atteso %.8f   mult media %.6f atteso %.6f"
+                      % (st["independent_fraction"], f["independent_fraction"],
+                         st["mult_mean"], f["mult_mean"]))
+                if not exact:
+                    # All'unita', non entro una tolleranza: e' un conteggio di
+                    # celle, non una misura, e uno scarto qui significa che il
+                    # binning o la maschera non sono quelli che hanno prodotto
+                    # i numeri pubblicati.
+                    raise SystemExit(
+                        "[FATAL] il fiduciale NGC non riproduce M26 §5.6 "
+                        "all'unita' (celle %d/%d, voxel %d/%d). Non uso questi "
+                        "numeri per la griglia." % (got_c, f["distinct_box_cells"],
+                                                    got_v, f["in_survey_voxels"]))
+                print("        -> riprodotto all'unita'.")
     finally:
         call_set(setg, z_tab=z_tab, dc_tab=dc_fid)
         try:
@@ -338,6 +487,9 @@ def main():
     t.add_argument("--l-box", type=float, default=L_BOX_DEFAULT)
     t.add_argument("--points", nargs="*", default=None)
     t.add_argument("--out", default=None)
+    t.add_argument("--boxes", default=None,
+                   help="registro del 3.1 da cui leggere i box del gauge "
+                        "dell'emendamento 13, invece di derivarli qui")
     a = p.parse_args()
     {"conv": cmd_conv, "tiling": cmd_tiling}[a.cmd](a)
 

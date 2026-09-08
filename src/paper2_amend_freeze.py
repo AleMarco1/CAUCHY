@@ -5,11 +5,12 @@ CAUCHY / Paper 2 - Emendamento: ri-freeze del tier `records`, 25 ago 2026.
 
 COSA REGISTRA
   Il tier `records` fu congelato due volte lo stesso giorno. Fra i due passaggi
-  un file uscì dal set, ma il secondo freeze non fu mai committato: in git è
-  rimasto il primo, su disco c'è il secondo. La discrepanza (225 contro 224
-  file, due `aggregate_sha256` diversi) non era registrata da nessuna parte se
-  non nel messaggio di un commit, ed è esattamente ciò che il file degli
-  emendamenti esiste per impedire.
+  un file uscì dal set. QUESTA DOCSTRING AFFERMAVA che il secondo freeze non fu
+  mai committato e che in git era rimasto il primo: è falso, vedi la RETTIFICA
+  qui sotto. La discrepanza (225 contro 224 file, due `aggregate_sha256`
+  diversi) non era registrata da nessuna parte se non nel messaggio di un
+  commit, ed è esattamente ciò che il file degli emendamenti esiste per
+  impedire.
 
 CRONOLOGIA, RICOSTRUITA AL SECONDO
   12:44:26Z  freeze n. 1 - 225 file, 20 721 562 byte
@@ -17,9 +18,28 @@ CRONOLOGIA, RICOSTRUITA AL SECONDO
              byte-identico a phase8_test2_permock_hodfit.csv (stesso sha256
              ae733e1e...), conteneva il sottoinsieme HOD-refit
              (35304.6 +/- 1033.0, N=200), NON la baseline test2.
-  14:43:06Z  freeze n. 2 - 224 file, 20 710 671 byte. Mai committato.
+  14:43:06Z  freeze n. 2 - 224 file, 20 710 671 byte.
 
   Differenza: 10 891 byte, cioè esattamente la dimensione del file rimosso.
+
+RETTIFICA — record 12 del file degli emendamenti, 28 ago 2026
+  Il freeze n. 2 FU committato, in 6522204. L'attribuzione a 312218b della
+  rimozione di results/phase8_test2_permock.csv, e l'affermazione che il n. 2
+  non fosse in git, sono errate e sono rettificate nel record 12.
+
+  Il PAYLOAD qui sotto non viene corretto. La stringa `reason` di RECORD è ciò
+  che ha prodotto il record 11, già scritto su un file append-only: riscriverla
+  farebbe emettere a questo script un record diverso da quello su disco, e la
+  prossima esecuzione non sarebbe più la riproduzione di ciò che è stato fatto.
+  La storia leggibile — valore sbagliato, rettifica, motivo — è il prodotto
+  dell'item 0.12, non un residuo da ripulire. Chi legge il file SOVRAPPONE il
+  record 12 all'11; nessuno li fonde.
+
+IDEMPOTENZA (aggiunta 29 ago 2026)
+  Questo script ha già girato con --apply: il suo record è l'11 di 13. Rilanciarlo
+  appenderebbe un doppione, che il conteggio di paper2_freeze_verify.py
+  intercetterebbe a valle, ma dopo la scrittura e su un file che non si corregge.
+  Il cancello sotto lo impedisce a monte.
 
 PERCHE' LA VERSIONE SU DISCO E' QUELLA AUTOREVOLE
   I cinque tier su disco sommano a 34 836 file e 26.771 GiB, cioè i valori
@@ -141,6 +161,25 @@ def main():
     path = root / AMEND
     n0 = sum(1 for ln in open(path, encoding="utf-8") if ln.strip()) if path.exists() else 0
     print("emendamenti gia' presenti: %d" % n0)
+
+    # Il file e' append-only: un doppione non si toglie. Se il record di questo
+    # script c'e' gia', non se ne scrive un altro. Il confronto e' sul CONTENUTO
+    # (json_path + old_value), non sulla posizione, perche' la posizione e' il
+    # numero dell'emendamento e non un identificatore.
+    if path.exists():
+        for i, ln in enumerate(
+                (l for l in path.read_text(encoding="utf-8").splitlines() if l.strip()), 1):
+            try:
+                r = json.loads(ln)
+            except Exception:
+                continue
+            if (isinstance(r, dict)
+                    and r.get("json_path") == RECORD["json_path"]
+                    and r.get("old_value") == RECORD["old_value"]):
+                print("\n[gia' applicato] il record di questo script e' il n. %d." % i)
+                print("                 Nessuna scrittura: il file e' append-only e")
+                print("                 un doppione non si toglie.")
+                return 0
     print("\n--- da appendere: item %s -> %s" % (RECORD["item"], RECORD["json_path"]))
     print("    %s..." % RECORD["reason"][:160])
 

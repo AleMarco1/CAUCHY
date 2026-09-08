@@ -97,6 +97,14 @@ PARAM_RANGES = {
     "w0":      (-1.30, -0.70),
 }
 
+# D-T3: soglia ASSOLUTA sul punteggio di infer_names, dichiarata dal disegno
+# e non dall'output. Con 2000 campioni un Latin hypercube lascia ai bordi
+# lacune dell'ordine di 1/2000 dello span, quindi il punteggio vero sta sotto
+# 1e-2; sulla suite nwLH il concorrente piu' vicino (M_nu contro Omega_m) sta
+# a 0.60. La soglia e' un ordine di grandezza sopra il primo, sei volte sotto
+# il secondo. Oltre la soglia si ARRESTA: non si avvisa.
+INFER_SCORE_MAX = 0.1
+
 
 # --------------------------------------------------------------------------
 # predizioni, dichiarate prima di guardare i risultati
@@ -216,6 +224,116 @@ def load_params(path, names=None):
     return raw, nm
 
 
+def sha256_file(path):
+    h = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def read_param_header(path):
+    """LA TERZA FONTE: i nomi scritti nel file.
+
+    DEFAULT_NAMES guarda la POSIZIONE, infer_names guarda gli ESTREMI delle
+    colonne. L'intestazione non e' ne' l'uno ne' l'altro, ed e' l'unica delle
+    tre verificabile da fuori senza fidarsi di PARAM_RANGES. Il file la porta
+    ('#Omega_m Omega_b h n_s sigma_8 M_nu w0') e finora non veniva letta:
+    np.genfromtxt la scarta come commento.
+    """
+    with open(path, "r", encoding="utf-8", errors="replace") as fh:
+        for line in fh:
+            s = line.strip()
+            if not s:
+                continue
+            if s.startswith("#"):
+                toks = s.lstrip("#").split()
+                return toks or None
+            return None
+    return None
+
+
+def load_params_checked(path, names=None):
+    """D-T3. Avvolge load_params e aggiunge i due cancelli che mancavano.
+
+    Che cosa NON aggiunge, e va detto per non rivendicare troppo: infer_names
+    difende gia' da una permutazione di colonne, perche' guarda gli ESTREMI e non
+    la posizione, e su questa suite gli intervalli sono separabili - Omega_m
+    contro M_nu, la coppia piu' vicina, da' 0.60 contro ~0. La difesa c'e'.
+
+    Quello che aggiunge:
+
+    (a) UNA TERZA FONTE INDIPENDENTE DA PARAM_RANGES. Posizione e valori non sono
+        indipendenti dalla tabella degli intervalli: se PARAM_RANGES fosse
+        sbagliata, l'identificazione dai valori sarebbe sbagliata insieme a lei e
+        nessuno se ne accorgerebbe. L'intestazione del file e' l'unica delle tre
+        che non dipende da quella tabella. Il risultato citabile della Componente
+        D e' un ORDINAMENTO di parametri: uno scambio lascia intatta la
+        conclusione negativa su w0 e distrugge quella positiva.
+
+    (b) SOGLIA CON ARRESTO. Il verdetto di infer_names era sempre completo e mai
+        gated: ogni colonna riceveva un nome qualunque fosse il punteggio, e
+        l'ultima colonna non sceglieva affatto perche' le restava un solo nome.
+
+    (c) L'ESITO NEL RECORD. Quale fonte abbia deciso le etichette finiva a
+        terminale; ora e' un campo depositato.
+
+    Non reimplementa l'etichettatura: chiama load_params e la verifica.
+    """
+    raw, nm = load_params(path, names)
+    ncol = raw.shape[1]
+    inferred = infer_names(raw)
+    scores = [round(float(sc), 12) for _, sc in inferred]
+    by_values = [g for g, _ in inferred]
+    by_position = list(DEFAULT_NAMES.get(ncol, [])) or None
+    header = read_param_header(path)
+
+    print("\n[D-T3] confronto a tre fonti")
+    print("    usate       : %s" % ", ".join(nm))
+    print("    posizionali : %s" % (", ".join(by_position) if by_position else "assenti"))
+    print("    dai valori  : %s" % ", ".join(by_values))
+    print("    intestazione: %s" % (", ".join(header) if header else "assente"))
+    print("    punteggi    : %s   (max %.4g, soglia %.4g)"
+          % (" ".join("%.3g" % s for s in scores), max(scores), INFER_SCORE_MAX))
+
+    if max(scores) > INFER_SCORE_MAX:
+        raise SystemExit(
+            "[D-T3] CANCELLO FALLITO: punteggio massimo di infer_names %.4g > soglia %.4g.\n"
+            "    L'identificazione dai valori non e' netta su questo file, quindi la\n"
+            "    difesa contro una permutazione di colonne non regge. Arresto."
+            % (max(scores), INFER_SCORE_MAX))
+
+    if header is not None and len(header) == ncol and list(header) != list(nm):
+        raise SystemExit(
+            "[D-T3] CANCELLO FALLITO: l'intestazione del file dice %s\n"
+            "    ma le etichette in uso sono %s.\n"
+            "    Il risultato della Componente D e' un ordinamento di parametri: una\n"
+            "    permutazione lo distrugge senza toccare la conclusione su w0. Arresto."
+            % (", ".join(header), ", ".join(nm)))
+
+    if header is not None and len(header) != ncol:
+        raise SystemExit(
+            "[D-T3] CANCELLO FALLITO: l'intestazione ha %d nomi e il file %d colonne."
+            % (len(header), ncol))
+
+    agree = [s for s, v in (("header", header), ("position", by_position),
+                            ("values", by_values)) if v is not None and list(v) == list(nm)]
+    source = "+".join(agree) if agree else "explicit"
+    print("    -> fonti che concordano con le etichette in uso: %s" % source)
+
+    diag = {
+        "names_used": list(nm),
+        "names_by_position": by_position,
+        "names_by_values": by_values,
+        "names_from_header": list(header) if header else None,
+        "names_source": source,
+        "infer_scores": scores,
+        "infer_score_max": max(scores),
+        "infer_score_threshold": INFER_SCORE_MAX,
+    }
+    return raw, nm, diag
+
+
 # --------------------------------------------------------------------------
 # statistica
 # --------------------------------------------------------------------------
@@ -331,7 +449,7 @@ def run(args):
     idx, val = idx[order], val[order]
     gate_ensemble(args.region, val)
 
-    P_all, names = load_params(args.params, args.names)
+    P_all, names, names_diag = load_params_checked(args.params, args.names)
     if P_all.shape[0] < idx.max() + 1:
         raise SystemExit("il file parametri ha %d righe ma l'indice massimo e' %d"
                          % (P_all.shape[0], idx.max()))
@@ -410,6 +528,13 @@ def run(args):
            "attenuation": ATTEN, "design_worst_r": worst,
            "design_worst_pair": list(worst_pair),
            "rows": rows, "deficit_gen": gap}
+    # D-T3: quale fonte ha deciso le etichette non e' piu' un messaggio a
+    # terminale. D-T1: config_hash riassume PERCORSI e conteggio, non i byte;
+    # questi due campi sono i byte, e sono nuovi per non cambiare il
+    # significato di config_hash ne' il suo valore sui record depositati.
+    rec.update(names_diag)
+    rec["params_sha256"] = sha256_file(args.params)
+    rec["nh1_sha256"] = sha256_file(nh1_path)
     rec.update(extra)
     rec["config_hash"] = hashlib.sha256(
         json.dumps({k: rec[k] for k in ("nh1_path", "params_path", "n")},
@@ -481,7 +606,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--region", choices=["NGC", "SGC"], default="NGC")
     p.add_argument("--nh1", default=None, help="override del per_mock JSONL")
-    p.add_argument("--params", default="data/raw/quijote/latin_hypercube_nwLH_params.txt")
+    p.add_argument("--params", default="data/raw/quijote/3D_cubes/latin_hypercube_nwLH/latin_hypercube_nwLH_params.txt")
     p.add_argument("--names", nargs="*", default=None)
     p.add_argument("--perm", type=int, default=20000)
     p.add_argument("--out", default=None)

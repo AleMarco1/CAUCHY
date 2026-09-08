@@ -114,6 +114,18 @@ OML = 1.0 - OMM
 C_OVER_H0 = 2997.92             # Mpc/h
 C_KMS     = 299792.458          # km/s
 
+# --- §3.8, 1 set 2026 -------------------------------------------------------
+# Linea B in spazio reale. Con REAL_SPACE = True, carve_cutsky azzera v_los
+# prima di costruire z_obs. Il default False lascia il comportamento invariato
+# BIT A BIT per ogni script che importa questo modulo: l'unica differenza e' il
+# VALORE di v_los, non il percorso di codice.
+# Con v_los = 0 si ha z_obs = z_cosmo esattamente, perche' si somma 0.0; quindi
+# dC_rsd e' il round-trip delle tabelle, misurato identita' a 1.9e-16
+# (emendamento 18). Restano attivi il canale voxel, la registrazione del tiling
+# e lo spostamento di griglia: la predizione del record 18 e' a RAPPORTO, non a
+# soglia assoluta, proprio per questo.
+REAL_SPACE = False
+
 # HOD B3 median (gate8 frozen)
 HOD_MEDIAN = np.array([12.5, 0.55, 12.25, 13.5, 1.0, 0.0, 0.0, 1.0, 1.0])
 
@@ -644,10 +656,40 @@ def load_bgs_nz():
 # ---------------------------------------------------------------------------
 _MASK = None  # loaded in main
 
-def carve_cutsky(pos_gal, vel_gal, mask, nz_z, nz_target, rng):
+
+# --------------------------------------------------------------------------
+# Item 3.2d / referee §4.6 - randomizzazione delle repliche
+# --------------------------------------------------------------------------
+# Le 48 simmetrie del cubo. Una permutazione segnata manda il box periodico in
+# se stesso: e' una simmetria ESATTA della simulazione, quindi il campo resta lo
+# stesso campo e cambia solo l'orientazione con cui ogni replica viene posata.
+# Le statistiche del campo non si toccano; smette di ripetersi la MAPPA di
+# assegnazione, che e' l'oggetto del rilievo §4.6.
+_PERMS_3D = [(0, 1, 2), (0, 2, 1), (1, 0, 2), (1, 2, 0), (2, 0, 1), (2, 1, 0)]
+
+
+def _signed_permutation(rng):
+    """Uno dei 48 elementi del gruppo di simmetria del cubo, uniforme."""
+    perm = _PERMS_3D[rng.integers(len(_PERMS_3D))]
+    signs = rng.integers(0, 2, size=3) * 2 - 1
+    S = np.zeros((3, 3))
+    for i, j in enumerate(perm):
+        S[i, j] = signs[i]
+    return S
+
+
+def carve_cutsky(pos_gal, vel_gal, mask, nz_z, nz_target, rng, capture=None,
+                 randomise_replicas=False, rot_rng=None):
     """Map periodic-box galaxies into the DESI embedding cube, apply RSD, carve
     by mask + z range, downsample to BGS n(z). Returns selected embedding-frame
     Cartesian positions [M,3] (redshift-space)."""
+    # Item 3.2d: nessun generatore di scorta. Un run irriproducibile e' peggio
+    # di un run che non parte.
+    if randomise_replicas and rot_rng is None:
+        raise ValueError(
+            "randomise_replicas=True richiede rot_rng: un generatore SEPARATO, "
+            "perche' le permutazioni non devono consumare stato da `rng` e il "
+            "run deve essere riproducibile dal suo seme.")
     # Tile offsets covering the embedding cube along each axis
     def offsets(axis):
         lo, hi = BOX_MIN[axis], BOX_MIN[axis] + BOX_SIZE
@@ -658,17 +700,35 @@ def carve_cutsky(pos_gal, vel_gal, mask, nz_z, nz_target, rng):
 
     # Pass 1: collect ALL in-survey candidates (mask + z range), no downsampling.
     cand_P, cand_z = [], []
+    # §1 / trattamento (B), 1 set 2026. Con capture=None questa lista resta
+    # vuota e non viene mai toccata: il percorso di default e' invariato bit a
+    # bit e non paga memoria. Serve solo a chi costruisce la cache a osservabili
+    # fisse, che ha bisogno di rhat oltre che di P_rsd e z_obs.
+    cand_r = []
     for kx in ox:
         for ky in oy:
             for kz in oz:
+                # --- item 3.2d / §4.6: ripattern del tiling -----------------
+                # Una permutazione segnata PER REPLICA, da un generatore
+                # SEPARATO: a flag spento non si consuma un solo valore da
+                # `rng`, quindi l'appaiamento con i run depositati regge.
+                # Il ramo spento e' un no-op PER COSTRUZIONE, non per verifica:
+                # niente prodotto per l'identita', niente mod.
+                if randomise_replicas:
+                    S = _signed_permutation(rot_rng)
+                    pos_rep = np.mod(pos_gal @ S.T, BOXSIZE_MOCK)
+                    vel_rep = vel_gal @ S.T
+                else:
+                    pos_rep, vel_rep = pos_gal, vel_gal
+                # -----------------------------------------------------------
                 shift = np.array([kx, ky, kz]) * BOXSIZE_MOCK
-                P = pos_gal + shift[None, :]
+                P = pos_rep + shift[None, :]
                 inb = np.all((P >= BOX_MIN[None, :]) &
                              (P < (BOX_MIN + BOX_SIZE)[None, :]), axis=1)
                 if not inb.any():
                     continue
                 P = P[inb]
-                V = vel_gal[inb]
+                V = vel_rep[inb]
                 # Real-space distance & LOS
                 dC = np.linalg.norm(P, axis=1)
                 good = (dC > 1e-6) & (dC >= D_C_ZMIN - 50) & (dC <= D_C_ZMAX + 50)
@@ -678,6 +738,11 @@ def carve_cutsky(pos_gal, vel_gal, mask, nz_z, nz_target, rng):
                 rhat = P / dC[:, None]
                 z_cosmo = z_of_dc(dC)
                 v_los = np.sum(V * rhat, axis=1)                 # km/s
+                if REAL_SPACE:
+                    # §3.8: si AZZERA v_los, non si salta il calcolo. Cosi'
+                    # l'espressione sotto e' la stessa e la differenza fra i due
+                    # trattamenti e' un valore, non un ramo.
+                    v_los = np.zeros_like(v_los)
                 z_obs = z_cosmo + (1.0 + z_cosmo) * v_los / C_KMS
                 dC_rsd = np.interp(np.clip(z_obs, 0.0, 0.6), _Z_TAB, _DC_TAB)
                 P_rsd = rhat * dC_rsd[:, None]
@@ -692,6 +757,8 @@ def carve_cutsky(pos_gal, vel_gal, mask, nz_z, nz_target, rng):
                     continue
                 cand_P.append(P_rsd[inmask])
                 cand_z.append(z_obs_s[inmask])
+                if capture is not None:
+                    cand_r.append(rhat[zsel][inmask])
     if not cand_P:
         return np.zeros((0, 3))
     P_cand = np.vstack(cand_P)
@@ -713,6 +780,11 @@ def carve_cutsky(pos_gal, vel_gal, mask, nz_z, nz_target, rng):
     p_bin = np.minimum(p_bin, 1.0)
     p = p_bin[which]
     keep = rng.random(len(z_cand)) < p
+    if capture is not None:
+        # DOPO il Pass 2, cioe' sulla selezione finale, e nello STESSO ordine di
+        # riga di quel che si restituisce: `keep` e' applicato agli stessi array.
+        capture["rhat"] = np.vstack(cand_r)[keep]
+        capture["z_obs"] = z_cand[keep]
     return P_cand[keep]
 
 
