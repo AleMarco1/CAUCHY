@@ -71,6 +71,21 @@ GIB = 1024 ** 3
 DOCUMENTED_TOTAL_BYTES = DOCUMENTED_TOTAL_GIB * GIB
 DOCUMENTED_TOTAL_TOL = 0.0005 * GIB
 
+# Emendamenti: DUE conteggi, e non sono la stessa grandezza.
+#  - PREREG_AMENDMENTS_AT_DEPOSIT e' quanti record esistevano al deposito della
+#    pre-registrazione (v1.1, §9, version DOI 10.5281/zenodo.22148444). Quel
+#    documento non si muove, quindi questa costante non si tocca mai: e' un
+#    limite INFERIORE, perche' il file e' append-only e un record non puo'
+#    sparire. La v1.0 diceva dieci; era il conteggio alla stesura e non al
+#    deposito, ed e' rettificato dentro il §9 stesso.
+#  - DOCUMENTED_AMENDMENTS e' quanti ne dichiara la documentazione corrente
+#    (consegna e checklist). Va incrementata a ogni append, nello stesso commit
+#    che appende: se cambia il file e non la costante, il verificatore lo dice.
+# Il numero di un emendamento e' la sua POSIZIONE a base 1: nel record non
+# esiste nessun campo che lo dichiari, e il §9 vi rimanda per posizione.
+PREREG_AMENDMENTS_AT_DEPOSIT = 12
+DOCUMENTED_AMENDMENTS = 55
+
 # Due grandezze, non due versioni. Vedi il blocco reference in verify().
 REFERENCE_SELF_SHA = "865aa2ef16f299d8653e770d1fb587448f1c455e8c498c2b0db10cd20743f1bc"
 REFERENCE_FILE_SHA = "332939bc2c7889f6cea369cb98535333c712fb1f7c0c89858061dedbb95d1d9d"
@@ -607,15 +622,52 @@ def verify(base: Path, manifest_dir: Path, only_tiers=None, jobs: int = 1,
                 json.loads(l)
             except Exception as exc:
                 badlines.append({"line": i, "error": str(exc)[:80]})
-        ref_info["amendments"] = {"disco": len(lines), "consegna": 12, "prereg_par9": 10,
+        # Deriva di schema, sanata leggendo entrambi i nomi: i record fino all'11
+        # portano `reference_sha256`, il 12 lo spacca in `reference_file_sha256`
+        # (i byte) e `reference_self_sha256` (il contenuto canonico), che e'
+        # esattamente la distinzione che quel record esiste per registrare. Un
+        # record senza nessuno dei tre non e' ancorato a niente.
+        REF_KEYS = ("reference_sha256", "reference_file_sha256",
+                    "reference_self_sha256")
+        # Solo gli emendamenti veri e propri devono portare l'ancora: una
+        # `declaration` non emenda nulla e un `input_hash` porta il digest del
+        # file che congela, non quello del reference.
+        ANCHORED_TYPES = ("amendment", "protocol")
+        unanchored = []
+        for i, l in enumerate(lines, 1):
+            try:
+                r = json.loads(l)
+            except Exception:
+                continue
+            if isinstance(r, dict) and r.get("type") in ANCHORED_TYPES:
+                if not any(k in r for k in REF_KEYS):
+                    unanchored.append({"line": i, "item": r.get("item"),
+                                       "type": r.get("type")})
+        ref_info["amendments"] = {"disco": len(lines),
+                                  "documentati": DOCUMENTED_AMENDMENTS,
+                                  "prereg_al_deposito": PREREG_AMENDMENTS_AT_DEPOSIT,
                                   "malformate": badlines,
+                                  "non_ancorati": unanchored,
                                   "tier_emendati": sorted(overlay)}
-        # Non si controlla l'accordo coi documenti: consegna dice 12 e prereg §9 dice 10,
-        # quindi nessun conteggio potrebbe soddisfarli entrambi. Il numero sul disco e'
-        # il dato; quale documento correggere e' una decisione, non un controllo.
         add("emendamenti: JSONL integro", not badlines,
-            f"disco={len(lines)} (consegna dichiara 12, prereg §9 dichiara 10) "
-            f"righe malformate={len(badlines)}")
+            f"disco={len(lines)} righe malformate={len(badlines)}")
+        # Il file e' append-only: scendere sotto il conteggio al deposito
+        # significa che un record e' stato tolto, che e' l'unica cosa che questo
+        # file non deve poter subire.
+        add("emendamenti: nessun record perso dal deposito",
+            len(lines) >= PREREG_AMENDMENTS_AT_DEPOSIT,
+            f"disco={len(lines)} >= prereg §9 al deposito="
+            f"{PREREG_AMENDMENTS_AT_DEPOSIT}")
+        # E il conteggio corrente deve coincidere con quello dichiarato: se
+        # divergono, o il documento e' indietro o l'append e' avvenuto senza
+        # aggiornarlo, e in entrambi i casi va saputo prima di citare un numero.
+        add("emendamenti: disco == documentazione corrente",
+            len(lines) == DOCUMENTED_AMENDMENTS,
+            f"disco={len(lines)} documentati={DOCUMENTED_AMENDMENTS}")
+        add("emendamenti: ogni record ancorato a un digest del reference",
+            not unanchored,
+            f"non ancorati={unanchored}" if unanchored
+            else f"tutti i {len(lines)} record portano un digest del reference")
 
     dirty = {t: h.get("git", {}).get("dirty") for t, h in heads.items()}
     commits = {t: (h.get("git", {}).get("commit") or "")[:7] for t, h in heads.items()}
@@ -796,7 +848,8 @@ def cmd_selftest(args) -> int:
                json.dumps(o, indent=2).encode())
             return o["_self_sha256"]
         ref_sha = _mkref({"r": 1})          # e' il SELF-digest, come nei manifest veri
-        _w(base / "src/paper2_v1_amendments.jsonl", b'{"a":1}\n' * 12)
+        _w(base / "src/paper2_v1_amendments.jsonl",
+           b'{"a":1}\n' * DOCUMENTED_AMENDMENTS)
         mdir = base / "results/paper2"
 
         _freeze(base, mdir, "records", [base / "results/paper1"], [".jsonl"], [], ref_sha)
@@ -934,7 +987,7 @@ def cmd_selftest(args) -> int:
         r = verify(base=base, manifest_dir=mdir, jobs=1, documented=doc_old)
         pre = [c["check"] for c in r["checks"] if not c["ok"]]
         _w(base / "src/paper2_v1_amendments.jsonl",
-           (b'{"a":1}\n' * 11) + json.dumps(
+           (b'{"a":1}\n' * (DOCUMENTED_AMENDMENTS - 1)) + json.dumps(
                {"json_path": "ensemble_v1_freeze_records",
                 "old_value": {"n_files": 999, "aggregate_sha256": "1" * 64},
                 "new_value": {"n_files": h["n_files"],
@@ -947,7 +1000,44 @@ def cmd_selftest(args) -> int:
                and not any("records].n_files_vs_documento" in c for c in post)
                and not any("records].aggregate_vs_documento" in c for c in post),
                f"(prima={len(pre)} dopo={len(post)})")
-        _w(base / "src/paper2_v1_amendments.jsonl", b'{"a":1}\n' * 12)
+        _w(base / "src/paper2_v1_amendments.jsonl",
+           b'{"a":1}\n' * DOCUMENTED_AMENDMENTS)
+
+        # 13. il conteggio degli emendamenti e' un'asserzione, non piu' una nota
+        def _named(res, frag):
+            return [c for c in res["checks"] if frag in c["check"]]
+        r_ok = verify(base=base, manifest_dir=mdir, jobs=1, documented={})
+        _w(base / "src/paper2_v1_amendments.jsonl",
+           b'{"a":1}\n' * (DOCUMENTED_AMENDMENTS - 1))
+        r_short = verify(base=base, manifest_dir=mdir, jobs=1, documented={})
+        _w(base / "src/paper2_v1_amendments.jsonl",
+           b'{"a":1}\n' * (DOCUMENTED_AMENDMENTS + 1))
+        r_long = verify(base=base, manifest_dir=mdir, jobs=1, documented={})
+        expect("13. conteggio emendamenti: giusto passa, corto e lungo falliscono",
+               all(c["ok"] for c in _named(r_ok, "disco == documentazione"))
+               and not any(c["ok"] for c in _named(r_short, "disco == documentazione"))
+               and not any(c["ok"] for c in _named(r_long, "disco == documentazione")),
+               f"(atteso {DOCUMENTED_AMENDMENTS})")
+
+        # 14. append-only: sotto il conteggio al deposito e' un record perso
+        _w(base / "src/paper2_v1_amendments.jsonl",
+           b'{"a":1}\n' * (PREREG_AMENDMENTS_AT_DEPOSIT - 1))
+        r_lost = verify(base=base, manifest_dir=mdir, jobs=1, documented={})
+        expect("14. record perso dal deposito: segnalato a parte dal conteggio",
+               not any(c["ok"] for c in _named(r_lost, "nessun record perso"))
+               and any(c["ok"] for c in _named(r_short, "nessun record perso")),
+               f"(deposito={PREREG_AMENDMENTS_AT_DEPOSIT})")
+
+        # 15. un record senza digest del reference non passa inosservato
+        _w(base / "src/paper2_v1_amendments.jsonl",
+           (b'{"a":1}\n' * (DOCUMENTED_AMENDMENTS - 1))
+           + json.dumps({"type": "amendment", "item": "senza-ancora"}).encode()
+           + b"\n")
+        r_ua = verify(base=base, manifest_dir=mdir, jobs=1, documented={})
+        expect("15. record senza digest del reference: segnalato",
+               not any(c["ok"] for c in _named(r_ua, "ogni record ancorato")))
+        _w(base / "src/paper2_v1_amendments.jsonl",
+           b'{"a":1}\n' * DOCUMENTED_AMENDMENTS)
 
         outp = base / "logs" / "o.jsonl"
         atomic_append_jsonl(outp, [{"a": 1}]); atomic_append_jsonl(outp, [{"a": 2}])
