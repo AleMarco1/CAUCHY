@@ -6,9 +6,6 @@
 # Paper 1: da li' viene la regola 'results/** -text'.
 # ============================================================
 
-# Nessuna normalizzazione su NULLA dentro results/ e MANIFESTS/.
-results/**      -text
-manifests/**    -text
 
 # I formati append-only, ovunque si trovino.
 *.jsonl         -text
@@ -29,8 +26,8 @@ manifests/**    -text
 *.docx  binary
 
 # Sorgenti e documenti: normalizzazione normale.
-*.py    text
-*.md    text
+*.py    text eol=lf
+*.md    text eol=lf
 *.txt   text
 *.tex   text
 *.bib   text
@@ -38,3 +35,14 @@ manifests/**    -text
 *.cff   text
 *.ps1   text eol=crlf
 *.sh    text eol=lf
+
+# ============================================================
+# ULTIME, e non prime: in .gitattributes vince l'ultima regola
+# che combacia. Messe in testa venivano scavalcate da *.md,
+# *.txt e *.py per i file di risultato che hanno quelle
+# estensioni — tre dei quali sono nel tier congelato records,
+# con un digest sui byte. Qui in coda riprendono la precedenza
+# che il commento in testa gli attribuiva.
+# ============================================================
+results/**      -text
+manifests/**    -text

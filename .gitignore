@@ -92,3 +92,12 @@ results/paper2/ensemble_v1_features.tar.gz
 # artefatto di deposito: RICOSTRUIBILE in modo deterministico dal manifest
 # con src/paper2_tarball_features.py, e verificabile contro l'aggregate
 results/paper2/ensemble_v1_features.tar.gz
+
+# ============================================================
+# Riammissioni per nome, dopo ogni regola che le escluderebbe.
+# ============================================================
+# 1 684 byte: l'asse k delle 110 colonne di pk_matrix, records 61 e 62. La regola
+# *.npz e' scritta per i cubi di campo (il tier fields pesa 18,4 GB); questo e'
+# un artefatto di provenienza, e senza di esso chi verifica dall'esterno non ha
+# l'asse k. Delimitare per estensione e' l'errore del record 68.
+!results/paper2/phase7_pk_nwlh_kref.npz
