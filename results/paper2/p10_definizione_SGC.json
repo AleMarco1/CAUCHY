@@ -1,0 +1,18 @@
+{
+  "schema": "paper2_p10_definizione_v1",
+  "region": "SGC",
+  "utc": "2026-09-11T12:06:01.610291+00:00",
+  "percentile": 10.0,
+  "soglia_in_mask": 0.479716992378235,
+  "soglia_field_r_positivo": 0.2057444363832474,
+  "n_voxel_in_mask": 155002,
+  "n_voxel_alternativa": 160463,
+  "restrizioni_identiche": false,
+  "n_desi_in_mask": 13013,
+  "n_desi_alternativa": 13549,
+  "D_in_mask": 0.29361096002249504,
+  "D_alternativa_approssimato": 0.2644674459845826,
+  "D_paper": null,
+  "nota": "il D alternativo usa la media dei mock della restrizione in-mask: approssimazione dichiarata",
+  "esito": "SENZA VERDETTO: il paper non quota SGC"
+}

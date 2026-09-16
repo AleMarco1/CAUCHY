@@ -1,0 +1,79 @@
+{
+  "schema": "paper2_cammini_desi_v1",
+  "region": "NGC",
+  "utc": "2026-09-08T12:58:26.924244+00:00",
+  "geometria_A": {
+    "box_min": [
+      -1085.5836039835003,
+      -1059.3513403117618,
+      -194.44091723978792
+    ],
+    "box_size": 1997.3629167166155,
+    "sigma_px": 0.32042249039652254,
+    "ngrid": 128,
+    "r_smooth": 5.0
+  },
+  "geometria_B": {
+    "box_min": [
+      -1085.5836039835003,
+      -1059.3513403117618,
+      -194.44091723978792
+    ],
+    "box_size": 1997.3629167166155,
+    "sigma_px": 0.32042249039652254,
+    "ngrid": 128,
+    "r_smooth": 5.0
+  },
+  "alpha_A": 0.015541612150790961,
+  "alpha_B": 0.015541612150790961,
+  "maschere_identiche": true,
+  "campo": {
+    "n_voxel": 307805,
+    "max_abs_diff": 0.00016021728515625,
+    "media_abs_diff": 2.513976601955845e-07,
+    "n_celle_diverse": 206306,
+    "frac_celle_diverse": 0.6702490212959503,
+    "max_A": 125.47415161132812,
+    "max_B": 125.47416687011719,
+    "argmax_A": 141345,
+    "argmax_B": 141345,
+    "stesso_voxel_al_massimo": true,
+    "diff_al_voxel_del_massimo_A": 1.52587890625e-05
+  },
+  "soglia_A": 125.47415161132812,
+  "soglia_B": 125.47416687011719,
+  "ulp": 2.0,
+  "mock": [
+    {
+      "idx": 0,
+      "n_pat_A": 3963,
+      "n_pat_B": 3963,
+      "n_fra_le_due": 0
+    },
+    {
+      "idx": 1,
+      "n_pat_A": 3899,
+      "n_pat_B": 3899,
+      "n_fra_le_due": 0
+    },
+    {
+      "idx": 2,
+      "n_pat_A": 4036,
+      "n_pat_B": 4036,
+      "n_fra_le_due": 0
+    },
+    {
+      "idx": 3,
+      "n_pat_A": 4010,
+      "n_pat_B": 4010,
+      "n_fra_le_due": 0
+    },
+    {
+      "idx": 4,
+      "n_pat_A": 4072,
+      "n_pat_B": 4072,
+      "n_fra_le_due": 0
+    }
+  ],
+  "verdetto": "IRRILEVANTE"
+}

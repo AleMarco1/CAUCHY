@@ -1,0 +1,205 @@
+{
+  "schema": "paper2_verdetto_v2",
+  "region": "SGC",
+  "utc": "2026-09-11T06:41:27.287025+00:00",
+  "n": 2000,
+  "cancelli": [
+    {
+      "prova": "record attesi",
+      "ok": true,
+      "dettaglio": "2000 su 2000"
+    },
+    {
+      "prova": "indici unici",
+      "ok": true,
+      "dettaglio": "2000 distinti su 2000"
+    },
+    {
+      "prova": "nessuno smoke nel registro",
+      "ok": true,
+      "dettaglio": "0 con smoke"
+    },
+    {
+      "prova": "sommario PULITA",
+      "ok": true,
+      "dettaglio": "PULITA"
+    },
+    {
+      "prova": "sommario non smoke",
+      "ok": true,
+      "dettaglio": ""
+    },
+    {
+      "prova": "regione coerente",
+      "ok": true,
+      "dettaglio": "SGC"
+    },
+    {
+      "prova": "i voxel fra le due soglie non spostano n_patologici",
+      "ok": true,
+      "dettaglio": "10 voxel in tutto, massimo 1 per realizzazione: bias 0.0050 = 0.0031 SEM, limite 0.5"
+    },
+    {
+      "prova": "nu identico per le due vie, entrambi i rami",
+      "ok": true,
+      "dettaglio": "0 realizzazioni diverse"
+    },
+    {
+      "prova": "diagnostica fra catene su tutte",
+      "ok": true,
+      "dettaglio": "2000 su 2000"
+    },
+    {
+      "prova": "ancora di catena su tutti gli indici 0-199",
+      "ok": true,
+      "dettaglio": "200 su 200 indici in quell'intervallo"
+    },
+    {
+      "prova": "e ogni scarto di catena e' ZERO",
+      "ok": true,
+      "dettaglio": "peggior scarto 0"
+    },
+    {
+      "prova": "mai due nomi per il confronto con n6 sullo stesso record",
+      "ok": true,
+      "dettaglio": "0 record con entrambi: []"
+    },
+    {
+      "prova": "in SGC nessun record porta il confronto con n6, che non esiste",
+      "ok": true,
+      "dettaglio": "0 con: []"
+    },
+    {
+      "prova": "le diagnostiche stanno su entrambi i rami",
+      "ok": true,
+      "dettaglio": "0 senza"
+    }
+  ],
+  "desi": {
+    "var_delta": 4.815533379463941,
+    "kurt_nu": -1.1351732307682145,
+    "max_delta": 161.66964721679688
+  },
+  "regole": {
+    "4.2b-1": {
+      "R": 2085.226525216027,
+      "sigma": 7.444587799414521,
+      "R_piu_3sigma": 2107.5602886142706,
+      "R_meno_3sigma": 2062.892761817783,
+      "soglia_successo": 16.1314,
+      "soglia_fallimento": 100.0,
+      "esito": "FALLIMENTO"
+    },
+    "4.2b-2": {
+      "z": -8.16432399809673,
+      "rango": 1,
+      "rango_min": 50,
+      "rango_max": 1950,
+      "rango_dentro_95": false,
+      "mock_media": 1.124908878835639,
+      "mock_sd": 0.2768241571660709,
+      "desi": -1.1351732307682145,
+      "esito": "FALLIMENTO"
+    },
+    "4.2b-4": {
+      "rango": 0,
+      "rango_min": 50,
+      "rango_max": 1950,
+      "desi": 161.66964721679688,
+      "mediana_mock": 6518.275390625,
+      "mediana_su_desi": 40.31848589292756,
+      "mediana_su_desi_v1": 27.8,
+      "esito": "FALLIMENTO"
+    },
+    "4.2c": {
+      "media": 2795.108,
+      "sd": 70.76500674125273,
+      "sem": 1.5823536550167197,
+      "soglia_successo": 937.19,
+      "soglia_fallimento": 1874.37,
+      "dispersione_su_media": 0.025317449895049755,
+      "limite_invalidazione": 0.3333333333333333,
+      "invalidata": false,
+      "esito": "FALLIMENTO"
+    },
+    "4.2b-3": {
+      "media": 4.7881837587263245,
+      "sd": 0.15074231681337405,
+      "nota": "ritirata come falsificazione dal record 54; nessuna soglia"
+    },
+    "4.3b": {
+      "desi_N_H1_k012": [
+        15122.0,
+        12011.0,
+        10049.0
+      ],
+      "fonte_lato_dati": "desi_ladder_SGC.json",
+      "P_v1_corretta_pp": 3.9716387996783453,
+      "P_v1_curvatura_pp": 3.5881993622738086,
+      "sem_v1_corretta_pp": 0.007117671607931772,
+      "soglia_successo_derivata": 1.3238795998927817,
+      "soglia_fallimento_derivata": 2.6477591997855634,
+      "separazione_zone_sigma": 185.9989716886461,
+      "guadagno_appaiamento": 4.7267080573383184,
+      "P_v2_corretta_pp": 3.9877532370277495,
+      "sem_v2_corretta_pp": 0.007194723028697145,
+      "P_v2_in_sigma_da_zero": 554.2608410528169,
+      "compatibile_con_zero": false,
+      "zone_separate_3sigma": true,
+      "esito": "FALLIMENTO"
+    }
+  },
+  "appaiato": {
+    "var": {
+      "v1_media": 9886.609609017378,
+      "v2_media": 10041.477935921386,
+      "delta_media": 154.8683269040078,
+      "delta_sem": 3.6654579590162597,
+      "sigma": 42.2507442823247,
+      "sd_non_appaiata": 50.4508998475545
+    },
+    "kurt": {
+      "v1_media": 1.132693745089606,
+      "v2_media": 1.124908878835639,
+      "delta_media": -0.0077848662539670805,
+      "delta_sem": 3.877105816536517e-05,
+      "sigma": -200.79065731874792,
+      "sd_non_appaiata": 0.008776607021569299
+    },
+    "max": {
+      "v1_media": 6971.6328602294925,
+      "v2_media": 7195.708195922852,
+      "delta_media": 224.07533569335936,
+      "delta_sem": 16.957564304446638,
+      "sigma": 13.213886833653461,
+      "sd_non_appaiata": 94.1698000972309
+    },
+    "npat": {
+      "v1_media": 2811.555,
+      "v2_media": 2795.108,
+      "delta_media": -16.447,
+      "delta_sem": 0.3190720905994439,
+      "sigma": -51.546344805968005,
+      "sd_non_appaiata": 2.2482687810303905
+    },
+    "rf": {
+      "v1_media": 4.789978519906156,
+      "v2_media": 4.7881837587263245,
+      "delta_media": -0.0017947611798322062,
+      "delta_sem": 6.591439769482415e-05,
+      "sigma": -27.228666916471536,
+      "sd_non_appaiata": 0.004773785471100748
+    }
+  },
+  "n6_due_nomi": {
+    "nomi": [
+      "ancora_n6_wfkp",
+      "diagnostica_n6_wfkp"
+    ],
+    "conteggio": {
+      "ancora_n6_wfkp": 0,
+      "diagnostica_n6_wfkp": 0
+    },
+    "nota": "stessa grandezza, due nomi, due versioni del runner; registro append-only, la corrispondenza sta nel lettore"
+  }
+}

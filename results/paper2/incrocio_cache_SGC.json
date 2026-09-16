@@ -1,0 +1,21 @@
+{
+  "schema": "paper2_incrocio_cache_v1",
+  "region": "SGC",
+  "utc": "2026-09-11T05:43:46.940622+00:00",
+  "registro": "D:\\projects\\cauchy\\results\\paper2\\ensemble_v2_SGC.jsonl",
+  "cache": "D:\\projects\\cauchy\\data\\processed\\paper2_mock_deltas_v2\\SGC",
+  "n_record_con_file": 2000,
+  "n_smoke_scartati": 0,
+  "n_senza_file": 0,
+  "n_coincidono": 2000,
+  "n_discordi": 0,
+  "discordi": [],
+  "file_mancanti": [],
+  "senza_digest": [],
+  "n_file_su_disco": 2000,
+  "orfani": [],
+  "byte_verificati": 16777472000,
+  "secondi": 17.70001721382141,
+  "verifica_parziale": false,
+  "esito": "PULITO"
+}

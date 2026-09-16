@@ -1,0 +1,79 @@
+{
+  "schema": "paper2_cammini_desi_v1",
+  "region": "SGC",
+  "utc": "2026-09-08T12:59:48.318770+00:00",
+  "geometria_A": {
+    "box_min": [
+      70.83764296585042,
+      -857.7211332764833,
+      -363.6064145586423
+    ],
+    "box_size": 1904.4501607158168,
+    "sigma_px": 0.3360550006514459,
+    "ngrid": 128,
+    "r_smooth": 5.0
+  },
+  "geometria_B": {
+    "box_min": [
+      70.83764259955724,
+      -857.7211328255925,
+      -363.6064140448272
+    ],
+    "box_size": 1904.450156441475,
+    "sigma_px": 0.3360550014056866,
+    "ngrid": 128,
+    "r_smooth": 5.0
+  },
+  "alpha_A": 0.014565905243656705,
+  "alpha_B": 0.014565905243656705,
+  "maschere_identiche": true,
+  "campo": {
+    "n_voxel": 172225,
+    "max_abs_diff": 0.000396728515625,
+    "media_abs_diff": 2.2273091358168705e-07,
+    "n_celle_diverse": 101724,
+    "frac_celle_diverse": 0.590645957323269,
+    "max_A": 161.66964721679688,
+    "max_B": 161.6700439453125,
+    "argmax_A": 129707,
+    "argmax_B": 129707,
+    "stesso_voxel_al_massimo": true,
+    "diff_al_voxel_del_massimo_A": 0.000396728515625
+  },
+  "soglia_A": 161.66964721679688,
+  "soglia_B": 161.6700439453125,
+  "ulp": 26.0,
+  "mock": [
+    {
+      "idx": 0,
+      "n_pat_A": 2724,
+      "n_pat_B": 2724,
+      "n_fra_le_due": 0
+    },
+    {
+      "idx": 1,
+      "n_pat_A": 2831,
+      "n_pat_B": 2831,
+      "n_fra_le_due": 0
+    },
+    {
+      "idx": 2,
+      "n_pat_A": 2822,
+      "n_pat_B": 2822,
+      "n_fra_le_due": 0
+    },
+    {
+      "idx": 3,
+      "n_pat_A": 2813,
+      "n_pat_B": 2813,
+      "n_fra_le_due": 0
+    },
+    {
+      "idx": 4,
+      "n_pat_A": 2799,
+      "n_pat_B": 2799,
+      "n_fra_le_due": 0
+    }
+  ],
+  "verdetto": "IRRILEVANTE"
+}

@@ -1,0 +1,151 @@
+{"_questo_file": "coppie per load_pairs di src/paper2_gate53.py", "_prodotto_da": "paper2_fase5_a_coppie rev.1", "_utc": "2026-09-14T12:33:50Z", "_region": "SGC", "_sorgenti": [{"path": "results/paper2/fasi_mock_pr_v1_SGC.jsonl", "tipo": "mock_pr", "sha256": "10289802f29899588212466f418045fc259088fc90176f872a55d02a31cad7a1", "righe": 100}, {"path": "results/paper2/fasi_desi_pr_SGC.jsonl", "tipo": "desi_pr", "sha256": "a72e74447ed85921f06c2aaa5bde7216c8067e4afb3ff71354b5ec975ba40adb", "righe": 50}], "_cosa_e_stato_aggiunto": "il solo campo 'tipo', che i file di Fase 5 non hanno perche' la divisione in due file lo sostituiva. Nessuna quantita' ricalcolata, nessuna conversione.", "_corrispondenza_dichiarata": {"mock_pr": {"idx": "idx", "N_H1_orig": "N_H1_orig", "N_H1": "N_H1"}, "desi_pr": {"idx": "idx", "N_H1": "N_H1"}}, "_campi_dell_originale_non_portati": ["mean_pers1", "b1_peak"], "_avvertenza": "NON e' un n10_phases_*.jsonl: quel nome promette lo schema di paper1_rev_n10_phases.py, che porta anche mean_pers1, b1_peak.", "_nota": "questa riga non ha 'tipo', quindi load_pairs la ignora."}
+{"tipo": "mock_pr", "idx": 0, "N_H1_orig": 18627.0, "N_H1": 21008.0}
+{"tipo": "mock_pr", "idx": 1, "N_H1_orig": 18305.0, "N_H1": 20698.0}
+{"tipo": "mock_pr", "idx": 2, "N_H1_orig": 18966.0, "N_H1": 21413.0}
+{"tipo": "mock_pr", "idx": 3, "N_H1_orig": 18761.0, "N_H1": 21295.0}
+{"tipo": "mock_pr", "idx": 4, "N_H1_orig": 18782.0, "N_H1": 21250.0}
+{"tipo": "mock_pr", "idx": 5, "N_H1_orig": 18668.0, "N_H1": 21169.0}
+{"tipo": "mock_pr", "idx": 6, "N_H1_orig": 18659.0, "N_H1": 21093.0}
+{"tipo": "mock_pr", "idx": 7, "N_H1_orig": 18790.0, "N_H1": 21124.0}
+{"tipo": "mock_pr", "idx": 8, "N_H1_orig": 18756.0, "N_H1": 20949.0}
+{"tipo": "mock_pr", "idx": 9, "N_H1_orig": 18718.0, "N_H1": 21384.0}
+{"tipo": "mock_pr", "idx": 10, "N_H1_orig": 18885.0, "N_H1": 21374.0}
+{"tipo": "mock_pr", "idx": 11, "N_H1_orig": 18547.0, "N_H1": 21372.0}
+{"tipo": "mock_pr", "idx": 12, "N_H1_orig": 18710.0, "N_H1": 21380.0}
+{"tipo": "mock_pr", "idx": 13, "N_H1_orig": 18566.0, "N_H1": 21138.0}
+{"tipo": "mock_pr", "idx": 14, "N_H1_orig": 18805.0, "N_H1": 21407.0}
+{"tipo": "mock_pr", "idx": 15, "N_H1_orig": 18728.0, "N_H1": 21304.0}
+{"tipo": "mock_pr", "idx": 16, "N_H1_orig": 18740.0, "N_H1": 21001.0}
+{"tipo": "mock_pr", "idx": 17, "N_H1_orig": 18764.0, "N_H1": 21425.0}
+{"tipo": "mock_pr", "idx": 18, "N_H1_orig": 18776.0, "N_H1": 21152.0}
+{"tipo": "mock_pr", "idx": 19, "N_H1_orig": 18855.0, "N_H1": 21127.0}
+{"tipo": "mock_pr", "idx": 20, "N_H1_orig": 18767.0, "N_H1": 21227.0}
+{"tipo": "mock_pr", "idx": 21, "N_H1_orig": 18985.0, "N_H1": 21439.0}
+{"tipo": "mock_pr", "idx": 22, "N_H1_orig": 18586.0, "N_H1": 21308.0}
+{"tipo": "mock_pr", "idx": 23, "N_H1_orig": 18465.0, "N_H1": 21049.0}
+{"tipo": "mock_pr", "idx": 24, "N_H1_orig": 18592.0, "N_H1": 21003.0}
+{"tipo": "mock_pr", "idx": 25, "N_H1_orig": 18590.0, "N_H1": 20827.0}
+{"tipo": "mock_pr", "idx": 26, "N_H1_orig": 18626.0, "N_H1": 21391.0}
+{"tipo": "mock_pr", "idx": 27, "N_H1_orig": 18240.0, "N_H1": 20473.0}
+{"tipo": "mock_pr", "idx": 28, "N_H1_orig": 18709.0, "N_H1": 21325.0}
+{"tipo": "mock_pr", "idx": 29, "N_H1_orig": 18833.0, "N_H1": 21350.0}
+{"tipo": "mock_pr", "idx": 30, "N_H1_orig": 19077.0, "N_H1": 21482.0}
+{"tipo": "mock_pr", "idx": 31, "N_H1_orig": 18896.0, "N_H1": 21226.0}
+{"tipo": "mock_pr", "idx": 32, "N_H1_orig": 18263.0, "N_H1": 20419.0}
+{"tipo": "mock_pr", "idx": 33, "N_H1_orig": 18736.0, "N_H1": 21191.0}
+{"tipo": "mock_pr", "idx": 34, "N_H1_orig": 18645.0, "N_H1": 21043.0}
+{"tipo": "mock_pr", "idx": 35, "N_H1_orig": 18482.0, "N_H1": 21113.0}
+{"tipo": "mock_pr", "idx": 36, "N_H1_orig": 18886.0, "N_H1": 21297.0}
+{"tipo": "mock_pr", "idx": 37, "N_H1_orig": 18871.0, "N_H1": 21409.0}
+{"tipo": "mock_pr", "idx": 38, "N_H1_orig": 18963.0, "N_H1": 21402.0}
+{"tipo": "mock_pr", "idx": 39, "N_H1_orig": 18950.0, "N_H1": 21248.0}
+{"tipo": "mock_pr", "idx": 40, "N_H1_orig": 18596.0, "N_H1": 21176.0}
+{"tipo": "mock_pr", "idx": 41, "N_H1_orig": 18703.0, "N_H1": 21553.0}
+{"tipo": "mock_pr", "idx": 42, "N_H1_orig": 18564.0, "N_H1": 21260.0}
+{"tipo": "mock_pr", "idx": 43, "N_H1_orig": 18572.0, "N_H1": 21087.0}
+{"tipo": "mock_pr", "idx": 44, "N_H1_orig": 18798.0, "N_H1": 21194.0}
+{"tipo": "mock_pr", "idx": 45, "N_H1_orig": 18806.0, "N_H1": 21309.0}
+{"tipo": "mock_pr", "idx": 46, "N_H1_orig": 18806.0, "N_H1": 21192.0}
+{"tipo": "mock_pr", "idx": 47, "N_H1_orig": 18543.0, "N_H1": 21071.0}
+{"tipo": "mock_pr", "idx": 48, "N_H1_orig": 18562.0, "N_H1": 21125.0}
+{"tipo": "mock_pr", "idx": 49, "N_H1_orig": 18794.0, "N_H1": 21272.0}
+{"tipo": "mock_pr", "idx": 50, "N_H1_orig": 18725.0, "N_H1": 21369.0}
+{"tipo": "mock_pr", "idx": 51, "N_H1_orig": 18583.0, "N_H1": 21234.0}
+{"tipo": "mock_pr", "idx": 52, "N_H1_orig": 18667.0, "N_H1": 21058.0}
+{"tipo": "mock_pr", "idx": 53, "N_H1_orig": 18595.0, "N_H1": 21110.0}
+{"tipo": "mock_pr", "idx": 54, "N_H1_orig": 18723.0, "N_H1": 21301.0}
+{"tipo": "mock_pr", "idx": 55, "N_H1_orig": 18478.0, "N_H1": 21307.0}
+{"tipo": "mock_pr", "idx": 56, "N_H1_orig": 18836.0, "N_H1": 21493.0}
+{"tipo": "mock_pr", "idx": 57, "N_H1_orig": 18880.0, "N_H1": 21494.0}
+{"tipo": "mock_pr", "idx": 58, "N_H1_orig": 18823.0, "N_H1": 21320.0}
+{"tipo": "mock_pr", "idx": 59, "N_H1_orig": 18670.0, "N_H1": 21128.0}
+{"tipo": "mock_pr", "idx": 60, "N_H1_orig": 18839.0, "N_H1": 21357.0}
+{"tipo": "mock_pr", "idx": 61, "N_H1_orig": 18575.0, "N_H1": 20960.0}
+{"tipo": "mock_pr", "idx": 62, "N_H1_orig": 18944.0, "N_H1": 21259.0}
+{"tipo": "mock_pr", "idx": 63, "N_H1_orig": 18749.0, "N_H1": 21101.0}
+{"tipo": "mock_pr", "idx": 64, "N_H1_orig": 18759.0, "N_H1": 21214.0}
+{"tipo": "mock_pr", "idx": 65, "N_H1_orig": 18626.0, "N_H1": 21013.0}
+{"tipo": "mock_pr", "idx": 66, "N_H1_orig": 18689.0, "N_H1": 21242.0}
+{"tipo": "mock_pr", "idx": 67, "N_H1_orig": 18745.0, "N_H1": 21098.0}
+{"tipo": "mock_pr", "idx": 68, "N_H1_orig": 18463.0, "N_H1": 20790.0}
+{"tipo": "mock_pr", "idx": 69, "N_H1_orig": 18734.0, "N_H1": 21355.0}
+{"tipo": "mock_pr", "idx": 70, "N_H1_orig": 18935.0, "N_H1": 21268.0}
+{"tipo": "mock_pr", "idx": 71, "N_H1_orig": 18769.0, "N_H1": 21185.0}
+{"tipo": "mock_pr", "idx": 72, "N_H1_orig": 18182.0, "N_H1": 20828.0}
+{"tipo": "mock_pr", "idx": 73, "N_H1_orig": 18747.0, "N_H1": 21170.0}
+{"tipo": "mock_pr", "idx": 74, "N_H1_orig": 18772.0, "N_H1": 21192.0}
+{"tipo": "mock_pr", "idx": 75, "N_H1_orig": 18849.0, "N_H1": 21445.0}
+{"tipo": "mock_pr", "idx": 76, "N_H1_orig": 18618.0, "N_H1": 21186.0}
+{"tipo": "mock_pr", "idx": 77, "N_H1_orig": 18979.0, "N_H1": 21352.0}
+{"tipo": "mock_pr", "idx": 78, "N_H1_orig": 18595.0, "N_H1": 21196.0}
+{"tipo": "mock_pr", "idx": 79, "N_H1_orig": 18971.0, "N_H1": 21329.0}
+{"tipo": "mock_pr", "idx": 80, "N_H1_orig": 18508.0, "N_H1": 20991.0}
+{"tipo": "mock_pr", "idx": 81, "N_H1_orig": 18644.0, "N_H1": 21230.0}
+{"tipo": "mock_pr", "idx": 82, "N_H1_orig": 18553.0, "N_H1": 21236.0}
+{"tipo": "mock_pr", "idx": 83, "N_H1_orig": 18467.0, "N_H1": 20910.0}
+{"tipo": "mock_pr", "idx": 84, "N_H1_orig": 19063.0, "N_H1": 21347.0}
+{"tipo": "mock_pr", "idx": 85, "N_H1_orig": 18656.0, "N_H1": 21055.0}
+{"tipo": "mock_pr", "idx": 86, "N_H1_orig": 18734.0, "N_H1": 21338.0}
+{"tipo": "mock_pr", "idx": 87, "N_H1_orig": 18385.0, "N_H1": 20534.0}
+{"tipo": "mock_pr", "idx": 88, "N_H1_orig": 19171.0, "N_H1": 21231.0}
+{"tipo": "mock_pr", "idx": 89, "N_H1_orig": 18537.0, "N_H1": 20825.0}
+{"tipo": "mock_pr", "idx": 90, "N_H1_orig": 18878.0, "N_H1": 21168.0}
+{"tipo": "mock_pr", "idx": 91, "N_H1_orig": 18608.0, "N_H1": 21276.0}
+{"tipo": "mock_pr", "idx": 92, "N_H1_orig": 18843.0, "N_H1": 21272.0}
+{"tipo": "mock_pr", "idx": 93, "N_H1_orig": 18742.0, "N_H1": 21404.0}
+{"tipo": "mock_pr", "idx": 94, "N_H1_orig": 18366.0, "N_H1": 20867.0}
+{"tipo": "mock_pr", "idx": 95, "N_H1_orig": 18556.0, "N_H1": 21068.0}
+{"tipo": "mock_pr", "idx": 96, "N_H1_orig": 18695.0, "N_H1": 21390.0}
+{"tipo": "mock_pr", "idx": 97, "N_H1_orig": 18902.0, "N_H1": 21251.0}
+{"tipo": "mock_pr", "idx": 98, "N_H1_orig": 18612.0, "N_H1": 21093.0}
+{"tipo": "mock_pr", "idx": 99, "N_H1_orig": 18619.0, "N_H1": 21209.0}
+{"tipo": "desi_pr", "idx": 0, "N_H1": 18130.0}
+{"tipo": "desi_pr", "idx": 1, "N_H1": 18119.0}
+{"tipo": "desi_pr", "idx": 2, "N_H1": 18174.0}
+{"tipo": "desi_pr", "idx": 3, "N_H1": 18071.0}
+{"tipo": "desi_pr", "idx": 4, "N_H1": 18289.0}
+{"tipo": "desi_pr", "idx": 5, "N_H1": 18286.0}
+{"tipo": "desi_pr", "idx": 6, "N_H1": 18242.0}
+{"tipo": "desi_pr", "idx": 7, "N_H1": 18188.0}
+{"tipo": "desi_pr", "idx": 8, "N_H1": 18280.0}
+{"tipo": "desi_pr", "idx": 9, "N_H1": 18256.0}
+{"tipo": "desi_pr", "idx": 10, "N_H1": 18248.0}
+{"tipo": "desi_pr", "idx": 11, "N_H1": 18242.0}
+{"tipo": "desi_pr", "idx": 12, "N_H1": 18098.0}
+{"tipo": "desi_pr", "idx": 13, "N_H1": 18142.0}
+{"tipo": "desi_pr", "idx": 14, "N_H1": 18331.0}
+{"tipo": "desi_pr", "idx": 15, "N_H1": 18138.0}
+{"tipo": "desi_pr", "idx": 16, "N_H1": 18139.0}
+{"tipo": "desi_pr", "idx": 17, "N_H1": 18232.0}
+{"tipo": "desi_pr", "idx": 18, "N_H1": 17730.0}
+{"tipo": "desi_pr", "idx": 19, "N_H1": 18180.0}
+{"tipo": "desi_pr", "idx": 20, "N_H1": 18100.0}
+{"tipo": "desi_pr", "idx": 21, "N_H1": 18248.0}
+{"tipo": "desi_pr", "idx": 22, "N_H1": 18175.0}
+{"tipo": "desi_pr", "idx": 23, "N_H1": 18184.0}
+{"tipo": "desi_pr", "idx": 24, "N_H1": 18207.0}
+{"tipo": "desi_pr", "idx": 25, "N_H1": 18254.0}
+{"tipo": "desi_pr", "idx": 26, "N_H1": 18169.0}
+{"tipo": "desi_pr", "idx": 27, "N_H1": 18210.0}
+{"tipo": "desi_pr", "idx": 28, "N_H1": 18294.0}
+{"tipo": "desi_pr", "idx": 29, "N_H1": 18128.0}
+{"tipo": "desi_pr", "idx": 30, "N_H1": 18025.0}
+{"tipo": "desi_pr", "idx": 31, "N_H1": 18054.0}
+{"tipo": "desi_pr", "idx": 32, "N_H1": 18078.0}
+{"tipo": "desi_pr", "idx": 33, "N_H1": 18126.0}
+{"tipo": "desi_pr", "idx": 34, "N_H1": 18255.0}
+{"tipo": "desi_pr", "idx": 35, "N_H1": 18301.0}
+{"tipo": "desi_pr", "idx": 36, "N_H1": 18211.0}
+{"tipo": "desi_pr", "idx": 37, "N_H1": 18050.0}
+{"tipo": "desi_pr", "idx": 38, "N_H1": 18052.0}
+{"tipo": "desi_pr", "idx": 39, "N_H1": 18225.0}
+{"tipo": "desi_pr", "idx": 40, "N_H1": 17983.0}
+{"tipo": "desi_pr", "idx": 41, "N_H1": 18232.0}
+{"tipo": "desi_pr", "idx": 42, "N_H1": 18000.0}
+{"tipo": "desi_pr", "idx": 43, "N_H1": 18268.0}
+{"tipo": "desi_pr", "idx": 44, "N_H1": 18211.0}
+{"tipo": "desi_pr", "idx": 45, "N_H1": 18296.0}
+{"tipo": "desi_pr", "idx": 46, "N_H1": 17911.0}
+{"tipo": "desi_pr", "idx": 47, "N_H1": 18129.0}
+{"tipo": "desi_pr", "idx": 48, "N_H1": 18117.0}
+{"tipo": "desi_pr", "idx": 49, "N_H1": 18278.0}

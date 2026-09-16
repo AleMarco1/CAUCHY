@@ -1,0 +1,26 @@
+{
+  "schema": "paper2_desi_ladder_v1",
+  "region": "SGC",
+  "utc": "2026-09-09T13:50:56.071908+00:00",
+  "n_voxel_maschera": 172225,
+  "sigma_px": 0.3360550006514459,
+  "alpha": 0.014565905243656705,
+  "cammino": "analitico (step6, riga DESI v1, n10)",
+  "cache_nu": "D:\\projects\\cauchy\\results\\paper2\\n1_desi_nu_SGC.npy",
+  "cache_dove": "in results/paper2",
+  "cache_preesistente": "identica",
+  "erosioni": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "N_H1_k0": 15122,
+  "b1_peak_k0": 4507.0,
+  "N_H1_k1": 12011,
+  "b1_peak_k1": 4165.0,
+  "N_H1_k2": 10049,
+  "b1_peak_k2": 3407.0,
+  "N_H1_k3": 6751,
+  "b1_peak_k3": 2271.0
+}

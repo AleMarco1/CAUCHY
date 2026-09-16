@@ -10,10 +10,12 @@ Referee 2 §3, il rilievo piu' duro del rapporto, in sintesi. La Sez. 6.2
 caratterizza bene l'asimmetria di pesatura (dati con completeness+FKP, mock a
 peso unitario) e dimostra che non trasporta cicli, ma rimanda la correzione
 alla sorgente a un articolo compagno. Per un lavoro la cui affermazione
-centrale e' un confronto dati-mock di precisione questo non basta: M26
-Tabella 1 mostra gia' che pesare i mock in stile FKP sposta la media di ~600
-generatori ALLONTANANDOLA dai dati, e quel limite va importato esplicitamente
-nella banda sistematica di Sez. 6.3. Il referee chiede inoltre perche' la
+centrale e' un confronto dati-mock di precisione questo non basta, e il limite
+va importato esplicitamente nella banda sistematica di Sez. 6.3.
+La motivazione originaria citava il +622 «away from the data» della Tabella 1 di
+M26 PRE-REVISIONE. Questo script ha misurato -78.0 +/- 8.0, VERSO i dati; il
+Paper 1 §7.2 nota (i) spiega perche' non era la stessa misura (base 35 838, peso
+posizionale invece del w_FKP(z) radiale), e M26 R1 ha corretto la riga. Il referee chiede inoltre perche' la
 voxelizzazione FKP-pesata dei mock - una modifica di poche righe alla
 pipeline - non possa essere eseguita almeno su un sottoinsieme N = 200 qui.
 
@@ -75,7 +77,17 @@ import numpy as np
 NH1 = "base.N_H1"
 MIN_IDX = 200
 DEFICIT = 7181.5
-M26_TAB1_SHIFT = 600.0     # spostamento citato da M26, Tabella 1
+# M26 PRE-REVISIONE, Tabella 1: +622 generatori, "away from the data".
+# NON e' la stessa misura (Paper 1 §7.2, nota (i)): parte da una linea di base di
+# 35 838, che non e' l'ensemble congelato (35 436.686), e applica un "peso
+# posizionale in stile FKP" invece del w_FKP(z) radiale che dati e random
+# portano. La riga E' CORRETTA in M26 R1, che oggi porta -78.0 +/- 8.0
+# "towards data (~1%)". Il valore sotto e' STORIA, non un termine di paragone:
+# confrontarci una misura nuova produce un verdetto falso.
+M26_TAB1_PREREV = 622.0    # ruolo: provenienza. NON usare come confronto.
+# M26 R1, Tabella 1, riga "w_FKP(z) on mocks (60 pairs)". Ruolo: RIPRODUZIONE.
+M26_R1_ROW = -78.0
+M26_R1_SEM = 8.0
 
 
 def atomic_write_json(path, obj):
@@ -294,8 +306,10 @@ def main():
           f"{100*(1-d.std(ddof=1)/u.std(ddof=1)):.0f}%)")
     print(f"    range [{d.min():+.0f}, {d.max():+.0f}]")
     print(f"\n  in frazione del deficit: {100*d.mean()/DEFICIT:+.2f}%")
-    print(f"  M26 Tabella 1 cita ~{M26_TAB1_SHIFT:.0f} generatori "
-          f"({100*M26_TAB1_SHIFT/DEFICIT:.1f}%), in allontanamento dai dati")
+    print(f"  M26 R1, Tabella 1: {M26_R1_ROW:+.1f} +/- {M26_R1_SEM:.1f}, "
+          f"verso i dati -- e' questa la riga da riprodurre")
+    print(f"  (il +{M26_TAB1_PREREV:.0f} pre-revisione e' un'ALTRA misura: "
+          f"base 35838, peso posizionale. Paper 1 §7.2 nota (i))")
 
     print("\n  LETTURA:")
     if d.mean() > 0:
@@ -307,12 +321,15 @@ def main():
         print(f"    Il peso FKP ABBASSA la media dei mock, avvicinandoli ai")
         print(f"    dati di {abs(d.mean()):.0f} generatori "
               f"({100*abs(d.mean())/DEFICIT:.1f}% del deficit).")
-        print(f"    ATTENZIONE: e' la direzione OPPOSTA a quella che M26")
-        print(f"    Tabella 1 riporta. La discrepanza va risolta prima di")
-        print(f"    citare l'uno o l'altro.")
-    agree = abs(abs(d.mean()) - M26_TAB1_SHIFT) < 3 * sem + 0.3 * M26_TAB1_SHIFT
-    print(f"\n    compatibile in modulo con M26 Tabella 1: "
-          f"{'SI' if agree else 'NO - da chiarire'}")
+        print(f"    E' la direzione che M26 R1 e Paper 1 §7.2 riportano.")
+    tolleranza = 3 * max(sem, M26_R1_SEM)
+    agree = abs(d.mean() - M26_R1_ROW) <= tolleranza
+    print(f"\n    riproduce la riga di M26 R1 ({M26_R1_ROW:+.1f}): "
+          f"{'SI' if agree else 'NO'}  "
+          f"(scarto {abs(d.mean() - M26_R1_ROW):.1f} contro {tolleranza:.1f})")
+    if d.mean() > 0:
+        print("    *** ALLARME: segno POSITIVO. Contraddice sia M26 R1 sia il")
+        print("    run precedente, e va risolto prima di citare qualunque valore. ***")
     print(f"\n    Nota per il testo: il referee chiede N = 200 non appaiati. Il")
     print(f"    disegno appaiato con {len(recs)} coppie da' SEM = {sem:.1f}")
     print(f"    contro {u.std(ddof=1)/np.sqrt(200):.1f} che si otterrebbe con")
@@ -324,7 +341,9 @@ def main():
         "delta_sd": float(d.std(ddof=1)),
         "unit_mean": float(u.mean()), "unit_sd": float(u.std(ddof=1)),
         "frazione_deficit": float(d.mean() / DEFICIT),
-        "m26_tab1_shift": M26_TAB1_SHIFT,
+        "m26_r1_row": M26_R1_ROW, "m26_r1_sem": M26_R1_SEM,
+        "m26_tab1_prerev": M26_TAB1_PREREV,
+        "riproduce_m26_r1": bool(agree),
         "wfkp_mean": float(np.mean([r["wfkp_mean"] for r in recs])),
         "cancello_superato": bool(all(gates)) if gates else None})
     print(f"\n  report: {res/'paper1'/'n6_report_NGC.json'}")

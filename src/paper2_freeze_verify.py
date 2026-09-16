@@ -84,7 +84,7 @@ DOCUMENTED_TOTAL_TOL = 0.0005 * GIB
 # Il numero di un emendamento e' la sua POSIZIONE a base 1: nel record non
 # esiste nessun campo che lo dichiari, e il §9 vi rimanda per posizione.
 PREREG_AMENDMENTS_AT_DEPOSIT = 12
-DOCUMENTED_AMENDMENTS = 69
+DOCUMENTED_AMENDMENTS = 70
 
 # Due grandezze, non due versioni. Vedi il blocco reference in verify().
 REFERENCE_SELF_SHA = "865aa2ef16f299d8653e770d1fb587448f1c455e8c498c2b0db10cd20743f1bc"

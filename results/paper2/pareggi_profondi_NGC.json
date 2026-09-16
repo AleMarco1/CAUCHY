@@ -1,0 +1,27 @@
+{
+  "schema": "paper2_pareggi_profondi_v1",
+  "region": "NGC",
+  "utc": "2026-09-11T08:28:36.220900+00:00",
+  "sigma_px": 0.32042249039652254,
+  "raggio_kernel": 1,
+  "n_voxel_maschera": 307805,
+  "n_vuoti": 53526,
+  "n_fissi": 525,
+  "n_fissi_definizione_stretta": 4,
+  "n_pareggio": 9364,
+  "n_pareggio_vuoti": 7400,
+  "n_pareggio_fissi": 509,
+  "n_pareggio_mobili": 8855,
+  "frazione_invariante": 0.05435711234515164,
+  "frazione_mobile": 0.9456428876548484,
+  "gruppo_massimo": {
+    "molteplicita": 52,
+    "valore_nu": -5.030516147613525,
+    "fissi": 50
+  },
+  "soglia_4_2e_derivata": {
+    "successo_sotto": 0.4728214438274242,
+    "fallimento_sopra": 0.9456428876548484,
+    "nota": "limite superiore da un argomento, non da un campione"
+  }
+}

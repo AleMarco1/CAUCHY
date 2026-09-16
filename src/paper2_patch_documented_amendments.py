@@ -1,275 +1,316 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-paper2_patch_documented_amendments.py — incrementa DOCUMENTED_AMENDMENTS.
+"""paper2_patch_documented_amendments.py — sposta DOCUMENTED_AMENDMENTS di un passo.
 
-Sostituisce UNA riga di costante, a livello di byte, con asserzione sull'ancora:
-se l'ancora non e' unica, o se il valore vecchio non e' quello dichiarato, il
-patcher RIFIUTA e non tocca il file. Le terminazioni di riga sono preservate
-perche' il file e' letto e riscritto in binario.
+Il conteggio vive in due posti che devono muoversi insieme: il numero di righe del
+ledger (che cresce con l'append) e la costante di `paper2_freeze_verify.py` (che
+dichiara quante ne conosce la documentazione). Se la costante resta indietro il
+`verify` fallisce con `disco != documentati`; se la si sposta senza il record, il
+cancello mente nell'altra direzione.
+
+**Ordine obbligatorio: prima l'append del record, poi questo patcher, poi `verify`.**
+
+Forma dei patcher, invariata: ancora unica o rifiuto; rifiuto se gia' applicata
+anche solo in parte; BOM e fine riga preservati byte per byte; l'inversa deve
+restituire l'originale byte per byte PRIMA di scrivere; scrittura atomica con
+backup; `verify` sul file riletto dal disco.
 
 Uso:
-    python paper2_patch_documented_amendments.py selftest
-    python paper2_patch_documented_amendments.py apply --file src\\paper2_freeze_verify.py --da 48 --a 49 --dry-run
-    python paper2_patch_documented_amendments.py apply --file src\\paper2_freeze_verify.py --da 48 --a 49
+    python src\\paper2_patch_documented_amendments.py selftest
+    python src\\paper2_patch_documented_amendments.py apply --file src\\paper2_freeze_verify.py --da 60 --a 61 --dry-run
+    python src\\paper2_patch_documented_amendments.py apply --file src\\paper2_freeze_verify.py --da 60 --a 61
+    python src\\paper2_patch_documented_amendments.py verify --file src\\paper2_freeze_verify.py --a 61
 """
 
+from __future__ import annotations
+
 import argparse
-import json
+import datetime as _dt
+import hashlib
 import os
-import re
 import shutil
 import sys
 import tempfile
-import time
+from pathlib import Path
 
-NOME = "DOCUMENTED_AMENDMENTS"
-# Il \r? finale serve: senza, su file CRLF l'ancora non viene trovata.
-ANCORA = re.compile(rb"(?m)^(" + NOME.encode() + rb"[ \t]*=[ \t]*)(\d+)([ \t]*\r?)$")
+VERSIONE = "1.0"
+MODELLO = b"DOCUMENTED_AMENDMENTS = %d"
 
 
 class Rifiuto(Exception):
-    pass
+    """La patch non si applica. Nessun file e' stato toccato."""
 
 
-def leggi(path):
-    with open(path, "rb") as fh:
-        return fh.read()
+def sha256_bytes(b: bytes) -> str:
+    return hashlib.sha256(b).hexdigest()
 
 
-def trova_ancora(raw):
-    """Restituisce (match, valore_corrente). Rifiuta se le ancore non sono esattamente una."""
-    matches = list(ANCORA.finditer(raw))
-    if len(matches) == 0:
-        raise Rifiuto(f"ancora assente: nessuna riga '{NOME} = <numero>'")
-    if len(matches) > 1:
-        righe = [raw[:m.start()].count(b"\n") + 1 for m in matches]
-        raise Rifiuto(f"ancora non unica: {len(matches)} occorrenze alle righe {righe}")
-    m = matches[0]
-    return m, int(m.group(2))
+def sha256_file(path: Path) -> str:
+    return sha256_bytes(Path(path).read_bytes())
 
 
-def patch(raw, da, a):
-    m, corrente = trova_ancora(raw)
-    if corrente == a:
-        raise Rifiuto(f"gia' applicato: {NOME} vale gia' {a}")
-    if corrente != da:
-        raise Rifiuto(f"valore vecchio inatteso: atteso {da}, trovato {corrente}")
-    nuovo = raw[:m.start()] + m.group(1) + str(a).encode() + m.group(3) + raw[m.end():]
-    return nuovo, corrente
+def ancora(n: int) -> bytes:
+    return MODELLO % int(n)
 
 
-def conta_ledger(path):
-    """Numero di record del ledger: righe non vuote e JSON valido."""
-    with open(path, "rb") as fh:
-        raw = fh.read()
-    n, malformate = 0, []
-    for i, riga in enumerate(raw.decode("utf-8").split("\n"), 1):
-        if not riga.strip():
-            continue
-        try:
-            json.loads(riga)
-        except Exception:
-            malformate.append(i)
-        n += 1
-    return n, malformate
+def controlla(dati: bytes, da: int, a: int) -> None:
+    """Tutti i rifiuti, prima di qualunque scrittura."""
+    if int(da) == int(a):
+        raise Rifiuto("da e a coincidono (%d): non c'e' nulla da spostare" % da)
+    vecchia, nuova = ancora(da), ancora(a)
+    n_v = dati.count(vecchia)
+    n_n = dati.count(nuova)
+    if n_n:
+        raise Rifiuto("patch gia' applicata anche solo in parte: '%s' presente %d volta/e"
+                      % (nuova.decode(), n_n))
+    if n_v == 0:
+        raise Rifiuto("ancora assente: '%s' non compare" % vecchia.decode())
+    if n_v > 1:
+        raise Rifiuto("ancora non unica: '%s' compare %d volte" % (vecchia.decode(), n_v))
 
 
-def cmd_apply(args):
-    path = args.file
-    if not os.path.isfile(path):
-        print(f"RIFIUTO: file inesistente: {path}")
-        return 2
+def applica(dati: bytes, da: int, a: int) -> bytes:
+    controlla(dati, da, a)
+    return dati.replace(ancora(da), ancora(a), 1)
 
-    # Il cancello che mancava: la costante dichiara quanti record ci sono, quindi non si
-    # porta a N se sul disco non ce ne sono N. Senza questo, un append fallito e un patcher
-    # riuscito lasciano la costante avanti al file - accaduto il 7 set 2026.
-    if args.ledger:
-        if not os.path.isfile(args.ledger):
-            print(f"RIFIUTO: ledger inesistente: {args.ledger}")
-            return 2
-        n_led, malformate = conta_ledger(args.ledger)
-        if malformate:
-            print(f"RIFIUTO: ledger con righe malformate: {malformate}")
-            return 2
-        if n_led != args.a:
-            print(f"RIFIUTO: il ledger ha {n_led} record, la costante andrebbe a {args.a}. "
-                  f"{'Manca un append.' if n_led < args.a else 'Manca un incremento.'}")
-            return 2
-        print(f"ledger  : {os.path.abspath(args.ledger)}  record {n_led}  concorda con --a")
-    else:
-        print("ledger  : NON verificato (--ledger non passato)")
 
-    raw = leggi(path)
+def inverti(dati: bytes, da: int, a: int) -> bytes:
+    """L'inversa esatta: riporta a -> da, con gli stessi rifiuti a specchio."""
+    controlla(dati, a, da)
+    return dati.replace(ancora(a), ancora(da), 1)
+
+
+def cartella_backup(path: Path) -> Path:
+    """Dove va la copia di sicurezza. Dal 15 set 2026: logs/, non accanto al file.
+
+    Il cancello del paragrafo 7 della consegna chiede zero .bak_* in src/ e
+    papers/, e questo patcher ne lasciava uno a ogni emendamento: quattro fra
+    il 14 e il 15 settembre, uno per ciascun passaggio di
+    DOCUMENTED_AMENDMENTS. Record 68, terza voce per il 6.2.
+
+    Si SCRIVE a destinazione, non ci si sposta dopo: uno spostamento e' una
+    seconda operazione che puo' fallire a meta' e lascia una finestra in cui
+    il .bak sta in src/.
+
+    Nessun ripiego silenzioso: se la radice non si deduce, si rifiuta.
+    """
+    if path.parent.name == "src":
+        dest = path.parent.parent / "logs"
+        dest.mkdir(parents=True, exist_ok=True)
+        return dest
+    raise Rifiuto(
+        "RIFIUTO: non deduco la radice da %s: il file non sta in src/. "
+        "Passa dest_backup esplicitamente." % path)
+
+
+def scrivi_atomico(path: Path, dati: bytes, dest_backup=None) -> Path:
+    """Backup in logs/, poi temp nella stessa directory del file e os.replace.
+
+    Il temporaneo resta accanto al file: os.replace e' atomico solo sullo
+    stesso filesystem. Solo la COPIA cambia destinazione.
+
+    dest_backup None significa dedurre dalla radice; il selftest la passa
+    esplicita perche' lavora in una cartella temporanea.
+    """
+    stamp = _dt.datetime.now().strftime("%Y%m%d_%H%M%S")
+    dest = Path(dest_backup) if dest_backup is not None else cartella_backup(path)
+    dest.mkdir(parents=True, exist_ok=True)
+    backup = dest / (path.name + ".bak_%s" % stamp)
+    shutil.copy2(path, backup)
+    fd, tmp = tempfile.mkstemp(dir=str(path.parent), prefix=path.name + ".", suffix=".tmp")
     try:
-        nuovo, corrente = patch(raw, args.da, args.a)
+        with os.fdopen(fd, "wb") as fh:
+            fh.write(dati)
+            fh.flush()
+            os.fsync(fh.fileno())
+        os.replace(tmp, path)
+    finally:
+        if os.path.exists(tmp):
+            os.unlink(tmp)
+    return backup
+
+
+def verifica_su_disco(path: Path, da: int, a: int) -> dict:
+    dati = Path(path).read_bytes()
+    return {
+        "file": str(path),
+        "sha256": sha256_bytes(dati),
+        "nuova_presente": int(dati.count(ancora(a))),
+        "vecchia_assente": bool(dati.count(ancora(da)) == 0),
+        "ok": bool(dati.count(ancora(a)) == 1 and dati.count(ancora(da)) == 0),
+    }
+
+
+def comando_apply(path: Path, da: int, a: int, dry: bool, dest_backup=None) -> int:
+    originale = path.read_bytes()
+    sha_prima = sha256_bytes(originale)
+    try:
+        patchato = applica(originale, da, a)
     except Rifiuto as e:
-        print(f"RIFIUTO: {e}")
-        return 2
+        print("RIFIUTO: %s" % e, file=sys.stderr)
+        return 3
 
-    riga = raw[:ANCORA.search(raw).start()].count(b"\n") + 1
-    print(f"file    : {os.path.abspath(path)}")
-    print(f"riga    : {riga}")
-    print(f"ancora  : unica")
-    print(f"valore  : {corrente} -> {args.a}")
+    # L'inversa deve restituire l'originale byte per byte PRIMA di scrivere.
+    ritorno = inverti(patchato, da, a)
+    if ritorno != originale:
+        print("RIFIUTO: l'inversa non restituisce l'originale byte per byte", file=sys.stderr)
+        return 4
 
-    if args.dry_run:
-        print("dry-run: nessuna scrittura")
+    print("file      : %s" % path)
+    print("sha prima : %s" % sha_prima)
+    print("sha dopo  : %s" % sha256_bytes(patchato))
+    print("byte      : %d -> %d" % (len(originale), len(patchato)))
+    print("ancora    : %s -> %s" % (ancora(da).decode(), ancora(a).decode()))
+
+    if dry:
+        print("\n[dry-run] niente scritto.")
         return 0
 
-    if args.backup:
-        os.makedirs(os.path.dirname(os.path.abspath(args.backup)) or ".", exist_ok=True)
-        with open(args.backup, "wb") as fh:
-            fh.write(raw)
-        print(f"backup  : {os.path.abspath(args.backup)}")
-
-    with open(path, "wb") as fh:
-        fh.write(nuovo)
-
-    # rilettura: il valore su disco DEVE essere quello nuovo
-    _, riletto = trova_ancora(leggi(path))
-    if riletto != args.a:
-        print(f"ERRORE: dopo la scrittura il file dichiara {riletto}, non {args.a}")
-        return 3
-    print(f"riletto : {riletto}  OK")
-    print("APPLICATO")
+    backup = scrivi_atomico(path, patchato, dest_backup)
+    v = verifica_su_disco(path, da, a)
+    if not v["ok"] or v["sha256"] != sha256_bytes(patchato):
+        print("FALLIMENTO: il file riletto dal disco non corrisponde. Backup: %s" % backup,
+              file=sys.stderr)
+        return 5
+    print("\nbackup    : %s (sha %s)" % (backup, sha256_file(backup)))
+    print("verify    : OK sul file riletto dal disco")
+    print("\nOra: python src\\paper2_freeze_verify.py verify --jobs 4 --out logs\\fv.jsonl"
+          "  ->  atteso disco = %d, documentati = %d" % (a, a))
     return 0
 
 
-def cmd_selftest(args):
-    controlli = []
+# ------------------------------------------------------------------- selftest
 
-    def ok(nome, cond):
-        controlli.append((nome, bool(cond)))
+def selftest() -> int:
+    ok = 0
+    tot = 0
 
-    base = tempfile.mkdtemp(prefix="patch_amend_")
+    def check(cond, nome):
+        nonlocal ok, tot
+        tot += 1
+        if cond:
+            ok += 1
+            print("  [ok]   %s" % nome)
+        else:
+            print("  [FAIL] %s" % nome)
 
-    def scrivi(nome, testo, eol=b"\n"):
-        p = os.path.join(base, nome)
-        raw = testo.replace(b"\n", eol)
-        with open(p, "wb") as fh:
-            fh.write(raw)
-        return p
+    print("selftest paper2_patch_documented_amendments v%s" % VERSIONE)
 
-    # Fixture con le esche: le altre occorrenze del nome NON sono ancore.
-    corpo = (b"PREREG_AMENDMENTS_AT_DEPOSIT = 12\n"
-             b"DOCUMENTED_AMENDMENTS = 48\n"
-             b"REFERENCE_SELF_SHA = \"865a\"\n"
-             b"x = b'{\"a\":1}\\n' * (DOCUMENTED_AMENDMENTS - 1)\n"
-             b"y = b'{\"a\":1}\\n' * DOCUMENTED_AMENDMENTS\n"
-             b"z = b'{\"a\":1}\\n' * (DOCUMENTED_AMENDMENTS + 1)\n")
+    corpo = (b"\xef\xbb\xbf# -*- coding: utf-8 -*-\r\n"
+             b"#  - DOCUMENTED_AMENDMENTS e' quanti ne dichiara la documentazione\r\n"
+             b"DOCUMENTED_AMENDMENTS = 60\r\n"
+             b"x = DOCUMENTED_AMENDMENTS - 1\r\n"
+             b"y = DOCUMENTED_AMENDMENTS + 1\r\n"
+             b"z = b'{\"a\":1}\\n' * DOCUMENTED_AMENDMENTS\r\n")
 
-    p_lf = scrivi("lf.py", corpo, b"\n")
-    orig_lf = leggi(p_lf)
-    _, prima = trova_ancora(orig_lf)
-    ok("1 ancora unica malgrado tre esche", prima == 48)
+    p = applica(corpo, 60, 61)
+    check(p.count(b"DOCUMENTED_AMENDMENTS = 61") == 1, "la costante passa a 61")
+    check(p.count(b"DOCUMENTED_AMENDMENTS = 60") == 0, "la vecchia sparisce")
+    check(p.startswith(b"\xef\xbb\xbf"), "BOM preservato")
+    check(p.count(b"\r\n") == corpo.count(b"\r\n"), "CRLF preservati, uno per uno")
+    check(b"DOCUMENTED_AMENDMENTS + 1" in p and b"DOCUMENTED_AMENDMENTS - 1" in p,
+          "gli usi simbolici non sono toccati")
+    check(b"DOCUMENTED_AMENDMENTS e' quanti" in p, "il commento non e' toccato")
+    check(len(p) == len(corpo), "lunghezza invariata")
+    check(inverti(p, 60, 61) == corpo, "l'inversa restituisce l'originale byte per byte")
 
-    nuovo, corrente = patch(orig_lf, 48, 49)
-    _, dopo = trova_ancora(nuovo)
-    ok("2 il valore cambia davvero: 48 -> 49", prima == 48 and dopo == 49 and prima != dopo)
-    ok("3 un solo byte di differenza", len(nuovo) == len(orig_lf) and
-       sum(1 for a, b in zip(nuovo, orig_lf) if a != b) == 1)
-    ok("4 le esche restano intatte",
-       b"(DOCUMENTED_AMENDMENTS - 1)" in nuovo and b"(DOCUMENTED_AMENDMENTS + 1)" in nuovo)
-
-    # CRLF preservato
-    p_crlf = scrivi("crlf.py", corpo, b"\r\n")
-    orig_crlf = leggi(p_crlf)
-    nuovo_crlf, _ = patch(orig_crlf, 48, 49)
-    ok("5 CRLF preservato", nuovo_crlf.count(b"\r\n") == orig_crlf.count(b"\r\n") and
-       b"\r\nDOCUMENTED_AMENDMENTS = 49\r\n" in nuovo_crlf)
-    ok("6 nessun LF isolato introdotto", nuovo_crlf.count(b"\n") == nuovo_crlf.count(b"\r\n"))
-
-    # Rifiuti
-    def rifiuta(raw, da, a):
+    for nome, args, dati in [
+        ("ancora assente", (59, 61), corpo),
+        ("patch gia' applicata", (60, 61), p),
+        ("da e a coincidono", (60, 60), corpo),
+        ("ancora non unica", (60, 61), corpo + b"DOCUMENTED_AMENDMENTS = 60\r\n"),
+    ]:
         try:
-            patch(raw, da, a)
-            return None
-        except Rifiuto as e:
-            return str(e)
+            applica(dati, *args)
+            check(False, "DIFETTO: %s deve essere rifiutata" % nome)
+        except Rifiuto:
+            check(True, "DIFETTO: %s -> Rifiuto" % nome)
 
-    ok("7 rifiuta se gia' applicato", (rifiuta(nuovo, 48, 49) or "").startswith("gia' applicato"))
-    ok("8 rifiuta se il valore vecchio non torna", "valore vecchio inatteso" in (rifiuta(orig_lf, 47, 49) or ""))
-    doppio = orig_lf + b"DOCUMENTED_AMENDMENTS = 48\n"
-    ok("9 rifiuta se l'ancora non e' unica", "non unica" in (rifiuta(doppio, 48, 49) or ""))
-    ok("10 rifiuta se l'ancora e' assente", "assente" in (rifiuta(b"a = 1\n", 48, 49) or ""))
+    check(applica(corpo, 60, 62).count(b"DOCUMENTED_AMENDMENTS = 62") == 1,
+          "funziona anche per un salto di due (due record appesi)")
 
-    # Percorso completo su disco, con dry-run e backup
-    class A:
-        pass
+    with tempfile.TemporaryDirectory() as td:
+        d = Path(td)
+        f = d / "fv.py"
+        f.write_bytes(corpo)
+        sha0 = sha256_file(f)
 
-    a = A(); a.file = p_lf; a.da = 48; a.a = 49; a.dry_run = True; a.backup = None; a.ledger = None
-    rc_dry = cmd_apply(a)
-    ok("11 dry-run: esito 0 e file immutato", rc_dry == 0 and leggi(p_lf) == orig_lf)
+        rc = comando_apply(f, 60, 61, dry=True, dest_backup=d)
+        check(rc == 0 and sha256_file(f) == sha0, "dry-run: nessuna scrittura")
+        check(len(list(d.iterdir())) == 1, "dry-run: nessun temp e nessun backup")
 
-    bak = os.path.join(base, "logs", "backup.py")
-    a2 = A(); a2.file = p_lf; a2.da = 48; a2.a = 49; a2.dry_run = False; a2.backup = bak
-    a2.ledger = None
-    rc = cmd_apply(a2)
-    ok("12 apply: esito 0", rc == 0)
-    ok("13 il file su disco dichiara 49", trova_ancora(leggi(p_lf))[1] == 49)
-    ok("14 il backup e' identico all'originale", leggi(bak) == orig_lf)
+        rc = comando_apply(f, 60, 61, dry=False, dest_backup=d)
+        check(rc == 0, "apply: esito 0")
+        check(sha256_file(f) == sha256_bytes(applica(corpo, 60, 61)), "apply: file atteso sul disco")
+        bak = [x for x in d.iterdir() if ".bak_" in x.name]
+        check(len(bak) == 1 and sha256_file(bak[0]) == sha0, "apply: backup con lo sha dell'originale")
+        check(not [x for x in d.iterdir() if x.name.endswith(".tmp")], "apply: nessun temp residuo")
+        check(verifica_su_disco(f, 60, 61)["ok"] is True, "verify sul file riletto dal disco")
 
-    a3 = A(); a3.file = p_lf; a3.da = 48; a3.a = 49; a3.dry_run = False; a3.backup = None
-    a3.ledger = None
-    rc2 = cmd_apply(a3)
-    ok("15 seconda applicazione rifiutata, esito 2", rc2 == 2 and trova_ancora(leggi(p_lf))[1] == 49)
+        rc2 = comando_apply(f, 60, 61, dry=False, dest_backup=d)
+        check(rc2 == 3, "DIFETTO: seconda applicazione rifiutata (idempotenza)")
 
-    # Il cancello sul ledger: la costante non si porta a N senza N record sul disco.
-    def led(n):
-        q = os.path.join(base, f"led{n}.jsonl")
-        with open(q, "wb") as fh:
-            for i in range(n):
-                fh.write(json.dumps({"item": f"r{i}"}).encode() + b"\r\n")
-        return q
+        f.write_bytes(corpo.replace(b"= 60", b"= 77"))
+        check(verifica_su_disco(f, 60, 61)["ok"] is False, "DIFETTO: verify fallisce su file manomesso")
 
-    scrivi("target2.py", corpo, b"\n")
-    p2 = os.path.join(base, "target2.py")
-    b4 = A(); b4.file = p2; b4.da = 48; b4.a = 49; b4.dry_run = False; b4.backup = None
+    # --- la copia va in logs/, NON accanto al file (record 68) -------------
+    with tempfile.TemporaryDirectory() as td:
+        radice = Path(td)
+        (radice / "src").mkdir()
+        f = radice / "src" / "fv.py"
+        f.write_bytes(corpo)
+        sha0 = sha256_file(f)
 
-    b4.ledger = led(48)
-    ok("16 ledger a 48 record, costante verso 49: rifiuto",
-       cmd_apply(b4) == 2 and trova_ancora(leggi(p2))[1] == 48)
-    b4.ledger = led(50)
-    ok("17 ledger a 50 record, costante verso 49: rifiuto",
-       cmd_apply(b4) == 2 and trova_ancora(leggi(p2))[1] == 48)
-    b4.ledger = led(49)
-    ok("18 ledger a 49 record: la costante passa a 49",
-       cmd_apply(b4) == 0 and trova_ancora(leggi(p2))[1] == 49)
-    b4.ledger = os.path.join(base, "non-esiste.jsonl")
-    ok("19 ledger inesistente: rifiuto", cmd_apply(b4) == 2)
+        rc3 = comando_apply(f, 60, 61, dry=False)
+        check(rc3 == 0, "logs: apply riuscita con la radice dedotta")
+        check(not [x for x in (radice / "src").iterdir() if ".bak_" in x.name],
+              "DIFETTO RIPRODOTTO: nessun .bak_ accanto al file")
+        bak = [x for x in (radice / "logs").iterdir() if ".bak_" in x.name]
+        check(len(bak) == 1 and sha256_file(bak[0]) == sha0,
+              "logs: la copia e' li' e porta lo sha dell'originale")
+        check(bak[0].name.startswith("fv.py.bak_"),
+              "logs: il nome della copia non cambia")
+        check(not [x for x in (radice / "src").iterdir() if x.name.endswith(".tmp")],
+              "logs: il temporaneo resta accanto al file e sparisce")
 
-    shutil.rmtree(base, ignore_errors=True)
+    # --- nessun ripiego silenzioso se la radice non si deduce --------------
+    with tempfile.TemporaryDirectory() as td:
+        f = Path(td) / "fv.py"
+        f.write_bytes(corpo)
+        try:
+            cartella_backup(f)
+            check(False, "DIFETTO: radice non deducibile deve essere rifiutata")
+        except Rifiuto:
+            check(True, "DIFETTO: radice non deducibile -> Rifiuto")
 
-    passati = sum(1 for _, c in controlli if c)
-    print()
-    for nome, c in controlli:
-        print(("  OK  " if c else "  KO  ") + nome)
-    print(f"selftest: {passati}/{len(controlli)}")
-    return 0 if passati == len(controlli) else 1
+    print("\nselftest: %d/%d" % (ok, tot))
+    return 0 if ok == tot else 1
 
 
-def main(argv=None):
-    ap = argparse.ArgumentParser(description=__doc__,
-                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    sub = ap.add_subparsers(dest="cmd", required=True)
+def main(argv=None) -> int:
+    p = argparse.ArgumentParser(description="Sposta DOCUMENTED_AMENDMENTS in paper2_freeze_verify.py")
+    sub = p.add_subparsers(dest="cmd", required=True)
+    sub.add_parser("selftest")
+    a1 = sub.add_parser("apply")
+    a1.add_argument("--file", required=True)
+    a1.add_argument("--da", type=int, required=True)
+    a1.add_argument("--a", type=int, required=True)
+    a1.add_argument("--dry-run", action="store_true")
+    a2 = sub.add_parser("verify")
+    a2.add_argument("--file", required=True)
+    a2.add_argument("--a", type=int, required=True)
+    a2.add_argument("--da", type=int, default=None)
 
-    p_ap = sub.add_parser("apply", help="incrementa la costante")
-    p_ap.add_argument("--file", required=True)
-    p_ap.add_argument("--da", type=int, required=True, help="valore vecchio atteso")
-    p_ap.add_argument("--a", type=int, required=True, help="valore nuovo")
-    p_ap.add_argument("--dry-run", action="store_true")
-    p_ap.add_argument("--backup", default=None)
-    p_ap.add_argument("--ledger", default=None,
-                      help="ledger degli emendamenti: il suo numero di record deve valere --a")
-    p_ap.set_defaults(func=cmd_apply)
-
-    p_st = sub.add_parser("selftest", help="esegue i 15 controlli")
-    p_st.set_defaults(func=cmd_selftest)
-
-    args = ap.parse_args(argv)
-    return args.func(args)
+    a = p.parse_args(argv)
+    if a.cmd == "selftest":
+        return selftest()
+    if a.cmd == "apply":
+        return comando_apply(Path(a.file), a.da, a.a, a.dry_run)
+    da = a.da if a.da is not None else a.a - 1
+    v = verifica_su_disco(Path(a.file), da, a.a)
+    print("\n".join("%-16s %s" % (k, v[k]) for k in v))
+    return 0 if v["ok"] else 6
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

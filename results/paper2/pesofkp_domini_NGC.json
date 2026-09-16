@@ -1,0 +1,78 @@
+{
+  "schema": "paper2_pesofkp_domini_v1",
+  "region": "NGC",
+  "utc": "2026-09-08T09:06:41.913967+00:00",
+  "quotato_P1": 0.309,
+  "decimali_P1": 3,
+  "gate_21M": 0.3168,
+  "decimali_21M": 4,
+  "n_random": 13248857,
+  "n_dati": 217614,
+  "n_voxel_maschera": 307805,
+  "n_voxel_con_random": 307805,
+  "domini": {
+    "1_random_punti_media": {
+      "valore": 0.3167832832364633,
+      "mezze_unita_da_P1": 15.566566472926645,
+      "mezze_unita_da_21M": 0.3343352707341207,
+      "riproduce_P1": false,
+      "riproduce_21M": true
+    },
+    "2_random_punti_mediana": {
+      "valore": 0.2943734299280938,
+      "mezze_unita_da_P1": 29.253140143812416,
+      "mezze_unita_da_21M": 448.53140143812476,
+      "riproduce_P1": false,
+      "riproduce_21M": false
+    },
+    "3_tabella_media_sui_bin": {
+      "valore": 0.3031051013313669,
+      "mezze_unita_da_P1": 11.78979733726615,
+      "mezze_unita_da_21M": 273.8979733726621,
+      "riproduce_P1": false,
+      "riproduce_21M": false
+    },
+    "4_tabella_interpolata_sui_random": {
+      "valore": 0.3099889615543192,
+      "mezze_unita_da_P1": 1.9779231086384241,
+      "mezze_unita_da_21M": 136.22076891361633,
+      "riproduce_P1": false,
+      "riproduce_21M": false
+    },
+    "5_dati_punti_media": {
+      "valore": 0.30068181982748504,
+      "mezze_unita_da_P1": 16.63636034502991,
+      "mezze_unita_da_21M": 322.36360345029965,
+      "riproduce_P1": false,
+      "riproduce_21M": false
+    },
+    "6_voxel_in_maschera_media_semplice": {
+      "valore": 0.33191699959647386,
+      "mezze_unita_da_P1": 45.83399919294773,
+      "mezze_unita_da_21M": 302.3399919294767,
+      "riproduce_P1": false,
+      "riproduce_21M": false
+    },
+    "7_voxel_in_maschera_pesata_dal_conteggio": {
+      "valore": 0.3167826730785924,
+      "mezze_unita_da_P1": 15.565346157184855,
+      "mezze_unita_da_21M": 0.3465384281520212,
+      "riproduce_P1": false,
+      "riproduce_21M": true
+    },
+    "8_galassie_mock_media_su_60_realizzazioni": {
+      "valore": 0.3090565805620197,
+      "mezze_unita_da_P1": 0.11316112403936263,
+      "mezze_unita_da_21M": 154.86838875960694,
+      "riproduce_P1": true,
+      "riproduce_21M": false
+    }
+  },
+  "riproducono_P1": [
+    "8_galassie_mock_media_su_60_realizzazioni"
+  ],
+  "riproducono_21M": [
+    "1_random_punti_media",
+    "7_voxel_in_maschera_pesata_dal_conteggio"
+  ]
+}

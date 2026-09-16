@@ -1,0 +1,201 @@
+{
+  "schema": "paper2_verdetto_v2",
+  "region": "NGC",
+  "utc": "2026-09-11T05:57:54.802929+00:00",
+  "n": 2000,
+  "cancelli": [
+    {
+      "prova": "record attesi",
+      "ok": true,
+      "dettaglio": "2000 su 2000"
+    },
+    {
+      "prova": "indici unici",
+      "ok": true,
+      "dettaglio": "2000 distinti su 2000"
+    },
+    {
+      "prova": "nessuno smoke nel registro",
+      "ok": true,
+      "dettaglio": "0 con smoke"
+    },
+    {
+      "prova": "sommario PULITA",
+      "ok": true,
+      "dettaglio": "PULITA"
+    },
+    {
+      "prova": "sommario non smoke",
+      "ok": true,
+      "dettaglio": ""
+    },
+    {
+      "prova": "regione coerente",
+      "ok": true,
+      "dettaglio": "NGC"
+    },
+    {
+      "prova": "i voxel fra le due soglie non spostano n_patologici",
+      "ok": true,
+      "dettaglio": "0 voxel in tutto, massimo 0 per realizzazione: bias 0.0000 = 0.0000 SEM, limite 0.5"
+    },
+    {
+      "prova": "nu identico per le due vie, entrambi i rami",
+      "ok": true,
+      "dettaglio": "0 realizzazioni diverse"
+    },
+    {
+      "prova": "diagnostica fra catene su tutte",
+      "ok": true,
+      "dettaglio": "2000 su 2000"
+    },
+    {
+      "prova": "ancora di catena su tutti gli indici 0-199",
+      "ok": true,
+      "dettaglio": "200 su 200 indici in quell'intervallo"
+    },
+    {
+      "prova": "e ogni scarto di catena e' ZERO",
+      "ok": true,
+      "dettaglio": "peggior scarto 0"
+    },
+    {
+      "prova": "mai due nomi per il confronto con n6 sullo stesso record",
+      "ok": true,
+      "dettaglio": "0 record con entrambi: []"
+    },
+    {
+      "prova": "in NGC ogni indice 200-259 porta il confronto con n6",
+      "ok": true,
+      "dettaglio": "0 senza: []"
+    },
+    {
+      "prova": "le diagnostiche stanno su entrambi i rami",
+      "ok": true,
+      "dettaglio": "0 senza"
+    }
+  ],
+  "desi": {
+    "var_delta": 2.9166419506502494,
+    "kurt_nu": -0.43821476405642734,
+    "max_delta": 125.47415161132812
+  },
+  "regole": {
+    "4.2b-1": {
+      "R": 979.8053799004235,
+      "sigma": 4.149978169960069,
+      "R_piu_3sigma": 992.2553144103038,
+      "R_meno_3sigma": 967.3554453905433,
+      "soglia_successo": 7.2924,
+      "soglia_fallimento": 100.0,
+      "esito": "FALLIMENTO"
+    },
+    "4.2b-2": {
+      "z": -7.113535772203109,
+      "rango": 3,
+      "rango_min": 50,
+      "rango_max": 1950,
+      "rango_dentro_95": false,
+      "mock_media": 2.804624141062464,
+      "mock_sd": 0.4558687843801427,
+      "desi": -0.43821476405642734,
+      "esito": "FALLIMENTO"
+    },
+    "4.2b-4": {
+      "rango": 0,
+      "rango_min": 50,
+      "rango_max": 1950,
+      "desi": 125.47415161132812,
+      "mediana_mock": 3572.124755859375,
+      "mediana_su_desi": 28.469009034820797,
+      "mediana_su_desi_v1": 27.8,
+      "esito": "FALLIMENTO"
+    },
+    "4.2c": {
+      "media": 4021.077,
+      "sd": 83.29916834352767,
+      "sem": 1.8626260288532641,
+      "soglia_successo": 1349.4,
+      "soglia_fallimento": 2698.81,
+      "dispersione_su_media": 0.020715636219731097,
+      "limite_invalidazione": 0.3333333333333333,
+      "invalidata": false,
+      "esito": "FALLIMENTO"
+    },
+    "4.2b-3": {
+      "media": 5.645836440907027,
+      "sd": 0.2501827483114267,
+      "nota": "ritirata come falsificazione dal record 54; nessuna soglia"
+    },
+    "4.3b": {
+      "desi_N_H1_k012": [
+        28256.0,
+        23790.0,
+        20066.0
+      ],
+      "fonte_lato_dati": "desi_ladder_NGC.json",
+      "P_v1_corretta_pp": 3.8160788230778366,
+      "P_v1_curvatura_pp": 1.1912210274362844,
+      "sem_v1_corretta_pp": 0.00555886271332237,
+      "soglia_successo_derivata": 1.272026274359279,
+      "soglia_fallimento_derivata": 2.544052548718558,
+      "separazione_zone_sigma": 228.82851042727515,
+      "guadagno_appaiamento": 5.005054953585065,
+      "esito": "SOSPESA",
+      "motivo": "P^v1 a n=2000 da' successo < 1.272026 pp e fallimento > 2.544053 pp. Sono DERIVATE, non ancora DICHIARATE: registrale nel ledger e ripassale con --soglia-4-3b. Finche' non lo fai, P^v2 non viene calcolata: e' l'unica finestra in cui una soglia si scriverebbe con il risultato gia' sul disco."
+    }
+  },
+  "appaiato": {
+    "var": {
+      "v1_media": 2844.9960713709593,
+      "v2_media": 2857.74147449038,
+      "delta_media": 12.74540311942057,
+      "delta_sem": 1.5314660647080771,
+      "sigma": 8.322354254614226,
+      "sd_non_appaiata": 16.623362269117784
+    },
+    "kurt": {
+      "v1_media": 2.817496139043272,
+      "v2_media": 2.804624141062464,
+      "delta_media": -0.012871997980808332,
+      "delta_sem": 5.848282727438681e-05,
+      "sigma": -220.0987637006011,
+      "sd_non_appaiata": 0.01445025658795716
+    },
+    "max": {
+      "v1_media": 3938.433826904297,
+      "v2_media": 4023.050871337891,
+      "delta_media": 84.61704443359375,
+      "delta_sem": 11.272691653906529,
+      "sigma": 7.50637443403057,
+      "sd_non_appaiata": 68.9662242181434
+    },
+    "npat": {
+      "v1_media": 4048.169,
+      "v2_media": 4021.077,
+      "delta_media": -27.092,
+      "delta_sem": 0.41126188270745934,
+      "sigma": -65.87530023848868,
+      "sd_non_appaiata": 2.6533247673740545
+    },
+    "rf": {
+      "v1_media": 5.648942433084752,
+      "v2_media": 5.645836440907027,
+      "delta_media": -0.003105992177724827,
+      "delta_sem": 5.881521420085618e-05,
+      "sigma": -52.8093320738023,
+      "sd_non_appaiata": 0.00792116526589476
+    }
+  },
+  "n6_due_nomi": {
+    "nomi": [
+      "ancora_n6_wfkp",
+      "diagnostica_n6_wfkp"
+    ],
+    "conteggio": {
+      "ancora_n6_wfkp": 26,
+      "diagnostica_n6_wfkp": 34
+    },
+    "nota": "stessa grandezza, due nomi, due versioni del runner; registro append-only, la corrispondenza sta nel lettore"
+  }
+}

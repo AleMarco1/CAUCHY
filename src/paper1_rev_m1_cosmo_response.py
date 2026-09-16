@@ -67,6 +67,11 @@ import numpy as np
 NH1 = "base.N_H1"
 DESI = {"NGC": 28256.0, "SGC": 15122.0}
 PATOL = {"NGC": [139, 598, 1430, 1666], "SGC": [598, 1022, 1430, 1666]}
+# RUOLO: riproduzione, non confronto. Sono i valori che l'array contaminato
+# produce, e lo produrra' sempre; NON sono cio' che M26 riporta oggi, perche' la
+# revisione R1 li ha rifatti sui 2000 (Om +0.154, s8 +0.182, n_s +0.376).
+# Una costante che cita un manoscritto in revisione scade se serve da CONFRONTO,
+# non se serve da RIPRODUZIONE.
 M26_QUOTED = {"Om": 0.45, "s8": 0.29, "w0": -0.03}
 
 # firme di intervallo per dedurre la mappatura delle colonne
@@ -320,9 +325,15 @@ def main():
                   f"{c['sigma']:>7.1f} | {c2['r']:>+14.4f}")
             rep["correlazioni"][reg][k] = {"tutti": c, "senza_patologici": c2}
         if reg == "NGC":
-            print(f"\n      M26 riga 735 riporta (su n=200 contaminato): "
-                  f"Om {M26_QUOTED['Om']:+.2f}, s8 {M26_QUOTED['s8']:+.2f}, "
-                  f"w0 {M26_QUOTED['w0']:+.2f}")
+            print(f"\n      M26 PRE-REVISIONE, riga 735, riportava (su n=200 "
+                  f"contaminato): Om {M26_QUOTED['Om']:+.2f}, "
+                  f"s8 {M26_QUOTED['s8']:+.2f}, w0 {M26_QUOTED['w0']:+.2f}")
+            print("      M26 R1 li ha rifatti sui 2000: Om +0.154, s8 +0.182, "
+                  "n_s +0.376.")
+            print("      I valori sopra NON sono cio' che M26 dice oggi: sono il "
+                  "bersaglio di")
+            print("      RIPRODUZIONE dell'array contaminato, e in quel ruolo "
+                  "restano validi.")
 
     # ============================================================ 5. OLS
     print("\n" + "=" * 78)

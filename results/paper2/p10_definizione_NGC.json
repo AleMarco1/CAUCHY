@@ -1,0 +1,18 @@
+{
+  "schema": "paper2_p10_definizione_v1",
+  "region": "NGC",
+  "utc": "2026-09-11T12:07:46.433342+00:00",
+  "percentile": 10.0,
+  "soglia_in_mask": 1.0691809415817264,
+  "soglia_field_r_positivo": 0.4025707066059113,
+  "n_voxel_in_mask": 277024,
+  "n_voxel_alternativa": 288307,
+  "restrizioni_identiche": false,
+  "n_desi_in_mask": 24991,
+  "n_desi_alternativa": 25976,
+  "D_in_mask": 0.2862928007274439,
+  "D_alternativa_approssimato": 0.258162610207518,
+  "D_paper": 0.285,
+  "nota": "il D alternativo usa la media dei mock della restrizione in-mask: approssimazione dichiarata",
+  "esito": "(c) ESCLUSA: la definizione alternativa allontana"
+}
