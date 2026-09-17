@@ -1,12 +1,14 @@
 # REPRODUCIBILITY
 
-### Manoscritto → tag → DOI → digest — voce **R2** — 7 settembre 2026
+### Manoscritto → tag → DOI → digest — voce **R2** — 7 settembre 2026,
+### rev. 17 settembre 2026 (record 69, 71, 72, 73)
 
 Questo documento dice, per ogni manoscritto del programma CAUCHY, **quale stato del repository e
 quale deposito** gli corrispondono, e come verificarli senza eseguire la pipeline.
 
-Non introduce numeri nuovi: ogni digest qui sotto è ricalcolabile dai file depositati, e la regola per
-farlo è nel §3.
+Non introduce numeri nuovi. I digest dei tier congelati sono **ricalcolabili dai file
+depositati**, e la regola per farlo è nel §3. I digest del **protocollo**, al §7, non lo sono — il
+deposito non contiene quel documento — e si verificano contro il record 72 e il file su disco.
 
 ---
 
@@ -16,13 +18,17 @@ farlo è nel §3.
 |---|---|---|---|---|
 | **M26** — la misura del deficit | sottomesso, R1 in revisione | `v2.0-paper-c` | `18fcac8` | concept DOI |
 | **Paper 1** — decomposizione del deficit | sottomesso, in revisione | `v2.1-phase9b` | `f2bdf39` | concept DOI |
-| **Paper 2** — a cosa risponde il conteggio | Fasi 0–3 chiuse | `v3.0-paper2` | `5c54807` | **version DOI 10.5281/zenodo.22148444** |
+| **Paper 2** — a cosa risponde il conteggio | Fasi 0–5 chiuse, Fase 6 in corso | `v3.0-paper2` | `5c54807` | **version DOI 10.5281/zenodo.22148444** — l'archivio della pipeline, **non** il protocollo: §7 |
 
 **Concept DOI del programma:** `10.5281/zenodo.21128856` — identifica l'opera e punta sempre
 all'ultima versione.
 
-**Version DOI della pre-registrazione:** `10.5281/zenodo.22148444` — identifica lo stato dei file
-**pre-registrato**, e non si muove. È quello contro cui la Fase 3 è registrata.
+**Version DOI del deposito:** `10.5281/zenodo.22148444` — identifica i **sei file depositati**
+il 28 agosto 2026, e non si muove. È quello contro cui la Fase 3 è registrata.
+**Non contiene il documento di pre-registrazione**, in nessuna versione: misurato il 17
+settembre aprendo ogni archivio di ogni versione del concept DOI (record 73). Il protocollo è
+ancorato **per byte** dal record 72, e il §7 di questo documento dice come citare i due
+ancoraggi senza confonderli.
 
 ### I tag non sono alias
 
@@ -41,6 +47,15 @@ Il lavoro delle Fasi 0–3 è proseguito oltre, e si cita **per sha**:
 | `c3e8f93` | registro degli emendamenti fino al record 55 |
 | `0dc0225` | toolchain della Fase 3: 43 appender, patcher, runner, strumenti d'analisi |
 | `3858660` | registri di misura della Fase 3: griglia, mock, budget, ripattern, surrogati |
+| `352e024` | **rimozione** di `results/phase8_test2_permock.csv` e ricostruzione del manifest `records` (P-A1; §5) |
+| `c13ccc3` | prima stesura di questo documento |
+| `3e43e38` | disciplina dei fine riga: regole di cartella in coda in `.gitattributes`, `eol=lf` sui sorgenti, tre file del tier `records` riportati a `-text` con l'indice riletto (record 69) |
+| `bfcb4a5` | contenuti di Fase 4–6: registri di misura, strumenti e verdetti; il record 70 dichiara la portata del rilascio |
+
+Il **tag del Paper 2 per le Fasi 4–6 è `v3.1-paper2`** (record 70 §iv; non `v2.1-paper2`, che
+si ordinerebbe prima del deposito del 28 agosto). `origin` si aggiorna **periodicamente** dal
+17 settembre 2026 (record 73 §v); il deposito Zenodo, invece, **solo alla sottomissione**
+(record 73 §vi), ed è lì che la v1.1 del protocollo entra nell'archivio citabile.
 
 **Nessun tag nuovo è stato creato su questi commit.** Uno stato citato per sha è altrettanto
 verificabile e non aggiunge un nome che dovrebbe poi essere spiegato.
@@ -122,7 +137,10 @@ l'aggregato depositato.
 
 ---
 
-## 5. Quattro cose che il lettore deve sapere
+## 5. Quello che il lettore deve sapere
+
+*(Il titolo portava «Quattro cose». Un conteggio in un'intestazione invecchia alla prima voce
+aggiunta, come il «55 record» del §6: qui i conteggi stanno nelle righe, dove si verificano.)*
 
 ### Il tier `records` è emendato
 
@@ -140,9 +158,19 @@ di provenienza sarebbe un errore.
 ### `phase8_test2_permock_hodfit.csv`
 
 Il tier `records` contiene `results/phase8_test2_permock_hodfit.csv`, `ae733e1e2a74bfff`, 10 891 byte.
-Documenti interni precedenti ne segnalavano una copia byte-identica: **non esiste**. Gli unici digest
-ripetuti dentro `records` sono **otto manifest JSON** — sei `phase*_manifest.json` con lo stesso
-digest e due `phase_r51_manifest` — e sono identici **per costruzione**, non per errore.
+
+**Correzione del 17 settembre 2026 (record 71).** Questo paragrafo diceva che la copia
+byte-identica segnalata da documenti interni precedenti **non esiste**. La copia esisteva:
+`results/phase8_test2_permock.csv`, **rimossa per causa** dal commit `352e024`, che è la voce
+`P-A1` — la rimozione per cui il tier `records` è passato a 224 file e all'aggregato
+`5364cf2e…`, registrata dall'emendamento 11. Al momento in cui questo documento è stato
+scritto il file non c'era più, e **«non esiste adesso» è stato scritto come «non è mai
+esistito»**: una rimozione registrata letta come una negazione. Il sopravvissuto è il
+`_hodfit` qui sopra, che ha un nome simile e non è la stessa cosa.
+
+Gli unici digest ripetuti dentro `records` sono **otto manifest JSON** — sei
+`phase*_manifest.json` con lo stesso digest e due `phase_r51_manifest` — e sono identici
+**per costruzione**, non per errore.
 
 ### I fine riga del registro degli emendamenti
 
@@ -152,20 +180,73 @@ dove le altre portano CRLF, e quattro di esse condividono un `utc` segnaposto. �
 modifica mai fatta a un registro che vale proprio per non essere stato toccato.
 
 `.gitattributes` contiene `*.jsonl -text`, quindi git **non converte** quei fine riga in nessuna
-direzione, nonostante `core.autocrlf = true`. Il file committato porta 49 CRLF e 6 LF, cioè
-l'anomalia com'è.
+direzione, nonostante `core.autocrlf = true`. Quell'attributo esiste dal 25 agosto 2026, dodici
+giorni prima del record 47: il record 68 lo emenda su questo punto — cambia il meccanismo, non
+l'esito.
+
+**L'invariante sono le righe, non i conteggi** *(correzione del 17 settembre, record 69)*. Questo
+paragrafo dava «49 CRLF e 6 LF» per il file committato. I totali crescono a ogni append — a 72
+record sono 66 e 6, a 73 saranno 67 e 6 — quindi non sono un'ancora: la proprietà verificabile
+è che le righe a LF siano **esattamente la 8, 9, 10, 11, 13 e 14 e nessun'altra**, e che i
+primi byte del file non cambino mai. È ciò che `paper2_append_amend*.py` verifica prima e dopo
+ogni append, e ciò che il censimento dei registri misura.
+
+**E l'attributo di un file si legge, non si deduce dal commento in testa a `.gitattributes`.**
+In quel file **vince l'ultima regola che combacia**: le due regole di cartella stavano in testa
+e quelle di tipo in coda, quindi ogni `.md`, `.txt` e `.py` sotto `results/` era `text` — e tre
+file del tier congelato `records` (`src_bundle_phase9.txt`,
+`phase5_hod_variance_decomp_summary.md`, `env_versions.txt`) erano **normalizzabili**: i loro
+byte erano riproducibili solo su Windows con `core.autocrlf=true`, e un checkout altrove li
+avrebbe scritti a LF facendo uscire il congelamento MISMATCH. Il `CLEAN` non lo vedeva perché
+la conversione non era ancora avvenuta. Corretto dal commit `3e43e38` (record 69): regole di
+cartella in coda, `*.py` e `*.md` a `text eol=lf`, l'indice dei tre file riletto — la cache di
+stat di git non si invalida da sé, e `git add` su un file il cui stat combacia con l'indice è
+un no-op silenzioso. Si verifica con `git ls-files --eol`, non a occhio.
 
 **Se un giorno si aggiungerà un digest del registro, lo si calcoli sui RECORD e non sui byte.** È
 invariante ai fine riga, all'ordine delle chiavi — che dal record 50 non è più uniforme — e al BOM
 che `results/revision/rev1_r11_tiling.json` porta e gli altri registri no.
 
+### Due coperture per la cache di *P*(*k*), una sola per il suo asse *k*
+
+| | percorso | byte | sha256 | chi lo copre |
+|---|---|---:|---|---|
+| cache | `results/phase7_pk_nwlh_cache.npz` | 880 272 | `d148f63f…` | il corpo del manifest `features` **e** il record 5 |
+| asse *k* | `results/paper2/phase7_pk_nwlh_kref.npz` | 1 684 | `92679cbd…` | **solo** il record 61 |
+
+L'asse *k* delle 110 colonne di `pk_matrix` non esisteva in nessun file: il codice che scrive la
+cache ricava `k_ref` dalla prima realizzazione riuscita e **non lo salva**. Il kref è quell'asse,
+rigenerato dalla realizzazione 0 e congelato nel record 61. Sta in `results/paper2/` e non nella
+radice di `results/` per una ragione meccanica: lì cadrebbe **dentro** le regole del tier
+`features` e il congelamento lo segnalerebbe come file extra. Chi verifica dall'esterno ha
+bisogno di entrambi, e il kref ha una copertura sola: se si perde, l'asse va rigenerato con
+`src/paper2_prov_pk_riproduci.py riproduci --out-kref` e riconfrontato col digest del record 61.
+
+### Il pattern di ripresa che vale la pena copiare
+
+`paper1_remap.py`, righe 512-516, riprende una corsa interrotta solo se esistono **sia** la riga
+nel registro **sia** il file delle curve su disco. È l'unico runner del programma che verifica il
+**prodotto laterale** e non solo il proprio registro, ed è la forma corretta: una riga scritta
+prima di un file mancante fa saltare un lavoro che non è stato fatto. All'estremo opposto,
+dichiarato e non riparato, `ensemble_v2_{NGC,SGC}.jsonl` non ha né ripresa né identificatore —
+`--da` è un selettore di popolazione, non una ripresa — e una seconda corsa vi appenderebbe 2000
+record indistinguibili dai primi per chi legge per unione. Quel runner non riparte: la Fase 4 è
+chiusa. **I registri di misura si leggono per UNIONE, mai last-wins, e senza i record `smoke`.**
+
 ---
 
 ## 6. Il registro degli emendamenti
 
-**55 record**, append-only, in un file separato dal reference set, che resta byte-identico per sempre.
-Il §9 del documento depositato ne dichiarava dodici al deposito, e il verificatore asserisce che il
-conteggio su disco non scenda mai sotto quella soglia.
+Append-only, in un file separato dal reference set, che resta byte-identico per sempre. **Il
+conteggio corrente non si scrive qui**: lo dichiara `DOCUMENTED_AMENDMENTS` in
+`src/paper2_freeze_verify.py`, e ogni esecuzione del verificatore confronta quella costante col
+numero di record sul disco e rifiuta se divergono. *(Questo paragrafo diceva «55 record»: era
+vero all'8 settembre e ha smesso di esserlo al primo append.)*
+
+Il **§9 del protocollo** ne dichiara dodici alla data del deposito, e il verificatore asserisce
+che il conteggio su disco non scenda mai sotto quella soglia. Il dodici ha una conferma
+indipendente: `cauchy_code.zip` del deposito porta `src/paper2_v1_amendments.jsonl` con **dodici
+record**, 12 670 byte (record 73).
 
 Il numero di un emendamento è la sua **posizione** nel file, non un campo: due record possono
 condividere `utc` e schema, e la numerazione posizionale è ciò che li distingue.
@@ -174,3 +255,52 @@ condividere `utc` e schema, e la numerazione posizionale è ciò che li distingu
 non sono mai riparate a posteriori. Fra i record 39–55: due predizioni dichiarate e smentite, un
 audit che ha **ritirato** una falsificazione precedente perché non decideva, e la registrazione di un
 difetto che è costato otto ore di macchina.
+
+---
+
+## 7. Il protocollo: due ancoraggi, e cosa il DOI non contiene
+
+Ogni record del registro porta, nel campo `document`, la stringa «`paper2_prereg_v1.md` v1.1 —
+version DOI 10.5281/zenodo.22148444». È un **nome**, non un digest, e per 71 record non ce n'era
+nessun altro.
+
+| | valore | che cos'è |
+|---|---|---|
+| **v1.1, su disco** | `607708e8c00c6fd0186f48eb179dd35e36f9586a6c0a6a66d138c159412dfb86`, 25 319 byte | il protocollo corrente, **ancorato per byte dal record 72** |
+| **v1.0, in git** | `05cd32b20388fffd5372711880d4c11ef6dda32ff2ff7767e898d667e2a6c115`, 21 430 byte | recuperabile con `git show 900335e^:papers/paper2/paper2_prereg_v1.md` |
+| **nel deposito** | — | **nessuna delle due**: il version DOI non contiene il protocollo |
+
+**Perché la v1.1 non è in git.** `papers/` è uscito dal versionamento col commit `900335e` del 28
+agosto alle 18:23:40 +0200 — i sorgenti dei manoscritti e la corrispondenza con editore e referee
+non fanno parte del rilascio del codice (record 70 §i) — e la v1.1 è stata scritta alle 20:13:04,
+dopo. Un file uscito dal versionamento smette di avere una storia nello stesso istante, e ciò che
+si scrive dopo non ce l'ha mai avuta. **Ancorare non è versionare**: le due decisioni sono
+indipendenti, e il record 72 fa la prima senza toccare la seconda.
+
+**Perché la v1.1 non è nel deposito, e nemmeno la v1.0** *(record 73, misurato il 17 settembre
+2026)*. Il concept DOI ha quattro versioni — v1.0 (2 luglio), v2.0-paper-c (3 luglio),
+v2.1-phase9b (6 luglio), v3.0-paper2 (28 agosto). Ogni file di ognuna è stato scaricato e ogni
+archivio aperto: **1068 membri in tutto, nessuno col protocollo**. Le prime tre versioni sono
+archivi del repository a quei tag, e il protocollo non esisteva ancora; la quarta contiene sei
+file — `README.md`, `MANIFEST.sha256` e quattro zip, i cui digest coincidono col manifest — e
+`cauchy_code.zip` non porta `papers/` perché quell'albero era già fuori dal versionamento da
+sedici minuti. **Il version DOI ancora l'archivio della pipeline, non il documento contro cui la
+pipeline si dichiara.**
+
+**Che cosa cambia fra v1.0 e v1.1, misurato riga per riga:** 8 righe tolte e 61 aggiunte, e le
+aggiunte cadono nel preambolo, nel §2.1 (*Reference set*), nel §9 (*Amendment record*) e in tre
+righe del §0. **Le sezioni che portano le regole dell'analisi sono identiche.** È la ragione per
+cui depositare la v1.1 alla sottomissione non indebolisce la pre-registrazione: non c'è una
+regola che sia stata cambiata dopo aver visto un risultato. È una condizione da **rimisurare** se
+qualcuno tocca il documento, non da riaffermare.
+
+**Una riga del protocollo che non è vera, e non è stata corretta qui.** La v1.1 dichiara in testa
+«*Version 1.1 — 28 August 2026 (version 1.0 deposited 27 August 2026)*». Nessuna versione del
+concept DOI è del 27 agosto: l'unico evento di quel giorno su quel percorso è il commit
+`73c8213`. La parola «deposited» descrive lì un commit, non un deposito. Il protocollo **non si
+riscrive per emendamento**: la correzione va nella versione che si deposita alla sottomissione,
+dove sarà vera (record 73 §iii).
+
+**Come citare i due ancoraggi.** Fino al deposito della Fase 7: il **DOI** per l'archivio della
+pipeline, il **digest del record 72** per il documento. Dopo il deposito, il version DOI nuovo
+coprirà entrambi, e questa sezione va riscritta con quel DOI al posto di questa distinzione.
