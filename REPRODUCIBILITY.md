@@ -159,14 +159,33 @@ di provenienza sarebbe un errore.
 
 Il tier `records` contiene `results/phase8_test2_permock_hodfit.csv`, `ae733e1e2a74bfff`, 10 891 byte.
 
-**Correzione del 17 settembre 2026 (record 71).** Questo paragrafo diceva che la copia
-byte-identica segnalata da documenti interni precedenti **non esiste**. La copia esisteva:
-`results/phase8_test2_permock.csv`, **rimossa per causa** dal commit `352e024`, che è la voce
-`P-A1` — la rimozione per cui il tier `records` è passato a 224 file e all'aggregato
-`5364cf2e…`, registrata dall'emendamento 11. Al momento in cui questo documento è stato
-scritto il file non c'era più, e **«non esiste adesso» è stato scritto come «non è mai
-esistito»**: una rimozione registrata letta come una negazione. Il sopravvissuto è il
-`_hodfit` qui sopra, che ha un nome simile e non è la stessa cosa.
+**Correzione del 17 settembre 2026 (sera), record 74 — e correzione di una correzione.**
+Questo paragrafo ha detto la cosa sbagliata due volte, nelle due direzioni opposte, e la misura
+che le scioglie è una sola.
+
+| | |
+|---|---|
+| copia rimossa, `results/phase8_test2_permock.csv` | recuperabile con `git show 352e024^:results/phase8_test2_permock.csv` — sha256 `ae733e1e2a74bfffe19c4f9a3ef8fada16a9fa9a940ae20850e26b2b761f85bc`, 10 891 byte |
+| sopravvissuto, `results/phase8_test2_permock_hodfit.csv` | sul disco — sha256 `ae733e1e2a74bfffe19c4f9a3ef8fada16a9fa9a940ae20850e26b2b761f85bc`, 10 891 byte |
+| confronto byte per byte | **IDENTICI** |
+
+La prima stesura diceva che la copia byte-identica **non esiste**: falso, e git la conserva —
+il messaggio di `352e024` la chiama *byte-identical* a chiare lettere. La riscrittura di
+quella mattina diceva che il sopravvissuto «ha un nome simile e non è la stessa cosa»: falso
+nella direzione opposta, perché **ai byte è la stessa cosa**.
+
+Quello che il commit ha rimosso è un'**etichetta**, non un dato. Il nome `permock` prometteva la
+baseline test2; il contenuto era il **sottoinsieme HOD-refit** (35304.6 ± 1033.0, *N* = 200),
+come dice il messaggio del commit. Il dato sopravvive **una volta**, sotto il nome che lo
+descrive, ed è la voce `P-A1`: la rimozione per cui il tier `records` è passato a 224 file e
+all'aggregato `5364cf2e…`, registrata dall'emendamento 11. Storia completa del percorso:
+`e17da7a` (aggiunto), `684d1f3` (modificato), `352e024` (rimosso).
+
+**La regola, che è costata un mese.** Il record 70 §ix diceva: «REPRODUCIBILITY.md §5 tratta un
+file di nome simile ma non identico … **va letto prima di dichiarare**». L'istruzione era giusta
+e la lettura è arrivata il 17 settembre. Nel frattempo due versioni di questo paragrafo hanno
+detto due cose opposte, entrambe false, e nessuna delle due costava più di un `git show`. Due
+file byte-identici con nomi diversi non sono un duplicato di dati: sono un dato e un'etichetta.
 
 Gli unici digest ripetuti dentro `records` sono **otto manifest JSON** — sei
 `phase*_manifest.json` con lo stesso digest e due `phase_r51_manifest` — e sono identici
