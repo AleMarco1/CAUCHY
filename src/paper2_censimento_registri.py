@@ -51,7 +51,7 @@ from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 
 SCHEMA = "paper2_censimento_registri_v1"
-VERSIONE = "1.4"
+VERSIONE = "1.5"
 
 # ---------------------------------------------------------------------------
 # Dove lo strumento puo' scrivere.
@@ -108,6 +108,147 @@ CLASSI_DICHIARATE = (
     ("fv.jsonl", "log", False, "registro di freeze_verify, non e' un run di misura"),
     ("censimento_registri.jsonl", "log", False, "uscita di questo strumento"),
     ("censimento_verdetti.jsonl", "log", False, "uscita del censimento dei verdetti, voce 6.9"),
+    # --- i 67 lasciati non classificati dal 15 set: voce 6.2-vi (g), 18 set --
+    # Nome ESATTO, mai un glob: un file nuovo resta non classificato e fa
+    # fallire il censimento, come deve. Fuori scopo 6.1 perche' CHIUSI: le
+    # proprieta' di 6.1 riguardano registri che un runner appende, e nessun
+    # runner li riprende (fasi 3-5 chiuse, record 59-60; revisione del Paper 1
+    # chiusa). L'append storico resta verificato per tutti dalla baseline.
+    # La citazione nel motivo e' cio' che serve alla 6.2; e' un'istantanea.
+    ("m2_fiducial_NGC.jsonl", "run", False,
+     "Paper 1, registro di revisione; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("m2b_hodscatter_NGC.jsonl", "run", False,
+     "Paper 1, registro di revisione; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("n10b_control_NGC.jsonl", "run", False,
+     "Paper 1, registro di revisione; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("n1_spectra_NGC.jsonl", "run", False,
+     "Paper 1, registro di revisione; chiuso, fuori scopo 6.1; citato: record 50, 52, 54, 71"),
+    ("n1b_spectra_NGC.jsonl", "run", False,
+     "Paper 1, registro di revisione; chiuso, fuori scopo 6.1; citato: record 50, 52, 54, 71, 75; modifiche_paper1.md"),
+    ("n1c_bands_NGC.jsonl", "run", False,
+     "Paper 1, registro di revisione; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("n2_persistence_NGC.jsonl", "run", False,
+     "Paper 1, registro di revisione; chiuso, fuori scopo 6.1; citato: checklist"),
+    ("n6_fkp_NGC.jsonl", "run", False,
+     "Paper 1, registro di revisione; chiuso, fuori scopo 6.1; citato: record 56"),
+    ("n7_nfw_NGC.jsonl", "run", False,
+     "Paper 1, registro di revisione; registro del test NFW del Paper 1 §7.1 e della riga 5 del budget; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("n8_masks_128.jsonl", "run", False,
+     "Paper 1, registro di revisione; chiuso, fuori scopo 6.1; citato: record 60; budget, modifiche_paper1.md"),
+    ("n8b_masks_128_B.jsonl", "run", False,
+     "Paper 1, registro di revisione; chiuso, fuori scopo 6.1; citato: record 60; checklist, budget, modifiche_paper1.md"),
+    ("n9_res256_NGC.jsonl", "run", False,
+     "Paper 1, registro di revisione; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("per_target_NGC_mirror_lfl.jsonl", "run", False,
+     "Paper 1, registro di revisione; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("cancello_nu_NGC.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 54"),
+    ("d3_check.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("d6_incertezze.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 63, 64, 65"),
+    ("d6bis.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 63, 64, 65"),
+    ("dmed_NGC.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 6"),
+    ("dmed_SGC.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 6, 7"),
+    ("due_lati.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 19, 20, 21, 22; checklist"),
+    ("fase3_analisi.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 15; checklist, budget, modifiche_paper1.md"),
+    ("fase3_budget.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 40, 46, 49; checklist, budget"),
+    ("fase3_intersezione.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 25"),
+    ("fase3_intersezione_verdetto.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("fase3_maskpass1.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 25"),
+    ("fase3_mock_carve777.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 26"),
+    ("fase3_mock_carve777_b6.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 39"),
+    ("fase3_mock_fid_ripetizione.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: checklist"),
+    ("fase3_mock_fixedobs.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 38"),
+    ("fase3_mock_realspace.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 35, 37"),
+    ("fase3_mock_realspace_NULLO.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 35, 36"),
+    ("fase3_mock_smoke.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("fase3_surrogato.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("fase3_surrogato_pass1.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("fasi_desi_pr_NGC.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("fasi_desi_pr_SGC.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("fasi_mock_pr_v2_NGC.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("fasi_mock_pr_v2_SGC.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("gazione_32d.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 44"),
+    ("item12a_cosmo.jsonl", "run", False,
+     "Paper 2, item del referee; chiuso, fuori scopo 6.1; citato: record 15, 19; checklist"),
+    ("item12a_geom_NGC.jsonl", "run", False,
+     "Paper 2, item del referee; chiuso, fuori scopo 6.1; citato: record 13; checklist"),
+    ("item12b_NGC.jsonl", "run", False,
+     "Paper 2, item del referee; chiuso, fuori scopo 6.1; citato: record 2, 71"),
+    ("item12b_SGC.jsonl", "run", False,
+     "Paper 2, item del referee; chiuso, fuori scopo 6.1; citato: record 2, 3, 7, 71"),
+    ("item13a.jsonl", "run", False,
+     "Paper 2, item del referee; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("item13rev2_NGC.jsonl", "run", False,
+     "Paper 2, item del referee; chiuso, fuori scopo 6.1; citato: record 74"),
+    ("item13rev2_SGC.jsonl", "run", False,
+     "Paper 2, item del referee; chiuso, fuori scopo 6.1; citato: record 74"),
+    ("item15a_NGC.jsonl", "run", False,
+     "Paper 2, item del referee; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("item15a_SGC.jsonl", "run", False,
+     "Paper 2, item del referee; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("item15a_g13_NGC.jsonl", "run", False,
+     "Paper 2, item del referee; chiuso, fuori scopo 6.1; citato: checklist"),
+    ("item15a_g13_SGC.jsonl", "run", False,
+     "Paper 2, item del referee; chiuso, fuori scopo 6.1; citato: checklist"),
+    ("smoke_1punto_NGC.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("smoke_1punto_NGC_sommario.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("smoke_offset0.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("smoke_post32d.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; citato: record 44"),
+    ("smoke_pre32d.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; citato: record 44"),
+    ("smoke_v2_NGC.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("smoke_v2_NGC_ancore.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("smoke_v2_NGC_ancore_sommario.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("smoke_v2_NGC_appaiato.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("smoke_v2_NGC_appaiato_sommario.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("smoke_v2_NGC_sommario.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("smoke_v2_SGC.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("smoke_v2_SGC_ancora.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("smoke_v2_SGC_ancora_sommario.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("smoke_v2_SGC_sommario.jsonl", "run", False,
+     "smoke: prova di funzionamento; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("survey_ancora_SGC.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; non citato al 18 set"),
+    ("tabres_probe.jsonl", "run", False,
+     "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 14, 51"),
 )
 
 # ---------------------------------------------------------------------------
@@ -138,7 +279,11 @@ CHIAVI_RIPRESA = ("key", "resume_key", "run_key", "cache_key", "chiave",
 CHIAVI_NON_SUFFICIENTI = ("config_hash",)
 
 # Nomi di campo che segnalano un verdetto (per la classe misurata).
-CAMPI_VERDETTO = ("verdetto", "esito", "verdict", "status", "stato", "gate", "cancello")
+CAMPI_VERDETTO = ("verdetto", "esito", "verdict", "status", "stato", "gate", "cancello",
+                  "pass", "passed")
+# Profondita' e larghezza della ricerca del verdetto dentro un record (1.5).
+PROFONDITA_VERDETTO = 3
+MAX_ELEMENTI_VERDETTO = 50
 VALORI_VERDETTO = ("PASS", "FAIL", "CLEAN", "DISCREPANCY", "OK", "KO",
                    "CONFERMATA", "SMENTITA", "NON_DECIDIBILE", "PASSATO", "FALLITO")
 
@@ -649,6 +794,34 @@ def misura_bytes(dati: bytes) -> dict:
     return ris
 
 
+def _porta_verdetto(oggetto, profondita: int = 0) -> bool:
+    """Un verdetto a qualunque livello, fino a PROFONDITA_VERDETTO.
+
+    DIFETTO CORRETTO il 18 set 2026 (voce 6.2-vi, versione 1.5): il segnale
+    guardava solo le chiavi di primo livello e non conosceva `pass`.
+    gate53.jsonl porta `pass` booleano, gate53_margini.jsonl porta `esito`
+    dentro `margine_*`: il censimento del 15 set li dava entrambi «gate senza
+    verdetto», frazione 0.0. Il nome del campo si confronta per UGUAGLIANZA,
+    mai per sottostringa: `mask_pass` e `F_ap_passed` non sono verdetti, e
+    `bypass_signal` nemmeno.
+    """
+    if profondita > PROFONDITA_VERDETTO:
+        return False
+    if isinstance(oggetto, dict):
+        for nome, valore in oggetto.items():
+            if str(nome).lower() in CAMPI_VERDETTO:
+                return True
+            if isinstance(valore, str) and valore.upper() in VALORI_VERDETTO:
+                return True
+            if isinstance(valore, (dict, list)) and _porta_verdetto(valore, profondita + 1):
+                return True
+    elif isinstance(oggetto, list):
+        for valore in oggetto[:MAX_ELEMENTI_VERDETTO]:
+            if isinstance(valore, (dict, list)) and _porta_verdetto(valore, profondita + 1):
+                return True
+    return False
+
+
 def misura_record(dati: bytes, max_forme: int = 12) -> dict:
     """Decodifica e parsing riga per riga. Ogni fallimento porta il numero di riga."""
     ris = {
@@ -706,13 +879,8 @@ def misura_record(dati: bytes, max_forme: int = 12) -> dict:
         ha_percorso = any(sembra_percorso(v) for v in record.values())
         if ha_digest and ha_percorso:
             ris["segnale_manifest"] += 1
-        for nome, valore in record.items():
-            minuscolo = nome.lower()
-            if minuscolo in CAMPI_VERDETTO or (
-                isinstance(valore, str) and valore.upper() in VALORI_VERDETTO
-            ):
-                ris["segnale_verdetto"] += 1
-                break
+        if _porta_verdetto(record):
+            ris["segnale_verdetto"] += 1
         for nome in record.keys():
             if nome.lower() in CAMPI_INDICE:
                 ris["segnale_indice"] += 1
@@ -889,9 +1057,22 @@ def censisci_file(percorso: Path, radice: Path) -> dict:
     dichiarata, in_scopo, motivo = classe_dichiarata(nome_base)
     misurata = classe_misurata(record)
 
+    # Un file DICHIARATO gate non si confronta con la classe misurata: `gate`
+    # non e' una classe misurata (vedi classe_misurata), e il confronto dava
+    # DISCORDANZA per costruzione a ogni cancello che porta un indice —
+    # gate25.jsonl, lasciato cosi' dal record 68: un FAIL permanente per
+    # disegno. Per un gate il controllo e' la presenza del verdetto, e dalla
+    # 1.5 pesa sull'uscita (18 set 2026, voce 6.2-vi).
+    gate_senza_verdetto = (
+        dichiarata == "gate" and record["n_record"] > 0
+        and record["segnale_verdetto"] / record["n_record"] < 0.50
+    )
     if dichiarata is None:
         stato_classe = "NON_CLASSIFICATO"
         classe = misurata
+    elif dichiarata == "gate":
+        stato_classe = "GATE_SENZA_VERDETTO" if gate_senza_verdetto else "GATE_CON_VERDETTO"
+        classe = dichiarata
     elif misurata == "indeterminato":
         stato_classe = "DICHIARATA_SOLA"
         classe = dichiarata
@@ -905,12 +1086,7 @@ def censisci_file(percorso: Path, radice: Path) -> dict:
     esiti = valuta_proprieta(classe, strutturale, record)
     esiti["resumable"] = valuta_ripresa(nome_base, record.pop("_oggetti", []))
 
-    # Un file DICHIARATO gate che non contiene verdetti: quello e' un difetto,
-    # al contrario di un sommario che ne contiene uno.
-    gate_senza_verdetto = (
-        dichiarata == "gate" and record["n_record"] > 0
-        and record["segnale_verdetto"] / record["n_record"] < 0.50
-    )
+    # (gate_senza_verdetto e' calcolato sopra, prima dello stato di classe.)
 
     falliti = [k for k, v in esiti.items() if v["esito"] == "FAIL"]
 
@@ -1010,6 +1186,7 @@ def comando_censimento(args) -> int:
     n_righe_totali = 0
     non_classificati = []
     discordanze = []
+    gate_muti = []
     falliti = []
     baseline_falliti = []
     baseline_coperti = 0
@@ -1022,6 +1199,8 @@ def comando_censimento(args) -> int:
             non_classificati.append(record["percorso"])
         if record["stato_classe"] == "DISCORDANZA":
             discordanze.append(record["percorso"])
+        if record["stato_classe"] == "GATE_SENZA_VERDETTO":
+            gate_muti.append(record["percorso"])
 
         chiave = record["percorso"]
         if chiave in baseline:
@@ -1061,6 +1240,7 @@ def comando_censimento(args) -> int:
         "n_righe_in_scopo": sum(r["strutturale"]["n_righe"] for r in in_scopo),
         "non_classificati": non_classificati,
         "discordanze_classe": discordanze,
+        "gate_senza_verdetto": gate_muti,
         "in_scopo_con_difetti": [p for p, _ in falliti],
         "baseline": {
             "usata": bool(baseline),
@@ -1135,6 +1315,11 @@ def comando_censimento(args) -> int:
         for p in non_classificati:
             print("  %s" % p)
         print()
+    if gate_muti:
+        print("GATE SENZA VERDETTO (%d):" % len(gate_muti))
+        for p in gate_muti:
+            print("  %s" % p)
+        print()
     if discordanze:
         print("DISCORDANZA fra classe dichiarata e classe misurata (%d):" % len(discordanze))
         for p in discordanze:
@@ -1178,7 +1363,7 @@ def comando_censimento(args) -> int:
     codice = 0
     if modi.get("da_leggere"):
         codice = 1
-    if non_classificati or discordanze or problemi_cancello or baseline_falliti:
+    if non_classificati or discordanze or gate_muti or problemi_cancello or baseline_falliti:
         codice = 1
     if falliti:
         codice = max(codice, 2)
@@ -1517,7 +1702,10 @@ def comando_selftest(args) -> int:
         # un file chiamato gate*.jsonl il cui contenuto e' un registro di run
         (radice / "gate99.jsonl").write_bytes(b'{"idx":0,"N_H1":1.0}\n{"idx":1,"N_H1":2.0}\n')
         record = censisci_file(radice / "gate99.jsonl", radice)
-        c.uguale("discordanza rilevata", record["stato_classe"], "DISCORDANZA")
+        # 1.5 (18 set): un gate dichiarato si giudica dal verdetto. La proprieta'
+        # che questo controllo protegge resta — un file chiamato gate che e' un
+        # run NON passa — e cambia il nome dello stato, che pesa sull'uscita.
+        c.uguale("discordanza rilevata", record["stato_classe"], "GATE_SENZA_VERDETTO")
         c.uguale("discordanza: dichiarata", record["classe_dichiarata"], "gate")
         c.uguale("discordanza: misurata", record["classe_misurata"], "run")
 
@@ -1815,6 +2003,41 @@ def comando_selftest(args) -> int:
                  _dichiarazione_ripresa(nome)["modo"], "na_scansione")
     c.verifica("il tier records porta la nota sui digest ripetuti",
                "218" in _dichiarazione_ripresa("ensemble_v1_manifest_records.jsonl")["motivo"])
+
+    # ---- 43. verdetto: annidato e `pass` (1.5, voce 6.2-vi) ---------------
+    # DIFETTO RIPRODOTTO: queste forme davano segnale 0 fino alla 1.4.
+    g53 = b'{"pass":false,"fails":["x"],"region":"NGC"}\n{"pass":true,"fails":[],"region":"NGC"}\n'
+    c.uguale("gate53: pass booleano e' un verdetto", misura_record(g53)["segnale_verdetto"], 2)
+    marg = b'{"region":"NGC","margine_1_z":{"soglia":3,"esito":"confermata"}}\n'
+    c.uguale("margini: esito annidato e' un verdetto", misura_record(marg)["segnale_verdetto"], 1)
+    falsi = b'{"mask_pass":"derive","F_ap_passed":1.03,"bypass_signal":3,"x":{"passenger":1}}\n'
+    c.uguale("nome per uguaglianza: nessun falso positivo", misura_record(falsi)["segnale_verdetto"], 0)
+    profondo = b'{"a":{"b":{"c":{"d":{"e":{"esito":"PASS"}}}}}}\n'
+    c.uguale("oltre la profondita' dichiarata non si cerca", misura_record(profondo)["segnale_verdetto"], 0)
+
+    # ---- 44. un gate si giudica dal verdetto, non dalla classe -------------
+    with tempfile.TemporaryDirectory() as td:
+        radice = Path(td)
+        (radice / "results" / "paper2").mkdir(parents=True)
+        g25 = radice / "results" / "paper2" / "gate25.jsonl"
+        g25.write_bytes(b'{"gate":"2.5","pass":true,"seed":1,"idx":0}\n'
+                        b'{"gate":"2.5","pass":true,"seed":2,"idx":1}\n')
+        r25 = censisci_file(g25, radice)
+        c.uguale("gate25: indice e verdetto -> GATE_CON_VERDETTO", r25["stato_classe"], "GATE_CON_VERDETTO")
+        c.uguale("gate25: nessuna discordanza per costruzione", r25["gate_senza_verdetto"], False)
+        muto = radice / "results" / "paper2" / "gate99.jsonl"
+        muto.write_bytes(b'{"idx":0,"valore":1.0}\n{"idx":1,"valore":2.0}\n')
+        c.uguale("gate senza verdetto -> GATE_SENZA_VERDETTO",
+                 censisci_file(muto, radice)["stato_classe"], "GATE_SENZA_VERDETTO")
+
+    # ---- 45. i 67 del 15 set, per nome esatto, fuori scopo -----------------
+    sessantasette = [g for g, _, _, m in CLASSI_DICHIARATE if "fuori scopo 6.1;" in m]
+    c.uguale("i 67 sono dichiarati", len(sessantasette), 67)
+    c.uguale("nessuno dei 67 e' un glob", [g for g in sessantasette if any(x in g for x in "*?[")], [])
+    c.uguale("nessuno dei 67 e' in scopo", [g for g in sessantasette if classe_dichiarata(g)[1]], [])
+    c.uguale("ognuno risolve alla propria riga", [g for g in sessantasette
+             if "fuori scopo 6.1;" not in (classe_dichiarata(g)[2] or "")], [])
+    c.uguale("un nome nuovo resta non classificato", classe_dichiarata("qualcosa_di_nuovo.jsonl")[0], None)
 
     totale = c.ok + len(c.ko)
     print("selftest: %d/%d" % (c.ok, totale))
