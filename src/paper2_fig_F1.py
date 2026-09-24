@@ -189,7 +189,46 @@ def compute(I13, z, dc, f3, i12):
 
 # ----------------------------------------------------------------------------- figura
 
+def spread(ys, gap, fixed=(), clear=0.0):
+    """Posizioni delle etichette di un lato.
+
+    Etichette a distanza minima `gap` fra loro e `clear` dalle linee orizzontali in `fixed`, che non si
+    muovono. L'ordine verticale si conserva (etichette e linee insieme), quindi un'etichetta che sta
+    sotto una linea viene spinta verso il basso e una che sta sopra verso l'alto. Le etichette gia'
+    lontane non si spostano.
+    """
+    items = [(float(y), False, i) for i, y in enumerate(ys)] + [(float(y), True, None) for y in fixed]
+    items.sort(key=lambda it: (it[0], it[1]))
+    pos = [it[0] for it in items]
+    fisso = [it[1] for it in items]
+    for _ in range(500):
+        moved = False
+        for k in range(1, len(pos)):
+            if fisso[k - 1] and fisso[k]:
+                continue
+            need = gap if not (fisso[k - 1] or fisso[k]) else clear
+            d = pos[k] - pos[k - 1]
+            if d < need - 1e-12:
+                if fisso[k - 1]:
+                    pos[k] += need - d
+                elif fisso[k]:
+                    pos[k - 1] -= need - d
+                else:
+                    push = 0.5 * (need - d)
+                    pos[k - 1] -= push
+                    pos[k] += push
+                moved = True
+        if not moved:
+            break
+    out = [0.0] * len(ys)
+    for (_, f, i), y in zip(items, pos):
+        if not f:
+            out[i] = y
+    return out
+
+
 def draw(cells, curves, block_a, path):
+    """Linea B etichettata a destra, angoli a sinistra: sui due lati le etichette non si sovrappongono."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -201,15 +240,26 @@ def draw(cells, curves, block_a, path):
         ax.axhspan(-block_a[reg], block_a[reg], color="0.85", lw=0)
         for s in (+1, -1):
             ax.axhline(s * pad, color="0.3", lw=0.7, ls=(0, (6, 3)))
+        r0 = r1 = None
         for name in LINE + CORNER:
             r, u = curves[(reg, name)]
             ls, lw = stili[name]
             ax.plot(r, u, ls=ls, lw=lw, color="k")
-            ax.annotate(name, (r[-1], u[-1]), xytext=(2, 0), textcoords="offset points",
-                        fontsize=6, va="center")
+            r0 = r[0] if r0 is None else min(r0, r[0])
+            r1 = r[-1] if r1 is None else max(r1, r[-1])
+        span = r1 - r0
+        ax.set_xlim(r0 - 0.13 * span, r1 + 0.09 * span)
+        ymin, ymax = ax.get_ylim()
+        gap = 0.055 * (ymax - ymin)
+        clear = 0.045 * (ymax - ymin)       # etichetta fuori dalle linee del padding
+        for lato, nomi, x, ha, dx in (("dx", LINE, r1, "left", 3), ("sx", CORNER, r0, "right", -3)):
+            ys = [curves[(reg, n)][1][-1 if lato == "dx" else 0] for n in nomi]
+            for n, y in zip(nomi, spread(ys, gap, fixed=(pad, -pad), clear=clear)):
+                ax.annotate(n, (x, y), xytext=(dx, 0), textcoords="offset points",
+                            fontsize=6, va="center", ha=ha)
         ax.set_ylabel(r"$u$ [voxel, %s]" % reg, fontsize=8)
         ax.tick_params(labelsize=7)
-        ax.text(0.02, 0.92, reg, transform=ax.transAxes, fontsize=8, va="top")
+        ax.text(0.97, 0.95, reg, transform=ax.transAxes, fontsize=8, va="top", ha="right")
     axes[-1].set_xlabel(r"comoving distance [$h^{-1}\,$Mpc]", fontsize=8)
     fig.tight_layout(h_pad=0.4)
     os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
@@ -399,6 +449,23 @@ def _t_item12a():
     return False
 
 
+def _t_spread():
+    y = [0.57, 0.575, -0.28, -0.36, 0.1]
+    s = spread(y, 0.05)
+    ss = sorted(s)
+    ordine = sorted(range(5), key=lambda i: y[i]) == sorted(range(5), key=lambda i: s[i])
+    return ordine and all(ss[k] - ss[k - 1] >= 0.05 - 1e-9 for k in range(1, 5)) and abs(s[2] - (-0.28)) < 1e-12
+
+
+def _t_spread_linee():
+    # B2 sotto la linea +0.32 va giu', C4 sopra va su, B4 sopra la linea -0.32 va su; le lontane restano
+    y = [0.30, 0.335, -0.30, 0.10, -0.60]
+    s = spread(y, 0.10, fixed=(0.32, -0.32), clear=0.085)
+    return (abs(s[0] - (0.32 - 0.085)) < 1e-9 and s[1] >= 0.32 + 0.085 - 1e-9
+            and abs(s[2] - (-0.32 + 0.085)) < 1e-9 and abs(s[4] + 0.60) < 1e-12
+            and all(abs(v - L) >= 0.085 - 1e-9 for v in s for L in (0.32, -0.32)))
+
+
 TESTS = [
     ("minimax: estremi positivo e negativo uguali", _t_minimax),
     ("deformazione identica -> residuo nullo", _t_identita),
@@ -408,6 +475,8 @@ TESTS = [
     ("sigma_px non unico in una regione -> errore", _t_sigma_non_unico),
     ("PDF deterministico: due salvataggi, byte identici", _t_pdf_deterministico),
     ("item12a: residui in h^-1 Mpc per nome e per (omm, w0); doppione diverso -> errore", _t_item12a),
+    ("etichette: distanza minima rispettata, ordine conservato, le lontane non si muovono", _t_spread),
+    ("etichette: fuori dalle linee del padding, dal lato in cui stanno", _t_spread_linee),
 ]
 
 
