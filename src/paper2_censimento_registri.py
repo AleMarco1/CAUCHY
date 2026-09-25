@@ -51,7 +51,7 @@ from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 
 SCHEMA = "paper2_censimento_registri_v1"
-VERSIONE = "1.5"
+VERSIONE = "1.6"
 
 # ---------------------------------------------------------------------------
 # Dove lo strumento puo' scrivere.
@@ -249,6 +249,16 @@ CLASSI_DICHIARATE = (
      "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; non citato al 18 set"),
     ("tabres_probe.jsonl", "run", False,
      "Paper 2, registro di run di fase chiusa; chiuso, fuori scopo 6.1; citato: record 14, 51"),
+    # --- registri di figura, Fase 7 (1.6, 25 set 2026, Z-censimento-fig) -----
+    # Nome ESATTO, come i 67: una figura nuova resta non classificata finche' non
+    # e' dichiarata. Uno script di figura appende un record per run (numeri
+    # disegnati, sha degli ingressi e del PDF); non e' un run di misura.
+    ("fig_F1.jsonl", "log", False,
+     "registro di figura F1, src/paper2_fig_F1.py; non in scopo 6.1: un record per run, "
+     "i numeri vengono da registri gia' censiti, verify cerca il record per sha del PDF"),
+    ("fig_F7.jsonl", "log", False,
+     "registro di figura F7, src/paper2_fig_F7.py; non in scopo 6.1: un record per run, "
+     "i numeri vengono da registri gia' censiti, verify cerca il record per sha del PDF"),
 )
 
 # ---------------------------------------------------------------------------
@@ -522,6 +532,12 @@ RIPRESA_DICHIARATA = {
                                    "record_al_15set": 1, "motivo": "la riga DESI, un record."},
     "onepoint_v1_DESI_SGC.jsonl": {"modo": "na_una_passata", "runner": "src/paper2_passata_1punto.py (sub desi)",
                                    "record_al_15set": 1, "motivo": "la riga DESI, un record."},
+    # registri di figura (1.6): nessun `record_al_15set`, perche' ogni rilancio
+    # appende per disegno e un conteggio dichiarato darebbe DA_RIVEDERE a ogni run.
+    "fig_F1.jsonl": {"modo": "na_una_passata", "runner": "src/paper2_fig_F1.py (cmd_run)",
+                     "motivo": "una corsa per figura, un record per corsa; si rilancia, non si riprende."},
+    "fig_F7.jsonl": {"modo": "na_una_passata", "runner": "src/paper2_fig_F7.py (cmd_run)",
+                     "motivo": "una corsa per figura, un record per corsa; si rilancia, non si riprende."},
 
     # --- non applicabile: scansione o riscrittura -------------------------
     "cachedelta_manifest_NGC.jsonl": {"modo": "na_scansione", "runner": "src/paper2_deposit.py",
@@ -2038,6 +2054,19 @@ def comando_selftest(args) -> int:
     c.uguale("ognuno risolve alla propria riga", [g for g in sessantasette
              if "fuori scopo 6.1;" not in (classe_dichiarata(g)[2] or "")], [])
     c.uguale("un nome nuovo resta non classificato", classe_dichiarata("qualcosa_di_nuovo.jsonl")[0], None)
+
+    # ---- 46. registri di figura (1.6, 25 set): nome esatto, log, fuori scopo --
+    for nome in ("fig_F1.jsonl", "fig_F7.jsonl"):
+        cl, scopo, _ = classe_dichiarata(nome)
+        c.uguale("%s: classe log" % nome, cl, "log")
+        c.uguale("%s: fuori scopo" % nome, scopo, False)
+        d = _dichiarazione_ripresa(nome)
+        c.uguale("%s: ripresa" % nome, d["modo"], "na_una_passata")
+        c.verifica("%s: nessun conteggio dichiarato" % nome, "record_al_15set" not in d)
+        e = valuta_ripresa(nome, [{"schema": "x"} for _ in range(7)])
+        c.uguale("%s: un rilancio non rende vecchia la dichiarazione" % nome, e["esito"], "NA")
+    c.uguale("una figura nuova resta non classificata", classe_dichiarata("fig_F2.jsonl")[0], None)
+    c.uguale("una figura nuova non ha ripresa dichiarata", _dichiarazione_ripresa("fig_F2.jsonl"), None)
 
     totale = c.ok + len(c.ko)
     print("selftest: %d/%d" % (c.ok, totale))
